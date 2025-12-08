@@ -1,0 +1,603 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Lab Session: Block Explorer Analysis}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Navigate Etherscan and Blockstream block explorers effectively
+    \item Analyze transaction details: inputs, outputs, fees, confirmations
+    \item Trace transaction lifecycle from broadcast to confirmation
+    \item Examine block structure and miner information
+    \item Investigate address activity, balances, and transaction history
+    \item Identify transaction patterns and entity types
+    \item Conduct basic blockchain forensic analysis
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Overview}
+\textbf{Structure:}
+\begin{enumerate}
+    \item Introduction to block explorers (10 minutes)
+    \item Exercise 1: Analyzing Bitcoin transactions (20 minutes)
+    \item Exercise 2: Examining Ethereum transactions (20 minutes)
+    \item Exercise 3: Block analysis and mining (15 minutes)
+    \item Exercise 4: Address investigation (15 minutes)
+    \item Exercise 5: Forensic case study (20 minutes)
+    \item Wrap-up and deliverables (10 minutes)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Total Duration:} 110 minutes
+
+\vspace{0.3cm}
+\textbf{Prerequisites:}
+\begin{itemize}
+    \item Understanding of transaction structure (Lesson 6)
+    \item Basic knowledge of Bitcoin and Ethereum
+    \item Web browser with internet access
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is a Block Explorer?}
+\textbf{Definition:}
+\begin{itemize}
+    \item Web-based interface to query blockchain data
+    \item Provides human-readable view of blocks, transactions, addresses
+    \item Operates by indexing blockchain data (runs full node + database)
+    \item Free and publicly accessible
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Major Block Explorers:}
+
+\vspace{0.3cm}
+\textbf{Bitcoin:}
+\begin{itemize}
+    \item Blockstream.info (used by Blockstream, privacy-focused)
+    \item Blockchain.com (oldest, most popular)
+    \item Mempool.space (real-time mempool visualization)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Ethereum:}
+\begin{itemize}
+    \item Etherscan.io (most comprehensive, contract verification)
+    \item Blockscout.com (open-source alternative)
+    \item Ethplorer.io (token-focused)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Features:}
+\begin{itemize}
+    \item Search by transaction hash, block number, address
+    \item View transaction status and confirmations
+    \item Examine smart contract code and interactions
+    \item Track token transfers (ERC-20, ERC-721)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 1: Analyzing a Bitcoin Transaction}
+\textbf{Objective:} Understand Bitcoin UTXO model through real transaction
+
+\vspace{0.3cm}
+\textbf{Instructions:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Visit: \url{https://blockstream.info}
+    \item Search for transaction hash:\\
+    \texttt{f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16}\\
+    (This is the first-ever Bitcoin transaction between Satoshi and Hal Finney, 2009)
+
+    \item Examine transaction details and answer:
+    \begin{itemize}
+        \item How many inputs and outputs?
+        \item What is the total amount transferred?
+        \item What is the transaction fee?
+        \item Which block included this transaction?
+        \item How many confirmations does it have now?
+    \end{itemize}
+
+    \item Click on input address:
+    \begin{itemize}
+        \item Observe sender's previous transactions
+        \item How was the UTXO created?
+    \end{itemize}
+
+    \item Click on output address:
+    \begin{itemize}
+        \item Was this output spent or unspent?
+        \item If spent, in which transaction?
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 1: Key Observations}
+\textbf{Transaction Structure:}
+\begin{itemize}
+    \item \textbf{Inputs:} Reference to previous transaction output (txid + index)
+    \item \textbf{Outputs:} New UTXOs with amounts and recipient addresses
+    \item \textbf{Fee:} Difference between input sum and output sum
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Understanding Confirmations:}
+\begin{itemize}
+    \item Confirmations = number of blocks built on top of this transaction's block
+    \item More confirmations = higher confidence transaction is final
+    \item Historic transactions: 800,000+ confirmations
+    \item Recent transactions: 1-10 confirmations
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{UTXO Tracing:}
+\begin{itemize}
+    \item Follow the chain of transactions backward (where did funds come from?)
+    \item Follow forward (where did funds go?)
+    \item Useful for: auditing, forensics, privacy analysis
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Questions to Consider:}
+\begin{itemize}
+    \item Why do some transactions have many inputs or outputs?
+    \item How can you identify change addresses?
+    \item What does a very high fee indicate?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: Analyzing an Ethereum Transaction}
+\textbf{Objective:} Understand Ethereum account model and gas fees
+
+\vspace{0.3cm}
+\textbf{Instructions:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Visit: \url{https://etherscan.io}
+    \item Search for a recent transaction (click ``Latest Transactions'' on homepage)
+    \item Select a transaction and examine:
+    \begin{itemize}
+        \item Transaction hash
+        \item Status (Success / Failed)
+        \item Block number
+        \item Timestamp
+        \item From address (sender)
+        \item To address (recipient or contract)
+        \item Value transferred (ETH amount)
+        \item Gas used vs. gas limit
+        \item Gas price and total transaction fee
+    \end{itemize}
+
+    \item If transaction involves smart contract:
+    \begin{itemize}
+        \item Click ``Logs'' tab to see emitted events
+        \item Identify function called (e.g., ``transfer'' for ERC-20)
+        \item Observe internal transactions (contract calls)
+    \end{itemize}
+
+    \item Click on sender address:
+    \begin{itemize}
+        \item View ETH balance
+        \item Examine transaction history
+        \item Check token holdings (ERC-20, NFTs)
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 2: Gas Mechanics}
+\textbf{Understanding Gas:}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{Gas Limit:} Maximum gas user willing to pay
+    \item \textbf{Gas Used:} Actual gas consumed by transaction
+    \item \textbf{Gas Price:} Price per unit of gas (in gwei, 1 gwei = $10^{-9}$ ETH)
+    \item \textbf{Transaction Fee:} Gas Used $\times$ Gas Price
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Post-EIP-1559 (August 2021):}
+\begin{itemize}
+    \item \textbf{Base Fee:} Algorithmically determined, burned
+    \item \textbf{Priority Fee (Tip):} Paid to miner/validator
+    \item \textbf{Max Fee:} Maximum total fee user willing to pay
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example Calculation:}
+\begin{itemize}
+    \item Gas Used: 21,000 (simple ETH transfer)
+    \item Base Fee: 30 gwei
+    \item Priority Fee: 2 gwei
+    \item Total Fee: $21,000 \times (30 + 2) = 672,000$ gwei = 0.000672 ETH
+    \item At ETH = \$2,000: fee = \$1.34
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Failed Transactions:}
+\begin{itemize}
+    \item Gas still consumed (computation executed)
+    \item State changes reverted
+    \item Common causes: out of gas, failed assertion, contract error
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 3: Block Analysis}
+\textbf{Objective:} Understand block structure and mining/validation
+
+\vspace{0.3cm}
+\textbf{Bitcoin Block Analysis:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item On Blockstream.info, search for block 800,000 (milestone block)
+    \item Examine block header:
+    \begin{itemize}
+        \item Block hash
+        \item Previous block hash (forms chain)
+        \item Merkle root (commitment to all transactions)
+        \item Timestamp
+        \item Difficulty and nonce (proof-of-work)
+    \end{itemize}
+    \item Identify coinbase transaction (first transaction):
+    \begin{itemize}
+        \item Block reward amount (6.25 BTC as of 2024)
+        \item Transaction fees collected
+        \item Miner address (who mined this block?)
+    \end{itemize}
+    \item Count transactions in block
+    \item Calculate average transaction fee
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Ethereum Block Analysis:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item On Etherscan.io, view latest block
+    \item Examine block details:
+    \begin{itemize}
+        \item Validator (who proposed block?)
+        \item Gas used / gas limit
+        \item Base fee per gas
+        \item Burnt fees (EIP-1559)
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 4: Address Investigation}
+\textbf{Objective:} Analyze address activity and identify entity types
+
+\vspace{0.3cm}
+\textbf{Instructions:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Exchange Address (Example: Binance Hot Wallet)}
+    \begin{itemize}
+        \item Search Etherscan for: \texttt{0x28C6c06298d514Db089934071355E5743bf21d60}
+        \item Observe transaction volume (thousands per day)
+        \item Note large balances (millions of USD)
+        \item Identify patterns: frequent deposits and withdrawals
+        \item Tag: Etherscan labels it ``Binance 14''
+    \end{itemize}
+
+    \item \textbf{Smart Contract Address}
+    \begin{itemize}
+        \item Search for Uniswap V3 Router: \texttt{0xE592427A0AEce92De3Edee1F18E0157C05861564}
+        \item Click ``Contract'' tab to view verified source code
+        \item Examine recent transactions (all contract interactions)
+        \item Notice: no ETH balance needed (users pay gas)
+    \end{itemize}
+
+    \item \textbf{Individual User Address}
+    \begin{itemize}
+        \item Use your own MetaMask address (from Lab 8)
+        \item View transaction history
+        \item Check token balances
+        \item Compare activity level with exchange address
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 4: Entity Identification Patterns}
+\textbf{How to Identify Address Types:}
+
+\vspace{0.3cm}
+\textbf{Exchange Addresses:}
+\begin{itemize}
+    \item Very high transaction volume (1000s per day)
+    \item Large balances (millions of USD)
+    \item Many unique counterparties
+    \item Often labeled by block explorers
+    \item Pattern: users deposit -> internal accounting -> users withdraw
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Smart Contracts:}
+\begin{itemize}
+    \item ``Contract'' label in block explorer
+    \item Transactions show ``Contract Interaction''
+    \item Code visible (if verified)
+    \item Receives transactions, never initiates (unless self-destruct)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Individual Users:}
+\begin{itemize}
+    \item Low-to-moderate transaction volume
+    \item Smaller balances
+    \item Irregular transaction timing
+    \item Mix of incoming and outgoing transactions
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Miners/Validators:}
+\begin{itemize}
+    \item Receive coinbase rewards (Bitcoin)
+    \item Receive block rewards + fees (Ethereum)
+    \item Regular income stream every N blocks
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 5: Forensic Case Study}
+\textbf{Scenario: Tracking Stolen Funds}
+
+\vspace{0.3cm}
+Imagine you are a blockchain analyst investigating a theft. Your task is to trace the flow of stolen funds.
+
+\vspace{0.3cm}
+\textbf{Case Details:}
+\begin{itemize}
+    \item Victim address (hypothetical): \texttt{0xVICTIM}
+    \item Attacker address (hypothetical): \texttt{0xATTACKER}
+    \item Transaction hash of theft: \texttt{0xSTEAL}
+    \item Amount stolen: 100 ETH
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Investigation Steps:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Confirm Theft:}
+    \begin{itemize}
+        \item Search for transaction \texttt{0xSTEAL}
+        \item Verify 100 ETH moved from victim to attacker
+    \end{itemize}
+
+    \item \textbf{Trace Funds:}
+    \begin{itemize}
+        \item Click on attacker address
+        \item View subsequent transactions
+        \item Identify where 100 ETH went (direct transfer? split? mixer?)
+    \end{itemize}
+
+    \item \textbf{Follow the Chain:}
+    \begin{itemize}
+        \item If funds moved to another address, continue tracing
+        \item If funds sent to exchange, investigation pauses (off-chain)
+        \item If funds sent to mixer/tumbler, tracing becomes difficult
+    \end{itemize}
+
+    \item \textbf{Document Path:}
+    \begin{itemize}
+        \item Create flowchart: Victim -> Attacker -> Address A -> Address B -> Exchange
+        \item Note transaction hashes at each step
+        \item Identify opportunities for recovery (e.g., frozen exchange account)
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 5: Privacy and Mixing}
+\textbf{Blockchain Privacy Challenges:}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item All transactions publicly visible
+    \item Addresses pseudonymous but traceable
+    \item Address reuse links multiple transactions to same entity
+    \item Heuristics identify common ownership (e.g., inputs from same transaction)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Privacy Techniques:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Mixers/Tumblers (e.g., Tornado Cash):}
+    \begin{itemize}
+        \item Pool funds from many users
+        \item Withdraw to new address
+        \item Breaks on-chain link
+        \item Controversial: used by criminals but also privacy advocates
+    \end{itemize}
+
+    \item \textbf{CoinJoin (Bitcoin):}
+    \begin{itemize}
+        \item Multiple users combine transactions
+        \item Obfuscates sender-receiver mapping
+        \item Used by Wasabi Wallet, Samourai Wallet
+    \end{itemize}
+
+    \item \textbf{Privacy Coins (Monero, Zcash):}
+    \begin{itemize}
+        \item Built-in privacy (ring signatures, zero-knowledge proofs)
+        \item Transactions not traceable
+        \item Trade-off: regulatory scrutiny, exchange delistings
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Ethical Considerations:}
+\begin{itemize}
+    \item Privacy as a right vs. transparency for accountability
+    \item Law enforcement vs. individual freedom
+    \item Blockchain analytics industry (Chainalysis, Elliptic)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Advanced Block Explorer Features}
+\textbf{Etherscan Tools:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Contract Verification:}
+    \begin{itemize}
+        \item Developers upload source code
+        \item Etherscan compiles and matches bytecode
+        \item Users can read contract logic before interacting
+    \end{itemize}
+
+    \item \textbf{Token Tracker:}
+    \begin{itemize}
+        \item View all ERC-20 tokens
+        \item See total supply, holders, transfers
+        \item Identify top holders
+    \end{itemize}
+
+    \item \textbf{Gas Tracker:}
+    \begin{itemize}
+        \item Real-time gas price recommendations
+        \item Historical gas price charts
+        \item Gas usage by contract (which dApps are expensive?)
+    \end{itemize}
+
+    \item \textbf{Charts and Analytics:}
+    \begin{itemize}
+        \item Daily transaction count
+        \item Network utilization
+        \item ETH supply and burn rate
+        \item Validator statistics
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Mempool Explorers:}
+\begin{itemize}
+    \item Mempool.space (Bitcoin): visualize pending transactions
+    \item See fee distribution, block template predictions
+    \item Useful for fee estimation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit the following:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Transaction Analysis Report (2-3 pages PDF):}
+    \begin{itemize}
+        \item Exercise 1: Bitcoin transaction hash, input/output summary, fee analysis
+        \item Exercise 2: Ethereum transaction hash, gas breakdown, sender/recipient details
+        \item Exercise 3: Block number analyzed, coinbase/validator info, statistics
+        \item Exercise 4: Three addresses investigated with entity type identification
+        \item Exercise 5: Forensic case flowchart (real or hypothetical scenario)
+    \end{itemize}
+
+    \item \textbf{Screenshots:}
+    \begin{itemize}
+        \item Bitcoin transaction details page
+        \item Ethereum transaction details page
+        \item Block details page
+        \item Address activity page
+        \item (Annotate screenshots with key observations)
+    \end{itemize}
+
+    \item \textbf{Reflection Questions (1 page):}
+    \begin{itemize}
+        \item How does blockchain transparency affect privacy?
+        \item What are legitimate uses of transaction mixers?
+        \item How can forensic analysis help recover stolen funds?
+        \item What limitations exist in blockchain forensics?
+    \end{itemize}
+
+    \item \textbf{Bonus (Optional):}
+    \begin{itemize}
+        \item Analyze the same address on Bitcoin and Ethereum (if applicable)
+        \item Investigate a recent high-profile hack using block explorer
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Block explorers provide transparency into all blockchain activity
+    \item Bitcoin uses UTXO model: trace inputs and outputs
+    \item Ethereum uses account model: track balances and nonces
+    \item Gas fees vary based on network congestion and transaction complexity
+    \item Addresses can be identified by transaction patterns (exchanges, contracts, users)
+    \item Blockchain forensics is powerful but faces challenges with mixers and privacy coins
+    \item Verified smart contracts allow users to audit code before interacting
+    \item Mempool analysis helps estimate fees and transaction timing
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Real-World Applications:}
+\begin{itemize}
+    \item Auditing and compliance
+    \item Fraud investigation and fund recovery
+    \item Market analysis (whale watching, exchange flows)
+    \item Security research (identifying attack patterns)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+    \item How does Bitcoin's UTXO model differ from Ethereum's account model in terms of privacy?
+
+    \item Why are transaction fees so variable on Ethereum compared to Bitcoin?
+
+    \item What are the ethical implications of blockchain transparency?
+
+    \item How can someone enhance their privacy when using public blockchains?
+
+    \item What role do block explorers play in blockchain adoption?
+
+    \item How might regulation affect block explorer operations in the future?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Module A Summary and Next Steps}
+\textbf{What You Learned in Module A:}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item Blockchain fundamentals: decentralization, immutability, transparency
+    \item Distributed ledger technology and consensus mechanisms
+    \item Hash functions and cryptographic security
+    \item Public key cryptography and digital signatures
+    \item Bitcoin protocol: UTXO model, transactions, scripting
+    \item Proof-of-work and proof-of-stake consensus
+    \item Consensus mechanism trade-offs and comparisons
+    \item Scalability trilemma and Layer 2 solutions
+    \item Practical skills: wallet setup, transaction analysis, block exploration
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Preparation for Module B (Smart Contracts and DeFi):}
+\begin{itemize}
+    \item Review Ethereum fundamentals
+    \item Explore DeFi applications (Uniswap, Aave, Compound)
+    \item Familiarize yourself with Solidity programming concepts
+    \item Keep MetaMask wallet active with testnet ETH
+\end{itemize}
+\end{frame}
+
+\end{document}

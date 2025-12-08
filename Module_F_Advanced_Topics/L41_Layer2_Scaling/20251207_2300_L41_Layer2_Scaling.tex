@@ -1,0 +1,377 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L41: Layer 2 Scaling Solutions}
+\subtitle{Module F: Advanced Topics}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{The Blockchain Scalability Trilemma}
+\begin{itemize}
+\item \textbf{Trilemma}: Can only optimize 2 of 3 properties:
+\begin{enumerate}
+\item \textbf{Decentralization}: Number of independent validators
+\item \textbf{Security}: Cost to attack the network
+\item \textbf{Scalability}: Transactions per second (TPS)
+\end{enumerate}
+\item Bitcoin: ~7 TPS, Ethereum: ~15 TPS
+\item Payment networks: Visa ~65,000 TPS
+\item \textbf{Layer 2 Solutions}: Move transactions off-chain while inheriting Layer 1 security
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Layer 2?}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Layer 1 (L1)}
+\begin{itemize}
+\item Base blockchain protocol
+\item Full consensus for every transaction
+\item High security, low throughput
+\item Examples: Bitcoin, Ethereum mainnet
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Layer 2 (L2)}
+\begin{itemize}
+\item Built on top of L1
+\item Process transactions off-chain
+\item Settle final state on L1
+\item Inherit L1 security guarantees
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\textbf{Key Insight}: Trade immediate finality for higher throughput
+\end{frame}
+
+\begin{frame}{Layer 2 Design Patterns}
+\begin{enumerate}
+\item \textbf{State Channels}: Direct peer-to-peer channels (Lightning Network)
+\item \textbf{Sidechains}: Independent blockchains with two-way peg
+\item \textbf{Rollups}: Batch transactions, compute off-chain, post data on-chain
+\begin{itemize}
+\item Optimistic Rollups: Assume validity, allow fraud proofs
+\item ZK-Rollups: Cryptographic validity proofs
+\end{itemize}
+\item \textbf{Plasma}: Hierarchical child chains with merkle commitments
+\item \textbf{Validium}: Off-chain data availability + validity proofs
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lightning Network: Bitcoin's Layer 2}
+\begin{itemize}
+\item \textbf{Problem}: Bitcoin's 7 TPS cannot support global payments
+\item \textbf{Solution}: Bidirectional payment channels
+\item \textbf{Mechanism}:
+\begin{enumerate}
+\item Open channel with on-chain funding transaction
+\item Transact off-chain by updating channel state
+\item Close channel by broadcasting final state to L1
+\end{enumerate}
+\item \textbf{Network Topology}: Channels form payment routing graph
+\item \textbf{Capacity}: Millions of TPS, sub-second finality
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lightning Network: Channel Mechanics}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Opening a Channel}
+\begin{itemize}
+\item Alice and Bob create 2-of-2 multisig
+\item Fund with on-chain transaction
+\item Initial state: Alice 0.5 BTC, Bob 0.5 BTC
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Updating State}
+\begin{itemize}
+\item Alice pays Bob 0.1 BTC off-chain
+\item New state: Alice 0.4 BTC, Bob 0.6 BTC
+\item Both sign commitment transaction
+\item No blockchain interaction
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Closing Channel}
+\begin{itemize}
+\item Cooperative close: broadcast final state
+\item Unilateral close: either party can exit
+\item Timelock + revocation keys prevent cheating
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Routing Payments}
+\begin{itemize}
+\item Alice pays Carol via Bob's channel
+\item Hash Time-Locked Contracts (HTLCs)
+\item Atomic multi-hop payments
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Lightning Network: Security Model}
+\begin{itemize}
+\item \textbf{Penalty Mechanism}: Publishing old state results in fund loss
+\item \textbf{Watchtowers}: Monitor blockchain for fraudulent channel closes
+\item \textbf{Timelocks}: Dispute period for fraud proofs
+\item \textbf{Limitations}:
+\begin{itemize}
+\item Both parties must be online to transact
+\item Liquidity locked in channels
+\item Routing path finding complexity
+\item Capital efficiency vs connectivity tradeoff
+\end{itemize}
+\item \textbf{Current Status}: ~5,000 BTC capacity (~\$200M), 15,000+ nodes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Rollups: Ethereum's Scaling Strategy}
+\begin{itemize}
+\item \textbf{Core Idea}: Execute transactions off-chain, post compressed data on-chain
+\item \textbf{Data Availability}: Transaction data published to L1
+\item \textbf{Computation}: Performed off-chain by sequencer/operator
+\item \textbf{State Roots}: Merkle root posted to L1 smart contract
+\item \textbf{Throughput}: 100-1000x improvement over L1
+\item \textbf{Two Variants}: Differ in how validity is proven
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Optimistic Rollups}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Mechanism}
+\begin{itemize}
+\item Assume transactions are valid by default
+\item Anyone can submit fraud proof during challenge period
+\item Challenge period: ~7 days
+\item If no challenge, state root finalized
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Advantages}
+\begin{itemize}
+\item EVM compatibility (easy migration)
+\item Lower gas costs than L1
+\item Simple validity assumption
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Fraud Proof System}
+\begin{itemize}
+\item Verifier claims state root is invalid
+\item Interactive bisection game on L1
+\item Execute disputed transaction on L1
+\item Dishonest party loses staked funds
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Disadvantages}
+\begin{itemize}
+\item Long withdrawal delay (7 days)
+\item Honest verifier assumption
+\item Capital inefficiency during dispute period
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{ZK-Rollups (Zero-Knowledge Rollups)}
+\begin{itemize}
+\item \textbf{Mechanism}: Cryptographic validity proofs for every batch
+\item \textbf{SNARK/STARK Proofs}: Prove correct execution without revealing data
+\item \textbf{Verification}: L1 smart contract verifies proof (constant cost)
+\item \textbf{Finality}: Instant after proof verification (~10-30 min)
+\item \textbf{Advantages}:
+\begin{itemize}
+\item Fast withdrawals (no challenge period)
+\item Stronger security guarantees
+\item Higher throughput (less data posted)
+\end{itemize}
+\item \textbf{Disadvantages}:
+\begin{itemize}
+\item Complex cryptography
+\item Higher prover costs (specialized hardware)
+\item EVM compatibility challenges (improving)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Optimistic vs ZK-Rollups Comparison}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Property} & \textbf{Optimistic} & \textbf{ZK-Rollup} \\
+\midrule
+Validity Assumption & Optimistic (fraud proofs) & Cryptographic proofs \\
+Withdrawal Time & 7-14 days & 10-30 minutes \\
+EVM Compatibility & Native & Requires zkEVM \\
+Gas Costs & Medium & Low (less data) \\
+Prover Complexity & Low & High (SNARK/STARK) \\
+Security Model & 1-of-N honesty & Cryptographic \\
+Examples & Arbitrum, Optimism & zkSync, StarkNet, Polygon zkEVM \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.3cm}
+\textbf{Trend}: ZK-Rollups gaining adoption as zkEVM matures
+\end{frame}
+
+\begin{frame}{Sidechains}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Definition}
+\begin{itemize}
+\item Independent blockchain with own consensus
+\item Two-way peg to main chain
+\item Assets locked on L1, minted on sidechain
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Examples}
+\begin{itemize}
+\item Polygon PoS (Ethereum sidechain)
+\item Liquid Network (Bitcoin sidechain)
+\item Ronin (Axie Infinity)
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Advantages}
+\begin{itemize}
+\item Custom consensus rules
+\item High throughput
+\item Low transaction fees
+\item Flexibility in design
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Disadvantages}
+\begin{itemize}
+\item \textbf{Weaker security}: Does NOT inherit L1 security
+\item Trust in sidechain validators
+\item Bridge attack surface
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Bridges: Connecting Chains}
+\begin{itemize}
+\item \textbf{Purpose}: Transfer assets between L1 and L2, or across chains
+\item \textbf{Lock-and-Mint Pattern}:
+\begin{enumerate}
+\item Lock assets on source chain
+\item Mint wrapped tokens on destination chain
+\item Burn wrapped tokens to unlock original assets
+\end{enumerate}
+\item \textbf{Bridge Types}:
+\begin{itemize}
+\item \textbf{Trusted}: Centralized custodian (fast, low security)
+\item \textbf{Federated}: Multi-sig operators (medium trust)
+\item \textbf{Optimistic}: Fraud proof system
+\item \textbf{ZK-Verified}: Cryptographic proofs (highest security)
+\end{itemize}
+\item \textbf{Risk}: Bridges are major attack target (\$2B+ stolen in 2022-2023)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Availability Problem}
+\begin{itemize}
+\item \textbf{Challenge}: How to verify L2 state without full transaction data?
+\item \textbf{Rollup Requirement}: Post transaction data to L1 (expensive)
+\item \textbf{Validium Approach}: Store data off-chain, only post state roots
+\begin{itemize}
+\item Higher throughput, lower costs
+\item Trust assumption: Data availability committee
+\end{itemize}
+\item \textbf{Data Availability Sampling (DAS)}: Light clients randomly sample data chunks
+\item \textbf{Future Solutions}: EIP-4844 (Proto-Danksharding) -- dedicated blob space for rollups
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Layer 2 Ecosystem Overview}
+\begin{itemize}
+\item \textbf{Ethereum L2s}:
+\begin{itemize}
+\item Optimistic: Arbitrum (\$10B TVL), Optimism (\$6B TVL), Base
+\item ZK-Rollups: zkSync Era, Polygon zkEVM, StarkNet, Scroll
+\item Sidechains: Polygon PoS (\$5B TVL)
+\end{itemize}
+\item \textbf{Bitcoin L2s}:
+\begin{itemize}
+\item Lightning Network (payment channels)
+\item Rootstock (EVM sidechain)
+\item Stacks (smart contracts via Bitcoin finality)
+\end{itemize}
+\item \textbf{Total L2 TVL}: ~\$40B (as of Q4 2024)
+\item \textbf{Trend}: Multi-chain future with specialized L2s
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Security Comparison Table}
+\begin{table}
+\centering
+\small
+\begin{tabular}{llll}
+\toprule
+\textbf{Solution} & \textbf{Inherits L1 Security} & \textbf{Trust Model} & \textbf{Finality} \\
+\midrule
+Optimistic Rollup & Yes & 1-of-N honest & 7 days \\
+ZK-Rollup & Yes & Cryptographic & 10-30 min \\
+State Channel & Yes & Counterparty online & Instant (unilateral exit) \\
+Sidechain & No & Validator set & Chain-dependent \\
+Validium & Partial & Data committee & 10-30 min \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.3cm}
+\textbf{Key Takeaway}: Rollups inherit L1 security; sidechains do not
+\end{frame}
+
+\begin{frame}{Throughput and Cost Comparison}
+\begin{itemize}
+\item \textbf{Ethereum L1}: 15 TPS, \$1-\$50 per transaction
+\item \textbf{Optimistic Rollups}: 1,000-4,000 TPS, \$0.10-\$1 per transaction
+\item \textbf{ZK-Rollups}: 2,000-10,000 TPS, \$0.05-\$0.50 per transaction
+\item \textbf{Sidechains}: 5,000-20,000 TPS, \$0.001-\$0.10 per transaction
+\item \textbf{Lightning Network}: Millions of TPS, \$0.0001-\$0.001 per transaction
+\vspace{0.3cm}
+\item \textbf{Tradeoff}: Higher throughput often means weaker security guarantees
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Future Directions}
+\begin{itemize}
+\item \textbf{EIP-4844 (Proto-Danksharding)}: Blob transactions for cheaper rollup data
+\item \textbf{Full Danksharding}: Massive data availability increase (target: 100,000+ TPS)
+\item \textbf{zkEVM Maturity}: Fully EVM-equivalent ZK-rollups
+\item \textbf{Layer 3}: Application-specific rollups on top of L2
+\item \textbf{Interoperability}: Cross-rollup communication protocols
+\item \textbf{Sequencer Decentralization}: Remove single point of failure
+\item \textbf{Shared Sequencing}: Multiple rollups share sequencer infrastructure
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+\item \textbf{Layer 2 solutions scale blockchains while preserving decentralization}
+\item \textbf{State Channels}: Peer-to-peer, instant finality (Lightning Network)
+\item \textbf{Optimistic Rollups}: Fraud proofs, 7-day withdrawal, EVM-compatible
+\item \textbf{ZK-Rollups}: Validity proofs, fast finality, high security
+\item \textbf{Sidechains}: Independent consensus, weaker security guarantees
+\item \textbf{Bridges}: Critical infrastructure with significant attack surface
+\item \textbf{Tradeoff Spectrum}: Security vs throughput vs finality time
+\item \textbf{Future}: Multi-layered ecosystem with specialized L2s and L3s
+\end{itemize}
+\end{frame}
+
+\end{document}

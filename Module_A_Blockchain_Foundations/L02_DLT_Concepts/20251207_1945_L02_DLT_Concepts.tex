@@ -1,0 +1,958 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{0,102,204}
+\definecolor{mlpurple}{RGB}{51,51,178}
+\definecolor{mllavender}{RGB}{173,173,224}
+\definecolor{mllavender2}{RGB}{193,193,232}
+\definecolor{mllavender3}{RGB}{204,204,235}
+\definecolor{mllavender4}{RGB}{214,214,239}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlgray}{RGB}{127, 127, 127}
+\definecolor{lightgray}{RGB}{240, 240, 240}
+\definecolor{midgray}{RGB}{180, 180, 180}
+
+% Apply custom colors to Madrid theme
+\setbeamercolor{palette primary}{bg=mllavender3,fg=mlpurple}
+\setbeamercolor{palette secondary}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{palette tertiary}{bg=mllavender,fg=white}
+\setbeamercolor{palette quaternary}{bg=mlpurple,fg=white}
+\setbeamercolor{structure}{fg=mlpurple}
+\setbeamercolor{section in toc}{fg=mlpurple}
+\setbeamercolor{subsection in toc}{fg=mlblue}
+\setbeamercolor{title}{fg=mlpurple}
+\setbeamercolor{frametitle}{fg=mlpurple,bg=mllavender3}
+\setbeamercolor{block title}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{block body}{bg=mllavender4,fg=black}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+
+\title{Lesson 2: Distributed Ledger Technology}
+\subtitle{Module A: Blockchain Foundations}
+\author{BSc Blockchain \& Cryptocurrency}
+\institute{University Course}
+\date{2025}
+
+\begin{document}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\begin{frame}[t]{Learning Objectives}
+By the end of this lesson, you will be able to:
+
+\begin{enumerate}
+\item Define Distributed Ledger Technology (DLT) and distinguish it from blockchain
+\item Explain the Byzantine Generals Problem and its relevance to consensus
+\item Compare network topologies: centralized, decentralized, and distributed
+\item Describe the structure and components of a blockchain block
+\item Differentiate between node types: full nodes, light nodes, miners, validators
+\item Contrast permissioned and permissionless blockchain architectures
+\end{enumerate}
+
+\vspace{1em}
+\textbf{Prerequisites:} L01 - What is Blockchain?
+\end{frame}
+
+\section{DLT Concepts}
+
+\begin{frame}[t]{What is Distributed Ledger Technology?}
+\begin{block}{DLT Definition}
+A \textbf{Distributed Ledger Technology (DLT)} is a database architecture where data is synchronized, replicated, and shared across multiple nodes in a network, without a central administrator.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Key Characteristics:}
+\begin{itemize}
+\item \textbf{Distributed}: Data stored across many nodes (no single source of truth)
+\item \textbf{Synchronized}: All nodes maintain consistent state through consensus
+\item \textbf{Replicated}: Each node has a complete or partial copy of the ledger
+\item \textbf{Shared}: Multiple parties can read/write to the ledger
+\item \textbf{Consensus-driven}: Agreement mechanism validates changes
+\end{itemize}
+
+\vspace{0.5em}
+\textit{All blockchains are DLTs, but not all DLTs are blockchains}
+\end{frame}
+
+\begin{frame}[t]{Blockchain vs. Other DLTs}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Blockchain}
+\begin{itemize}
+\item Data organized in sequential blocks
+\item Blocks linked via cryptographic hashes
+\item Linear chain structure
+\item Append-only (immutable history)
+\item Examples: Bitcoin, Ethereum
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Directed Acyclic Graph (DAG)}
+\begin{itemize}
+\item Transactions reference previous transactions
+\item No blocks, no miners
+\item Parallel processing
+\item Examples: IOTA (Tangle), Hedera Hashgraph
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Holochain}
+\begin{itemize}
+\item Agent-centric (not data-centric)
+\item Each agent maintains own chain
+\item Distributed Hash Table (DHT)
+\item No global consensus required
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Tempo (Radix)}
+\begin{itemize}
+\item Sharded state machine
+\item Logical clocks for ordering
+\item Scalable to millions of TPS
+\item Hybrid consensus
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\textit{Different DLT architectures optimize for different trade-offs}
+\end{frame}
+
+\begin{frame}[t]{Ledger Types: Shared vs. Distributed}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Shared Ledger (Traditional)}
+\begin{itemize}
+\item Multiple parties access same database
+\item Central authority controls access
+\item Single version of truth
+\item Fast, but trust required
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} Banking consortium database
+
+\vspace{0.5em}
+\textbf{Challenges:}
+\begin{itemize}
+\item Single point of failure
+\item Administrator can alter records
+\item Reconciliation between systems
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Distributed Ledger (DLT)}
+\begin{itemize}
+\item Each party has own copy
+\item No central authority
+\item Consensus creates truth
+\item Slower, but trustless
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} Public blockchain
+
+\vspace{0.5em}
+\textbf{Benefits:}
+\begin{itemize}
+\item No single point of failure
+\item Transparent, auditable history
+\item No reconciliation needed
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\section{Byzantine Generals Problem}
+
+\begin{frame}[t]{The Byzantine Generals Problem (1982)}
+\begin{block}{Historical Context}
+Leslie Lamport, Robert Shostak, and Marshall Pease formulated this thought experiment to describe the challenge of achieving consensus in distributed systems with potentially faulty or malicious actors.
+\end{block}
+
+\vspace{0.5em}
+\textbf{The Scenario:}
+\begin{itemize}
+\item Byzantine army surrounds an enemy city
+\item Army divided into divisions, each led by a general
+\item Generals must coordinate: \textbf{ATTACK} or \textbf{RETREAT}
+\item Communication only via messengers
+\item Some generals may be traitors (Byzantine faults)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Challenge:} How can loyal generals reach consensus when traitors may send conflicting messages?
+\end{frame}
+
+\begin{frame}[t]{Byzantine Generals: Example Scenario}
+\textbf{Setup:} 4 Generals (A, B, C, D), 1 is a traitor
+
+\vspace{0.5em}
+\textbf{Round 1 - Commander A sends orders:}
+\begin{itemize}
+\item To General B: ``ATTACK''
+\item To General C: ``ATTACK''
+\item To General D (traitor): ``ATTACK''
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Round 2 - Traitor D sends conflicting messages:}
+\begin{itemize}
+\item To General B: ``A said RETREAT'' (lie)
+\item To General C: ``A said ATTACK'' (truth)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Result Without Byzantine Fault Tolerance:}
+\begin{itemize}
+\item General B thinks majority said RETREAT (withdraws alone)
+\item General C thinks majority said ATTACK (attacks alone)
+\item Army coordination fails, both divisions defeated
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Byzantine Fault Tolerance (BFT)}
+\begin{block}{Formal Result}
+Consensus is achievable if and only if at least $\frac{2}{3}$ of the actors are honest. Formally: $n \geq 3f + 1$ where $n$ = total nodes, $f$ = faulty nodes.
+\end{block}
+
+\vspace{0.5em}
+\textbf{BFT Solution Requirements:}
+\begin{enumerate}
+\item \textbf{Agreement}: All honest nodes decide on the same value
+\item \textbf{Validity}: If all honest nodes propose value $v$, then $v$ is decided
+\item \textbf{Termination}: All honest nodes eventually decide
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Blockchain Context:}
+\begin{itemize}
+\item Bitcoin's Proof-of-Work solves Byzantine Generals Problem
+\item Nakamoto Consensus: Longest chain = majority decision
+\item Tolerates up to 49\% malicious hash power (in practice, 51\% attack possible)
+\item Practical BFT (PBFT) used in permissioned blockchains (Hyperledger)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Types of Faults in Distributed Systems}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Crash Faults (Simpler)}
+\begin{itemize}
+\item Node fails and stops responding
+\item Predictable behavior
+\item Detectable by timeout
+\item Example: Server power loss
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Handling:}
+\begin{itemize}
+\item Majority voting
+\item Heartbeat monitoring
+\item Leader election
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} Apache Zookeeper, etcd (use Paxos/Raft)
+
+\column{0.48\textwidth}
+\textbf{Byzantine Faults (Complex)}
+\begin{itemize}
+\item Node sends incorrect/conflicting information
+\item Malicious or software bugs
+\item Unpredictable behavior
+\item Example: Hacked node
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Handling:}
+\begin{itemize}
+\item Cryptographic proofs
+\item Economic incentives
+\item Supermajority consensus ($> 2/3$)
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} Bitcoin (PoW), Tendermint (BFT)
+\end{columns}
+
+\vspace{0.5em}
+\textbf{Key Insight:} Public blockchains assume Byzantine environment; private blockchains may assume only crash faults
+\end{frame}
+
+\section{Network Topologies}
+
+\begin{frame}[t]{Centralized Networks}
+\textbf{Architecture:}
+\begin{itemize}
+\item Single central node (hub)
+\item All communication flows through hub
+\item Clients connect to central server
+\item Hub controls access and data
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Advantages:}
+\begin{itemize}
+\item Fast and efficient
+\item Easy to manage and update
+\item Low coordination overhead
+\item Consistent performance
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Disadvantages:}
+\begin{itemize}
+\item Single point of failure
+\item Censorship possible
+\item Privacy concerns (hub sees all data)
+\item Scalability bottleneck at hub
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Examples:} Traditional banking systems, Facebook, Gmail
+\end{frame}
+
+\begin{frame}[t]{Decentralized Networks}
+\textbf{Architecture:}
+\begin{itemize}
+\item Multiple hubs (federated model)
+\item Each hub serves subset of nodes
+\item Hubs communicate with each other
+\item No single central authority
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Advantages:}
+\begin{itemize}
+\item More resilient than centralized
+\item Regional autonomy
+\item Balanced between efficiency and resilience
+\item Easier to scale geographically
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Disadvantages:}
+\begin{itemize}
+\item Hubs still represent points of failure
+\item Coordination between hubs needed
+\item Potential for fragmentation
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Examples:} Email (SMTP), Tor network, Mastodon (federated social media)
+\end{frame}
+
+\begin{frame}[t]{Distributed Networks}
+\textbf{Architecture:}
+\begin{itemize}
+\item Peer-to-peer (P2P) topology
+\item No hubs or central points
+\item Every node equal (or nearly equal)
+\item Direct node-to-node communication
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Advantages:}
+\begin{itemize}
+\item Maximum resilience (no single point of failure)
+\item Censorship resistant
+\item Highly fault-tolerant
+\item True decentralization
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Disadvantages:}
+\begin{itemize}
+\item Slower coordination (consensus overhead)
+\item Complex to manage and upgrade
+\item Higher resource requirements per node
+\item Variable network performance
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Examples:} Bitcoin, Ethereum, BitTorrent, IPFS
+\end{frame}
+
+\begin{frame}[t]{Topology Comparison Table}
+\begin{table}[h]
+\scriptsize
+\begin{tabular}{p{2.5cm}p{3cm}p{3cm}p{3cm}}
+\toprule
+\textbf{Property} & \textbf{Centralized} & \textbf{Decentralized} & \textbf{Distributed} \\
+\midrule
+Control & Single entity & Multiple entities & All participants \\
+\midrule
+Speed & Very fast & Fast & Slower \\
+\midrule
+Resilience & Low (SPOF) & Medium & High \\
+\midrule
+Censorship Resistance & None & Moderate & Strong \\
+\midrule
+Coordination Overhead & Minimal & Moderate & High \\
+\midrule
+Scalability & Easy (vertical) & Moderate & Hard (horizontal) \\
+\midrule
+Trust Required & High & Medium & Low \\
+\midrule
+Examples & Banks, Facebook & Email, Mastodon & Bitcoin, IPFS \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.5em}
+\textit{Blockchain networks typically use fully distributed topology for maximum trustlessness}
+\end{frame}
+
+\section{Block Structure}
+
+\begin{frame}[t]{Anatomy of a Block: Overview}
+\textbf{A blockchain block contains two main parts:}
+
+\begin{enumerate}
+\item \textbf{Block Header} (80 bytes in Bitcoin)
+  \begin{itemize}
+  \item Metadata about the block
+  \item Links to previous block
+  \item Proof-of-Work evidence
+  \end{itemize}
+
+\item \textbf{Block Body} (variable size)
+  \begin{itemize}
+  \item Transaction data
+  \item Can contain hundreds to thousands of transactions
+  \end{itemize}
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Block Size Limits:}
+\begin{itemize}
+\item Bitcoin: 1 MB (base block) to 4 MB (with SegWit)
+\item Ethereum: Dynamic gas limit ($\approx$ 30M gas, $\approx$ 15 MB)
+\item Bitcoin Cash: 32 MB
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Block Header Components}
+\textbf{Bitcoin Block Header Fields (80 bytes):}
+
+\begin{enumerate}
+\item \textbf{Version} (4 bytes): Block version number (for protocol upgrades)
+\item \textbf{Previous Block Hash} (32 bytes): Hash of the previous block header
+\item \textbf{Merkle Root} (32 bytes): Hash of all transactions in this block
+\item \textbf{Timestamp} (4 bytes): Unix epoch time (seconds since Jan 1, 1970)
+\item \textbf{Difficulty Target} (4 bytes): Required difficulty for PoW
+\item \textbf{Nonce} (4 bytes): Counter used for PoW mining
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Key Insight:}
+$$\text{Block Hash} = \text{SHA256}(\text{SHA256}(\text{Header}))$$
+
+The hash must be below the difficulty target for the block to be valid.
+\end{frame}
+
+\begin{frame}[t]{Merkle Trees: Efficient Transaction Verification}
+\begin{block}{Merkle Tree Definition}
+A \textbf{Merkle tree} is a binary hash tree where each leaf node is a hash of a transaction, and each non-leaf node is a hash of its two children.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Construction Process:}
+\begin{enumerate}
+\item Hash each transaction: $H(Tx_1), H(Tx_2), ..., H(Tx_n)$
+\item Pair hashes and hash again: $H(H(Tx_1) || H(Tx_2))$
+\item Repeat until single root hash (Merkle Root)
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Benefits:}
+\begin{itemize}
+\item \textbf{Compact Proof}: Verify transaction inclusion with $O(\log n)$ hashes
+\item \textbf{Efficient Storage}: Light clients store only 80-byte headers
+\item \textbf{Integrity}: Any transaction change alters Merkle Root
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} Prove transaction in block with 1,000 tx requires only 10 hashes ($\log_2 1000 \approx 10$)
+\end{frame}
+
+\begin{frame}[t]{Merkle Proof Example}
+\textbf{Scenario:} Block contains 8 transactions, prove $Tx_3$ is included
+
+\vspace{0.5em}
+\textbf{Tree Structure:}
+\begin{itemize}
+\item Level 3 (Root): $R = H(AB || CD)$ where $AB = H(A || B)$, $CD = H(C || D)$
+\item Level 2: $A = H(Tx_1 || Tx_2)$, \textcolor{mlpurple}{$B = H(Tx_3 || Tx_4)$}, etc.
+\item Level 1: $Tx_1, Tx_2, \textcolor{mlpurple}{Tx_3}, Tx_4, ..., Tx_8$
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Merkle Proof for $Tx_3$:}
+\begin{enumerate}
+\item Verifier has: Block header with Merkle Root $R$
+\item Prover provides: $Tx_3$, $H(Tx_4)$, $H(A)$, $H(CD)$
+\item Verifier computes: $H(Tx_3)$, then $B = H(H(Tx_3) || H(Tx_4))$
+\item Then: $AB = H(H(A) || B)$, finally $R' = H(AB || H(CD))$
+\item If $R' = R$, then $Tx_3$ is proven to be in the block
+\end{enumerate}
+
+\vspace{0.5em}
+\textit{Only 3 hashes needed instead of downloading all 8 transactions}
+\end{frame}
+
+\begin{frame}[t]{Block Propagation}
+\textbf{How New Blocks Spread Through Network:}
+
+\begin{enumerate}
+\item Miner finds valid block (solves PoW puzzle)
+\item Miner broadcasts block to connected peers ($\approx$ 8-125 peers)
+\item Peers validate block:
+  \begin{itemize}
+  \item Check block hash meets difficulty target
+  \item Verify all transactions are valid
+  \item Ensure no double-spends
+  \end{itemize}
+\item Valid block propagated to peers' peers (gossip protocol)
+\item Process repeats until entire network has the block
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Propagation Time:}
+\begin{itemize}
+\item Bitcoin: $\approx$ 6-12 seconds to reach 95\% of network
+\item Ethereum (pre-merge): $\approx$ 2-6 seconds
+\item Faster propagation reduces orphan block rate
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Network latency creates temporary forks (resolved by longest chain rule)}
+\end{frame}
+
+\section{Node Types}
+
+\begin{frame}[t]{Full Nodes}
+\begin{block}{Full Node Definition}
+A \textbf{full node} downloads and validates the entire blockchain history, enforcing all consensus rules without relying on third parties.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Responsibilities:}
+\begin{itemize}
+\item Store complete blockchain (Bitcoin: $\approx$ 500 GB, Ethereum: $\approx$ 900 GB)
+\item Validate all blocks and transactions independently
+\item Relay valid transactions and blocks to peers
+\item Serve blockchain data to light clients
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Benefits:}
+\begin{itemize}
+\item Maximum security (trust no one)
+\item Support network decentralization
+\item Can verify historical transactions
+\item Contribute to network health
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Requirements:} $\approx$ 500 GB storage, $\approx$ 5 GB/day bandwidth, moderate CPU
+\end{frame}
+
+\begin{frame}[t]{Light Nodes (SPV Nodes)}
+\begin{block}{Simplified Payment Verification (SPV)}
+Described in Bitcoin whitepaper: Light nodes download only block headers ($\approx$ 80 bytes each) instead of full blocks, relying on Merkle proofs to verify transactions.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Operation:}
+\begin{itemize}
+\item Download all block headers ($\approx$ 50 MB for Bitcoin)
+\item Request Merkle proofs from full nodes for relevant transactions
+\item Verify transaction inclusion in block
+\item Assume longest chain is valid
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Trade-offs:}
+\begin{itemize}
+\item[\textcolor{mlgreen}{+}] Low storage ($<$ 100 MB vs. 500 GB)
+\item[\textcolor{mlgreen}{+}] Suitable for mobile devices
+\item[\textcolor{mlorange}{-}] Must trust full nodes for transaction data
+\item[\textcolor{mlorange}{-}] Vulnerable to bloom filter privacy leaks
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Examples:} Mobile wallets (Electrum, MetaMask mobile)
+\end{frame}
+
+\begin{frame}[t]{Miner Nodes (PoW)}
+\textbf{Specialized Nodes in Proof-of-Work Blockchains}
+
+\vspace{0.5em}
+\textbf{Functions:}
+\begin{enumerate}
+\item Collect unconfirmed transactions from mempool
+\item Construct candidate block (select transactions based on fees)
+\item Attempt to find valid nonce (compute millions of hashes/second)
+\item Broadcast valid block if found
+\item Receive block reward + transaction fees
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Requirements:}
+\begin{itemize}
+\item Specialized hardware (ASICs for Bitcoin, GPUs for some altcoins)
+\item High electricity consumption (Bitcoin: $\approx$ 150 TWh/year globally)
+\item Cooling infrastructure
+\item High-bandwidth internet connection
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Economics:}
+\begin{itemize}
+\item Bitcoin block reward: 6.25 BTC (halves every 4 years, next in 2024 $\rightarrow$ 3.125 BTC)
+\item Break-even depends on: Hash rate, electricity cost, BTC price
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Validator Nodes (PoS)}
+\textbf{Specialized Nodes in Proof-of-Stake Blockchains}
+
+\vspace{0.5em}
+\textbf{Functions:}
+\begin{enumerate}
+\item Stake cryptocurrency as collateral (Ethereum: 32 ETH minimum)
+\item Selected to propose/attest blocks based on stake
+\item Earn rewards for honest participation
+\item Risk slashing (stake confiscation) for malicious behavior
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Ethereum 2.0 Validator Requirements:}
+\begin{itemize}
+\item 32 ETH staked (locked)
+\item Run validator client 24/7 ($>$ 99\% uptime)
+\item Consumer-grade hardware (4 GB RAM, 100 GB SSD)
+\item Stable internet (10 Mbps)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Comparison to Mining:}
+\begin{itemize}
+\item[\textcolor{mlgreen}{+}] 99.95\% less energy consumption
+\item[\textcolor{mlgreen}{+}] Lower hardware requirements
+\item[\textcolor{mlorange}{-}] Capital locked (opportunity cost)
+\item[\textcolor{mlorange}{-}] Slashing risk if offline or malicious
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Archive Nodes}
+\textbf{Full Historical State Storage}
+
+\begin{itemize}
+\item Store every state of the blockchain at every block height
+\item Enable queries like: ``What was Alice's balance at block 1,000,000?''
+\item Required for block explorers (Etherscan, Blockchain.com)
+\item Needed for advanced analytics and forensics
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Storage Requirements:}
+\begin{itemize}
+\item Bitcoin archive node: $\approx$ 500 GB (same as full node, UTXO model)
+\item Ethereum archive node: $\approx$ 12 TB (account model stores all states)
+\item Grows continuously (Ethereum: +1 TB/year)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Use Cases:}
+\begin{itemize}
+\item Block explorers
+\item Tax reporting services
+\item Academic research
+\item Forensic analysis
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Most users do not need archive nodes; full nodes are sufficient}
+\end{frame}
+
+\begin{frame}[t]{Node Type Comparison}
+\begin{table}[h]
+\tiny
+\begin{tabular}{p{2cm}p{1.8cm}p{2cm}p{2cm}p{2cm}}
+\toprule
+\textbf{Node Type} & \textbf{Storage} & \textbf{Validation} & \textbf{Trust Model} & \textbf{Use Case} \\
+\midrule
+Full Node & $\approx$ 500 GB & All blocks \& txs & Trustless & Personal sovereignty \\
+\midrule
+Light/SPV & $<$ 100 MB & Headers only & Trust full nodes & Mobile wallets \\
+\midrule
+Miner (PoW) & $\approx$ 500 GB + & Full validation & Trustless & Mining revenue \\
+\midrule
+Validator (PoS) & $\approx$ 100 GB & Full validation & Trustless & Staking rewards \\
+\midrule
+Archive Node & $>$ 10 TB & Full + history & Trustless & Analytics, explorers \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.5em}
+\textbf{Decentralization Trade-off:}
+\begin{itemize}
+\item More full nodes = more decentralization
+\item High storage requirements = fewer full nodes
+\item Blockchain scalability trilemma: Security, Decentralization, Scalability
+\end{itemize}
+\end{frame}
+
+\section{Permissioned vs. Permissionless}
+
+\begin{frame}[t]{Permissionless Blockchains (Public)}
+\begin{block}{Definition}
+\textbf{Permissionless} (public) blockchains allow anyone to join, read, write, and participate in consensus without approval from a central authority.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Characteristics:}
+\begin{itemize}
+\item Open participation (anyone can run a node)
+\item Pseudonymous identities (addresses, not real names)
+\item Transparent transaction history (all data public)
+\item Censorship resistant
+\item Token-based incentives (mining/staking rewards)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Examples:} Bitcoin, Ethereum, Cardano, Solana
+
+\vspace{0.5em}
+\textbf{Best For:}
+\begin{itemize}
+\item Global, trustless applications (DeFi, NFTs)
+\item Censorship-resistant systems
+\item Public goods (identity, voting)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Permissioned Blockchains (Private/Consortium)}
+\begin{block}{Definition}
+\textbf{Permissioned} blockchains restrict participation to verified entities. Access to read, write, or validate is controlled by administrators.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Characteristics:}
+\begin{itemize}
+\item Controlled participation (invitation-only)
+\item Known identities (KYC/AML compliance)
+\item Selective transparency (private channels possible)
+\item Efficient consensus (no mining, BFT-based)
+\item No native cryptocurrency (optional)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Examples:} Hyperledger Fabric, R3 Corda, JP Morgan Quorum
+
+\vspace{0.5em}
+\textbf{Best For:}
+\begin{itemize}
+\item Enterprise consortia (supply chain, trade finance)
+\item Regulatory compliance scenarios
+\item Inter-organizational workflows
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Comparison: Permissionless vs. Permissioned}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Permissionless (Public)}
+
+\vspace{0.3em}
+\textbf{Advantages:}
+\begin{itemize}
+\item Maximum decentralization
+\item Censorship resistant
+\item Network effects (large user base)
+\item Innovation without permission
+\end{itemize}
+
+\vspace{0.3em}
+\textbf{Disadvantages:}
+\begin{itemize}
+\item Slower throughput (5-30 TPS)
+\item Higher costs (gas fees)
+\item Energy intensive (PoW)
+\item Regulatory uncertainty
+\item No privacy by default
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Permissioned (Private)}
+
+\vspace{0.3em}
+\textbf{Advantages:}
+\begin{itemize}
+\item High throughput (1,000+ TPS)
+\item Low/no transaction fees
+\item Energy efficient (BFT)
+\item Compliance-friendly (KYC)
+\item Configurable privacy
+\end{itemize}
+
+\vspace{0.3em}
+\textbf{Disadvantages:}
+\begin{itemize}
+\item Central point of control
+\item Limited network effects
+\item Potential for censorship
+\item Less transparent
+\item Requires trust in admins
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\textit{Hybrid models exist: Public with private sidechains (e.g., Polygon for Ethereum)}
+\end{frame}
+
+\begin{frame}[t]{When to Choose Each Type}
+\begin{table}[h]
+\scriptsize
+\begin{tabular}{p{3cm}p{4.5cm}p{4.5cm}}
+\toprule
+\textbf{Criterion} & \textbf{Permissionless} & \textbf{Permissioned} \\
+\midrule
+Trust Model & No trust required & Parties partially trust each other \\
+\midrule
+Participants & Unknown, global & Known, verified entities \\
+\midrule
+Governance & Decentralized (hard forks) & Centralized/consortium voting \\
+\midrule
+Performance & 5-30 TPS & 1,000-10,000+ TPS \\
+\midrule
+Privacy & Pseudonymous, transparent & Configurable, private channels \\
+\midrule
+Compliance & Challenging & Built-in (KYC/AML) \\
+\midrule
+Cost & High (gas fees) & Low (no mining) \\
+\midrule
+Use Cases & DeFi, NFTs, payments & Supply chain, trade finance, CBDCs \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+\section{Summary}
+
+\begin{frame}[t]{Key Takeaways}
+\textbf{What You Should Remember:}
+
+\begin{enumerate}
+\item \textbf{DLT} is broader than blockchain; includes DAGs, Holochain, etc.
+\item \textbf{Byzantine Generals Problem}: Achieving consensus with potentially malicious actors requires $> 2/3$ honest nodes
+\item \textbf{Network Topologies}: Centralized (fast, fragile), Decentralized (balanced), Distributed (resilient, slow)
+\item \textbf{Block Structure}: Header (80 bytes) + Body (transactions), linked via cryptographic hashes
+\item \textbf{Merkle Trees}: Enable efficient transaction verification ($O(\log n)$ proof size)
+\item \textbf{Node Types}: Full (trustless), Light (trust others), Miner/Validator (consensus), Archive (historical queries)
+\item \textbf{Permissioned vs. Permissionless}: Public for trustless apps, private for enterprise consortia
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Discussion Questions}
+\textbf{Consider and discuss:}
+
+\begin{enumerate}
+\item \textbf{Decentralization Trade-offs}: At what point does storage cost compromise decentralization?
+  \begin{itemize}
+  \item If only enterprises can afford archive nodes, is the network still decentralized?
+  \end{itemize}
+
+\item \textbf{Byzantine Assumptions}: Are public blockchains too conservative?
+  \begin{itemize}
+  \item Could permissioned chains with known actors be more efficient?
+  \end{itemize}
+
+\item \textbf{Privacy vs. Transparency}: How can we enable audits without sacrificing user privacy?
+  \begin{itemize}
+  \item Explore: zk-SNARKs, confidential transactions
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{References \& Resources}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Foundational Papers}
+\begin{itemize}
+\item Lamport et al. (1982): \textit{Byzantine Generals Problem}
+\item Nakamoto (2008): \textit{Bitcoin Whitepaper} (Section 8: SPV)
+\item Castro \& Liskov (1999): \textit{Practical Byzantine Fault Tolerance}
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Technical Resources}
+\begin{itemize}
+\item Bitcoin Developer Guide
+\item Ethereum Yellow Paper
+\item Hyperledger Fabric Docs
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Interactive Tools}
+\begin{itemize}
+\item Blockchain Demo (andersbrownworth.com)
+\item Merkle Tree Visualizer
+\item Node map: bitnodes.io
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Books}
+\begin{itemize}
+\item Antonopoulos (2023): \textit{Mastering Bitcoin} (Chapter 6: Transactions)
+\item Narayanan et al. (2016): \textit{Bitcoin and Cryptocurrency Technologies} (Chapter 2)
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Next Lesson Preview}
+\textbf{L03: Cryptographic Hash Functions}
+
+\vspace{0.5em}
+We will explore:
+\begin{itemize}
+\item Properties of cryptographic hash functions (deterministic, fixed-length, avalanche effect)
+\item SHA-256 algorithm and its use in Bitcoin
+\item Collision resistance and birthday paradox
+\item Hash functions as digital fingerprints
+\item Merkle trees in-depth (construction and verification)
+\item Applications beyond blockchain
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Preparation:} Review binary representation of data and basic probability theory
+\end{frame}
+
+\begin{frame}[plain]
+\vspace{3cm}
+\begin{center}
+{\Large Thank you}\\[2cm]
+{\normalsize Questions?}\\[1cm]
+{\small See you in Lesson 3: Cryptographic Hash Functions}
+\end{center}
+\end{frame}
+
+\end{document}

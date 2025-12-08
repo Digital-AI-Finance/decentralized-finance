@@ -1,0 +1,481 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L45: Global Regulatory Landscape}
+\subtitle{Module G: Regulation \& Future}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Why Regulate Cryptocurrencies?}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Regulatory Concerns}
+\begin{itemize}
+\item \textbf{Money Laundering}: Anonymous transactions facilitate illicit finance
+\item \textbf{Terrorist Financing}: Funding illegal activities
+\item \textbf{Consumer Protection}: Scams, rug pulls, exchange failures
+\item \textbf{Market Manipulation}: Pump-and-dump schemes, wash trading
+\item \textbf{Tax Evasion}: Unreported capital gains
+\item \textbf{Systemic Risk}: Contagion to traditional finance
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Industry Arguments for Clarity}
+\begin{itemize}
+\item \textbf{Legitimacy}: Legal certainty attracts institutional capital
+\item \textbf{Innovation}: Clear rules enable compliant products
+\item \textbf{Consumer Trust}: Regulated exchanges reduce fraud risk
+\item \textbf{Financial Inclusion}: Regulated stablecoins for payments
+\item \textbf{Competition}: Level playing field with traditional finance
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Tension}: Innovation vs consumer protection vs financial stability
+\end{frame}
+
+\begin{frame}{The Regulatory Spectrum}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Hostile} & \textbf{Restrictive} & \textbf{Permissive} \\
+\midrule
+China (2021 ban) & India (30\% tax) & Switzerland (clear framework) \\
+Algeria, Bangladesh & South Korea (strict KYC) & Singapore (licensing) \\
+Nepal, Morocco & Brazil (no DeFi clarity) & UAE (crypto-friendly zones) \\
+ & Russia (payment ban) & Portugal (tax-friendly) \\
+ & Turkey (payment ban) & El Salvador (legal tender) \\
+\midrule
+\textbf{Approach} & \textbf{Approach} & \textbf{Approach} \\
+Outright ban & High compliance burden & Tailored regulation \\
+Capital controls & Uncertain legal status & Innovation sandboxes \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.3cm}
+\textbf{Trend}: Most jurisdictions moving from hostile/restrictive toward regulated permissiveness
+\end{frame}
+
+\begin{frame}{United States: Fragmented Regulatory Landscape}
+\begin{itemize}
+\item \textbf{No Unified Framework}: Multiple agencies with overlapping jurisdiction
+\item \textbf{Key Regulators}:
+\begin{itemize}
+\item \textbf{SEC (Securities and Exchange Commission)}: Securities regulation
+\item \textbf{CFTC (Commodity Futures Trading Commission)}: Commodities and derivatives
+\item \textbf{FinCEN (Financial Crimes Enforcement Network)}: AML/CTF
+\item \textbf{OCC (Office of Comptroller of Currency)}: Banking charters
+\item \textbf{IRS (Internal Revenue Service)}: Tax treatment
+\item \textbf{State regulators}: Money transmitter licenses (e.g., NY BitLicense)
+\end{itemize}
+\item \textbf{Uncertainty}: SEC vs CFTC jurisdiction over crypto tokens
+\item \textbf{Enforcement-by-lawsuit}: Regulation through enforcement actions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{SEC vs CFTC: Jurisdiction Battle}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{SEC Position}
+\begin{itemize}
+\item Most tokens are \textbf{securities} (Howey Test)
+\item ICOs = unregistered securities offerings
+\item Exchanges must register as securities exchanges
+\item Recent enforcement: Ripple, Coinbase, Binance
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Howey Test} (investment contract):
+\begin{enumerate}
+\item Investment of money
+\item Common enterprise
+\item Expectation of profits
+\item From efforts of others
+\end{enumerate}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{CFTC Position}
+\begin{itemize}
+\item Bitcoin and Ethereum are \textbf{commodities}
+\item Jurisdiction over crypto derivatives
+\item Fraud and manipulation enforcement
+\item Lighter regulatory touch
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Congressional Debate}:
+\begin{itemize}
+\item Multiple bills proposed (FIT21, DCCPA)
+\item Goal: Clarify SEC vs CFTC jurisdiction
+\item Status: Stalled in Congress (as of 2024)
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{US: Notable Enforcement Actions}
+\begin{itemize}
+\item \textbf{Ripple Labs (2020-2023)}: SEC sued for \$1.3B unregistered XRP sales
+\begin{itemize}
+\item Court: XRP sales to institutions = securities, public sales = not securities
+\item Partial victory for Ripple, appeals ongoing
+\end{itemize}
+\item \textbf{Coinbase (2023)}: SEC sued largest US exchange for operating unregistered exchange
+\item \textbf{Binance (2023)}: SEC + CFTC sued for multiple violations, \$4B settlement with DOJ
+\item \textbf{Terraform Labs (2023)}: SEC sued Do Kwon for \$40B UST/LUNA collapse fraud
+\item \textbf{FTX (2022)}: Criminal fraud charges against Sam Bankman-Fried, convicted 2023
+\vspace{0.3cm}
+\item \textbf{Pattern}: Regulation by enforcement, creates legal uncertainty
+\end{itemize}
+\end{frame}
+
+\begin{frame}{US Tax Treatment}
+\begin{itemize}
+\item \textbf{IRS Classification}: Cryptocurrency = \textit{property}, not currency
+\item \textbf{Tax Implications}:
+\begin{itemize}
+\item Every crypto-to-crypto trade is taxable event (capital gains)
+\item Payment with crypto triggers gain/loss calculation
+\item Mining income = ordinary income at fair market value
+\item Staking rewards = ordinary income when received
+\end{itemize}
+\item \textbf{Reporting Requirements}:
+\begin{itemize}
+\item Form 8949 for capital gains/losses
+\item Schedule 1 for mining/staking income
+\item FBAR disclosure if foreign exchange holdings >10k
+\end{itemize}
+\item \textbf{Infrastructure Bill (2021)}: Expanded broker reporting requirements (delayed to 2026)
+\item \textbf{Compliance Challenge}: Tracking cost basis across thousands of transactions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{European Union: MiCA Regulation}
+\begin{itemize}
+\item \textbf{MiCA (Markets in Crypto-Assets Regulation)}: Comprehensive EU framework
+\item \textbf{Timeline}: Approved 2023, phased implementation 2024-2025
+\item \textbf{Scope}:
+\begin{itemize}
+\item Crypto-asset service providers (CASPs)
+\item Stablecoin issuers (e-money tokens, asset-referenced tokens)
+\item NFTs excluded (unless fungible or fractionalized)
+\end{itemize}
+\item \textbf{Key Requirements}:
+\begin{itemize}
+\item Authorization and prudential requirements for CASPs
+\item Capital requirements and custody standards
+\item Market abuse prohibitions (insider trading, manipulation)
+\item Consumer protection (disclosure, conflict of interest)
+\item Stablecoin reserve requirements and redemption rights
+\end{itemize}
+\item \textbf{Impact}: Single crypto regulatory framework across 27 EU countries
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MiCA: Stablecoin Provisions}
+\begin{itemize}
+\item \textbf{E-Money Tokens (EMTs)}: Pegged to single fiat currency (e.g., USDC, USDT)
+\begin{itemize}
+\item Issuers must be authorized credit institutions or e-money institutions
+\item 1:1 reserve backing in segregated accounts
+\item Redemption at par value at any time
+\end{itemize}
+\item \textbf{Asset-Referenced Tokens (ARTs)}: Pegged to basket or non-fiat asset
+\begin{itemize}
+\item Stricter requirements (capital, governance, reserves)
+\item Liquidity management and stress testing
+\end{itemize}
+\item \textbf{Significant Tokens}: Daily transactions >1M or users >10M
+\begin{itemize}
+\item Enhanced supervision (EBA oversight)
+\item Interoperability requirements
+\item Limits on use as means of exchange (prevent systemic risk)
+\end{itemize}
+\item \textbf{Algorithmic Stablecoins}: Effectively banned (post-Terra/LUNA collapse)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Asia-Pacific: Diverse Approaches}
+\begin{itemize}
+\item \textbf{Singapore (MAS - Monetary Authority)}:
+\begin{itemize}
+\item Payment Services Act (PSA): Licensing framework for exchanges
+\item Strict AML/CFT requirements
+\item Retail investor protections (e.g., leverage limits)
+\item Supportive of institutional DeFi pilots
+\end{itemize}
+\item \textbf{Hong Kong (SFC - Securities and Futures Commission)}:
+\begin{itemize}
+\item Mandatory licensing for crypto exchanges (2023)
+\item Retail access to approved tokens only
+\item Positioning as Asian crypto hub post-China ban
+\end{itemize}
+\item \textbf{Japan (FSA - Financial Services Agency)}:
+\begin{itemize}
+\item Early regulatory framework (2017 Payment Services Act)
+\item Strict custody and cybersecurity standards (post-Mt.Gox, Coincheck hacks)
+\item Conservative approach: Limited token approval list
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{China: Comprehensive Ban}
+\begin{itemize}
+\item \textbf{2013-2017}: ICO boom in China
+\item \textbf{2017}: ICO ban, exchange closures
+\item \textbf{2021}: Complete ban on crypto transactions and mining
+\begin{itemize}
+\item All crypto transactions deemed illegal
+\item Mining banned (environmental concerns, capital outflow)
+\item Exchanges and service providers prohibited
+\end{itemize}
+\item \textbf{Rationale}:
+\begin{itemize}
+\item Capital controls (prevent yuan outflow)
+\item Financial stability (prevent speculation)
+\item Energy consumption (carbon neutrality goals)
+\item CBDC strategy (digital yuan monopoly)
+\end{itemize}
+\item \textbf{Result}: Mining exodus to US, Kazakhstan, Russia; offshore trading persists via VPNs
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Switzerland: Crypto Nation}
+\begin{itemize}
+\item \textbf{Crypto Valley (Zug)}: Global blockchain hub
+\item \textbf{Legal Framework}:
+\begin{itemize}
+\item DLT Act (2021): Tailored regulation for digital assets
+\item Token classification: Payment, Utility, Asset tokens
+\item Securities law applies to asset tokens only
+\end{itemize}
+\item \textbf{FINMA Guidance}: Clear regulatory treatment
+\begin{itemize}
+\item Licensing categories (banks, securities dealers, DLT trading facilities)
+\item AML/CFT compliance for exchanges
+\item No blanket prohibition on specific activities
+\end{itemize}
+\item \textbf{Advantages}:
+\begin{itemize}
+\item Regulatory clarity attracts global crypto firms
+\item Innovation-friendly environment
+\item Strong rule of law and political stability
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{El Salvador: Bitcoin as Legal Tender}
+\begin{itemize}
+\item \textbf{Bitcoin Law (September 2021)}: First country to adopt Bitcoin as legal tender
+\item \textbf{Key Provisions}:
+\begin{itemize}
+\item Bitcoin accepted for all payments (alongside USD)
+\item Tax payments accepted in Bitcoin
+\item No capital gains tax on Bitcoin
+\item Merchants must accept Bitcoin (if technically able)
+\end{itemize}
+\item \textbf{Implementation}:
+\begin{itemize}
+\item Chivo Wallet: Government-provided Bitcoin wallet
+\item \$30 BTC airdrop to citizens to encourage adoption
+\item Bitcoin ATMs deployed nationwide
+\end{itemize}
+\item \textbf{Results}: Mixed adoption, IMF concerns over fiscal risk, price volatility challenges
+\item \textbf{Geopolitical Experiment}: Other countries watching (Central African Republic briefly adopted, then reversed)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{AML/CFT: The Travel Rule}
+\begin{itemize}
+\item \textbf{FATF (Financial Action Task Force)}: Global AML/CFT standard setter
+\item \textbf{Travel Rule (FATF Recommendation 16)}:
+\begin{itemize}
+\item Apply to Virtual Asset Service Providers (VASPs)
+\item Collect and transmit customer information for transactions >1,000 EUR/USD
+\item Originator name, address, account number
+\item Beneficiary name, account number
+\end{itemize}
+\item \textbf{Challenge}: Decentralized protocols (DeFi) have no intermediary
+\item \textbf{Implementation}:
+\begin{itemize}
+\item Centralized exchanges: Implemented (e.g., Coinbase, Kraken)
+\item Cross-border: Technical solutions (TRP, TRUST, Notabene)
+\item Self-hosted wallets: Controversial (EU proposed ban on anonymous wallets)
+\end{itemize}
+\item \textbf{Privacy vs Compliance Tension}: KYC requirements conflict with crypto ethos
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Global Coordination: FATF, BIS, FSB}
+\begin{itemize}
+\item \textbf{FATF (Financial Action Task Force)}:
+\begin{itemize}
+\item Sets global AML/CFT standards
+\item Updated guidance for virtual assets (2019, 2021)
+\item Travel Rule enforcement
+\end{itemize}
+\item \textbf{BIS (Bank for International Settlements)}:
+\begin{itemize}
+\item Research on CBDCs, stablecoins, crypto risks
+\item Prudential treatment of crypto exposures for banks
+\end{itemize}
+\item \textbf{FSB (Financial Stability Board)}:
+\begin{itemize}
+\item Monitors systemic risk from crypto
+\item Recommendations on stablecoin regulation (post-Libra proposal)
+\item Coordination of national regulatory approaches
+\end{itemize}
+\item \textbf{Challenge}: Crypto is borderless, regulation is national
+\item \textbf{Regulatory Arbitrage}: Firms relocate to favorable jurisdictions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DeFi: The Regulatory Challenge}
+\begin{itemize}
+\item \textbf{Problem}: Traditional regulation assumes intermediaries (banks, exchanges)
+\item \textbf{DeFi Reality}: Smart contracts, no central operator
+\item \textbf{Regulatory Questions}:
+\begin{itemize}
+\item Who is liable for smart contract bugs or exploits?
+\item How to enforce AML/KYC without custodian?
+\item Are DeFi protocols securities, commodities, or something new?
+\item Can anonymous developers be held accountable?
+\end{itemize}
+\item \textbf{Enforcement Actions}:
+\begin{itemize}
+\item Tornado Cash (2022): US Treasury sanctioned mixer protocol
+\item Uniswap Labs: SEC Wells Notice for potential enforcement
+\item Ooki DAO (2022): CFTC sued DAO itself as legal entity
+\end{itemize}
+\item \textbf{Debate}: Code is speech (First Amendment) vs code is conduct (regulation)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Stablecoins: Systemic Risk Concerns}
+\begin{itemize}
+\item \textbf{Rapid Growth}: Stablecoin market cap \$150B+ (2024)
+\item \textbf{Use Cases}: Trading pairs, DeFi collateral, payments, remittances
+\item \textbf{Regulatory Concerns}:
+\begin{itemize}
+\item \textbf{Run risk}: Bank-like runs if confidence lost (UST/LUNA collapse)
+\item \textbf{Reserve quality}: Are reserves truly liquid and segregated? (Tether opacity)
+\item \textbf{Systemic contagion}: Redemptions could destabilize money markets
+\item \textbf{Payment system competition}: Threatens central bank monetary sovereignty
+\end{itemize}
+\item \textbf{Proposed Frameworks}:
+\begin{itemize}
+\item EU MiCA: Banking-like regulation for large stablecoins
+\item US proposals: Bank charter requirement or OCC oversight
+\item Singapore: MAS licensing with reserve and audit requirements
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{NFTs and Gaming: Emerging Regulatory Issues}
+\begin{itemize}
+\item \textbf{NFT Classification}:
+\begin{itemize}
+\item Art NFTs: Generally exempt from securities regulation
+\item Fractionalized NFTs: May be securities
+\item Gaming NFTs: Unclear (utility vs investment)
+\end{itemize}
+\item \textbf{Regulatory Gaps}:
+\begin{itemize}
+\item Consumer protection (fake/stolen art)
+\item Copyright and IP enforcement
+\item Money laundering (high-value art trades)
+\item Tax treatment (collectible vs property)
+\end{itemize}
+\item \textbf{Play-to-Earn Gaming}:
+\begin{itemize}
+\item Are in-game tokens securities?
+\item Gambling regulation if random rewards (loot boxes)
+\item Tax implications of earning crypto in games
+\end{itemize}
+\item \textbf{Trend}: Regulators focusing on high-value financial NFTs first
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Regulatory Outlook: Future Directions}
+\begin{itemize}
+\item \textbf{Trend 1: Convergence}: Countries adopting similar frameworks (MiCA as template)
+\item \textbf{Trend 2: Stablecoin Focus}: Banking-like regulation for systemic stablecoins
+\item \textbf{Trend 3: DeFi Reckoning}: Regulatory clarity (or crackdown) coming
+\item \textbf{Trend 4: CBDC Competition}: Central banks competing with private stablecoins
+\item \textbf{Trend 5: Global Coordination}: FATF, FSB harmonizing standards
+\item \textbf{Trend 6: Enforcement First}: US regulation by lawsuit continues
+\item \textbf{Trend 7: Licensing Regimes}: Most jurisdictions requiring VASP licenses
+\item \textbf{Trend 8: Privacy Restrictions}: KYC/AML tightening, anonymous tools restricted
+\vspace{0.3cm}
+\item \textbf{Uncertainty Remains}: Technology evolves faster than regulation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Regulatory Arbitrage and Jurisdiction Shopping}
+\begin{itemize}
+\item \textbf{Regulatory Arbitrage}: Moving operations to favorable jurisdictions
+\item \textbf{Crypto-Friendly Jurisdictions}:
+\begin{itemize}
+\item UAE (Dubai): Virtual Asset Regulatory Authority (VARA), no corporate tax
+\item Cayman Islands: Popular for fund domiciles, light regulation
+\item Malta: Early mover, ``Blockchain Island'' branding
+\item Bermuda: Clear regulatory framework, insurance hub
+\end{itemize}
+\item \textbf{Consequences}:
+\begin{itemize}
+\item Talent and capital migrate to clear regulatory environments
+\item Regulatory race to bottom (vs race to top for legitimacy)
+\item Enforcement challenges (cross-border operations)
+\end{itemize}
+\item \textbf{Countertrend}: Jurisdictions tightening (e.g., Binance ejected from multiple countries)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Case Study: FTX Collapse and Regulatory Failure}
+\begin{itemize}
+\item \textbf{FTX Collapse (November 2022)}: \$8B customer funds missing
+\item \textbf{Regulatory Failures}:
+\begin{itemize}
+\item FTX US: Operated without proper state licenses
+\item FTX International (Bahamas): Light oversight, commingling of funds
+\item Alameda Research: Unregulated sister company used customer funds
+\item Audits: Lack of proper financial audits (auditor was tiny firm)
+\end{itemize}
+\item \textbf{Aftermath}:
+\begin{itemize}
+\item Criminal charges against SBF (fraud, money laundering)
+\item Renewed calls for exchange regulation
+\item Proof-of-reserves movement (Merkle tree attestations)
+\item Regulatory scrutiny of offshore exchanges
+\end{itemize}
+\item \textbf{Lesson}: Self-regulation insufficient, need strong custody and audit requirements
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+\item \textbf{Global regulatory landscape}: Highly fragmented, evolving rapidly
+\item \textbf{US}: Fragmented (SEC vs CFTC), regulation by enforcement
+\item \textbf{EU}: Comprehensive MiCA framework, stablecoin focus
+\item \textbf{Asia}: Diverse (Singapore/HK permissive, China ban, Japan conservative)
+\item \textbf{Switzerland}: Clear framework, crypto-friendly (Crypto Valley)
+\item \textbf{AML/CFT}: Travel Rule, KYC requirements tightening globally
+\item \textbf{DeFi challenge}: No intermediaries, enforcement difficult
+\item \textbf{Stablecoins}: Systemic risk, banking-like regulation emerging
+\item \textbf{Trend}: Convergence toward licensing regimes, global coordination
+\item \textbf{Tension}: Innovation vs consumer protection, privacy vs compliance
+\end{itemize}
+\end{frame}
+
+\end{document}

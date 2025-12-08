@@ -1,0 +1,640 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L31: Token Classification and Valuation}
+\subtitle{Module D: Tokenomics}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand the Howey Test and securities classification
+\item Distinguish between utility and security tokens
+\item Apply valuation frameworks to crypto assets
+\item Analyze network value metrics (NVT, Metcalfe)
+\item Case Study: SEC vs. Ripple
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why Classification Matters}
+\textbf{Regulatory Implications:}
+\begin{itemize}
+\item Securities require registration with SEC (in US)
+\item Investor protections apply
+\item Trading restrictions (accredited investors only)
+\item Disclosure requirements
+\item Legal liability for issuers
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Market Implications:}
+\begin{itemize}
+\item Exchange listings (securities can't list on most exchanges)
+\item Global accessibility
+\item Tax treatment
+\item Institutional adoption
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Bottom Line:} Misclassification can lead to enforcement actions, delisting, and legal penalties.
+\end{frame}
+
+\begin{frame}{The Howey Test (1946)}
+\textbf{Origin:} SEC v. W.J. Howey Co. (Supreme Court case)
+
+\vspace{0.3cm}
+\textbf{An investment is a security if it involves:}
+\begin{enumerate}
+\item \textbf{Investment of Money}
+\begin{itemize}
+\item Investors provide capital
+\end{itemize}
+
+\item \textbf{In a Common Enterprise}
+\begin{itemize}
+\item Pooled funds or shared outcome
+\end{itemize}
+
+\item \textbf{With Expectation of Profits}
+\begin{itemize}
+\item Investors seek financial return
+\end{itemize}
+
+\item \textbf{Derived from Efforts of Others}
+\begin{itemize}
+\item Profits depend on promoter/third party work
+\end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{All four criteria must be met} for classification as a security.
+\end{frame}
+
+\begin{frame}{Applying Howey to Tokens}
+\textbf{Typical ICO Analysis:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Investment of Money:} Yes
+\begin{itemize}
+\item Investors pay ETH/USD for tokens
+\end{itemize}
+
+\item \textbf{Common Enterprise:} Yes
+\begin{itemize}
+\item All token holders share in project success
+\end{itemize}
+
+\item \textbf{Expectation of Profits:} Usually Yes
+\begin{itemize}
+\item Marketing emphasizes potential returns
+\item Tokens traded on secondary markets
+\end{itemize}
+
+\item \textbf{Efforts of Others:} Key Question
+\begin{itemize}
+\item If value depends on team's work = Security
+\item If value comes from decentralized network = Maybe not
+\end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Gray Area:} Many tokens start as securities but may decentralize over time.
+\end{frame}
+
+\begin{frame}{Utility vs. Security Tokens}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Utility Token}
+\begin{itemize}
+\item Access to product/service
+\item Not marketed as investment
+\item Value from usage, not speculation
+\item Decentralized governance
+\item Examples: BNB (exchange fees), FIL (storage)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Howey Test:}
+\begin{itemize}
+\item Fails ``efforts of others'' if truly decentralized
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Security Token}
+\begin{itemize}
+\item Investment contract
+\item Promise of profits
+\item Centralized management
+\item Shares, equity, dividends
+\item Examples: Tokenized stocks, some ICOs
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Howey Test:}
+\begin{itemize}
+\item Meets all four criteria
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Reality:} Most tokens exist on a spectrum, not binary classification.
+\end{frame}
+
+\begin{frame}{SEC's Position on Crypto}
+\textbf{Chair Gary Gensler's View (2021-present):}
+\begin{itemize}
+\item ``The vast majority of crypto tokens are securities''
+\item Only BTC explicitly named as commodity (not security)
+\item ETH unclear (formerly investigated, no enforcement)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Enforcement Actions:}
+\begin{itemize}
+\item 2020: Ripple (XRP)
+\item 2023: Coinbase (listing unregistered securities)
+\item 2023: Binance (multiple violations)
+\item Many ICO settlements (2018-2020)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Industry Criticism:}
+\begin{itemize}
+\item ``Regulation by enforcement'' instead of clear rules
+\item Calls for dedicated crypto legislation
+\item Uncertainty harms innovation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Case Study: SEC vs. Ripple}
+\textbf{Background:}
+\begin{itemize}
+\item Ripple Labs created XRP (2012)
+\item Used for cross-border payments
+\item Ripple holds ~50\% of XRP supply
+\item \$1.3B raised from XRP sales (2013-2020)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{SEC Complaint (Dec 2020):}
+\begin{itemize}
+\item XRP is an unregistered security
+\item Ripple raised funds through illegal securities offering
+\item Executives personally profited from sales
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Ripple's Defense:}
+\begin{itemize}
+\item XRP is a currency, not a security
+\item Used for payments, not investment
+\item Network is decentralized (1,000+ validators)
+\item Similar to BTC/ETH (not securities)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ripple Case: Ruling (July 2023)}
+\textbf{Judge Torres Decision - Partial Victory for Ripple:}
+
+\vspace{0.3cm}
+\textbf{1. Institutional Sales = Securities}
+\begin{itemize}
+\item XRP sold to VCs/hedge funds = securities
+\item Buyers had expectation of profits from Ripple's efforts
+\item Violates securities laws
+\end{itemize}
+
+\textbf{2. Programmatic Sales (Exchanges) = NOT Securities}
+\begin{itemize}
+\item XRP sold on public exchanges = not securities
+\item Buyers didn't know they were buying from Ripple
+\item No direct contract or promise
+\end{itemize}
+
+\textbf{3. Employee Compensation = NOT Securities}
+\begin{itemize}
+\item XRP given to employees = not securities
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Impact:} First major ruling that distinguished sale context matters.
+\end{frame}
+
+\begin{frame}{Ripple Case: Implications}
+\textbf{For XRP:}
+\begin{itemize}
+\item Price rallied 70\%+ on ruling
+\item Some exchanges relisted XRP
+\item Still uncertainty (SEC appealed ruling)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{For Crypto Industry:}
+\begin{itemize}
+\item Context of sale matters, not just token characteristics
+\item Programmatic sales may have safer path
+\item Decentralization over time could help
+\item Not full clarity (district court, not precedent for all courts)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Ongoing Issues:}
+\begin{itemize}
+\item SEC appealed decision (ongoing as of Dec 2024)
+\item Other tokens still face scrutiny
+\item Need for congressional legislation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Token Valuation Challenges}
+\textbf{Why Traditional Valuation is Hard:}
+\begin{itemize}
+\item No cash flows (most tokens)
+\item No earnings or revenue
+\item No tangible assets
+\item Highly speculative markets
+\item Network effects hard to quantify
+\item Regulatory uncertainty
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Approaches:}
+\begin{enumerate}
+\item Network Value to Transactions (NVT)
+\item Metcalfe's Law
+\item Discounted Cash Flow (DCF) - for productive assets
+\item Comparable Analysis
+\item Cost of Production (mining)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Reality:} Valuation is more art than science in crypto.
+\end{frame}
+
+\begin{frame}{Network Value to Transactions (NVT)}
+\textbf{Formula:}
+\[
+\text{NVT Ratio} = \frac{\text{Market Cap}}{\text{Daily Transaction Volume}}
+\]
+
+\vspace{0.3cm}
+\textbf{Interpretation:}
+\begin{itemize}
+\item Similar to P/E ratio in stocks
+\item High NVT = overvalued relative to usage
+\item Low NVT = undervalued or high utility
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Typical Ranges:}
+\begin{itemize}
+\item BTC: 50-100 (higher = store of value, not payment)
+\item ETH: 20-40 (more transactional)
+\item Payment tokens: <20 (high transaction volume)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Limitations:}
+\begin{itemize}
+\item Wash trading inflates volume
+\item Doesn't account for future growth
+\item Different tokens have different purposes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{NVT Example Calculation}
+\textbf{Hypothetical Token X:}
+\begin{itemize}
+\item Market Cap: \$1,000,000,000 (1 billion)
+\item Daily Transaction Volume: \$50,000,000 (50 million)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Calculation:}
+\[
+\text{NVT} = \frac{1{,}000{,}000{,}000}{50{,}000{,}000} = 20
+\]
+
+\vspace{0.3cm}
+\textbf{Analysis:}
+\begin{itemize}
+\item NVT of 20 is moderate
+\item Comparable to Ethereum's historical range
+\item If NVT > 50: potentially overvalued
+\item If NVT < 10: potentially undervalued or high transaction spam
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Action:} Compare to similar tokens and historical trends.
+\end{frame}
+
+\begin{frame}{Metcalfe's Law}
+\textbf{Concept:} Network value grows with the square of the number of users.
+
+\vspace{0.3cm}
+\textbf{Formula:}
+\[
+V \propto n^2
+\]
+where $V$ = network value, $n$ = number of users.
+
+\vspace{0.3cm}
+\textbf{Application to Crypto:}
+\begin{itemize}
+\item More users = exponentially more connections
+\item Active addresses proxy for $n$
+\item Studies show BTC/ETH follow Metcalfe's Law loosely
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Network with 100 users: Value $\propto$ 10,000
+\item Network with 1,000 users: Value $\propto$ 1,000,000 (100x growth)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Limitations:}
+\begin{itemize}
+\item Not all users create equal value
+\item Doesn't account for quality of usage
+\item Empirical fit varies by token
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Discounted Cash Flow (DCF)}
+\textbf{When to Use:} Tokens with cash flow generation (staking rewards, fee sharing).
+
+\vspace{0.3cm}
+\textbf{Formula:}
+\[
+\text{Value} = \sum_{t=1}^{n} \frac{\text{CF}_t}{(1 + r)^t}
+\]
+where $\text{CF}_t$ = cash flow in year $t$, $r$ = discount rate.
+
+\vspace{0.3cm}
+\textbf{Example: Staking Token}
+\begin{itemize}
+\item Expected annual staking reward: \$100
+\item Discount rate: 10\%
+\item Perpetual reward assumption
+\end{itemize}
+
+\[
+\text{Value} = \frac{100}{0.10} = \$1,000
+\]
+
+\vspace{0.3cm}
+\textbf{Challenges:}
+\begin{itemize}
+\item Predicting future cash flows in volatile markets
+\item Choosing appropriate discount rate
+\item Many tokens have no direct cash flows
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Comparable Analysis}
+\textbf{Method:} Compare token to similar projects using multiples.
+
+\vspace{0.3cm}
+\textbf{Common Metrics:}
+\begin{itemize}
+\item Market Cap / TVL (DeFi protocols)
+\item Market Cap / Daily Active Users
+\item Market Cap / Revenue (if applicable)
+\item Market Cap / Transaction Volume
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example: DeFi Protocol Valuation}
+\begin{itemize}
+\item Comparable protocols: Aave (MC/TVL = 0.5), Compound (MC/TVL = 0.3)
+\item Your protocol TVL: \$500M
+\item Average multiple: 0.4
+\item Estimated Market Cap: \$500M $\times$ 0.4 = \$200M
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Limitations:}
+\begin{itemize}
+\item Market multiples change rapidly
+\item Protocols differ in features/risks
+\item Circular reasoning if whole sector overvalued
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cost of Production (Bitcoin)}
+\textbf{Theory:} Long-term price gravitates toward mining cost.
+
+\vspace{0.3cm}
+\textbf{Components:}
+\begin{itemize}
+\item Hardware (ASIC miners)
+\item Electricity ($\sim$\$0.03-\$0.10 per kWh)
+\item Cooling and facility costs
+\item Labor and maintenance
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Estimated BTC Mining Cost (2024):}
+\begin{itemize}
+\item Efficient miners: \$15,000-\$25,000 per BTC
+\item Inefficient miners: \$30,000-\$40,000 per BTC
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Observations:}
+\begin{itemize}
+\item Price often exceeds cost during bull markets
+\item Price can fall below cost temporarily (bear markets)
+\item Difficulty adjusts to maintain profitability
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Note:} Doesn't apply to non-PoW tokens.
+\end{frame}
+
+\begin{frame}{Fundamental vs. Speculative Value}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Fundamental Value}
+\begin{itemize}
+\item Network utility
+\item Transaction demand
+\item Staking yields
+\item Fee generation
+\item User growth
+\item Developer activity
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Analysis:}
+On-chain metrics, usage data, revenue.
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Speculative Value}
+\begin{itemize}
+\item Market sentiment
+\item Hype cycles
+\item Social media trends
+\item Influencer endorsements
+\item FOMO/FUD dynamics
+\item Meme appeal
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Analysis:}
+Sentiment analysis, technical charts, volatility.
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Reality:} Crypto prices driven by both, but speculation often dominates short-term.
+\end{frame}
+
+\begin{frame}{On-Chain Metrics for Valuation}
+\textbf{Key Indicators:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Active Addresses}
+\begin{itemize}
+\item Daily/monthly unique addresses
+\item Proxy for network adoption
+\end{itemize}
+
+\item \textbf{Transaction Count \& Volume}
+\begin{itemize}
+\item Higher usage = higher value (potentially)
+\end{itemize}
+
+\item \textbf{Hash Rate (PoW chains)}
+\begin{itemize}
+\item Security investment by miners
+\end{itemize}
+
+\item \textbf{Total Value Locked (DeFi)}
+\begin{itemize}
+\item Capital deployed in protocol
+\end{itemize}
+
+\item \textbf{Developer Activity}
+\begin{itemize}
+\item GitHub commits, active developers
+\end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Tools:} Glassnode, IntoTheBlock, Messari, Dune Analytics
+\end{frame}
+
+\begin{frame}{Market Cap vs. Fully Diluted Valuation}
+\textbf{Market Cap:}
+\[
+\text{Market Cap} = \text{Price} \times \text{Circulating Supply}
+\]
+
+\textbf{Fully Diluted Valuation (FDV):}
+\[
+\text{FDV} = \text{Price} \times \text{Total Supply (Max)}
+\]
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Token price: \$10
+\item Circulating supply: 100M tokens
+\item Total supply: 1B tokens
+\end{itemize}
+
+\begin{itemize}
+\item Market Cap: \$10 $\times$ 100M = \$1B
+\item FDV: \$10 $\times$ 1B = \$10B
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Warning:} Large FDV/MC ratio indicates future dilution risk.
+\end{frame}
+
+\begin{frame}{Token Valuation Checklist}
+\textbf{Step-by-Step Analysis:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item Determine token type and purpose (utility, governance, etc.)
+\item Check regulatory status (security vs. non-security)
+\item Calculate NVT ratio (compare to peers)
+\item Analyze on-chain metrics (addresses, transactions, TVL)
+\item Review tokenomics (supply, inflation, unlock schedule)
+\item Compare market cap to fundamentals (revenue, usage)
+\item Assess FDV vs. Market Cap (dilution risk)
+\item Consider qualitative factors (team, tech, community)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Output:} Informed estimate of fair value range (not precise number).
+\end{frame}
+
+\begin{frame}{Limitations of Crypto Valuation}
+\textbf{Challenges:}
+\begin{itemize}
+\item Extreme volatility makes models unstable
+\item Lack of historical data for many tokens
+\item Regulatory uncertainty changes risk profile
+\item Network effects hard to quantify
+\item Technology risks (bugs, hacks, obsolescence)
+\item Market manipulation (wash trading, pump-and-dump)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Best Practice:}
+\begin{itemize}
+\item Use multiple valuation methods
+\item Establish ranges, not point estimates
+\item Focus on relative value (undervalued vs. overvalued compared to peers)
+\item Combine quantitative metrics with qualitative judgment
+\item Update models frequently as data evolves
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Howey Test determines security classification (4 criteria)
+\item Context of sale matters (Ripple case precedent)
+\item NVT ratio helps assess value relative to transaction volume
+\item Metcalfe's Law suggests network value grows with users squared
+\item DCF applicable only to tokens with cash flows
+\item Comparable analysis useful for relative valuation
+\item Always compare Market Cap to FDV (dilution risk)
+\item Crypto valuation is imprecise - use multiple methods
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} Lab - Tokenomics Analysis (apply these frameworks to real projects).
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Apply the Howey Test to a token you're familiar with. Is it a security?
+\item Why did the Ripple ruling distinguish between institutional and exchange sales?
+\item Calculate the NVT ratio for Bitcoin and Ethereum. What does it tell you?
+\item What are the limitations of using Metcalfe's Law for token valuation?
+\item How would you value a governance token with no direct cash flows?
+\end{enumerate}
+\end{frame}
+
+\end{document}

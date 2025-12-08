@@ -1,0 +1,607 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L37: Lending Protocols}
+\subtitle{Module E: DeFi Ecosystem}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand how DeFi lending protocols work (Aave, Compound)
+\item Analyze overcollateralization and its necessity
+\item Calculate health factors and liquidation thresholds
+\item Explore interest rate models (utilization-based)
+\item Compare DeFi lending to traditional finance
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Traditional Lending vs. DeFi Lending}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Traditional Lending}
+\begin{itemize}
+\item Credit checks required
+\item Identity verification (KYC)
+\item Undercollateralized (borrow more than collateral)
+\item Long approval process
+\item Fixed terms and rates
+\item Geographic restrictions
+\item Intermediaries (banks)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{DeFi Lending}
+\begin{itemize}
+\item No credit checks
+\item Pseudonymous (wallet address)
+\item Overcollateralized (deposit > borrow)
+\item Instant approval
+\item Variable rates (algorithmic)
+\item Global access
+\item Smart contracts (no intermediaries)
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Key Trade-off:} DeFi accessibility vs. capital efficiency (must lock more than you borrow).
+\end{frame}
+
+\begin{frame}{How DeFi Lending Works}
+\textbf{Core Mechanism:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Lenders (Suppliers)}
+\begin{itemize}
+\item Deposit assets (ETH, USDC, DAI, etc.) into protocol
+\item Earn interest on deposits (APY varies by utilization)
+\item Can withdraw anytime (if liquidity available)
+\end{itemize}
+
+\item \textbf{Borrowers}
+\begin{itemize}
+\item Deposit collateral (e.g., ETH)
+\item Borrow up to a percentage of collateral value (e.g., 75\%)
+\item Pay interest to lenders
+\item Must maintain health factor above 1
+\end{itemize}
+
+\item \textbf{Protocol}
+\begin{itemize}
+\item Matches lenders and borrowers via smart contracts
+\item Sets interest rates algorithmically
+\item Manages liquidations
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Example: Borrowing on Aave}
+\textbf{User Journey:}
+
+\vspace{0.3cm}
+\textbf{Step 1: Supply Collateral}
+\begin{itemize}
+\item Deposit 10 ETH (worth \$20,000 at \$2,000/ETH)
+\item Receive aETH tokens (interest-bearing, 1:1 with ETH)
+\end{itemize}
+
+\textbf{Step 2: Borrow}
+\begin{itemize}
+\item ETH has 80\% Loan-to-Value (LTV) ratio
+\item Max borrow: $10 \times \$2{,}000 \times 0.80 = \$16{,}000$
+\item User borrows \$10,000 USDC (safe margin)
+\end{itemize}
+
+\textbf{Step 3: Manage Position}
+\begin{itemize}
+\item Interest accrues on \$10,000 debt (e.g., 5\% APY)
+\item User earns interest on 10 ETH deposit (e.g., 2\% APY)
+\item Net cost: 5\% - 2\% = 3\% on borrowed amount
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why Overcollateralization?}
+\textbf{Problem:} No identity means no recourse if borrower defaults.
+
+\vspace{0.3cm}
+\textbf{Solution:} Require collateral worth more than loan.
+
+\vspace{0.3cm}
+\textbf{Mechanism:}
+\begin{itemize}
+\item If collateral value drops, protocol liquidates automatically
+\item Liquidators repay debt, seize collateral (with bonus)
+\item Lenders remain whole
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trade-off:}
+\begin{itemize}
+\item \textbf{Capital inefficient:} Can't access full collateral value
+\item \textbf{Safe for lenders:} Minimal default risk
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example Use Cases:}
+\begin{itemize}
+\item Leverage (borrow USDC, buy more ETH for long exposure)
+\item Short selling (borrow ETH, sell it, buy back cheaper)
+\item Liquidity without selling (keep ETH, borrow USDC for expenses)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Loan-to-Value (LTV) Ratio}
+\textbf{Definition:}
+\[
+\text{LTV} = \frac{\text{Borrowed Value}}{\text{Collateral Value}} \times 100\%
+\]
+
+\vspace{0.3cm}
+\textbf{Example LTV Limits (Aave):}
+\begin{itemize}
+\item ETH: 80\% (can borrow up to 80\% of ETH value)
+\item WBTC: 75\%
+\item USDC: 85\% (stablecoin, less volatile)
+\item Low-cap tokens: 40-60\% (higher risk)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why Different LTVs?}
+\begin{itemize}
+\item Volatile assets = lower LTV (more buffer for price swings)
+\item Stable assets = higher LTV (minimal price risk)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Calculation:}
+\begin{itemize}
+\item Collateral: 10 ETH at \$2,000 = \$20,000
+\item Borrowed: \$12,000 USDC
+\item LTV: $\frac{12{,}000}{20{,}000} = 60\%$ (safe, under 80\% max)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Liquidation Threshold}
+\textbf{Definition:} LTV at which liquidation occurs (always higher than max LTV).
+
+\vspace{0.3cm}
+\textbf{Example (Aave):}
+\begin{itemize}
+\item ETH Max LTV: 80\%
+\item ETH Liquidation Threshold: 83\%
+\item Buffer: 3\% (gives borrower time to add collateral)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Scenario:}
+\begin{itemize}
+\item User borrows at 80\% LTV
+\item ETH price drops 5\%
+\item New LTV: $80\% \times \frac{1}{0.95} \approx 84.2\%$ (exceeds 83\% threshold)
+\item \textbf{Liquidation triggered}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Liquidation Penalty:}
+\begin{itemize}
+\item Liquidator repays debt, receives collateral + bonus (e.g., 5\%)
+\item Borrower loses penalty amount
+\item Remaining collateral returned to borrower
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Health Factor}
+\textbf{Definition:} Metric indicating position safety.
+
+\vspace{0.3cm}
+\textbf{Formula (Aave):}
+\[
+\text{Health Factor} = \frac{\text{Collateral Value} \times \text{Liquidation Threshold}}{\text{Borrowed Value}}
+\]
+
+\vspace{0.3cm}
+\textbf{Interpretation:}
+\begin{itemize}
+\item Health Factor > 1: Safe (no liquidation)
+\item Health Factor = 1: At liquidation threshold
+\item Health Factor < 1: Liquidation occurs
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Collateral: \$20,000 (ETH)
+\item Borrowed: \$12,000 (USDC)
+\item Liquidation threshold: 83\%
+\end{itemize}
+\[
+\text{HF} = \frac{20{,}000 \times 0.83}{12{,}000} = 1.38
+\]
+
+\textbf{Safe:} 38\% buffer before liquidation.
+\end{frame}
+
+\begin{frame}{Health Factor Example: Price Drop}
+\textbf{Initial State:}
+\begin{itemize}
+\item 10 ETH at \$2,000 = \$20,000 collateral
+\item \$12,000 USDC borrowed
+\item Liquidation threshold: 83\%
+\item Health Factor: $\frac{20{,}000 \times 0.83}{12{,}000} = 1.38$
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{ETH drops to \$1,600:}
+\begin{itemize}
+\item New collateral value: $10 \times \$1{,}600 = \$16{,}000$
+\item Borrowed still: \$12,000
+\item New HF: $\frac{16{,}000 \times 0.83}{12{,}000} = 1.11$ (still safe)
+\end{itemize}
+
+\textbf{ETH drops to \$1,446:}
+\begin{itemize}
+\item New collateral value: $10 \times \$1{,}446 = \$14{,}460$
+\item New HF: $\frac{14{,}460 \times 0.83}{12{,}000} = 1.00$ (liquidation threshold)
+\item \textbf{Position liquidated}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Liquidation Process}
+\textbf{When Health Factor < 1:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Liquidator Bot Detects} unhealthy position
+\item \textbf{Liquidator Repays} portion of debt (up to 50\%)
+\item \textbf{Liquidator Receives} equivalent collateral + bonus (5-10\%)
+\item \textbf{Borrower Loses} liquidation penalty
+\item \textbf{Remaining Collateral} returned to borrower
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Debt: \$12,000 USDC
+\item Collateral: \$14,460 ETH (at \$1,446/ETH)
+\item Liquidator repays 50\%: \$6,000
+\item Liquidator receives: $\$6{,}000 \times 1.05 = \$6{,}300$ in ETH
+\item Borrower left with: \$14,460 - \$6,300 = \$8,160 collateral and \$6,000 debt
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Penalty:} Borrower lost \$300 (5\% of liquidated amount).
+\end{frame}
+
+\begin{frame}{Interest Rate Models}
+\textbf{Key Concept:} Rates adjust based on utilization.
+
+\vspace{0.3cm}
+\textbf{Utilization Rate:}
+\[
+U = \frac{\text{Total Borrowed}}{\text{Total Supplied}}
+\]
+
+\textbf{Interest Rates:}
+\begin{itemize}
+\item Low utilization (0-60\%): Low borrow rates (encourage borrowing)
+\item Optimal utilization (~80\%): Moderate rates (balanced)
+\item High utilization (>90\%): High rates (encourage repayment, discourage borrowing)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example (USDC on Aave):}
+\begin{itemize}
+\item 0\% utilization: 1\% borrow APY
+\item 80\% utilization: 5\% borrow APY
+\item 95\% utilization: 20\% borrow APY (sharp increase)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why?} Prevents bank runs (always keep some liquidity for withdrawals).
+\end{frame}
+
+\begin{frame}{Supply and Borrow APY Relationship}
+\textbf{Lenders earn a portion of what borrowers pay.}
+
+\vspace{0.3cm}
+\textbf{Formula:}
+\[
+\text{Supply APY} = \text{Borrow APY} \times U \times (1 - \text{Reserve Factor})
+\]
+
+where Reserve Factor is protocol fee (e.g., 10\%).
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Borrow APY: 5\%
+\item Utilization: 80\%
+\item Reserve Factor: 10\%
+\end{itemize}
+\[
+\text{Supply APY} = 5\% \times 0.80 \times 0.90 = 3.6\%
+\]
+
+\vspace{0.3cm}
+\textbf{Observation:} Supply APY always lower than borrow APY (protocol takes cut, not everyone borrows).
+\end{frame}
+
+\begin{frame}{Aave Protocol Overview}
+\textbf{Key Features:}
+\begin{itemize}
+\item \textbf{Flash Loans:} Borrow without collateral if repaid in same transaction
+\item \textbf{Rate Switching:} Choose stable or variable interest rates
+\item \textbf{Credit Delegation:} Lend your credit line to others
+\item \textbf{Isolation Mode:} New assets isolated to reduce systemic risk
+\item \textbf{E-Mode:} Higher LTV for correlated assets (e.g., ETH/stETH)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Governance:}
+\begin{itemize}
+\item AAVE token holders vote on protocol changes
+\item Risk parameters (LTV, liquidation thresholds)
+\item Asset listings
+\item Treasury management
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{TVL:} ~\$4B (Dec 2024), deployed on Ethereum, Polygon, Avalanche, Arbitrum, Optimism.
+\end{frame}
+
+\begin{frame}{Compound Protocol Overview}
+\textbf{Key Features:}
+\begin{itemize}
+\item \textbf{cTokens:} Interest-bearing tokens (cUSDC, cETH)
+\item \textbf{Algorithmic Rates:} Fully automated interest rate model
+\item \textbf{Governance:} COMP token holders control protocol
+\item \textbf{Simplicity:} Fewer features than Aave, easier to understand
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{cToken Mechanism:}
+\begin{itemize}
+\item Supply 100 USDC, receive ~5,000 cUSDC
+\item cUSDC exchange rate increases over time (accrues interest)
+\item Redeem cUSDC for USDC + interest anytime
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Historical Significance:}
+\begin{itemize}
+\item Pioneered DeFi lending (launched 2018)
+\item Introduced COMP governance token (2020)
+\item Sparked ``DeFi Summer'' via liquidity mining
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{TVL:} ~\$1.5B (Dec 2024).
+\end{frame}
+
+\begin{frame}{Flash Loans (Aave)}
+\textbf{Definition:} Borrow any amount without collateral, repay in same transaction.
+
+\vspace{0.3cm}
+\textbf{How It Works:}
+\begin{enumerate}
+\item Borrow \$1M USDC from Aave
+\item Use \$1M for arbitrage, collateral swap, or liquidation
+\item Repay \$1M + 0.09\% fee
+\item All in one atomic transaction (either all succeeds or all reverts)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Use Cases:}
+\begin{itemize}
+\item \textbf{Arbitrage:} Exploit price differences across DEXs
+\item \textbf{Collateral Swap:} Switch collateral without closing position
+\item \textbf{Self-Liquidation:} Repay debt before liquidation penalty
+\item \textbf{Exploits:} Unfortunately, used in many DeFi hacks
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Fee:} 0.09\% of borrowed amount.
+
+\textbf{Risk:} If transaction fails, borrow is reversed (no loss to lenders).
+\end{frame}
+
+\begin{frame}{Flash Loan Attack Example}
+\textbf{Historical Attack: bZx (2020)}
+
+\vspace{0.3cm}
+\textbf{Attack Steps:}
+\begin{enumerate}
+\item Flash loan 10,000 ETH from dYdX
+\item Deposit 5,500 ETH into Compound as collateral
+\item Borrow 112 WBTC from Compound
+\item Swap 112 WBTC on Uniswap for 6,871 ETH (manipulating price)
+\item Use pumped ETH price to borrow max from bZx
+\item Repay flash loan, keep profit (~\$350k)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Root Cause:} bZx used Uniswap as sole price oracle (manipulable).
+
+\vspace{0.3cm}
+\textbf{Lesson:} Flash loans amplify oracle manipulation attacks. Protocols must use decentralized, manipulation-resistant oracles.
+\end{frame}
+
+\begin{frame}{Stable vs. Variable Interest Rates}
+\textbf{Aave offers borrowers a choice:}
+
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Variable Rate}
+\begin{itemize}
+\item Changes with utilization
+\item Usually lower (on average)
+\item Unpredictable
+\item Can spike during high demand
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Best for:}
+\begin{itemize}
+\item Short-term borrowing
+\item Users who monitor actively
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Stable Rate}
+\begin{itemize}
+\item Fixed for duration
+\item Higher than variable (premium for stability)
+\item Predictable
+\item Can be rebalanced by protocol if too far from market
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Best for:}
+\begin{itemize}
+\item Long-term borrowing
+\item Risk-averse users
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Switching:} Borrowers can switch between rate types anytime.
+\end{frame}
+
+\begin{frame}{Risks in DeFi Lending}
+\textbf{1. Smart Contract Risk}
+\begin{itemize}
+\item Bugs or exploits in protocol code
+\item Historical hacks: Rari Capital, Cream Finance
+\end{itemize}
+
+\textbf{2. Liquidation Risk}
+\begin{itemize}
+\item Volatile markets can trigger liquidations
+\item Network congestion may prevent adding collateral
+\end{itemize}
+
+\textbf{3. Oracle Risk}
+\begin{itemize}
+\item Price feed manipulation
+\item Stale prices during network issues
+\end{itemize}
+
+\textbf{4. Governance Risk}
+\begin{itemize}
+\item Malicious proposals changing parameters
+\item Low voter participation
+\end{itemize}
+
+\textbf{5. Liquidity Risk}
+\begin{itemize}
+\item High utilization prevents withdrawals
+\item Bank run scenarios (rare but possible)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DeFi Lending vs. CeFi Lending}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{DeFi (Aave, Compound)}
+\begin{itemize}
+\item Non-custodial
+\item Transparent reserves
+\item Overcollateralized
+\item Instant settlement
+\item Smart contract risk
+\item No insurance (usually)
+\item Permissionless
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{CeFi (BlockFi, Celsius)}
+\begin{itemize}
+\item Custodial
+\item Opaque reserves
+\item Can be undercollateralized
+\item T+1 settlement
+\item Counterparty risk
+\item Some insurance
+\item KYC required
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{2022 Lesson:} CeFi lenders (Celsius, Voyager, BlockFi) collapsed. DeFi protocols (Aave, Compound) survived intact, demonstrating transparency advantage.
+\end{frame}
+
+\begin{frame}{Future: Undercollateralized Lending}
+\textbf{Current Limitation:} DeFi lending is capital inefficient (overcollateralization).
+
+\vspace{0.3cm}
+\textbf{Emerging Solutions:}
+\begin{enumerate}
+\item \textbf{On-Chain Credit Scores}
+\begin{itemize}
+\item Track repayment history, wallet activity
+\item Examples: Credora, ARCx
+\end{itemize}
+
+\item \textbf{Real-World Identity}
+\begin{itemize}
+\item Link wallet to verified identity (KYC)
+\item Legal recourse if default
+\item Examples: Goldfinch, TrueFi
+\end{itemize}
+
+\item \textbf{Social Collateral}
+\begin{itemize}
+\item Community vouching, reputation staking
+\item Example: Teller Protocol
+\end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Trade-off:} Undercollateralization requires identity or trust, reducing permissionlessness.
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item DeFi lending is permissionless but requires overcollateralization
+\item LTV ratios vary by asset risk (ETH 80\%, low-cap tokens 40\%)
+\item Health factor must stay above 1 to avoid liquidation
+\item Interest rates adjust algorithmically based on utilization
+\item Flash loans enable zero-collateral borrowing within one transaction
+\item Aave and Compound dominate DeFi lending (\$5.5B+ combined TVL)
+\item Risks: smart contract bugs, liquidations, oracle manipulation
+\item Future: undercollateralized lending via on-chain credit scoring
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} Stablecoin Mechanisms - How stablecoins maintain price stability.
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Calculate health factor for: \$30k collateral, \$20k borrowed, 85\% liquidation threshold.
+\item Why is overcollateralization necessary in DeFi lending?
+\item How do interest rates adjust to prevent bank runs?
+\item What risks do flash loans pose to DeFi protocols?
+\item Would you prefer variable or stable interest rates for a 1-year borrow?
+\end{enumerate}
+\end{frame}
+
+\end{document}

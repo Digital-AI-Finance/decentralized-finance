@@ -1,0 +1,594 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L40: Lab - Testnet Lending}
+\subtitle{Module E: DeFi Ecosystem}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Lab Objectives}
+\textbf{In this lab, you will:}
+\begin{itemize}
+\item Supply assets to Aave testnet as a lender
+\item Borrow assets using collateral
+\item Monitor health factor and liquidation risk
+\item Simulate price volatility and observe position changes
+\item Calculate interest accrual (supply and borrow APY)
+\item Experience liquidation mechanisms safely (testnet)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Network:} Sepolia Testnet (Ethereum)
+
+\vspace{0.3cm}
+\textbf{Platform:} Aave V3
+
+\vspace{0.3cm}
+\textbf{Time:} 90 minutes
+\end{frame}
+
+\begin{frame}{Prerequisites}
+\textbf{Before Starting:}
+\begin{itemize}
+\item MetaMask installed with Sepolia testnet configured
+\item Testnet ETH in wallet (from faucet)
+\item Understanding of health factor, LTV, liquidation threshold
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Safety Reminders:}
+\begin{itemize}
+\item This is testnet - funds have NO real value
+\item Experiment freely (liquidations are educational, not costly)
+\item Keep testnet and mainnet wallets separate
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Learning Goal:} Understand lending mechanics before risking real capital.
+\end{frame}
+
+\begin{frame}{Step 1: Access Aave Testnet}
+\textbf{URL:} \url{https://app.aave.com}
+
+\vspace{0.3cm}
+\textbf{Actions:}
+\begin{enumerate}
+\item Connect MetaMask wallet
+\item Switch to Sepolia testnet (click network selector)
+\item Verify you're on Aave V3 Sepolia
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Interface Overview:}
+\begin{itemize}
+\item \textbf{Dashboard:} Your supply/borrow positions
+\item \textbf{Markets:} Available assets to supply/borrow
+\item \textbf{Governance:} AAVE token voting (not relevant for lab)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Troubleshooting:}
+\begin{itemize}
+\item If markets don't load: Refresh page, reconnect wallet
+\item If wrong network: Switch to Sepolia in MetaMask
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 2: Supply Assets (Become a Lender)}
+\textbf{Goal:} Deposit ETH to earn interest.
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+\item Click ``Supply'' on Dashboard
+\item Select ETH from asset list
+\item Enter amount: 0.5 ETH (keep some for gas)
+\item Review details:
+\begin{itemize}
+\item Current Supply APY: \_\_\_\_\%
+\item Collateral enabled: Yes (allows borrowing)
+\end{itemize}
+\item Click ``Supply ETH''
+\item Confirm transaction in MetaMask
+\item Wait for confirmation (30-60 seconds)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Record:}
+\begin{itemize}
+\item ETH supplied: \_\_\_\_
+\item Supply APY: \_\_\_\_\%
+\item aToken received: \_\_\_\_ aWETH
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 3: Understanding aTokens}
+\textbf{What are aTokens?}
+\begin{itemize}
+\item Interest-bearing tokens (aWETH, aUSDC, etc.)
+\item 1:1 with supplied asset
+\item Balance increases over time (accrues interest)
+\item Can be transferred, used in other DeFi protocols
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Supply 1 ETH, receive 1 aWETH
+\item After 1 year at 3\% APY: aWETH balance = 1.03
+\item Withdraw 1.03 ETH (original + interest)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Check Your Balance:}
+\begin{itemize}
+\item Add aWETH token to MetaMask (custom token, contract address on Aave docs)
+\item Observe balance increase over time (very slowly on testnet)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 4: Check Your Borrowing Power}
+\textbf{After supplying collateral:}
+
+\vspace{0.3cm}
+\textbf{Dashboard Shows:}
+\begin{itemize}
+\item \textbf{Total Collateral:} \_\_\_\_ USD
+\item \textbf{Available to Borrow:} \_\_\_\_ USD
+\item \textbf{Health Factor:} $\infty$ (no debt yet)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Calculation:}
+\begin{itemize}
+\item ETH LTV: 80\% (can borrow up to 80\% of collateral value)
+\item Example: 0.5 ETH at \$2,000 = \$1,000 collateral
+\item Max borrow: $\$1{,}000 \times 0.80 = \$800$
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Record:}
+\begin{itemize}
+\item Total collateral: \_\_\_\_
+\item Available to borrow: \_\_\_\_
+\item LTV ratio: \_\_\_\_\%
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 5: Borrow Assets}
+\textbf{Goal:} Borrow USDC or DAI against your ETH collateral.
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+\item Click ``Borrow'' on Dashboard
+\item Select asset: USDC (or DAI if USDC unavailable)
+\item Enter amount: 50\% of max (e.g., \$400 if max is \$800)
+\item Choose interest rate type:
+\begin{itemize}
+\item Variable: Changes with utilization
+\item Stable: Fixed for duration (if available)
+\end{itemize}
+\item Review borrow details:
+\begin{itemize}
+\item Borrow APY: \_\_\_\_\%
+\item New health factor: \_\_\_\_
+\end{itemize}
+\item Click ``Borrow''
+\item Confirm transaction
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Verify:} USDC appears in your wallet.
+\end{frame}
+
+\begin{frame}{Step 6: Calculate Health Factor}
+\textbf{Formula:}
+\[
+\text{Health Factor} = \frac{\text{Collateral} \times \text{Liquidation Threshold}}{\text{Borrowed Amount}}
+\]
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Collateral: \$1,000 (0.5 ETH at \$2,000)
+\item Borrowed: \$400 USDC
+\item ETH Liquidation Threshold: 82.5\%
+\end{itemize}
+
+\[
+\text{HF} = \frac{1{,}000 \times 0.825}{400} = 2.06
+\]
+
+\vspace{0.3cm}
+\textbf{Interpretation:}
+\begin{itemize}
+\item HF > 1: Safe (no liquidation)
+\item HF = 1: At liquidation threshold
+\item HF < 1: Liquidation occurs
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Your Calculation:}
+\begin{itemize}
+\item Health Factor: \_\_\_\_ (check dashboard vs. manual calculation)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 7: Monitor Interest Accrual}
+\textbf{Track Over Time (15-30 minutes):}
+
+\vspace{0.3cm}
+\textbf{Supply Side:}
+\begin{itemize}
+\item Initial aWETH balance: \_\_\_\_
+\item Balance after 30 min: \_\_\_\_
+\item Interest earned: \_\_\_\_ (minimal on testnet)
+\end{itemize}
+
+\textbf{Borrow Side:}
+\begin{itemize}
+\item Initial USDC debt: \_\_\_\_
+\item Debt after 30 min: \_\_\_\_
+\item Interest accrued: \_\_\_\_
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Net Position:}
+\begin{itemize}
+\item Supply APY: \_\_\_\_\%
+\item Borrow APY: \_\_\_\_\%
+\item Net cost: Borrow APY - Supply APY = \_\_\_\_\%
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Note:} Interest accrues per block, compounded continuously.
+\end{frame}
+
+\begin{frame}{Step 8: Simulate Price Volatility}
+\textbf{Goal:} Understand how price changes affect health factor.
+
+\vspace{0.3cm}
+\textbf{Scenario 1: ETH Price Drops 10\%}
+
+\textbf{Current State:}
+\begin{itemize}
+\item Collateral: \$1,000 (0.5 ETH at \$2,000)
+\item Borrowed: \$400
+\item Health Factor: 2.06
+\end{itemize}
+
+\textbf{After 10\% Drop (ETH = \$1,800):}
+\begin{itemize}
+\item New collateral: $0.5 \times \$1{,}800 = \$900$
+\item Borrowed: \$400 (unchanged)
+\item New HF: $\frac{900 \times 0.825}{400} = 1.86$ (still safe)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Question:} At what ETH price would you be liquidated?
+
+\textbf{Answer:}
+\[
+\text{Liquidation Price} = \frac{\text{Borrowed}}{\text{ETH Amount} \times \text{Liquidation Threshold}} = \frac{400}{0.5 \times 0.825} \approx \$970
+\]
+\end{frame}
+
+\begin{frame}{Step 9: Add Collateral to Improve Health Factor}
+\textbf{If health factor drops (or to test):}
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+\item Go to Dashboard
+\item Click ``Supply'' again
+\item Deposit more ETH (e.g., 0.1 ETH)
+\item Observe health factor increase
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Before: 0.5 ETH collateral, \$400 debt, HF = 2.06
+\item Add 0.1 ETH: 0.6 ETH collateral, \$400 debt
+\item New HF: $\frac{1{,}200 \times 0.825}{400} = 2.48$
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Alternative:} Repay debt to improve HF.
+
+\vspace{0.3cm}
+\textbf{Record:}
+\begin{itemize}
+\item HF before: \_\_\_\_
+\item Action taken: \_\_\_\_
+\item HF after: \_\_\_\_
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 10: Repay Debt}
+\textbf{Goal:} Close your borrowing position.
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+\item Go to Dashboard
+\item Click ``Repay'' on borrowed asset
+\item Select amount:
+\begin{itemize}
+\item Partial: e.g., 50\% (\$200)
+\item Full: 100\% (all debt + accrued interest)
+\end{itemize}
+\item Approve USDC spending (if first time)
+\item Confirm repayment transaction
+\item Observe debt decrease, health factor increase
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Record:}
+\begin{itemize}
+\item Debt before repayment: \_\_\_\_
+\item Amount repaid: \_\_\_\_
+\item Remaining debt: \_\_\_\_
+\item Interest paid: \_\_\_\_
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 11: Withdraw Collateral}
+\textbf{Goal:} Remove your supplied assets.
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+\item Ensure all debt is repaid (health factor = $\infty$)
+\item Go to Dashboard
+\item Click ``Withdraw'' on supplied asset (aWETH)
+\item Enter amount (or select ``Max'')
+\item Confirm withdrawal
+\item Observe:
+\begin{itemize}
+\item aWETH balance decreases
+\item ETH balance increases (original + interest)
+\end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Record Final Outcome:}
+\begin{itemize}
+\item ETH withdrawn: \_\_\_\_ (should be > initial deposit)
+\item Net interest earned from supply: \_\_\_\_
+\item Interest paid on borrow: \_\_\_\_
+\item Net profit/loss: \_\_\_\_
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 12: Explore Advanced Features}
+\textbf{Optional Experiments:}
+
+\vspace{0.3cm}
+\textbf{1. Multiple Collateral Types}
+\begin{itemize}
+\item Supply both ETH and USDC as collateral
+\item Observe combined borrowing power
+\end{itemize}
+
+\textbf{2. Borrow Multiple Assets}
+\begin{itemize}
+\item Borrow both USDC and DAI
+\item Check how health factor changes
+\end{itemize}
+
+\textbf{3. Rate Switching}
+\begin{itemize}
+\item Switch between variable and stable borrow rates
+\item Compare APY differences
+\end{itemize}
+
+\textbf{4. Isolation Mode}
+\begin{itemize}
+\item Try supplying an isolated asset (if available)
+\item Understand borrowing limits
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 13: Simulate Liquidation (Optional)}
+\textbf{Warning:} This will result in penalty on testnet (educational loss).
+
+\vspace{0.3cm}
+\textbf{How to Trigger Liquidation:}
+\begin{enumerate}
+\item Borrow maximum allowed (e.g., 75\% of collateral)
+\item Health factor will be close to 1.0
+\item Wait for testnet price oracle to fluctuate (or cannot force on testnet)
+\item \textbf{Alternative:} On some testnets, you can manually manipulate oracle (advanced)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Observe:}
+\begin{itemize}
+\item Liquidation transaction (if triggered)
+\item Penalty paid (~5-10\%)
+\item Remaining collateral returned
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Note:} Liquidation may not occur on testnet due to stable test prices. This is a thought exercise.
+\end{frame}
+
+\begin{frame}{Liquidation Calculation Example}
+\textbf{Pre-Liquidation:}
+\begin{itemize}
+\item Collateral: \$1,000 (0.5 ETH)
+\item Borrowed: \$825 (max with 82.5\% threshold)
+\item Health Factor: 1.00 (at threshold)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Liquidation Event:}
+\begin{itemize}
+\item Liquidator repays 50\% of debt: \$412.50
+\item Liquidator receives collateral + 5\% bonus: $\$412.50 \times 1.05 = \$433.13$
+\item Borrower loses: \$433.13 - \$412.50 = \$20.63 (penalty)
+\end{itemize}
+
+\textbf{Post-Liquidation:}
+\begin{itemize}
+\item Remaining collateral: \$1,000 - \$433.13 = \$566.87
+\item Remaining debt: \$825 - \$412.50 = \$412.50
+\item New Health Factor: $\frac{566.87 \times 0.825}{412.50} \approx 1.13$ (safe again)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 14: Analyze Utilization Rates}
+\textbf{Check Market Statistics:}
+
+\vspace{0.3cm}
+\textbf{For Each Asset (e.g., USDC):}
+\begin{itemize}
+\item Total supplied: \_\_\_\_
+\item Total borrowed: \_\_\_\_
+\item Utilization rate: $\frac{\text{Borrowed}}{\text{Supplied}} \times 100\% = $ \_\_\_\_\%
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Observe Relationship:}
+\begin{itemize}
+\item Higher utilization $\to$ Higher borrow APY
+\item Lower utilization $\to$ Lower borrow APY
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Question:}
+\begin{itemize}
+\item What happens to rates if utilization hits 95\%?
+\item Why does Aave increase rates at high utilization?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Report Requirements}
+\textbf{Your submission should include:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Introduction} (1 paragraph)
+\begin{itemize}
+\item Overview of activities
+\end{itemize}
+
+\item \textbf{Supply Analysis} (1/2 page)
+\begin{itemize}
+\item Assets supplied, APY, aToken balance
+\end{itemize}
+
+\item \textbf{Borrow Analysis} (1 page)
+\begin{itemize}
+\item Borrowing details, health factor calculations
+\item Screenshots of dashboard showing position
+\end{itemize}
+
+\item \textbf{Interest Accrual} (1/2 page)
+\begin{itemize}
+\item Net cost of borrowing (borrow APY - supply APY)
+\end{itemize}
+
+\item \textbf{Risk Analysis} (1/2 page)
+\begin{itemize}
+\item Liquidation price calculation
+\item Collateral management strategies
+\end{itemize}
+
+\item \textbf{Reflections} (1/2 page)
+\begin{itemize}
+\item UX comparison to CeFi, risks, learnings
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Common Issues and Solutions}
+\textbf{Problem: Can't Borrow (Insufficient Collateral)}
+\begin{itemize}
+\item \textbf{Solution:} Supply more assets or reduce borrow amount
+\end{itemize}
+
+\textbf{Problem: Health Factor Too Close to 1}
+\begin{itemize}
+\item \textbf{Solution:} Add collateral or repay debt
+\end{itemize}
+
+\textbf{Problem: Transaction Fails (Gas)}
+\begin{itemize}
+\item \textbf{Solution:} Ensure enough testnet ETH for gas fees
+\end{itemize}
+
+\textbf{Problem: Interest Not Accruing Visibly}
+\begin{itemize}
+\item \textbf{Solution:} Testnet rates are low, wait longer or calculate manually
+\end{itemize}
+
+\textbf{Problem: Can't Withdraw (Collateral Locked)}
+\begin{itemize}
+\item \textbf{Solution:} Repay all debt first, or reduce borrow to free some collateral
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Reflection Questions}
+\textbf{Answer in your lab report:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item How does Aave's health factor system prevent cascading liquidations?
+\item Why is overcollateralization necessary in DeFi lending?
+\item Compare Aave's UX to traditional bank loans. Which is better and why?
+\item What risks would you face using Aave on mainnet with real funds?
+\item How do variable interest rates protect liquidity providers?
+\item Would you use DeFi lending for personal finance? Under what conditions?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Submission Checklist}
+\textbf{Before submitting, verify you have:}
+
+\vspace{0.3cm}
+\begin{itemize}
+\item[$\Box$] Supplied assets and received aTokens
+\item[$\Box$] Borrowed against collateral
+\item[$\Box$] Calculated health factor manually
+\item[$\Box$] Monitored interest accrual
+\item[$\Box$] Repaid debt and withdrawn collateral
+\item[$\Box$] Screenshots of dashboard (positions, transactions)
+\item[$\Box$] Transaction hashes (Etherscan links)
+\item[$\Box$] Completed all calculations (HF, liquidation price, net cost)
+\item[$\Box$] Written reflection answers
+\item[$\Box$] PDF format, 3-4 pages
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Deadline:} [Instructor to specify]
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item DeFi lending requires overcollateralization for safety
+\item Health factor must stay above 1.0 to avoid liquidation
+\item Interest rates adjust algorithmically based on utilization
+\item aTokens represent interest-bearing deposits
+\item Liquidations protect lenders but penalize borrowers
+\item Testnet experimentation is crucial before using real funds
+\item DeFi lending is powerful but requires active risk management
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Course Completion:} Congratulations on finishing Module E: DeFi Ecosystem!
+\end{frame}
+
+\end{document}

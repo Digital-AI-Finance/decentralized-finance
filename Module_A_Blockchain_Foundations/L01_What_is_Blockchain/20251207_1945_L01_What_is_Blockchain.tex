@@ -1,0 +1,727 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{0,102,204}
+\definecolor{mlpurple}{RGB}{51,51,178}
+\definecolor{mllavender}{RGB}{173,173,224}
+\definecolor{mllavender2}{RGB}{193,193,232}
+\definecolor{mllavender3}{RGB}{204,204,235}
+\definecolor{mllavender4}{RGB}{214,214,239}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlgray}{RGB}{127, 127, 127}
+\definecolor{lightgray}{RGB}{240, 240, 240}
+\definecolor{midgray}{RGB}{180, 180, 180}
+
+% Apply custom colors to Madrid theme
+\setbeamercolor{palette primary}{bg=mllavender3,fg=mlpurple}
+\setbeamercolor{palette secondary}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{palette tertiary}{bg=mllavender,fg=white}
+\setbeamercolor{palette quaternary}{bg=mlpurple,fg=white}
+
+\setbeamercolor{structure}{fg=mlpurple}
+\setbeamercolor{section in toc}{fg=mlpurple}
+\setbeamercolor{subsection in toc}{fg=mlblue}
+\setbeamercolor{title}{fg=mlpurple}
+\setbeamercolor{frametitle}{fg=mlpurple,bg=mllavender3}
+\setbeamercolor{block title}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{block body}{bg=mllavender4,fg=black}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Clean itemize/enumerate
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Reduce margins for more content space
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+
+\title{Lesson 1: What is Blockchain?}
+\subtitle{Module A: Blockchain Foundations}
+\author{BSc Blockchain \& Cryptocurrency}
+\institute{University Course}
+\date{2025}
+
+\begin{document}
+
+% Title slide
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+% Learning objectives
+\begin{frame}[t]{Learning Objectives}
+By the end of this lesson, you will be able to:
+
+\begin{enumerate}
+\item Explain what blockchain technology is and how it works
+\item Describe the historical evolution from 1991 to 2025
+\item Understand the double-spending problem and how blockchain solves it
+\item Identify key properties that make blockchain unique
+\item Compare centralized vs. decentralized systems
+\item Recognize real-world blockchain use cases across industries
+\end{enumerate}
+
+\vspace{1em}
+\textbf{Prerequisites:} Basic understanding of databases and networks
+\end{frame}
+
+% Section: Introduction
+\section{Introduction}
+
+\begin{frame}[t]{What is Blockchain? A First Definition}
+\begin{block}{Blockchain Definition}
+A \textbf{blockchain} is a distributed, immutable ledger that records transactions in a chain of blocks, secured by cryptography and maintained by a decentralized network of nodes.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Key Components:}
+\begin{itemize}
+\item \textbf{Distributed}: No single point of control or failure
+\item \textbf{Immutable}: Once recorded, data cannot be altered retroactively
+\item \textbf{Chain of Blocks}: Data organized in sequential, linked blocks
+\item \textbf{Cryptography}: Mathematical techniques ensure security and integrity
+\item \textbf{Consensus}: Network agrees on the state of the ledger
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Think of it as a shared spreadsheet that everyone can read, but no one can cheat.}
+\end{frame}
+
+\begin{frame}[t]{How Does a Blockchain Work?}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Traditional Database}
+\begin{itemize}
+\item Central server stores all data
+\item Single administrator controls access
+\item Users trust the central authority
+\item Fast but vulnerable to attacks
+\item Single point of failure
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} Your bank's database
+
+\column{0.48\textwidth}
+\textbf{Blockchain System}
+\begin{itemize}
+\item Data replicated across many nodes
+\item No single controller (decentralized)
+\item Users verify through consensus
+\item More resilient, slower transactions
+\item No single point of failure
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} Bitcoin network
+\end{columns}
+
+\vspace{1em}
+\textbf{Key Insight:} Blockchain trades speed for trust and security
+\end{frame}
+
+% Section: Historical Evolution
+\section{Historical Evolution}
+
+\begin{frame}[t]{Timeline: 1991-2008 (Pre-Bitcoin)}
+\textbf{The Building Blocks}
+
+\begin{itemize}
+\item \textbf{1991}: Stuart Haber \& Scott Stornetta propose cryptographically secured chain of blocks
+\item \textbf{1992}: Merkle trees incorporated to improve efficiency
+\item \textbf{1998}: Nick Szabo designs ``Bit Gold'' (precursor to Bitcoin)
+\item \textbf{2004}: Hal Finney creates ``Reusable Proof of Work'' (RPOW)
+\item \textbf{2008}: \textcolor{mlpurple}{\textbf{Satoshi Nakamoto}} publishes Bitcoin whitepaper (Oct 31)
+\end{itemize}
+
+\vspace{0.5em}
+\begin{block}{Key Innovation}
+Bitcoin solved the \textbf{double-spending problem} without a trusted third party by combining cryptographic techniques with economic incentives (proof-of-work mining).
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Timeline: 2009-2015 (Bitcoin Era)}
+\textbf{The First Cryptocurrency}
+
+\begin{itemize}
+\item \textbf{2009 Jan}: Bitcoin network launches (Genesis Block mined)
+\item \textbf{2010 May}: First real-world transaction (10,000 BTC for 2 pizzas)
+\item \textbf{2011}: Alternative cryptocurrencies emerge (Litecoin, Namecoin)
+\item \textbf{2013}: Bitcoin price exceeds \$1,000 for first time
+\item \textbf{2014}: Ethereum whitepaper published by Vitalik Buterin
+\item \textbf{2015}: Ethereum mainnet launches (introducing smart contracts)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Key Development:} Shift from ``blockchain as currency'' to ``blockchain as platform''
+\end{frame}
+
+\begin{frame}[t]{Timeline: 2016-2020 (Enterprise Adoption)}
+\textbf{Blockchain Goes Mainstream}
+
+\begin{itemize}
+\item \textbf{2016}: Enterprise blockchain platforms (Hyperledger Fabric)
+\item \textbf{2017}: ICO boom (Initial Coin Offerings raise \$5.6 billion)
+\item \textbf{2018}: Security Token Offerings (STOs) emerge
+\item \textbf{2019}: Facebook announces Libra (later Diem, now defunct)
+\item \textbf{2020}: DeFi (Decentralized Finance) explosion (\$15B to \$100B+ TVL)
+\item \textbf{2020}: Central banks explore CBDCs (Digital currencies)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Trend:} From public cryptocurrencies to private enterprise blockchains
+\end{frame}
+
+\begin{frame}[t]{Timeline: 2021-2025 (Maturity \& Regulation)}
+\textbf{Current State of Blockchain}
+
+\begin{itemize}
+\item \textbf{2021}: NFT boom (\$25 billion in sales)
+\item \textbf{2022}: Ethereum transitions to Proof-of-Stake (``The Merge'')
+\item \textbf{2022}: FTX collapse highlights need for regulation
+\item \textbf{2023}: EU's MiCA regulation passes (Markets in Crypto-Assets)
+\item \textbf{2024}: Bitcoin ETFs approved in major markets
+\item \textbf{2025}: Institutional adoption accelerates (BlackRock, Fidelity)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Current Focus:} Scalability, sustainability, regulatory compliance
+\end{frame}
+
+% Section: The Double-Spending Problem
+\section{The Double-Spending Problem}
+
+\begin{frame}[t]{What is Double-Spending?}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Physical Cash}
+\begin{itemize}
+\item You have a \$10 bill
+\item You give it to Alice
+\item Now Alice has the bill
+\item You \textbf{cannot} give the same bill to Bob
+\item Physical scarcity prevents double-spending
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Digital Money (Without Blockchain)}
+\begin{itemize}
+\item You have a digital file: ``10 coins''
+\item You send it to Alice
+\item You \textbf{still have} a copy of the file
+\item You \textbf{can} send the same file to Bob
+\item \textcolor{mlred}{Problem:} Digital files are easily copied
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{block}{The Challenge}
+How do we create digital scarcity without a trusted central authority (like a bank)?
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Traditional Solution: Trusted Third Party}
+\textbf{Banks Prevent Double-Spending}
+
+\begin{enumerate}
+\item Alice wants to send \$10 to Bob
+\item Alice's bank checks: Does Alice have \$10?
+\item If YES: Bank deducts \$10 from Alice's account
+\item Bank adds \$10 to Bob's account
+\item Bank updates its central ledger
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Advantages:}
+\begin{itemize}
+\item Fast transactions
+\item Easy to reverse errors
+\item Regulatory oversight
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Disadvantages:}
+\begin{itemize}
+\item Must trust the bank
+\item Single point of failure
+\item Censorship possible
+\item High fees for international transfers
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Blockchain Solution: Distributed Consensus}
+\textbf{How Bitcoin Prevents Double-Spending}
+
+\begin{enumerate}
+\item Alice broadcasts: ``Send 1 BTC to Bob'' to the entire network
+\item Thousands of nodes receive and verify the transaction
+\item Miners collect transactions into a new block
+\item Miners compete to solve a cryptographic puzzle (Proof-of-Work)
+\item First miner to solve puzzle broadcasts the block
+\item Other nodes verify and add block to their chain
+\item Bob's wallet shows 1 BTC after 6 confirmations ($\approx$ 60 minutes)
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Key Insight:} The longest chain (most computational work) represents the true history. Rewriting history requires more computing power than the entire network combined.
+\end{frame}
+
+% Section: Key Properties
+\section{Key Properties of Blockchain}
+
+\begin{frame}[t]{Property 1: Decentralization}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{What It Means:}
+\begin{itemize}
+\item No central authority controls the network
+\item Thousands of nodes maintain copies
+\item Decisions made by consensus
+\item Anyone can join the network
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Benefits:}
+\begin{itemize}
+\item Censorship resistance
+\item No single point of failure
+\item Transparent governance
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Trade-offs:}
+\begin{itemize}
+\item Slower decision-making
+\item Harder to upgrade
+\item More energy-intensive
+\item Lower transaction throughput
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Example:} Bitcoin has $\approx$ 15,000 full nodes worldwide
+\end{columns}
+
+\vspace{0.5em}
+\textit{Decentralization is a spectrum, not a binary choice}
+\end{frame}
+
+\begin{frame}[t]{Property 2: Immutability}
+\begin{block}{Immutability Definition}
+Once data is written to a blockchain and confirmed, it becomes \textbf{extremely difficult} (practically impossible) to alter or delete.
+\end{block}
+
+\vspace{0.5em}
+\textbf{How It Works:}
+\begin{enumerate}
+\item Each block contains a cryptographic hash of the previous block
+\item Changing data in Block N would change its hash
+\item This breaks the link to Block N+1
+\item Attacker must recalculate hashes for ALL subsequent blocks
+\item Attacker must do this faster than the honest network
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Practical Implications:}
+\begin{itemize}
+\item Permanent audit trail
+\item Cannot ``cook the books''
+\item Mistakes are difficult to fix
+\item Requires careful design of smart contracts
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Property 3: Transparency}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Public Blockchains:}
+\begin{itemize}
+\item All transactions visible to everyone
+\item Anyone can verify the entire history
+\item Pseudonymous (addresses, not names)
+\item Full auditability
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} You can view every Bitcoin transaction ever made on blockchain explorers
+
+\column{0.48\textwidth}
+\textbf{Private/Permissioned Blockchains:}
+\begin{itemize}
+\item Restricted read/write access
+\item Known participants only
+\item Selective transparency
+\item Enterprise use cases
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Example:} Hyperledger Fabric for supply chain tracking
+\end{columns}
+
+\vspace{1em}
+\textbf{Privacy Paradox:} Transparent ledger + pseudonymous addresses = partial privacy
+\end{frame}
+
+\begin{frame}[t]{Property 4: Security}
+\textbf{Multi-Layered Security}
+
+\begin{enumerate}
+\item \textbf{Cryptographic Hashing}: SHA-256 ensures data integrity
+\item \textbf{Digital Signatures}: ECDSA proves ownership of assets
+\item \textbf{Consensus Mechanisms}: Proof-of-Work/Proof-of-Stake prevent attacks
+\item \textbf{Network Distribution}: No single point to attack
+\item \textbf{Economic Incentives}: Attacking costs more than potential gain
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Common Attack Vectors:}
+\begin{itemize}
+\item \textbf{51\% Attack}: Attacker controls majority of mining power
+\item \textbf{Smart Contract Bugs}: Coding errors (e.g., DAO hack 2016)
+\item \textbf{Private Key Theft}: Wallet compromise
+\item \textbf{Exchange Hacks}: Centralized weak points
+\end{itemize}
+
+\vspace{0.5em}
+\textit{The blockchain itself is secure; the ecosystem around it may not be}
+\end{frame}
+
+% Section: Centralized vs Decentralized
+\section{Centralized vs. Decentralized Systems}
+
+\begin{frame}[t]{System Architecture Comparison}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Centralized Systems}
+\begin{itemize}
+\item Single entity controls data
+\item Fast decision-making
+\item Efficient resource use
+\item Easy to upgrade
+\item Clear accountability
+\item User-friendly interfaces
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Examples:}
+\begin{itemize}
+\item Traditional banks
+\item Facebook, Google
+\item Amazon AWS
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Decentralized Systems}
+\begin{itemize}
+\item Distributed control
+\item Slower consensus required
+\item Resource-intensive
+\item Difficult upgrades
+\item Shared responsibility
+\item Often technical UX
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Examples:}
+\begin{itemize}
+\item Bitcoin, Ethereum
+\item IPFS (file storage)
+\item Tor network
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\textit{Neither is inherently better; it depends on the use case}
+\end{frame}
+
+\begin{frame}[t]{When to Use Blockchain vs. Traditional Database}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Use Blockchain When:}
+\begin{itemize}
+\item Multiple parties need to write data
+\item Parties don't fully trust each other
+\item Immutable audit trail required
+\item Removing intermediaries adds value
+\item Transparency is critical
+\item Censorship resistance needed
+\end{itemize}
+
+\vspace{0.5em}
+\textcolor{mlgreen}{Good fit:} Supply chain tracking, land registries, cross-border payments
+
+\column{0.48\textwidth}
+\textbf{Use Traditional Database When:}
+\begin{itemize}
+\item Single organization controls data
+\item High transaction throughput needed
+\item Data updates/deletions required
+\item Strong privacy is essential
+\item Existing solutions work well
+\item Energy efficiency matters
+\end{itemize}
+
+\vspace{0.5em}
+\textcolor{mlred}{Poor fit:} Social media posts, personal files, high-frequency trading
+\end{columns}
+
+\vspace{0.5em}
+\textit{Blockchain is not a solution looking for a problem; it solves specific trust challenges}
+\end{frame}
+
+% Section: Use Cases
+\section{Real-World Use Cases}
+
+\begin{frame}[t]{Finance \& Banking}
+\textbf{Cryptocurrency \& Payments}
+\begin{itemize}
+\item \textbf{Bitcoin}: Peer-to-peer electronic cash system (market cap \$800B+)
+\item \textbf{Stablecoins}: USDC, USDT (pegged to fiat currencies)
+\item \textbf{Cross-border Payments}: Ripple/XRP for banks
+\item \textbf{Remittances}: Stellar for low-cost international transfers
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Decentralized Finance (DeFi)}
+\begin{itemize}
+\item \textbf{Lending/Borrowing}: Aave, Compound (no credit checks)
+\item \textbf{Decentralized Exchanges}: Uniswap, PancakeSwap
+\item \textbf{Yield Farming}: Earn interest on crypto holdings
+\item \textbf{Derivatives}: Perpetual swaps, options trading
+\end{itemize}
+
+\vspace{0.5em}
+\textit{DeFi Total Value Locked (TVL): \$50B+ as of 2025}
+\end{frame}
+
+\begin{frame}[t]{Supply Chain \& Logistics}
+\textbf{Transparency \& Traceability}
+
+\begin{itemize}
+\item \textbf{Walmart + IBM Food Trust}: Track produce from farm to store
+  \begin{itemize}
+  \item Reduced food recall time from 7 days to 2.2 seconds
+  \end{itemize}
+\item \textbf{Maersk + TradeLens}: Shipping container tracking
+  \begin{itemize}
+  \item 150+ organizations, 1.5B shipping events logged
+  \end{itemize}
+\item \textbf{De Beers}: Diamond provenance on blockchain (Tracr platform)
+\item \textbf{VeChain}: Luxury goods authentication (Louis Vuitton)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Benefits:}
+\begin{itemize}
+\item Reduce counterfeiting
+\item Improve food safety
+\item Streamline customs processes
+\item Verify ethical sourcing
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Healthcare}
+\textbf{Patient Data Management}
+
+\begin{itemize}
+\item \textbf{Electronic Health Records}: Patients control access to medical data
+\item \textbf{Drug Traceability}: Combat counterfeit pharmaceuticals
+\item \textbf{Clinical Trials}: Transparent, tamper-proof trial data
+\item \textbf{Insurance Claims}: Automated, fraud-resistant processing
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Example Projects:}
+\begin{itemize}
+\item \textbf{MedRec} (MIT): Patient-centered EHR system
+\item \textbf{Chronicled}: Pharmaceutical supply chain verification
+\item \textbf{Guardtime}: Estonian national health records on blockchain
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Challenges:} GDPR compliance (right to be forgotten vs. immutability)
+\end{frame}
+
+\begin{frame}[t]{Government \& Public Services}
+\textbf{Digital Identity \& Voting}
+
+\begin{itemize}
+\item \textbf{Estonia e-Residency}: Digital identity for 100,000+ global citizens
+\item \textbf{Dubai Land Registry}: All real estate on blockchain by 2025
+\item \textbf{Georgia}: Land titles recorded on blockchain since 2016
+\item \textbf{Voatz}: Mobile blockchain voting (limited pilots in West Virginia)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Central Bank Digital Currencies (CBDCs):}
+\begin{itemize}
+\item \textbf{China}: Digital Yuan (e-CNY) in widespread use
+\item \textbf{European Union}: Digital Euro pilot programs
+\item \textbf{Bahamas}: Sand Dollar (fully launched 2020)
+\end{itemize}
+
+\vspace{0.5em}
+\textit{90+ countries exploring CBDCs as of 2025}
+\end{frame}
+
+\begin{frame}[t]{Other Emerging Use Cases}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Energy \& Sustainability}
+\begin{itemize}
+\item Peer-to-peer energy trading
+\item Carbon credit tracking
+\item Renewable energy certificates
+\item Electric vehicle charging networks
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Media \& Entertainment}
+\begin{itemize}
+\item NFTs (art, music, gaming)
+\item Royalty distribution
+\item Content licensing
+\item Anti-piracy measures
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Education}
+\begin{itemize}
+\item Academic credential verification
+\item Lifelong learning records
+\item Decentralized universities
+\item Micro-credentialing
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Internet of Things (IoT)}
+\begin{itemize}
+\item Device identity management
+\item Secure firmware updates
+\item Machine-to-machine payments
+\item Data marketplace
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Key Takeaways
+\section{Summary}
+
+\begin{frame}[t]{Key Takeaways}
+\textbf{What You Should Remember:}
+
+\begin{enumerate}
+\item \textbf{Blockchain} is a distributed, immutable ledger secured by cryptography
+\item \textbf{Historical Evolution}: From 1991 research to 2025 institutional adoption
+\item \textbf{Double-Spending Solution}: Consensus eliminates need for trusted intermediaries
+\item \textbf{Core Properties}: Decentralization, immutability, transparency, security
+\item \textbf{Architecture Choice}: Centralized for speed/efficiency, decentralized for trust
+\item \textbf{Use Cases}: Finance, supply chain, healthcare, government, and beyond
+\end{enumerate}
+
+\vspace{0.5em}
+\begin{block}{Critical Insight}
+Blockchain is not a universal solution. It trades computational efficiency for trust and resilience. The key question is: \textit{Does your problem require decentralized trust?}
+\end{block}
+\end{frame}
+
+% Discussion Questions
+\begin{frame}[t]{Discussion Questions}
+\textbf{Consider and discuss:}
+
+\begin{enumerate}
+\item \textbf{Trust vs. Efficiency}: In what scenarios is the trade-off worth it?
+  \begin{itemize}
+  \item Example: International remittances vs. buying coffee
+  \end{itemize}
+
+\item \textbf{Privacy Paradox}: How can we balance transparency with user privacy?
+  \begin{itemize}
+  \item Explore: Zero-knowledge proofs, private transactions
+  \end{itemize}
+
+\item \textbf{Environmental Impact}: Is Proof-of-Work's energy consumption justified?
+  \begin{itemize}
+  \item Compare: PoW vs. PoS vs. traditional banking infrastructure
+  \end{itemize}
+\end{enumerate}
+
+\vspace{0.5em}
+\textit{Prepare your thoughts for next session's discussion}
+\end{frame}
+
+% References
+\begin{frame}[t]{References \& Resources}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Foundational Papers}
+\begin{itemize}
+\item Nakamoto (2008): \textit{Bitcoin Whitepaper}
+\item Buterin (2014): \textit{Ethereum Whitepaper}
+\item Haber \& Stornetta (1991): \textit{Timestamping Digital Documents}
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Books}
+\begin{itemize}
+\item Antonopoulos (2023): \textit{Mastering Bitcoin}
+\item Narayanan et al. (2016): \textit{Bitcoin and Cryptocurrency Technologies}
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Online Resources}
+\begin{itemize}
+\item Blockchain.com Explorer
+\item Ethereum.org Documentation
+\item CoinDesk Research
+\item MIT OpenCourseWare: Blockchain
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Industry Reports}
+\begin{itemize}
+\item Gartner Blockchain Trends
+\item PwC Blockchain Survey
+\item CB Insights: Crypto Trends
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Next Lesson Preview
+\begin{frame}[t]{Next Lesson Preview}
+\textbf{L02: Distributed Ledger Technology (DLT)}
+
+\vspace{0.5em}
+We will explore:
+\begin{itemize}
+\item Deep dive into DLT concepts and architectures
+\item The Byzantine Generals Problem and consensus challenges
+\item Network topologies (centralized, decentralized, distributed)
+\item Anatomy of a block (headers, transactions, Merkle trees)
+\item Types of nodes (full nodes, light nodes, miners)
+\item Permissioned vs. permissionless blockchains
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Preparation:} Review basic networking concepts and data structures (hash tables, trees)
+\end{frame}
+
+\begin{frame}[plain]
+\vspace{3cm}
+\begin{center}
+{\Large Thank you}\\[2cm]
+{\normalsize Questions?}\\[1cm]
+{\small See you in Lesson 2: DLT Concepts}
+\end{center}
+\end{frame}
+
+\end{document}

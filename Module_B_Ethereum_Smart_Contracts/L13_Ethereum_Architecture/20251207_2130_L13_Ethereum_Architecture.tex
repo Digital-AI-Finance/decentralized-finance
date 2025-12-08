@@ -1,0 +1,455 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\tiny\ttfamily,breaklines=true}
+
+\title{L13: Ethereum Architecture}
+\subtitle{Module B: Ethereum \& Smart Contracts}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Explain the Ethereum Virtual Machine (EVM) architecture
+\item Distinguish between Externally Owned Accounts (EOA) and Contract Accounts
+\item Describe Ethereum as a state machine and understand the world state concept
+\item Explain the Merkle Patricia Trie data structure
+\item Compare Ethereum's account model to Bitcoin's UTXO model
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Ethereum?}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Key Characteristics:}
+\begin{itemize}
+\item Decentralized computation platform
+\item Turing-complete blockchain
+\item Smart contract support
+\item Native cryptocurrency: Ether (ETH)
+\item Launched July 30, 2015
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Beyond Bitcoin:}
+\begin{itemize}
+\item Bitcoin: Digital gold, value transfer
+\item Ethereum: World computer, programmable logic
+\item Enables decentralized applications (dApps)
+\item Supports complex financial instruments
+\item Foundation for DeFi, NFTs, DAOs
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Ethereum Virtual Machine (EVM)}
+\textbf{The EVM is a quasi-Turing complete state machine:}
+\begin{itemize}
+\item Stack-based virtual machine (256-bit word size)
+\item Executes bytecode compiled from high-level languages (Solidity, Vyper)
+\item Deterministic execution: same input always produces same output
+\item Gas metering prevents infinite loops (making it ``quasi''-Turing complete)
+\item Isolated environment: no access to network, filesystem, or other processes
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{EVM Operations:}
+\begin{itemize}
+\item Arithmetic: ADD, MUL, SUB, DIV, MOD, EXP
+\item Comparison: LT, GT, EQ
+\item Bitwise: AND, OR, XOR, NOT
+\item Storage: SLOAD, SSTORE
+\item Context: CALLER, CALLVALUE, ADDRESS
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Account Types: EOA vs Contract}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Externally Owned Account (EOA):}
+\begin{itemize}
+\item Controlled by private key
+\item Has an address (derived from public key)
+\item Can hold Ether balance
+\item Can send transactions
+\item No code storage
+\item Creation is free
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{EOA Address:}
+\begin{itemize}
+\item Last 20 bytes of Keccak-256 hash of public key
+\item Example: 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Contract Account:}
+\begin{itemize}
+\item Controlled by smart contract code
+\item Has an address (deterministically derived)
+\item Can hold Ether balance
+\item Cannot initiate transactions
+\item Stores code and state
+\item Creation costs gas
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Contract Address:}
+\begin{itemize}
+\item Derived from creator address + nonce
+\item Example: 0xd4e56740f876aef8c010b86a40d5f5675c82f28
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Account State Components}
+\textbf{Every account (EOA or Contract) has four fields:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Nonce:}
+\begin{itemize}
+\item EOA: Counter of transactions sent from this address
+\item Contract: Counter of contracts created by this contract
+\item Prevents replay attacks
+\end{itemize}
+
+\item \textbf{Balance:}
+\begin{itemize}
+\item Amount of Wei (10\textsuperscript{-18} ETH) owned by this address
+\item 1 ETH = 1,000,000,000,000,000,000 Wei
+\end{itemize}
+
+\item \textbf{StorageRoot:}
+\begin{itemize}
+\item Hash of the root node of the account's storage trie
+\item Empty for EOAs (0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421)
+\end{itemize}
+
+\item \textbf{CodeHash:}
+\begin{itemize}
+\item Hash of the EVM bytecode for this account
+\item Empty for EOAs (hash of empty string)
+\item Immutable once set for contracts
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Ethereum as a State Machine}
+\textbf{State Transition Function:}
+\begin{itemize}
+\item Ethereum transitions from state $S_t$ to state $S_{t+1}$ via valid transactions
+\item $S_{t+1} = Y(S_t, T)$ where $T$ is a transaction
+\item State includes all account balances, storage, and code
+\item Deterministic: Given state $S_t$ and transaction $T$, $S_{t+1}$ is uniquely determined
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Transaction Execution:}
+\begin{enumerate}
+\item Validate transaction (signature, nonce, gas limit, balance)
+\item Deduct gas cost from sender
+\item Execute transaction (transfer ETH, execute code)
+\item Update state (balances, storage, nonces)
+\item Refund unused gas
+\item Distribute transaction fees to miner/validator
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{World State}
+\textbf{The World State is a mapping between addresses and account states:}
+
+\vspace{0.2cm}
+\begin{itemize}
+\item Maps 160-bit addresses to account states
+\item Stored as a Merkle Patricia Trie
+\item Root hash included in every block header
+\item Allows efficient verification of account state
+\item Enables light clients to verify data without full state
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{State Root:}
+\begin{itemize}
+\item 256-bit hash representing entire world state
+\item Changes with every block
+\item Uniquely identifies state at a specific block height
+\item Example: 0xd7f8974fb5ac78d9ac099b9ad5018bedc2ce0a72dad1827a1709da30580f0544
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Merkle Patricia Trie (MPT)}
+\textbf{Combines three data structures:}
+\begin{enumerate}
+\item \textbf{Merkle Tree:} Cryptographic verification via hashes
+\item \textbf{Patricia Trie:} Efficient key-value storage with shared prefixes
+\item \textbf{Radix Trie:} Optimized path compression
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{MPT Properties:}
+\begin{itemize}
+\item Deterministic: Same key-value pairs always produce same root hash
+\item Efficient verification: Prove inclusion with $O(\log n)$ proof size
+\item Efficient updates: Only modified paths need rehashing
+\item Path compression: Reduces storage for sparse trees
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Node Types:}
+\begin{itemize}
+\item \textbf{Branch Node:} 16 children (hex digits 0-F) + optional value
+\item \textbf{Extension Node:} Shared path prefix + pointer to next node
+\item \textbf{Leaf Node:} Remaining key path + value
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MPT Example: World State}
+\textbf{Simplified example with 3 accounts:}
+
+\vspace{0.2cm}
+\begin{itemize}
+\item Address A: 0xa7f9...  Balance: 100 ETH, Nonce: 5
+\item Address B: 0xa8e3...  Balance: 50 ETH, Nonce: 2
+\item Address C: 0xb2c1...  Balance: 200 ETH, Nonce: 10
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trie Structure:}
+\begin{enumerate}
+\item Root is a branch node with children at positions 0xa and 0xb
+\item Path 0xa has extension node with shared prefix ``a''
+\item Extension branches to two leaves: 0xa7f9... and 0xa8e3...
+\item Path 0xb has leaf node at 0xb2c1...
+\item Each leaf stores RLP-encoded account state (balance, nonce, storage root, code hash)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Root Hash:} Keccak-256 of root node uniquely identifies this state
+\end{frame}
+
+\begin{frame}{MPT in Ethereum: Four Tries}
+\textbf{Every block references four MPT roots:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{State Trie:}
+\begin{itemize}
+\item Maps address $\rightarrow$ account state
+\item Global, updated with every block
+\end{itemize}
+
+\item \textbf{Storage Trie:}
+\begin{itemize}
+\item Maps storage key $\rightarrow$ value for each contract
+\item One per contract account
+\end{itemize}
+
+\item \textbf{Transaction Trie:}
+\begin{itemize}
+\item Maps transaction index $\rightarrow$ transaction in current block
+\item One per block
+\end{itemize}
+
+\item \textbf{Receipt Trie:}
+\begin{itemize}
+\item Maps transaction index $\rightarrow$ receipt (logs, gas used, status)
+\item One per block
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Ethereum vs Bitcoin: Account Model vs UTXO}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Bitcoin UTXO Model:}
+\begin{itemize}
+\item Unspent Transaction Outputs
+\item No accounts, only UTXOs
+\item Transaction consumes inputs, creates outputs
+\item Stateless verification
+\item Parallel transaction validation
+\item Simpler, more secure
+\item Limited programmability
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Example:}
+\begin{itemize}
+\item Alice has UTXO of 5 BTC
+\item Sends 2 BTC to Bob
+\item Creates: 2 BTC to Bob, 3 BTC back to Alice
+\item Original 5 BTC UTXO destroyed
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Ethereum Account Model:}
+\begin{itemize}
+\item Persistent account balances
+\item State stored globally
+\item Transaction modifies balances
+\item Stateful execution
+\item Sequential nonce ordering
+\item More complex
+\item Full programmability
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Example:}
+\begin{itemize}
+\item Alice has account with 5 ETH
+\item Sends 2 ETH to Bob
+\item Alice balance: 5 - 2 = 3 ETH
+\item Bob balance: +2 ETH
+\item Accounts persist
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Account Model Advantages}
+\textbf{Why Ethereum chose accounts over UTXO:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Simplicity:}
+\begin{itemize}
+\item Intuitive balance model
+\item Easier to reason about state
+\item Simpler wallet implementation
+\end{itemize}
+
+\item \textbf{Space Efficiency:}
+\begin{itemize}
+\item No need to track unspent outputs
+\item Smaller state size for complex contracts
+\end{itemize}
+
+\item \textbf{Fungibility:}
+\begin{itemize}
+\item All Ether is equivalent
+\item No dust accumulation
+\end{itemize}
+
+\item \textbf{Smart Contract Design:}
+\begin{itemize}
+\item Natural fit for persistent contract storage
+\item Easier to implement tokens and complex logic
+\item Direct interaction with contract state
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Account Model Challenges}
+\textbf{Tradeoffs of the account model:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Replay Attack Prevention:}
+\begin{itemize}
+\item Requires nonce tracking
+\item Sequential transaction ordering per account
+\item Cannot parallelize transactions from same account
+\end{itemize}
+
+\item \textbf{State Growth:}
+\begin{itemize}
+\item All accounts stored indefinitely
+\item State size grows continuously
+\item Higher storage requirements for full nodes
+\end{itemize}
+
+\item \textbf{Privacy:}
+\begin{itemize}
+\item All account activity linked to single address
+\item Harder to implement UTXO-style mixing
+\item Requires explicit privacy techniques (e.g., Tornado Cash)
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Block Structure}
+\textbf{Ethereum block header contains:}
+\begin{itemize}
+\item \textbf{parentHash:} Hash of parent block
+\item \textbf{ommersHash:} Hash of uncle blocks (pre-merge)
+\item \textbf{beneficiary:} Address receiving block reward
+\item \textbf{stateRoot:} Root hash of state trie
+\item \textbf{transactionsRoot:} Root hash of transaction trie
+\item \textbf{receiptsRoot:} Root hash of receipt trie
+\item \textbf{logsBloom:} Bloom filter for logs (efficient event lookup)
+\item \textbf{difficulty:} Proof-of-work difficulty (pre-merge, now 0)
+\item \textbf{number:} Block height
+\item \textbf{gasLimit:} Maximum gas allowed in this block
+\item \textbf{gasUsed:} Total gas used by all transactions
+\item \textbf{timestamp:} Unix timestamp of block creation
+\item \textbf{extraData:} Arbitrary data (max 32 bytes)
+\item \textbf{mixHash, nonce:} PoW validation (pre-merge)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item \textbf{EVM:} Deterministic, stack-based virtual machine enabling Turing-complete smart contracts
+
+\item \textbf{Two Account Types:} EOAs (user-controlled) and Contract Accounts (code-controlled)
+
+\item \textbf{State Machine:} Ethereum transitions between states via transactions, with deterministic outcomes
+
+\item \textbf{World State:} Mapping of all addresses to account states, stored as Merkle Patricia Trie
+
+\item \textbf{MPT:} Efficient cryptographic data structure enabling state verification and light clients
+
+\item \textbf{Account Model:} Simpler and more suitable for smart contracts than Bitcoin's UTXO model, but with tradeoffs in privacy and parallelization
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item Why is the EVM only ``quasi''-Turing complete rather than fully Turing complete?
+
+\item What security benefits does the nonce provide for both EOAs and contracts?
+
+\item How does the Merkle Patricia Trie enable light clients to verify account balances without downloading the full state?
+
+\item In what scenarios might Bitcoin's UTXO model be preferable to Ethereum's account model?
+
+\item How does Ethereum's state growth challenge affect node operators, and what solutions are being explored?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L14 - Gas Mechanics}
+\textbf{Coming up next:}
+\begin{itemize}
+\item Understanding gas as a computational unit
+\item Gas price, gas limit, and transaction cost calculation
+\item EIP-1559: Base fee and priority fee mechanism
+\item Gas costs for different EVM operations
+\item Optimization techniques for reducing gas consumption
+\item Real-world examples of gas-inefficient code
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Preparation:}
+\begin{itemize}
+\item Review basic Ethereum transaction structure
+\item Familiarize yourself with Wei/Gwei/ETH units
+\item Optional: Browse Etherscan to see gas usage in real transactions
+\end{itemize}
+\end{frame}
+
+\end{document}

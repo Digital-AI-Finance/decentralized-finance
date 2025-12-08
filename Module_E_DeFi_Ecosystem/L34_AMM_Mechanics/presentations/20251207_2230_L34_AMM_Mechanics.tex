@@ -1,0 +1,591 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L34: AMM Mechanics}
+\subtitle{Module E: DeFi Ecosystem}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand the constant product formula ($x \cdot y = k$)
+\item Analyze how liquidity provision works in AMMs
+\item Calculate impermanent loss and its implications
+\item Understand slippage and price impact
+\item Compare AMMs to traditional order book exchanges
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Traditional Order Book Exchanges}
+\textbf{How They Work:}
+\begin{itemize}
+\item \textbf{Buyers} place bids at various prices
+\item \textbf{Sellers} place asks at various prices
+\item \textbf{Matching engine} pairs buy/sell orders
+\item Trade executes when bid meets ask
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example Order Book:}
+\begin{columns}[T]
+\begin{column}{0.3\textwidth}
+\textbf{Bids (Buy)}
+\begin{tabular}{rr}
+Price & Size \\
+\midrule
+\$1,999 & 5 ETH \\
+\$1,998 & 10 ETH \\
+\$1,997 & 15 ETH \\
+\end{tabular}
+\end{column}
+\begin{column}{0.3\textwidth}
+\textbf{Asks (Sell)}
+\begin{tabular}{rr}
+Price & Size \\
+\midrule
+\$2,000 & 8 ETH \\
+\$2,001 & 12 ETH \\
+\$2,002 & 20 ETH \\
+\end{tabular}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Challenges on Blockchain:}
+\begin{itemize}
+\item Gas costs for every order update
+\item Slow block times (not real-time)
+\item Front-running and MEV
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Automated Market Makers (AMMs)}
+\textbf{Key Idea:} Replace order books with liquidity pools governed by mathematical formulas.
+
+\vspace{0.3cm}
+\textbf{How It Works:}
+\begin{itemize}
+\item Liquidity Providers (LPs) deposit token pairs into a pool
+\item Algorithm sets price based on pool ratio
+\item Users trade directly against the pool
+\item No matching engine or counterparty needed
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Advantages:}
+\begin{itemize}
+\item Always available liquidity (no need to wait for orders)
+\item Passive income for LPs (earn trading fees)
+\item Simple smart contract implementation
+\item Gas efficient (fewer transactions)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trade-off:} Price determined by formula, not market consensus.
+\end{frame}
+
+\begin{frame}{The Constant Product Formula}
+\textbf{Uniswap V2 Model:}
+\[
+x \cdot y = k
+\]
+
+where:
+\begin{itemize}
+\item $x$ = quantity of token A in pool
+\item $y$ = quantity of token B in pool
+\item $k$ = constant product (invariant)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Property:} The product $k$ remains constant before and after trades (ignoring fees).
+
+\vspace{0.3cm}
+\textbf{Example Pool:}
+\begin{itemize}
+\item 100 ETH and 200,000 USDC
+\item $k = 100 \times 200{,}000 = 20{,}000{,}000$
+\item Implied price: 1 ETH = 2,000 USDC
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Price Determination in AMMs}
+\textbf{Price is the ratio of reserves:}
+\[
+P = \frac{y}{x}
+\]
+
+\textbf{Example:}
+\begin{itemize}
+\item Pool: 100 ETH, 200,000 USDC
+\item Price of 1 ETH: $\frac{200{,}000}{100} = 2{,}000$ USDC
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{After Trade:}
+User buys 1 ETH with USDC:
+\begin{itemize}
+\item New reserves: 99 ETH, $y'$ USDC
+\item Constant product: $99 \cdot y' = 20{,}000{,}000$
+\item Solve: $y' = \frac{20{,}000{,}000}{99} \approx 202{,}020$ USDC
+\item USDC added: $202{,}020 - 200{,}000 = 2{,}020$ USDC
+\item \textbf{Cost:} 2,020 USDC for 1 ETH (effective price: \$2,020)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Observation:} Price moves unfavorably with trade size (slippage).
+\end{frame}
+
+\begin{frame}{Trade Calculation Example}
+\textbf{Pool State:}
+\begin{itemize}
+\item 100 ETH, 200,000 USDC
+\item $k = 20{,}000{,}000$
+\end{itemize}
+
+\textbf{User wants to buy 10 ETH:}
+
+\vspace{0.2cm}
+\textbf{Step 1:} Calculate new ETH reserve
+\[
+x' = 100 - 10 = 90 \text{ ETH}
+\]
+
+\textbf{Step 2:} Calculate required USDC reserve
+\[
+y' = \frac{k}{x'} = \frac{20{,}000{,}000}{90} \approx 222{,}222 \text{ USDC}
+\]
+
+\textbf{Step 3:} USDC to pay
+\[
+\Delta y = 222{,}222 - 200{,}000 = 22{,}222 \text{ USDC}
+\]
+
+\textbf{Average price:} $\frac{22{,}222}{10} = 2{,}222$ USDC per ETH (vs. 2,000 initially).
+
+\vspace{0.2cm}
+\textbf{Price impact:} 11\% higher than starting price.
+\end{frame}
+
+\begin{frame}{Slippage}
+\textbf{Definition:} The difference between expected price and executed price due to trade size.
+
+\vspace{0.3cm}
+\textbf{Why Slippage Occurs:}
+\begin{itemize}
+\item AMM formula moves price as reserves change
+\item Larger trades = larger price impact
+\item Smaller pools = more slippage
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Slippage Formula:}
+\[
+\text{Slippage} = \frac{\text{Executed Price} - \text{Initial Price}}{\text{Initial Price}} \times 100\%
+\]
+
+\textbf{Example from Previous Slide:}
+\[
+\text{Slippage} = \frac{2{,}222 - 2{,}000}{2{,}000} \times 100\% = 11\%
+\]
+
+\vspace{0.3cm}
+\textbf{Slippage Tolerance:} Users set maximum acceptable slippage (e.g., 0.5\%, 1\%, 5\%). Transaction reverts if exceeded.
+\end{frame}
+
+\begin{frame}{Liquidity Provision}
+\textbf{How to Become an LP:}
+\begin{enumerate}
+\item Deposit equal value of both tokens (e.g., 1 ETH + 2,000 USDC)
+\item Receive LP tokens representing pool share
+\item Earn trading fees proportional to share
+\item Withdraw anytime (burn LP tokens, receive reserves back)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Pool has 100 ETH + 200,000 USDC
+\item You deposit 10 ETH + 20,000 USDC
+\item Total pool now: 110 ETH + 220,000 USDC
+\item Your share: $\frac{10}{110} = 9.09\%$
+\item You receive 9.09\% of LP tokens
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Fee Earnings:}
+\begin{itemize}
+\item Uniswap charges 0.3\% per trade
+\item Fees added to pool reserves
+\item LPs earn pro-rata share
+\end{itemize}
+\end{frame}
+
+\begin{frame}{LP Token Mechanics}
+\textbf{Purpose:} Represent ownership share of liquidity pool.
+
+\vspace{0.3cm}
+\textbf{Properties:}
+\begin{itemize}
+\item Fungible ERC-20 tokens
+\item Can be transferred or sold
+\item Redeemable for underlying assets
+\item Value appreciates with fee accumulation
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Withdrawal Process:}
+\begin{enumerate}
+\item Burn LP tokens
+\item Receive pro-rata share of current pool reserves
+\item May be different ratio than deposit (due to trades)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item You hold 9.09\% of LP tokens
+\item Pool now has 105 ETH + 210,000 USDC (after trades and fees)
+\item You withdraw: $0.0909 \times 105 = 9.54$ ETH and $0.0909 \times 210{,}000 = 19{,}089$ USDC
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Impermanent Loss: Concept}
+\textbf{Definition:} The opportunity cost of providing liquidity compared to simply holding tokens.
+
+\vspace{0.3cm}
+\textbf{Occurs when:}
+\begin{itemize}
+\item Token prices diverge from deposit ratio
+\item Arbitrageurs rebalance pool to match external prices
+\item LPs end up with more of the depreciated token
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why ``Impermanent''?}
+\begin{itemize}
+\item Loss is only realized upon withdrawal
+\item If prices return to original ratio, loss disappears
+\item Trading fees may offset the loss over time
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Insight:} LPs effectively become market makers who buy low and sell high (but miss out on holding gains).
+\end{frame}
+
+\begin{frame}{Impermanent Loss: Example}
+\textbf{Initial Deposit:}
+\begin{itemize}
+\item 1 ETH + 2,000 USDC (ETH price = \$2,000)
+\item Total value: \$4,000
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Scenario: ETH doubles to \$4,000}
+
+\textbf{If you just held:}
+\begin{itemize}
+\item 1 ETH now worth \$4,000
+\item 2,000 USDC still worth \$2,000
+\item \textbf{Total: \$6,000}
+\end{itemize}
+
+\textbf{If you provided liquidity:}
+\begin{itemize}
+\item Arbitrageurs rebalance pool: $x \cdot y = k$
+\item New reserves: 0.707 ETH + 2,828 USDC
+\item Value: $(0.707 \times \$4{,}000) + \$2{,}828 = \$5{,}656$
+\item \textbf{Impermanent Loss: \$6,000 - \$5,656 = \$344 (5.7\%)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Impermanent Loss: Formula}
+\textbf{General Formula:}
+\[
+\text{IL} = \frac{2\sqrt{r}}{1 + r} - 1
+\]
+where $r$ is the price ratio change.
+
+\vspace{0.3cm}
+\textbf{Common Scenarios:}
+\begin{itemize}
+\item 1.25x price change: -0.6\% IL
+\item 1.5x price change: -2.0\% IL
+\item 2x price change: -5.7\% IL
+\item 3x price change: -13.4\% IL
+\item 4x price change: -20.0\% IL
+\item 5x price change: -25.5\% IL
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Observation:} IL accelerates with larger price movements (non-linear).
+\end{frame}
+
+\begin{frame}{Mitigating Impermanent Loss}
+\textbf{Strategies:}
+
+\vspace{0.3cm}
+\textbf{1. Choose Stable Pairs}
+\begin{itemize}
+\item Provide liquidity for correlated assets (e.g., USDC/DAI, ETH/stETH)
+\item Minimal price divergence = minimal IL
+\end{itemize}
+
+\textbf{2. High Trading Volume Pools}
+\begin{itemize}
+\item More fees to offset IL
+\item Example: ETH/USDC on Uniswap (high volume)
+\end{itemize}
+
+\textbf{3. Concentrated Liquidity (Uniswap V3)}
+\begin{itemize}
+\item Provide liquidity in narrow price range
+\item Higher fee efficiency but more active management
+\end{itemize}
+
+\textbf{4. Liquidity Mining Rewards}
+\begin{itemize}
+\item Extra token incentives may exceed IL
+\end{itemize}
+
+\textbf{5. Short-Term Provision}
+\begin{itemize}
+\item Withdraw before large price movements
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Arbitrage in AMMs}
+\textbf{How Arbitrage Works:}
+\begin{enumerate}
+\item External market price deviates from AMM price
+\item Arbitrageur buys cheaper asset, sells expensive one
+\item Profits from price difference
+\item AMM pool rebalances to match external price
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Centralized exchange (CEX): 1 ETH = \$2,100
+\item Uniswap pool implies: 1 ETH = \$2,000
+\item Arbitrageur: Buy ETH on Uniswap (\$2,000), sell on CEX (\$2,100)
+\item Profit: \$100 per ETH
+\item Pool adjusts: ETH reserve decreases, USDC increases, price rises
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Benefit:} Arbitrage keeps AMM prices aligned with global markets.
+
+\textbf{Cost:} LPs experience impermanent loss from price adjustments.
+\end{frame}
+
+\begin{frame}{Fee Structures}
+\textbf{Uniswap Fee Tiers:}
+\begin{itemize}
+\item \textbf{0.01\%:} Stablecoin pairs (low volatility)
+\item \textbf{0.05\%:} Correlated pairs (e.g., ETH/stETH)
+\item \textbf{0.3\%:} Most pairs (standard)
+\item \textbf{1\%:} Exotic/volatile pairs
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Fee Distribution:}
+\begin{itemize}
+\item 100\% to LPs (Uniswap governance can enable protocol fee)
+\item Fees compound in pool reserves
+\item LPs earn proportional to liquidity share and duration
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{APY Calculation:}
+\[
+\text{APY} \approx \frac{\text{Daily Fees} \times 365}{\text{Pool TVL}} - \text{Impermanent Loss}
+\]
+
+\textbf{Example:}
+\begin{itemize}
+\item Pool TVL: \$10M, Daily fees: \$10,000
+\item APY: $\frac{10{,}000 \times 365}{10{,}000{,}000} = 36.5\%$ (before IL)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{AMM Variants: Curve (Stableswap)}
+\textbf{Problem with Constant Product:}
+\begin{itemize}
+\item Inefficient for assets that should trade 1:1 (stablecoins)
+\item High slippage even for small trades
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Curve's Solution: Stableswap Invariant}
+\begin{itemize}
+\item Hybrid of constant product and constant sum
+\item Flat curve near 1:1 price (low slippage)
+\item Reverts to constant product at extremes (prevents pool drain)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Benefits:}
+\begin{itemize}
+\item Trade millions of USDC/DAI with <0.01\% slippage
+\item Capital efficient for stablecoin swaps
+\item Minimal impermanent loss (prices stay near 1:1)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Use Case:} Dominant DEX for stablecoin trading.
+\end{frame}
+
+\begin{frame}{AMM Variants: Balancer (Weighted Pools)}
+\textbf{Generalization:}
+\[
+\prod_{i} x_i^{w_i} = k
+\]
+where $w_i$ are weights (must sum to 1).
+
+\vspace{0.3cm}
+\textbf{Example: 80/20 Pool}
+\begin{itemize}
+\item 80\% token A, 20\% token B by value
+\item Less impermanent loss than 50/50 pool
+\item Still earn fees from trading
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Advantages:}
+\begin{itemize}
+\item Customizable exposure (e.g., 80\% ETH, 20\% USDC)
+\item Multi-token pools (up to 8 tokens)
+\item Index fund functionality
+\end{itemize}
+
+\textbf{Use Case:} LPs wanting concentrated exposure to one asset while earning fees.
+\end{frame}
+
+\begin{frame}{Capital Efficiency}
+\textbf{Problem:} In constant product AMMs, most liquidity is unused.
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item ETH/USDC pool with 100 ETH and 200,000 USDC
+\item Most trades happen near current price (\$2,000)
+\item Liquidity far from current price (e.g., \$1,000 or \$4,000) rarely used
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Solution: Concentrated Liquidity (Uniswap V3)}
+\begin{itemize}
+\item LPs choose specific price range
+\item Liquidity only active within range
+\item More capital efficient (same liquidity with less capital)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trade-off:}
+\begin{itemize}
+\item Higher returns if price stays in range
+\item Zero fees if price moves outside range
+\item Requires active management (rebalancing)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Comparison: AMM vs. Order Book}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{AMM (Uniswap)}
+\begin{itemize}
+\item Always available liquidity
+\item Passive LP income
+\item Slippage on large trades
+\item Price discovery via arbitrage
+\item Impermanent loss risk
+\item Simple to implement
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Order Book (Binance)}
+\begin{itemize}
+\item Liquidity depends on makers
+\item Active market making
+\item Better for large trades (limit orders)
+\item Real-time price discovery
+\item No impermanent loss
+\item Complex infrastructure
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Trend:} Hybrid models emerging (e.g., dYdX order book on Cosmos, Uniswap X).
+\end{frame}
+
+\begin{frame}{MEV and Front-Running in AMMs}
+\textbf{Maximal Extractable Value (MEV):}
+\begin{itemize}
+\item Profit from reordering/inserting/censoring transactions
+\item Particularly prevalent in AMM trades
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Common MEV Strategies:}
+\begin{enumerate}
+\item \textbf{Front-Running:} See large buy, buy first, sell after price moves
+\item \textbf{Sandwich Attacks:} Buy before user, sell after (profit from their slippage)
+\item \textbf{Arbitrage:} Exploit price differences between AMMs/CEXs
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Impact on Users:}
+\begin{itemize}
+\item Worse execution prices
+\item Hidden cost (in addition to explicit fees)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Mitigation:}
+\begin{itemize}
+\item Private mempools (Flashbots Protect)
+\item MEV-aware routers
+\item Batch auctions (CoW Swap)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item AMMs use $x \cdot y = k$ to provide algorithmic liquidity
+\item Price determined by reserve ratio, trades move price
+\item Slippage increases with trade size and decreases with pool depth
+\item LPs earn fees but face impermanent loss when prices diverge
+\item IL formula: $\frac{2\sqrt{r}}{1 + r} - 1$ where $r$ is price change ratio
+\item Arbitrage keeps AMM prices aligned with external markets
+\item Variants (Curve, Balancer, Uniswap V3) optimize for specific use cases
+\item MEV is a hidden cost for AMM traders
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} Uniswap Deep Dive - Evolution from V1 to V4, concentrated liquidity, governance.
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Calculate the cost to buy 5 ETH from a pool with 100 ETH and 200,000 USDC.
+\item Why does slippage increase non-linearly with trade size?
+\item How do trading fees help offset impermanent loss for LPs?
+\item Why is Curve more suitable for stablecoin trading than Uniswap V2?
+\item What are the trade-offs of concentrated liquidity in Uniswap V3?
+\end{enumerate}
+\end{frame}
+
+\end{document}

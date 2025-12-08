@@ -1,0 +1,560 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L46: Swiss FINMA and EU MiCA}
+\subtitle{Module G: Regulation \& Future}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Why Focus on Switzerland and EU?}
+\begin{itemize}
+\item \textbf{Switzerland}: Global leader in crypto regulation clarity
+\begin{itemize}
+\item Crypto Valley (Zug): 1,000+ blockchain companies
+\item Clear legal framework since 2019
+\item Home to Ethereum Foundation, Cardano Foundation, Tezos
+\end{itemize}
+\item \textbf{EU MiCA}: First comprehensive crypto regulatory framework
+\begin{itemize}
+\item Applies to 27 member states (450M people)
+\item Template for other jurisdictions globally
+\item Effective 2024-2025
+\end{itemize}
+\vspace{0.3cm}
+\item \textbf{Relevance}: Both frameworks offer regulatory certainty for builders and investors
+\item \textbf{Contrast}: Principles-based (Switzerland) vs rules-based (EU)
+\end{itemize}
+\end{frame}
+
+\section{Switzerland: FINMA Framework}
+
+\begin{frame}{FINMA: Swiss Financial Regulator}
+\begin{itemize}
+\item \textbf{FINMA (Swiss Financial Market Supervisory Authority)}: Independent regulator
+\item \textbf{Mandate}: Protect creditors, investors, and insured parties; ensure financial market functionality
+\item \textbf{Crypto Regulation Milestones}:
+\begin{itemize}
+\item 2017: First ICO guidelines
+\item 2019: Comprehensive token classification guidance
+\item 2021: DLT Act (blockchain-specific legislation)
+\item 2023: Updated guidance on DeFi and stablecoins
+\end{itemize}
+\item \textbf{Approach}: Technology-neutral, principles-based
+\item \textbf{Philosophy}: ``Same business, same risk, same rules''
+\end{itemize}
+\end{frame}
+
+\begin{frame}{FINMA Token Classification}
+\begin{itemize}
+\item \textbf{Three Token Categories} (not mutually exclusive):
+\begin{enumerate}
+\item \textbf{Payment Tokens}: Means of payment, transfer of value
+\begin{itemize}
+\item Examples: Bitcoin, Litecoin
+\item Regulation: AML (not securities law)
+\end{itemize}
+\item \textbf{Utility Tokens}: Access to application or service
+\begin{itemize}
+\item Examples: Filecoin (storage), Golem (compute)
+\item Regulation: No specific financial regulation (if truly utility)
+\end{itemize}
+\item \textbf{Asset Tokens}: Represent assets, claims, or equity
+\begin{itemize}
+\item Examples: Tokenized securities, equity tokens
+\item Regulation: Securities law (prospectus, licensing)
+\end{itemize}
+\end{enumerate}
+\item \textbf{Hybrid Tokens}: Can have multiple characteristics (e.g., utility + payment)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Token Classification: Decision Tree}
+\begin{enumerate}
+\item \textbf{Does token represent an asset or economic right?}
+\begin{itemize}
+\item Yes $\rightarrow$ \textbf{Asset Token} (securities regulation)
+\item No $\rightarrow$ Continue to question 2
+\end{itemize}
+\item \textbf{Is token primarily used for payments or value transfer?}
+\begin{itemize}
+\item Yes $\rightarrow$ \textbf{Payment Token} (AML only)
+\item No $\rightarrow$ Continue to question 3
+\end{itemize}
+\item \textbf{Does token grant access to application or service?}
+\begin{itemize}
+\item Yes, and platform exists $\rightarrow$ \textbf{Utility Token} (minimal regulation)
+\item Yes, but platform doesn't exist $\rightarrow$ May be asset token (investment contract)
+\end{itemize}
+\end{enumerate}
+\vspace{0.3cm}
+\textbf{Key Insight}: Economic function determines regulatory treatment, not technology
+\end{frame}
+
+\begin{frame}{FINMA: ICO Guidelines}
+\begin{itemize}
+\item \textbf{Key Requirements for Token Issuances}:
+\begin{enumerate}
+\item \textbf{AML Compliance}:
+\begin{itemize}
+\item KYC for token purchasers (if payment tokens)
+\item Anti-money laundering checks
+\item Affiliation with Swiss financial intermediary
+\end{itemize}
+\item \textbf{Securities Law} (if asset tokens):
+\begin{itemize}
+\item Prospectus requirement (unless exemption)
+\item Authorization as securities house (if professional issuer)
+\end{itemize}
+\item \textbf{Banking Law}:
+\begin{itemize}
+\item Public deposit-taking requires banking license
+\item Exception: Pre-sale if tokens delivered within 6 months
+\end{itemize}
+\end{enumerate}
+\item \textbf{Transparency}: FINMA publishes guidance, no-action letters
+\item \textbf{Flexibility}: Case-by-case assessment, no rigid rules
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DLT Act (2021): Blockchain-Specific Legislation}
+\begin{itemize}
+\item \textbf{Purpose}: Adapt Swiss law to blockchain technology
+\item \textbf{Key Innovations}:
+\begin{enumerate}
+\item \textbf{DLT Securities}: Legal recognition of tokenized securities
+\begin{itemize}
+\item Rights register maintained on blockchain (not central registry)
+\item Same legal status as traditional securities
+\end{itemize}
+\item \textbf{DLT Trading Facilities}: New license category
+\begin{itemize}
+\item For platforms trading tokenized securities
+\item Lower barriers than traditional exchanges
+\item Prudential requirements, custody standards
+\end{itemize}
+\item \textbf{Segregation of Crypto Assets in Bankruptcy}:
+\begin{itemize}
+\item Customer crypto assets segregated from bankruptcy estate
+\item Protection against insolvency (unlike general creditor claim)
+\end{itemize}
+\end{enumerate}
+\item \textbf{Impact}: Legal certainty for tokenization, institutional custody
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DLT Trading Facility License}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Requirements}
+\begin{itemize}
+\item Minimum capital: CHF 500,000
+\item Fit-and-proper management
+\item Adequate organizational structure
+\item Risk management and internal controls
+\item Custody arrangements (segregation)
+\item AML/CFT compliance
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Scope}
+\begin{itemize}
+\item Trading of DLT securities
+\item Central custody (optional)
+\item Order matching
+\item Settlement on DLT
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Advantages}
+\begin{itemize}
+\item Lighter than traditional exchange license
+\item Faster authorization process
+\item Innovation-friendly framework
+\item Legal certainty for participants
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Examples}
+\begin{itemize}
+\item SDX (SIX Digital Exchange): First FINMA-licensed DLT trading facility
+\item Tokenized bonds, funds, securities
+\item Regulated secondary market
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{FINMA: Stablecoin Regulation}
+\begin{itemize}
+\item \textbf{Classification}: Depends on structure
+\begin{itemize}
+\item \textbf{Fiat-backed (e.g., USDC)}: Payment token, may trigger e-money rules
+\item \textbf{Asset-backed}: Asset token (securities regulation)
+\item \textbf{Algorithmic}: Likely asset token (if investment scheme)
+\end{itemize}
+\item \textbf{Banking Law Trigger}:
+\begin{itemize}
+\item If accepts public deposits $\rightarrow$ Banking license required
+\item Exception: Fully reserved, no maturity transformation, no credit risk
+\end{itemize}
+\item \textbf{Payment System Regulation}:
+\begin{itemize}
+\item Large-scale payment tokens may be systemically important
+\item FINMA oversight of payment infrastructure
+\end{itemize}
+\item \textbf{Case Study}: Libra/Diem project (Facebook)
+\begin{itemize}
+\item Chose Switzerland for regulatory clarity
+\item FINMA assessed as payment system (not bank)
+\item Project ultimately abandoned for regulatory reasons globally
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Swiss Crypto Ecosystem}
+\begin{itemize}
+\item \textbf{Crypto Valley (Zug)}: Global blockchain hub since 2013
+\begin{itemize}
+\item 1,000+ blockchain companies
+\item Ethereum Foundation, Cardano, Polkadot, Tezos foundations
+\item Major exchanges: Bitcoin Suisse, Crypto Finance
+\end{itemize}
+\item \textbf{Supportive Factors}:
+\begin{itemize}
+\item Regulatory clarity and consistency
+\item Political stability, rule of law
+\item Banking infrastructure (crypto-friendly banks)
+\item Tax competitiveness (low corporate tax in Zug)
+\item Skilled workforce and universities
+\end{itemize}
+\item \textbf{Institutional Adoption}:
+\begin{itemize}
+\item SIX (Swiss stock exchange) operates SDX (digital asset exchange)
+\item Swiss banks offer crypto custody (e.g., Julius Baer, Maerki Baumann)
+\item Pension funds permitted to invest in crypto (small allocations)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{EU: Markets in Crypto-Assets (MiCA)}
+
+\begin{frame}{MiCA: Overview}
+\begin{itemize}
+\item \textbf{MiCA (Markets in Crypto-Assets Regulation)}: EU-wide framework
+\item \textbf{Legislative Process}:
+\begin{itemize}
+\item Proposed: September 2020
+\item Approved: April 2023 (EU Parliament and Council)
+\item Entry into force: Phased 2024-2025
+\end{itemize}
+\item \textbf{Objectives}:
+\begin{enumerate}
+\item Legal certainty for crypto assets not covered by existing financial regulation
+\item Support innovation and fair competition
+\item Consumer and investor protection
+\item Financial stability safeguards
+\end{enumerate}
+\item \textbf{Scope}: Crypto-assets, issuers, CASPs (Crypto-Asset Service Providers)
+\item \textbf{Exclusions}: NFTs (unless fractionalized), CBDCs, utility tokens for specific services
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MiCA: Crypto-Asset Definitions}
+\begin{enumerate}
+\item \textbf{E-Money Tokens (EMTs)}:
+\begin{itemize}
+\item Maintain stable value by referencing single fiat currency
+\item Examples: USDC, USDT (if compliant)
+\item Regulation: Strictest (banking-like requirements)
+\end{itemize}
+\item \textbf{Asset-Referenced Tokens (ARTs)}:
+\begin{itemize}
+\item Maintain stable value by referencing basket of assets, commodities, or multiple currencies
+\item Examples: Hypothetical basket-backed stablecoins
+\item Regulation: Strict (capital, reserve, governance)
+\end{itemize}
+\item \textbf{Other Crypto-Assets}:
+\begin{itemize}
+\item All other tokens not EMTs or ARTs
+\item Examples: Bitcoin, Ethereum, utility tokens
+\item Regulation: Disclosure requirements (white paper)
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{MiCA: E-Money Token (EMT) Requirements}
+\begin{itemize}
+\item \textbf{Issuer Authorization}:
+\begin{itemize}
+\item Must be authorized credit institution or e-money institution
+\item CASP license NOT sufficient for issuance
+\end{itemize}
+\item \textbf{Reserve Requirements}:
+\begin{itemize}
+\item 1:1 backing in high-quality liquid assets
+\item Segregated from issuer's own assets
+\item Custody with authorized entities
+\item Daily reconciliation
+\end{itemize}
+\item \textbf{Redemption Rights}:
+\begin{itemize}
+\item Holders can redeem at par value at any time
+\item No fees for redemption
+\item Redemption in referenced fiat currency
+\end{itemize}
+\item \textbf{Supervision}: National competent authority (NCA) of home member state
+\item \textbf{Impact}: Tether (USDT) may struggle to comply; Circle (USDC) better positioned
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MiCA: Significant E-Money Tokens}
+\begin{itemize}
+\item \textbf{Significance Criteria} (any one triggers):
+\begin{itemize}
+\item Customer base >10 million
+\item Reserve assets value >5 billion EUR
+\item Daily transactions >2.5 million, value >500 million EUR
+\item Interconnectedness with financial system
+\end{itemize}
+\item \textbf{Enhanced Requirements}:
+\begin{itemize}
+\item EBA (European Banking Authority) supervision
+\item Higher capital requirements
+\item Liquidity management plan
+\item Recovery and redemption plan
+\item Stress testing
+\item Interoperability requirements
+\end{itemize}
+\item \textbf{Limits on Use}:
+\begin{itemize}
+\item Restrictions on use as means of exchange in single member state (prevent EUR substitution)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MiCA: Asset-Referenced Token (ART) Requirements}
+\begin{itemize}
+\item \textbf{Issuer Authorization}:
+\begin{itemize}
+\item Dedicated authorization (not credit institution)
+\item Own funds requirement: 350,000 EUR or 2\% of reserve assets
+\item Fit-and-proper management
+\end{itemize}
+\item \textbf{Reserve Assets}:
+\begin{itemize}
+\item Composition matching referenced assets
+\item Custody with authorized entities
+\item Segregation from issuer's assets
+\item Investment policy (limits on asset types)
+\end{itemize}
+\item \textbf{Governance}:
+\begin{itemize}
+\item White paper approval by competent authority
+\item Disclosure of reserve composition (quarterly reports)
+\item Audit of reserves (annual)
+\end{itemize}
+\item \textbf{Prohibition}: Stablecoins offering interest payments (prevent bank-like deposit taking)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MiCA: Crypto-Asset Service Providers (CASPs)}
+\begin{itemize}
+\item \textbf{CASP Services} (require authorization):
+\begin{enumerate}
+\item Custody and administration of crypto-assets
+\item Operation of trading platform
+\item Exchange of crypto-assets for fiat or other crypto
+\item Execution of orders on behalf of clients
+\item Placing of crypto-assets
+\item Reception and transmission of orders
+\item Providing advice on crypto-assets
+\item Portfolio management
+\item Transfer services
+\end{enumerate}
+\item \textbf{Authorization}: Single authorization valid across all EU member states (passporting)
+\item \textbf{Grandfathering}: Existing providers have 18 months to comply
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MiCA: CASP Requirements}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Organizational}
+\begin{itemize}
+\item Minimum capital: 50,000-150,000 EUR (service-dependent)
+\item Fit-and-proper management
+\item Conflict of interest policies
+\item Complaint handling procedures
+\item Outsourcing governance
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Operational}
+\begin{itemize}
+\item Custody requirements (segregation, cold storage)
+\item Cybersecurity measures
+\item Business continuity plans
+\item AML/CFT compliance
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Conduct of Business}
+\begin{itemize}
+\item Fair, clear, not misleading communications
+\item Disclosure of fees and costs
+\item Best execution for client orders
+\item Prohibition of market manipulation, insider trading
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Transparency}
+\begin{itemize}
+\item Public disclosure of services
+\item Conflicts of interest disclosure
+\item Annual reports to competent authority
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{MiCA: Market Abuse Provisions}
+\begin{itemize}
+\item \textbf{Prohibited Conduct} (applies to crypto-assets under MiCA):
+\begin{enumerate}
+\item \textbf{Insider Dealing}:
+\begin{itemize}
+\item Trading based on material non-public information
+\item Tipping (disclosing inside information)
+\item Same rules as for traditional securities
+\end{itemize}
+\item \textbf{Market Manipulation}:
+\begin{itemize}
+\item Wash trading, spoofing, layering
+\item Pump-and-dump schemes
+\item Spreading false information
+\end{itemize}
+\item \textbf{Unlawful Disclosure}: Recommending transactions based on inside information
+\end{enumerate}
+\item \textbf{Enforcement}: National competent authorities, criminal penalties possible
+\item \textbf{Surveillance}: CASPs must monitor and report suspicious transactions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MiCA: White Paper Requirements}
+\begin{itemize}
+\item \textbf{Purpose}: Standardized disclosure document for crypto-asset offerings
+\item \textbf{Required Information}:
+\begin{itemize}
+\item Issuer identification and information
+\item Description of crypto-asset (purpose, technology, use cases)
+\item Rights and obligations of holders
+\item Underlying technology and consensus mechanism
+\item Risks (comprehensive disclosure)
+\item Sustainability impacts (energy consumption for PoW)
+\item For ARTs/EMTs: Reserve composition, redemption rights
+\end{itemize}
+\item \textbf{Approval Process}:
+\begin{itemize}
+\item EMTs/ARTs: Competent authority approval required
+\item Other crypto-assets: Notification to authority (20-day review)
+\end{itemize}
+\item \textbf{Liability}: Issuers liable for misleading or incomplete white papers
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MiCA vs Swiss Framework: Comparison}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Aspect} & \textbf{Switzerland (FINMA)} & \textbf{EU (MiCA)} \\
+\midrule
+Approach & Principles-based & Rules-based \\
+Legislation & Adapted existing + DLT Act & New comprehensive framework \\
+Token Classification & 3 types (flexible) & 3 types (rigid) \\
+Stablecoin Regulation & Case-by-case & Banking-like (EMTs) \\
+Market Abuse & General law applies & Explicit crypto provisions \\
+Passporting & No (Swiss-only) & Yes (EU-wide) \\
+Scope & Narrower (financial services focus) & Broader (all CASPs) \\
+DeFi Treatment & Unclear & Excluded (for now) \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.3cm}
+\textbf{Both}: Clear frameworks attract institutional investment and innovation
+\end{frame}
+
+\begin{frame}{Impact on Industry}
+\begin{itemize}
+\item \textbf{Centralized Exchanges}:
+\begin{itemize}
+\item Must obtain CASP license (EU) or equivalent (Switzerland)
+\item Enhanced custody and compliance costs
+\item Barrier to entry increases (consolidation likely)
+\end{itemize}
+\item \textbf{Stablecoin Issuers}:
+\begin{itemize}
+\item Tether: May exit EU market or comply (costly)
+\item Circle: Well-positioned (already reserves-backed)
+\item New EU-based stablecoins may emerge
+\end{itemize}
+\item \textbf{DeFi Protocols}:
+\begin{itemize}
+\item MiCA: Currently excluded (no legal entity)
+\item Future regulation likely (DeFi not regulated = loophole)
+\item Some protocols may incorporate CASP entity for compliance
+\end{itemize}
+\item \textbf{Cross-Border Operations}: EU passport valuable, Swiss firms may seek EU presence
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Challenges and Criticisms}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{MiCA Criticisms}
+\begin{itemize}
+\item \textbf{Innovation Chilling}: Heavy compliance costs
+\item \textbf{DeFi Gap}: Decentralized protocols not covered
+\item \textbf{NFT Exemption}: Unclear boundaries (fractionalization)
+\item \textbf{Self-Hosted Wallets}: Proposed KYC for large transfers (privacy concern)
+\item \textbf{One-Size-Fits-All}: Diverse crypto assets treated uniformly
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Swiss FINMA Challenges}
+\begin{itemize}
+\item \textbf{Limited Market}: Switzerland-only (no EU passport)
+\item \textbf{DeFi Uncertainty}: Principles-based = case-by-case uncertainty
+\item \textbf{Scaling Limits}: Regulatory capacity for rapid innovation
+\item \textbf{Enforcement}: Cross-border crypto operations difficult to supervise
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\textbf{Industry Response}: Compliance costs as barrier to entry benefit incumbents
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+\item \textbf{Switzerland}: Principles-based, early clarity, DLT Act innovation
+\item \textbf{FINMA token classification}: Payment, Utility, Asset (flexible)
+\item \textbf{DLT Trading Facility}: New license for tokenized securities exchanges
+\item \textbf{EU MiCA}: Comprehensive rules-based framework, 27 countries
+\item \textbf{MiCA categories}: E-Money Tokens (EMTs), Asset-Referenced Tokens (ARTs), Other
+\item \textbf{Stablecoin regulation}: Banking-like requirements, reserve backing, redemption rights
+\item \textbf{CASPs}: Licensing, capital, custody, market abuse rules
+\item \textbf{Comparison}: Principles (CH) vs rules (EU), both offer clarity
+\item \textbf{Impact}: Institutional adoption enabled, DeFi regulatory gap remains
+\item \textbf{Future}: MiCA as global template, DeFi regulation coming
+\end{itemize}
+\end{frame}
+
+\end{document}

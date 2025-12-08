@@ -1,0 +1,496 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L29: Token Economics Fundamentals}
+\subtitle{Module D: Tokenomics}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand different token types and their purposes
+\item Analyze value accrual mechanisms in token economies
+\item Evaluate token supply models and their implications
+\item Apply tokenomics principles to real-world projects
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Tokenomics?}
+\textbf{Definition:} The study of the economic systems governing the creation, distribution, and management of tokens in blockchain ecosystems.
+
+\vspace{0.3cm}
+\textbf{Key Components:}
+\begin{itemize}
+\item Token design and purpose
+\item Supply and distribution mechanics
+\item Incentive structures
+\item Value capture mechanisms
+\item Governance and utility
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why It Matters:}
+Tokenomics determines the long-term sustainability and success of crypto projects.
+\end{frame}
+
+\begin{frame}{Token Types: Overview}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{1. Utility Tokens}
+\begin{itemize}
+\item Access to platform services
+\item Payment for network fees
+\item Examples: BNB, LINK, FIL
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{2. Security Tokens}
+\begin{itemize}
+\item Represent ownership/dividends
+\item Subject to securities laws
+\item Examples: tokenized stocks, bonds
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{3. Governance Tokens}
+\begin{itemize}
+\item Voting rights on protocol changes
+\item DAO participation
+\item Examples: UNI, AAVE, MKR
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{4. Store of Value Tokens}
+\begin{itemize}
+\item Digital gold analogy
+\item Limited supply
+\item Example: BTC
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Utility Tokens: Deep Dive}
+\textbf{Purpose:} Grant access to specific products or services within an ecosystem.
+
+\vspace{0.3cm}
+\textbf{Characteristics:}
+\begin{itemize}
+\item Not designed as investments
+\item Required for platform interaction
+\item Value linked to platform usage
+\item May offer fee discounts
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example: Binance Coin (BNB)}
+\begin{itemize}
+\item Trading fee discounts on Binance exchange
+\item Gas fees on BNB Chain
+\item Participation in token sales (Launchpad)
+\item Quarterly token burns based on trading volume
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Security Tokens}
+\textbf{Definition:} Tokens that represent investment contracts and are subject to securities regulations.
+
+\vspace{0.3cm}
+\textbf{Howey Test Criteria:}
+\begin{enumerate}
+\item Investment of money
+\item In a common enterprise
+\item With expectation of profits
+\item Derived from efforts of others
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Implications:}
+\begin{itemize}
+\item Must comply with SEC regulations (in US)
+\item Require registration or exemption
+\item Investor protections apply
+\item Limited to accredited investors (often)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Governance Tokens}
+\textbf{Purpose:} Enable decentralized decision-making in protocols.
+
+\vspace{0.3cm}
+\textbf{Voting Rights:}
+\begin{itemize}
+\item Protocol parameter changes
+\item Treasury allocation
+\item Fee structure modifications
+\item Smart contract upgrades
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example: Uniswap (UNI)}
+\begin{itemize}
+\item Governance over protocol fee switch
+\item Treasury management (billions in assets)
+\item Grant program decisions
+\item 1 UNI = 1 vote (with delegation)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Value Accrual Mechanisms}
+\textbf{How do tokens capture value from protocol success?}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Fee Distribution}
+\begin{itemize}
+\item Protocol fees shared with token holders
+\item Example: GMX distributes 30\% of trading fees
+\end{itemize}
+
+\item \textbf{Staking Rewards}
+\begin{itemize}
+\item Lock tokens to earn yield
+\item Example: Ethereum validators earn ETH rewards
+\end{itemize}
+
+\item \textbf{Token Burns}
+\begin{itemize}
+\item Reduce circulating supply
+\item Example: BNB quarterly burns, ETH EIP-1559
+\end{itemize}
+
+\item \textbf{Buybacks}
+\begin{itemize}
+\item Protocol buys tokens from market
+\item Example: MakerDAO buying back MKR
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Supply Models: Fixed Supply}
+\textbf{Characteristics:}
+\begin{itemize}
+\item Predetermined maximum supply
+\item No new tokens created after cap
+\item Deflationary if tokens are burned
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Bitcoin Example:}
+\begin{itemize}
+\item Maximum supply: 21 million BTC
+\item Current supply: ~19.5 million (as of 2024)
+\item Halving every 210,000 blocks (~4 years)
+\item Final BTC mined around year 2140
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Advantages:}
+\begin{itemize}
+\item Scarcity creates potential value appreciation
+\item Predictable monetary policy
+\item Protection against inflation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Supply Models: Inflationary}
+\textbf{Characteristics:}
+\begin{itemize}
+\item New tokens continuously created
+\item Inflation rate may be fixed or decreasing
+\item Incentivizes staking/participation
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Ethereum Example (Post-Merge):}
+\begin{itemize}
+\item New ETH issued to validators: ~0.5\% annually
+\item ETH burned via EIP-1559: ~0.5-2\% annually
+\item Net effect: slightly deflationary to neutral
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Advantages:}
+\begin{itemize}
+\item Ongoing incentives for network security
+\item Flexibility to adjust issuance
+\item Can fund ecosystem development
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Supply Models: Deflationary}
+\textbf{Characteristics:}
+\begin{itemize}
+\item Circulating supply decreases over time
+\item Tokens removed through burns
+\item Creates scarcity pressure
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{BNB Burn Mechanism:}
+\begin{itemize}
+\item Auto-Burn: based on BNB Chain gas fees
+\item Real-Time Burn: 10\% of gas fees immediately burned
+\item Target: burn until 100M BNB remains (from 200M initial)
+\item Current supply: ~144M BNB (Dec 2024)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Risks:}
+\begin{itemize}
+\item Excessive deflation may discourage spending
+\item Burns must be backed by genuine demand
+\item Can be manipulated if not transparent
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Emission Schedules}
+\textbf{How tokens enter circulation over time:}
+
+\vspace{0.3cm}
+\textbf{1. Linear Emission}
+\begin{itemize}
+\item Constant rate of new tokens
+\item Predictable but perpetual inflation
+\end{itemize}
+
+\textbf{2. Decreasing Emission}
+\begin{itemize}
+\item Halving events (Bitcoin model)
+\item Gradually reducing inflation
+\end{itemize}
+
+\textbf{3. Exponential Decay}
+\begin{itemize}
+\item Rapid initial distribution
+\item Asymptotically approaches max supply
+\end{itemize}
+
+\textbf{4. Algorithmic Adjustment}
+\begin{itemize}
+\item Based on network metrics
+\item Example: Ethereum's variable issuance
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Token Velocity Problem}
+\textbf{Problem:} High token velocity (frequent buying/selling) can suppress token price.
+
+\vspace{0.3cm}
+\textbf{Equation of Exchange:}
+\[
+MV = PQ
+\]
+where:
+\begin{itemize}
+\item $M$ = Money supply (token supply)
+\item $V$ = Velocity (transaction frequency)
+\item $P$ = Price level
+\item $Q$ = Quantity of goods/services
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Implication:}
+If $V$ increases while $PQ$ (network activity) stays constant, $M$ (token value) must decrease.
+
+\vspace{0.3cm}
+\textbf{Solutions:}
+\begin{itemize}
+\item Staking mechanisms (reduce velocity)
+\item Vesting periods
+\item Utility that requires holding (governance, fee discounts)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Incentive Alignment}
+\textbf{Goal:} Align interests of all participants (users, developers, investors, validators).
+
+\vspace{0.3cm}
+\textbf{Stakeholders:}
+\begin{itemize}
+\item \textbf{Users:} Want low fees, good UX, reliable service
+\item \textbf{Developers:} Need funding, want protocol adoption
+\item \textbf{Token Holders:} Seek value appreciation
+\item \textbf{Validators/Miners:} Require adequate compensation
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Mechanisms:}
+\begin{enumerate}
+\item \textbf{Fee Sharing:} Users pay fees, validators/holders earn
+\item \textbf{Governance:} All stakeholders can propose changes
+\item \textbf{Vesting:} Long-term alignment for team/investors
+\item \textbf{Liquidity Mining:} Bootstrap network effects
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Token Sinks vs. Faucets}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Token Sinks (Removal)}
+\begin{itemize}
+\item Transaction fee burns
+\item Protocol penalties (slashing)
+\item Staking locks
+\item Governance participation locks
+\item NFT minting costs
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Effect:}
+Reduce circulating supply, increase scarcity.
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Token Faucets (Creation)}
+\begin{itemize}
+\item Block rewards
+\item Liquidity mining rewards
+\item Airdrops
+\item Developer grants
+\item User incentives
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Effect:}
+Increase supply, incentivize participation.
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Balance:} Healthy tokenomics requires equilibrium between sinks and faucets.
+\end{frame}
+
+\begin{frame}{Case Study: ETH Tokenomics Evolution}
+\textbf{Pre-EIP-1559 (Before Aug 2021):}
+\begin{itemize}
+\item Inflationary: ~4.5\% annual issuance
+\item All fees go to miners
+\item Unpredictable fee market
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Post-EIP-1559:}
+\begin{itemize}
+\item Base fee burned (deflationary mechanism)
+\item Priority tips to miners
+\item More predictable fees
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Post-Merge (Sept 2022):}
+\begin{itemize}
+\item Issuance reduced ~90\% (from ~4.5\% to ~0.5\%)
+\item Net deflationary during high activity
+\item Staking yields: 3-5\% APR
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Result:} ETH became an ultrasound money meme due to net deflation.
+\end{frame}
+
+\begin{frame}{Good vs. Bad Tokenomics}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Good Tokenomics}
+\begin{itemize}
+\item Clear value accrual
+\item Sustainable incentives
+\item Low initial team/VC allocation
+\item Long vesting periods
+\item Transparent distribution
+\item Product-market fit
+\item Real utility beyond speculation
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Bad Tokenomics}
+\begin{itemize}
+\item No clear value capture
+\item Ponzi-like dynamics
+\item High team/insider allocation
+\item Short/no vesting
+\item Opaque distribution
+\item No real product
+\item Pure speculation
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Red Flags:}
+\begin{itemize}
+\item Excessive token supply to insiders (>30\%)
+\item No burns or deflationary mechanisms
+\item Unsustainable yield promises (>100\% APY)
+\item Complex mechanisms to hide inflation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Metrics to Evaluate}
+\begin{enumerate}
+\item \textbf{Circulating Supply vs. Total Supply}
+\begin{itemize}
+\item Large difference indicates future dilution
+\end{itemize}
+
+\item \textbf{Token Distribution}
+\begin{itemize}
+\item Top holder concentration
+\item Team/VC percentage
+\end{itemize}
+
+\item \textbf{Inflation Rate}
+\begin{itemize}
+\item Current and projected annual inflation
+\end{itemize}
+
+\item \textbf{Value Accrual Mechanisms}
+\begin{itemize}
+\item Fee sharing, burns, staking rewards
+\end{itemize}
+
+\item \textbf{Unlock Schedule}
+\begin{itemize}
+\item When do vested tokens enter circulation?
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Token type determines purpose and regulatory treatment
+\item Value accrual mechanisms connect token price to protocol success
+\item Supply models (fixed, inflationary, deflationary) have trade-offs
+\item Good tokenomics aligns incentives across all stakeholders
+\item Token velocity must be managed to maintain value
+\item Transparent distribution and vesting are crucial
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} Distribution and Vesting - How tokens are allocated and released over time.
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item How does Bitcoin's fixed supply model compare to Ethereum's flexible issuance?
+\item What are the trade-offs between utility tokens and governance tokens?
+\item How can a protocol reduce token velocity without harming liquidity?
+\item Why might high team/VC allocations be problematic?
+\item What role do token burns play in value accrual?
+\end{enumerate}
+\end{frame}
+
+\end{document}

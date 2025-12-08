@@ -1,0 +1,564 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{L43: Smart Contract Security}
+\subtitle{Module F: Advanced Topics}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{The Stakes of Smart Contract Security}
+\begin{itemize}
+\item \textbf{Code is Law}: Smart contracts are immutable and self-executing
+\item \textbf{High-Value Targets}: DeFi protocols hold billions in assets
+\item \textbf{Irreversibility}: Bugs cannot be patched without upgradeable contracts
+\item \textbf{Losses to Date}: \$3B+ stolen from smart contract exploits (2016-2024)
+\item \textbf{Asymmetry}: One vulnerability can drain entire protocol
+\item \textbf{Composability Risk}: Vulnerabilities cascade across protocols
+\vspace{0.3cm}
+\item \textbf{Paradigm Shift}: Traditional software debugging $\rightarrow$ Formal verification + economic incentives
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Top Smart Contract Vulnerabilities}
+\begin{enumerate}
+\item \textbf{Reentrancy}: Recursive external calls before state updates
+\item \textbf{Integer Overflow/Underflow}: Arithmetic beyond type limits
+\item \textbf{Access Control}: Unauthorized function execution
+\item \textbf{Oracle Manipulation}: Reliance on manipulable price feeds
+\item \textbf{Front-Running/MEV}: Transaction ordering exploitation
+\item \textbf{Denial of Service}: Gas limit attacks, unbounded loops
+\item \textbf{Timestamp Dependence}: Miner-manipulable block timestamps
+\item \textbf{Uninitialized Storage}: Default values exploited
+\item \textbf{Delegate Call Injection}: Context preservation attacks
+\item \textbf{Signature Replay}: Reusing valid signatures
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Reentrancy: The DAO Hack (2016)}
+\begin{itemize}
+\item \textbf{The DAO}: Decentralized autonomous organization, \$150M raised
+\item \textbf{Vulnerability}: Reentrancy in withdrawal function
+\item \textbf{Vulnerable Pattern}:
+\small
+\begin{verbatim}
+function withdraw(uint amount) public {
+    require(balances[msg.sender] >= amount);
+    msg.sender.call{value: amount}("");  // External call BEFORE state update
+    balances[msg.sender] -= amount;      // State updated AFTER
+}
+\end{verbatim}
+\normalsize
+\item \textbf{Attack}: Attacker's fallback function recursively calls \texttt{withdraw()}
+\item \textbf{Result}: Drained \$60M before running out of gas
+\item \textbf{Aftermath}: Ethereum hard fork (ETH vs ETC split)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Reentrancy: Attack Mechanism}
+\begin{enumerate}
+\item Attacker deposits 1 ETH, balance = 1
+\item Calls \texttt{withdraw(1)}
+\item Contract sends 1 ETH to attacker
+\item \textbf{Attacker's fallback function executes}:
+\begin{itemize}
+\item Balance still = 1 (not yet updated)
+\item Calls \texttt{withdraw(1)} again
+\item Contract checks balance (still 1), sends another 1 ETH
+\end{itemize}
+\item Recursion continues until gas limit or contract drained
+\item \textbf{Final state}: Attacker withdrew N ETH, balance decremented only once
+\end{enumerate}
+\vspace{0.3cm}
+\textbf{Root Cause}: State updated after external call (violates Checks-Effects-Interactions pattern)
+\end{frame}
+
+\begin{frame}[fragile]{Reentrancy: Defense Mechanisms}
+\begin{enumerate}
+\item \textbf{Checks-Effects-Interactions Pattern}:
+\small
+\begin{verbatim}
+function withdraw(uint amount) public {
+    require(balances[msg.sender] >= amount);  // Check
+    balances[msg.sender] -= amount;           // Effect (state update FIRST)
+    msg.sender.call{value: amount}("");       // Interaction (external call LAST)
+}
+\end{verbatim}
+\normalsize
+\item \textbf{Reentrancy Guard (Mutex)}:
+\small
+\begin{verbatim}
+bool locked;
+modifier noReentrant() {
+    require(!locked);
+    locked = true;
+    _;
+    locked = false;
+}
+\end{verbatim}
+\normalsize
+\item \textbf{OpenZeppelin ReentrancyGuard}: Industry-standard implementation
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Integer Overflow/Underflow}
+\begin{itemize}
+\item \textbf{Problem}: Solidity <0.8.0 does not check arithmetic overflow
+\item \textbf{Overflow Example}:
+\small
+\begin{verbatim}
+uint8 balance = 255;
+balance += 1;  // Wraps to 0 (255 + 1 = 256 mod 256)
+\end{verbatim}
+\normalsize
+\item \textbf{Underflow Example}:
+\small
+\begin{verbatim}
+uint8 balance = 0;
+balance -= 1;  // Wraps to 255 (0 - 1 = -1 mod 256)
+\end{verbatim}
+\normalsize
+\item \textbf{Real Attack}: BeautyChain (BEC) token (2018) -- overflow allowed minting billions of tokens
+\item \textbf{Mitigation}: Use SafeMath library or Solidity 0.8.0+ (built-in overflow checks)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Access Control Vulnerabilities}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Common Mistakes}
+\begin{itemize}
+\item Missing \texttt{onlyOwner} modifier
+\item Default function visibility (\texttt{public})
+\item Unprotected \texttt{selfdestruct}
+\item Constructor typo (pre-Solidity 0.5.0)
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Example: Parity Wallet Hack}
+\begin{itemize}
+\item \texttt{initWallet()} function unprotected
+\item Attacker became owner
+\item Called \texttt{selfdestruct}, froze \$300M
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Secure Pattern}
+\small
+\begin{verbatim}
+address public owner;
+
+modifier onlyOwner() {
+    require(msg.sender == owner);
+    _;
+}
+
+function withdraw()
+    public
+    onlyOwner
+{
+    // Protected function
+}
+\end{verbatim}
+\normalsize
+\vspace{0.3cm}
+\textbf{Best Practice}:
+\begin{itemize}
+\item Use OpenZeppelin \texttt{Ownable}
+\item Explicit visibility modifiers
+\item Role-based access control (RBAC)
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Oracle Manipulation}
+\begin{itemize}
+\item \textbf{Problem}: DeFi protocols rely on external price data (oracles)
+\item \textbf{Vulnerable Pattern}: Using single DEX as price oracle
+\small
+\begin{verbatim}
+uint price = getReserveRatio(uniswapPair);  // Manipulable!
+\end{verbatim}
+\normalsize
+\item \textbf{Attack}: Flash loan to manipulate pool price
+\begin{enumerate}
+\item Borrow 10,000 ETH
+\item Buy all TOKEN in pool (inflates price 10x)
+\item Oracle reads manipulated price
+\item Exploit protocol logic (borrow, liquidate, mint)
+\item Restore pool state, repay flash loan
+\end{enumerate}
+\item \textbf{Real Examples}: Harvest Finance (\$34M), Cream Finance (\$130M)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Oracle Manipulation: Defenses}
+\begin{enumerate}
+\item \textbf{Time-Weighted Average Price (TWAP)}:
+\small
+\begin{verbatim}
+uint twap = uniswapV2Oracle.consult(token, period);  // Average over N blocks
+\end{verbatim}
+\normalsize
+\begin{itemize}
+\item Uniswap V2 accumulator design
+\item Attacker must manipulate price over multiple blocks (expensive)
+\end{itemize}
+\item \textbf{Chainlink Decentralized Oracles}:
+\begin{itemize}
+\item Multiple independent data sources
+\item Aggregated via median/consensus
+\item Crypto-economic security
+\end{itemize}
+\item \textbf{Multiple Oracle Sources}: Combine Chainlink + TWAP + Band Protocol
+\item \textbf{Circuit Breakers}: Pause if price deviation >X\%
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Front-Running and MEV}
+\begin{itemize}
+\item \textbf{MEV (Maximal Extractable Value)}: Profit from transaction ordering
+\item \textbf{Front-Running Attacks}:
+\begin{enumerate}
+\item Attacker monitors mempool for profitable transactions
+\item Submits identical transaction with higher gas price
+\item Miner includes attacker's tx first
+\end{enumerate}
+\item \textbf{Sandwich Attacks}:
+\begin{enumerate}
+\item Victim submits large swap (A $\rightarrow$ B)
+\item Attacker front-runs: Buy B (raises price)
+\item Victim's swap executes at worse price
+\item Attacker back-runs: Sell B (profit from price difference)
+\end{enumerate}
+\item \textbf{Impact}: \$600M+ MEV extracted in 2023
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MEV Mitigation Strategies}
+\begin{enumerate}
+\item \textbf{Commit-Reveal Schemes}:
+\begin{itemize}
+\item Commit hash of transaction in block N
+\item Reveal actual transaction in block N+1
+\item Too slow for time-sensitive operations
+\end{itemize}
+\item \textbf{Flashbots}: Private transaction pool (MEV-Boost)
+\begin{itemize}
+\item Users submit bundles directly to block builders
+\item Bypass public mempool
+\item MEV democratization
+\end{itemize}
+\item \textbf{Slippage Protection}: Set maximum acceptable price deviation
+\item \textbf{Batch Auctions}: Aggregate orders, execute at uniform price
+\item \textbf{Threshold Encryption}: Decrypt transactions only after inclusion
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Denial of Service (DoS) Attacks}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Gas Limit DoS}
+\small
+\begin{verbatim}
+function distribute() public {
+    for (uint i=0; i<users.length; i++) {
+        users[i].transfer(amount);
+    }
+}
+\end{verbatim}
+\normalsize
+\begin{itemize}
+\item Unbounded loop
+\item Attacker adds many addresses
+\item Gas cost exceeds block limit
+\item Function permanently fails
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Mitigation: Pull Over Push}
+\small
+\begin{verbatim}
+mapping(address => uint) public balances;
+
+function withdraw() public {
+    uint amount = balances[msg.sender];
+    balances[msg.sender] = 0;
+    msg.sender.transfer(amount);
+}
+\end{verbatim}
+\normalsize
+\begin{itemize}
+\item Users withdraw individually
+\item No loops over unbounded arrays
+\item Batch processing with pagination
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Timestamp Dependence}
+\begin{itemize}
+\item \textbf{Problem}: Relying on \texttt{block.timestamp} for critical logic
+\small
+\begin{verbatim}
+require(block.timestamp > deadline);  // Miner-manipulable!
+uint randomness = uint(keccak256(block.timestamp));  // Predictable!
+\end{verbatim}
+\normalsize
+\item \textbf{Miner Power}: Can manipulate timestamp by ~900 seconds
+\item \textbf{Attack Vector}: Gambling contracts, auctions, time-locks
+\item \textbf{Mitigation}:
+\begin{itemize}
+\item Use block numbers instead of timestamps (when possible)
+\item Chainlink VRF for randomness
+\item Tolerate 15-minute timestamp variance in design
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Delegate Call Vulnerabilities}
+\begin{itemize}
+\item \textbf{Delegate Call}: Execute code in another contract's context (preserves \texttt{msg.sender}, storage)
+\item \textbf{Danger}: Storage layout must match exactly
+\small
+\begin{verbatim}
+// Proxy Contract
+address implementation;  // Storage slot 0
+
+function upgradeTo(address newImpl) public {
+    implementation = newImpl;
+}
+
+fallback() external payable {
+    implementation.delegatecall(msg.data);
+}
+\end{verbatim}
+\normalsize
+\item \textbf{Attack}: If implementation writes to slot 0, proxy's \texttt{implementation} variable overwritten
+\item \textbf{Parity Wallet Hack (2017)}: Delegate call to uninitialized library, \$30M stolen
+\item \textbf{Mitigation}: Careful storage layout design, use upgradeable proxy patterns (TransparentProxy, UUPS)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Signature Replay Attacks}
+\begin{itemize}
+\item \textbf{Problem}: Valid signature can be reused across different contexts
+\item \textbf{Attack Scenario}:
+\begin{enumerate}
+\item User signs message authorizing token transfer
+\item Attacker captures signature
+\item Replays signature on different chain or contract
+\end{enumerate}
+\item \textbf{Mitigation -- EIP-712 Typed Data}:
+\small
+\begin{verbatim}
+struct Transfer {
+    address to;
+    uint amount;
+    uint nonce;
+    uint chainId;
+}
+bytes32 digest = keccak256(abi.encode(domainSeparator, Transfer));
+\end{verbatim}
+\normalsize
+\begin{itemize}
+\item Include \texttt{nonce} (increments per signature)
+\item Include \texttt{chainId} (prevents cross-chain replay)
+\item Include contract address in domain separator
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Security Tools: Static Analysis}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Tool} & \textbf{Type} & \textbf{Detects} \\
+\midrule
+Slither & Static analyzer & Reentrancy, overflow, access control \\
+Mythril & Symbolic execution & Integer bugs, unchecked calls \\
+Securify & Automated verifier & Compliance with security patterns \\
+Manticore & Symbolic execution & Path exploration, concrete exploits \\
+Echidna & Fuzzer & Property-based invariant violations \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.3cm}
+\begin{itemize}
+\item \textbf{Slither}: Fast, easy integration (Solidity AST-based)
+\item \textbf{Mythril}: Deep analysis, can find complex bugs
+\item \textbf{Echidna}: Randomized testing, property checking
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Slither: Usage Example}
+\begin{itemize}
+\item \textbf{Installation}:
+\small
+\begin{verbatim}
+pip3 install slither-analyzer
+\end{verbatim}
+\normalsize
+\item \textbf{Run Slither}:
+\small
+\begin{verbatim}
+slither contracts/MyToken.sol
+\end{verbatim}
+\normalsize
+\item \textbf{Sample Output}:
+\small
+\begin{verbatim}
+Reentrancy in MyToken.withdraw (contracts/MyToken.sol#15-19):
+    External call: msg.sender.call{value: amount}("")
+    State variable written after the call: balances[msg.sender] -= amount
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy
+\end{verbatim}
+\normalsize
+\item \textbf{Integration}: CI/CD pipelines (fail build on high-severity findings)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Mythril: Symbolic Execution}
+\begin{itemize}
+\item \textbf{Approach}: Explore all execution paths symbolically
+\item \textbf{Usage}:
+\small
+\begin{verbatim}
+myth analyze contracts/MyToken.sol --solv 0.8.0
+\end{verbatim}
+\normalsize
+\item \textbf{Capabilities}:
+\begin{itemize}
+\item Unchecked return values
+\item Integer overflows (pre-0.8.0)
+\item Unprotected \texttt{selfdestruct}
+\item State access after external call (reentrancy)
+\end{itemize}
+\item \textbf{Limitation}: Can be slow for large contracts (path explosion)
+\item \textbf{Best Practice}: Use Slither (fast) + Mythril (thorough) in combination
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Formal Verification}
+\begin{itemize}
+\item \textbf{Definition}: Mathematical proof that code satisfies specifications
+\item \textbf{Tools}:
+\begin{itemize}
+\item \textbf{Certora Prover}: Write formal specifications in CVL (Certora Verification Language)
+\item \textbf{K Framework}: Executable formal semantics of EVM
+\item \textbf{SMT Solvers}: Z3, CVC4 for constraint solving
+\end{itemize}
+\item \textbf{Example Specification}:
+\small
+\begin{verbatim}
+rule balanceNeverIncreases(address user) {
+    uint balanceBefore = balances[user];
+    withdraw(amount);
+    assert balances[user] <= balanceBefore;
+}
+\end{verbatim}
+\normalsize
+\item \textbf{Adoption}: High-value protocols (Aave, Compound, MakerDAO)
+\item \textbf{Challenge}: Requires formal methods expertise
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Audit Process}
+\begin{enumerate}
+\item \textbf{Internal Review}: Developer self-audit, peer review
+\item \textbf{Automated Tools}: Slither, Mythril, Echidna
+\item \textbf{Manual Audit}: Security firm review (2-4 weeks, \$50k-\$500k)
+\begin{itemize}
+\item Leading firms: Trail of Bits, ConsenSys Diligence, OpenZeppelin, Quantstamp
+\end{itemize}
+\item \textbf{Economic Audits}: Mechanism design, incentive analysis
+\item \textbf{Formal Verification}: High-value or critical contracts
+\item \textbf{Bug Bounty}: Community testing (Immunefi, HackerOne)
+\item \textbf{Monitoring}: Real-time anomaly detection (Forta, OpenZeppelin Defender)
+\item \textbf{Post-Deployment}: Incident response plan, insurance (Nexus Mutual)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Bug Bounty Programs}
+\begin{itemize}
+\item \textbf{Purpose}: Incentivize white-hat hackers to find vulnerabilities
+\item \textbf{Platforms}: Immunefi, HackerOne, Code4rena
+\item \textbf{Payouts}: \$1k (low severity) to \$10M+ (critical)
+\item \textbf{Record Payout}: Wormhole \$10M bounty (2022)
+\item \textbf{Notable Programs}:
+\begin{itemize}
+\item Ethereum Foundation: Up to \$250k
+\item MakerDAO: Up to \$10M
+\item Compound: Up to \$500k
+\end{itemize}
+\item \textbf{Best Practice}: Continuous bounty (not just pre-launch)
+\item \textbf{ROI}: \$1 spent on bounties prevents \$100+ in losses
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Upgradeable Contracts: Proxy Patterns}
+\begin{itemize}
+\item \textbf{Problem}: Immutable contracts cannot be patched
+\item \textbf{Solution}: Proxy pattern (separate storage and logic)
+\item \textbf{Transparent Proxy}:
+\begin{itemize}
+\item Proxy contract holds storage, delegates to implementation
+\item Admin can upgrade implementation address
+\item Users call proxy, which delegates to logic contract
+\end{itemize}
+\item \textbf{UUPS (Universal Upgradeable Proxy Standard)}:
+\begin{itemize}
+\item Upgrade logic in implementation (not proxy)
+\item Smaller proxy contract, lower deployment cost
+\end{itemize}
+\item \textbf{Risk}: Admin key compromise $\rightarrow$ malicious upgrade
+\item \textbf{Mitigation}: Multi-sig admin, timelock delays, immutable after maturity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Security Best Practices Checklist}
+\begin{enumerate}
+\item Use latest Solidity version (0.8.0+ for overflow protection)
+\item Follow Checks-Effects-Interactions pattern
+\item Apply reentrancy guards (OpenZeppelin)
+\item Explicit visibility modifiers for all functions
+\item Use SafeMath (if Solidity <0.8.0)
+\item Decentralized oracles (Chainlink) or TWAP
+\item Pull over push for payments
+\item Avoid loops over unbounded arrays
+\item EIP-712 for signature verification
+\item Run Slither + Mythril in CI/CD
+\item Professional audit before mainnet
+\item Bug bounty program
+\item Monitoring and incident response plan
+\item Upgradeable contracts with timelock governance
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+\item \textbf{Smart contract security is critical}: \$3B+ lost to exploits
+\item \textbf{Top vulnerabilities}: Reentrancy, overflow, access control, oracle manipulation, MEV
+\item \textbf{The DAO hack}: Reentrancy drained \$60M, led to Ethereum hard fork
+\item \textbf{Defense in depth}: Secure coding patterns + automated tools + audits + formal verification
+\item \textbf{Tools}: Slither (fast static analysis), Mythril (symbolic execution), Echidna (fuzzing)
+\item \textbf{Audit process}: Internal review $\rightarrow$ Tools $\rightarrow$ Professional audit $\rightarrow$ Bug bounty
+\item \textbf{Upgradeability}: Proxy patterns allow bug fixes, but introduce admin key risk
+\item \textbf{Continuous vigilance}: Monitoring, incident response, insurance
+\end{itemize}
+\end{frame}
+
+\end{document}

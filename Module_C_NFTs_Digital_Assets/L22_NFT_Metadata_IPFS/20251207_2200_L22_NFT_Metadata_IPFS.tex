@@ -1,0 +1,496 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{L22: NFT Metadata and IPFS}
+\subtitle{Module C: NFTs \& Digital Assets}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Understand the JSON metadata format standard for NFTs
+\item Explain how IPFS content addressing works
+\item Describe the role of pinning services in NFT permanence
+\item Compare IPFS and Arweave for decentralized storage
+\item Evaluate metadata permanence and availability challenges
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{NFT Metadata: The JSON Standard}
+\textbf{Metadata Structure:} OpenSea standard (widely adopted)
+
+\vspace{0.3cm}
+\textbf{Core Fields:}
+\begin{itemize}
+\item \texttt{name} -- Display name of the NFT
+\item \texttt{description} -- Human-readable description
+\item \texttt{image} -- URI to primary visual asset (IPFS, HTTP)
+\item \texttt{external\_url} -- Link to project website or details
+\item \texttt{attributes} -- Array of trait objects
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example Metadata JSON:}
+\begin{verbatim}
+{
+  "name": "Bored Ape #1234",
+  "description": "A unique Bored Ape Yacht Club NFT",
+  "image": "ipfs://QmXyZ.../1234.png",
+  "attributes": [
+    {"trait_type": "Background", "value": "Blue"},
+    {"trait_type": "Hat", "value": "Beanie"}
+  ]
+}
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Attributes: Defining Rarity}
+\textbf{Attributes Array:} Defines traits and properties
+
+\vspace{0.3cm}
+\textbf{Attribute Object Structure:}
+\begin{itemize}
+\item \texttt{trait\_type} -- Category name (e.g., ``Hat'', ``Eyes'')
+\item \texttt{value} -- Specific value (e.g., ``Beanie'', ``Laser Eyes'')
+\item \texttt{display\_type} (optional) -- How to render (number, date, boost)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Rarity Calculation:}
+\begin{itemize}
+\item Each trait has a frequency distribution in the collection
+\item Rarer traits (low frequency) increase NFT value
+\item Tools like Rarity Sniper calculate rarity scores
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example Rarity Analysis:}
+\begin{itemize}
+\item Background: Blue (20\% frequency) vs. Gold (2\% frequency)
+\item Laser Eyes: 1\% frequency (highly rare)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{IPFS: The InterPlanetary File System}
+\textbf{IPFS:} Decentralized peer-to-peer file storage protocol
+
+\vspace{0.3cm}
+\textbf{Key Concepts:}
+\begin{itemize}
+\item \textbf{Content Addressing:} Files identified by cryptographic hash
+\item \textbf{CID (Content Identifier):} Unique hash of file content
+\item \textbf{Immutability:} Same content always produces same CID
+\item \textbf{Distributed:} Files stored across multiple nodes
+\item \textbf{Retrieval:} Any node with the file can serve it
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example IPFS URI:}
+\begin{itemize}
+\item \texttt{ipfs://QmXyZ123abc...} (CID)
+\item Gateway URL: \texttt{https://ipfs.io/ipfs/QmXyZ123abc...}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Content Addressing vs. Location Addressing}
+\textbf{Traditional Web (Location Addressing):}
+\begin{itemize}
+\item URL points to server location: \texttt{https://server.com/file.jpg}
+\item Content can change without URL changing
+\item Server failure = file unavailable
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{IPFS (Content Addressing):}
+\begin{itemize}
+\item CID derived from file content: \texttt{QmXyZ...}
+\item Changing content changes CID
+\item File available from any node that has it
+\item Verifiable integrity (hash mismatch = tampering detected)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Advantage for NFTs:}
+\begin{itemize}
+\item Guarantees metadata/image match the CID in \texttt{tokenURI}
+\item No server dependency (decentralized retrieval)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{IPFS URI Structure}
+\textbf{CID Components:}
+
+\vspace{0.3cm}
+\begin{itemize}
+\item \textbf{Version:} CIDv0 (QmXyZ...) or CIDv1 (bafybeig...)
+\item \textbf{Multicodec:} Specifies content type (dag-pb, raw, etc.)
+\item \textbf{Multihash:} Hash algorithm (SHA-256) + hash value
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item CIDv0: \texttt{QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG}
+\item CIDv1: \texttt{bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Determinism:}
+\begin{itemize}
+\item Same file always produces same CID
+\item Different files always produce different CIDs
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pinning: Ensuring Availability}
+\textbf{IPFS Garbage Collection:} Nodes delete unpinned files to save space
+
+\vspace{0.3cm}
+\textbf{Pinning:} Explicitly keeping a file on IPFS nodes
+
+\vspace{0.3cm}
+\textbf{Without Pinning:}
+\begin{itemize}
+\item File may be removed from all nodes (lost)
+\item NFT metadata/images become unavailable
+\item Broken image links in wallets and marketplaces
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Pinning Services:}
+\begin{itemize}
+\item \textbf{Pinata:} Popular commercial pinning service
+\item \textbf{NFT.Storage:} Free pinning for NFT data (funded by Filecoin)
+\item \textbf{Infura IPFS:} Enterprise-grade IPFS infrastructure
+\item \textbf{Self-hosting:} Run your own IPFS node and pin files
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Critical Issue:} If all pinning stops, files may disappear from IPFS
+\end{frame}
+
+\begin{frame}{IPFS Gateways}
+\textbf{Gateway:} HTTP bridge to access IPFS content
+
+\vspace{0.3cm}
+\textbf{Public Gateways:}
+\begin{itemize}
+\item \texttt{https://ipfs.io/ipfs/[CID]}
+\item \texttt{https://gateway.pinata.cloud/ipfs/[CID]}
+\item \texttt{https://cloudflare-ipfs.com/ipfs/[CID]}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why Gateways Matter:}
+\begin{itemize}
+\item Browsers do not natively support \texttt{ipfs://} protocol
+\item Wallets and marketplaces use gateways to display NFTs
+\item Gateway downtime = NFTs appear broken (even if IPFS file exists)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Centralization Risk:}
+\begin{itemize}
+\item Most users rely on centralized gateways (ipfs.io, Cloudflare)
+\item Gateway can censor or throttle content
+\item Solution: Native IPFS support in browsers (IPFS Companion extension)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Arweave: Permanent Decentralized Storage}
+\textbf{Arweave:} Blockchain designed for permanent data storage
+
+\vspace{0.3cm}
+\textbf{Key Differences from IPFS:}
+\begin{itemize}
+\item \textbf{Permanence:} One-time payment for perpetual storage
+\item \textbf{Blockchain-based:} Data stored on Arweave blockchain
+\item \textbf{Economic model:} Storage endowment fund pays miners forever
+\item \textbf{No pinning needed:} Data guaranteed to persist
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Arweave URI:}
+\begin{itemize}
+\item \texttt{ar://[Transaction ID]}
+\item Gateway: \texttt{https://arweave.net/[Transaction ID]}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Use Cases:}
+\begin{itemize}
+\item High-value NFTs requiring guaranteed permanence
+\item Historical records and archives
+\item Alternative to IPFS for critical metadata
+\end{itemize}
+\end{frame}
+
+\begin{frame}{IPFS vs. Arweave Comparison}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{IPFS} & \textbf{Arweave} \\
+\midrule
+Storage Model & Peer-to-peer distributed & Blockchain-based \\
+Permanence & Requires pinning & Guaranteed (one-time fee) \\
+Cost & Free + pinning service fees & Pay once (e.g., \$5-10/GB) \\
+Retrieval & Fast (popular files cached) & Slower (blockchain retrieval) \\
+Adoption & High (majority of NFTs) & Growing (premium projects) \\
+Censorship Risk & Gateway-dependent & Minimal (blockchain-based) \\
+Data Mutability & Immutable (new CID if changed) & Immutable (on-chain) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.3cm}
+\textbf{Recommendation:}
+\begin{itemize}
+\item IPFS: Most NFT projects (cost-effective, fast)
+\item Arweave: Premium/historical NFTs (guaranteed permanence)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Metadata Permanence Challenges}
+\textbf{Real-World Issues:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Unpinned IPFS files:} Project abandons pinning, files lost
+\item \textbf{Centralized metadata servers:} Company shuts down, NFTs break
+\item \textbf{Mutable tokenURI:} Smart contract allows owner to change metadata
+\item \textbf{Gateway failures:} IPFS gateways go offline, NFTs appear broken
+\item \textbf{Link rot:} HTTP URLs stop working (404 errors)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Case Study: Nifty Gateway (2021):}
+\begin{itemize}
+\item Platform used centralized servers for metadata
+\item Outage caused all NFTs to display broken images
+\item Community backlash led to IPFS migration
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Mutable vs. Immutable Metadata}
+\textbf{Mutable Metadata:}
+\begin{itemize}
+\item Smart contract owner can update \texttt{tokenURI}
+\item Allows bug fixes and metadata improvements
+\item Risk: Owner could change artwork or traits (rug pull)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Immutable Metadata:}
+\begin{itemize}
+\item \texttt{tokenURI} frozen after minting (contract locked)
+\item Guarantees metadata cannot be altered
+\item Standard for high-value collections (e.g., CryptoPunks)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Verification:}
+\begin{itemize}
+\item Check smart contract code for \texttt{setTokenURI()} functions
+\item Verify contract ownership is renounced (no admin control)
+\item Use Etherscan to audit contract mutability
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Best Practices for NFT Metadata}
+\textbf{For NFT Projects:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Use IPFS or Arweave:} Avoid centralized servers
+\item \textbf{Pin all files:} Use reputable pinning services (Pinata, NFT.Storage)
+\item \textbf{Freeze metadata:} Make \texttt{tokenURI} immutable after reveal
+\item \textbf{Redundancy:} Pin to multiple services (IPFS + Arweave)
+\item \textbf{Document storage:} Inform buyers where metadata is hosted
+\item \textbf{Community pinning:} Encourage holders to pin collection files
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{For NFT Buyers:}
+\begin{itemize}
+\item Verify metadata is on IPFS/Arweave (not HTTP)
+\item Check if \texttt{tokenURI} is immutable
+\item Confirm pinning service reputation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Decentralized Storage Adoption}
+\textbf{Current NFT Storage Breakdown (Estimated):}
+
+\vspace{0.3cm}
+\begin{itemize}
+\item \textbf{IPFS:} 60-70\% of NFT projects
+\item \textbf{Centralized servers:} 20-25\% (HTTP URLs)
+\item \textbf{Arweave:} 5-10\% (growing)
+\item \textbf{Fully on-chain:} <5\% (rare, expensive)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trends:}
+\begin{itemize}
+\item Migration from centralized to IPFS accelerating
+\item Premium projects adopting Arweave for permanence guarantees
+\item Layer 2 solutions (Polygon) enabling cheaper on-chain storage
+\end{itemize}
+\end{frame}
+
+\begin{frame}{NFT.Storage: Free IPFS Pinning}
+\textbf{NFT.Storage:} Protocol Labs initiative (Filecoin Foundation)
+
+\vspace{0.3cm}
+\textbf{Service Features:}
+\begin{itemize}
+\item Free IPFS pinning for NFT data
+\item Automatic backup to Filecoin network
+\item Simple API for developers
+\item No usage limits or expiration
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{How It Works:}
+\begin{enumerate}
+\item Developer uploads NFT metadata/images via API
+\item Files pinned to IPFS nodes
+\item Backed up to Filecoin decentralized storage
+\item Retrieval via standard IPFS gateways
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Sustainability:} Funded by Filecoin ecosystem to support Web3 adoption
+\end{frame}
+
+\begin{frame}{Metadata Hosting Red Flags}
+\textbf{Warning Signs of Poor Metadata Practices:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{HTTP URLs:} \texttt{https://project.com/metadata/123.json}
+  \begin{itemize}
+  \item Centralized, subject to server failure
+  \end{itemize}
+\item \textbf{Mutable tokenURI:} Contract has \texttt{setTokenURI()} function
+  \begin{itemize}
+  \item Owner can change metadata at will
+  \end{itemize}
+\item \textbf{No pinning documentation:} Project silent on storage strategy
+  \begin{itemize}
+  \item Files may not be pinned (risk of loss)
+  \end{itemize}
+\item \textbf{Unknown IPFS gateway:} Custom gateway not reputable
+  \begin{itemize}
+  \item Gateway failure = broken NFTs
+  \end{itemize}
+\item \textbf{Unrevealed metadata:} Placeholder images before reveal
+  \begin{itemize}
+  \item Risk of metadata not matching expectations
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Case Study: CryptoPunks Metadata}
+\textbf{CryptoPunks (2017):} Early NFT project, metadata evolution
+
+\vspace{0.3cm}
+\textbf{Original Implementation:}
+\begin{itemize}
+\item Images and traits stored on-chain (contract storage)
+\item No external metadata files needed
+\item True permanence and decentralization
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Wrapped Punks (2021):}
+\begin{itemize}
+\item ERC-721 wrapper for original punks (compatibility)
+\item Metadata on IPFS for marketplace display
+\item Maintains on-chain source of truth
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Lesson:} On-chain storage provides maximum permanence but at high cost
+\end{frame}
+
+\begin{frame}{Lazy Metadata Loading}
+\textbf{Lazy Loading:} Metadata generated on-demand, not pre-stored
+
+\vspace{0.3cm}
+\textbf{Approach:}
+\begin{itemize}
+\item Smart contract computes metadata dynamically
+\item \texttt{tokenURI()} function generates JSON on-chain
+\item No external storage needed (fully on-chain)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example: Loot (2021):}
+\begin{itemize}
+\item Randomized adventure gear NFTs
+\item Metadata generated as Base64-encoded SVG in contract
+\item Zero external dependencies
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trade-offs:}
+\begin{itemize}
+\item Maximum decentralization and permanence
+\item Limited to text/simple graphics (gas constraints)
+\item Not suitable for complex images or videos
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item NFT metadata follows a JSON standard (name, description, image, attributes)
+\item IPFS uses content addressing (CIDs) for decentralized, immutable storage
+\item Pinning is critical for IPFS file permanence (unpinned files can be lost)
+\item Arweave provides guaranteed permanent storage for a one-time fee
+\item Metadata permanence challenges include unpinned files, mutable URIs, and centralized servers
+\item Best practice: Use IPFS/Arweave, pin to multiple services, freeze metadata after minting
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item What are the trade-offs between IPFS and Arweave for NFT metadata storage?
+\item Should NFT metadata be immutable, or is mutability acceptable for bug fixes?
+\item How can the NFT community ensure long-term metadata availability without centralized pinning services?
+\item Is fully on-chain metadata the ideal, or are off-chain solutions sufficient?
+\item What happens to NFT value if metadata becomes unavailable but ownership records remain?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview}
+\textbf{L23: NFT Marketplaces}
+
+\vspace{0.3cm}
+We will explore:
+\begin{itemize}
+\item OpenSea, Blur, and Rarible business models
+\item Listing mechanics and order book systems
+\item Marketplace fees and royalty enforcement
+\item Wash trading and market manipulation detection
+\item Aggregators and cross-marketplace trading
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Preparation:} Create a wallet and browse NFT collections on OpenSea
+\end{frame}
+
+\end{document}

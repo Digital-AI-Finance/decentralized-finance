@@ -1,0 +1,364 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\tiny\ttfamily,breaklines=true}
+
+\title{L20: Lab - Token Analysis}
+\subtitle{Module B: Ethereum \& Smart Contracts}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab, you will be able to:
+\begin{itemize}
+\item Analyze real-world token contracts on Etherscan (USDC, DAI)
+\item Interpret token holder distribution and centralization metrics
+\item Track large transfers and identify whale activity
+\item Examine upgrade events and governance actions
+\item Deploy and verify a custom ERC-20 token with advanced features
+\item Interact with your deployed token via Etherscan
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Overview}
+\textbf{Part 1: Analyzing USDC (30 minutes)}
+\begin{itemize}
+\item Contract architecture and proxy pattern
+\item Admin roles and permissions
+\item Blacklist mechanism analysis
+\item Recent upgrade events
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Part 2: Analyzing DAI (20 minutes)}
+\begin{itemize}
+\item Permit function (EIP-2612) implementation
+\item Minting authorization via Maker Vat
+\item Holder distribution comparison with USDC
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Part 3: Deploy Custom Token (30 minutes)}
+\begin{itemize}
+\item Deploy ERC-20 with minting, burning, and pausing
+\item Verify contract on Etherscan
+\item Test all functions via Etherscan UI
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Part 1: USDC Contract Architecture}
+\textbf{Step 1: Locate USDC on Etherscan}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item Go to \textbf{etherscan.io}
+\item Search: \texttt{0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48}
+\item Click \textbf{Contract} tab
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Observations:}
+\begin{itemize}
+\item Contract name: \textbf{FiatTokenProxy}
+\item Compiler: Solidity 0.6.12
+\item Verified source code available
+\item Implements: ERC20, Pausable, Blacklistable, Ownable
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Step 2: Identify Proxy Pattern}
+\begin{itemize}
+\item Look for \texttt{implementation()} function in Read Contract
+\item Current implementation address: (changes with upgrades)
+\item Click implementation address to see actual logic contract
+\end{itemize}
+\end{frame}
+
+\begin{frame}{USDC: Admin Roles Analysis}
+\textbf{Step 3: Examine Admin Functions}
+
+\vspace{0.3cm}
+\textbf{In Read Contract tab, find:}
+\begin{itemize}
+\item \texttt{owner()}: Returns owner address (Circle)
+\item \texttt{masterMinter()}: Can add/remove minters
+\item \texttt{pauser()}: Can pause all transfers
+\item \texttt{blacklister()}: Can freeze accounts
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Task: Record Admin Addresses}
+\begin{enumerate}
+\item Click \texttt{owner()} - note address
+\item Click \texttt{masterMinter()} - note address
+\item Click \texttt{pauser()} - note address
+\item Click \texttt{blacklister()} - note address
+\item Are they the same or different? (Multi-sig recommended)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Question:} What are the implications of these centralized roles for DeFi protocols using USDC?
+\end{frame}
+
+\begin{frame}{USDC: Blacklist Mechanism}
+\textbf{Step 4: Test Blacklist Function}
+
+\vspace{0.3cm}
+\textbf{In Read Contract:}
+\begin{enumerate}
+\item Scroll to \texttt{isBlacklisted(address account)}
+\item Enter a random address - should return \texttt{false}
+\item Enter known sanctioned address (e.g., Tornado Cash router): \texttt{0x...}
+\item Check if \texttt{true} (Circle blacklists OFAC-sanctioned addresses)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Find Blacklist Events:}
+\begin{enumerate}
+\item Click \textbf{Events} tab
+\item Filter by \texttt{Blacklisted} event
+\item Browse recent blacklist actions
+\item Click transaction hash to see details
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Discussion:}
+\begin{itemize}
+\item How does blacklisting affect DeFi composability?
+\item What happens if a blacklisted address receives USDC?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{USDC: Upgrade History}
+\textbf{Step 5: Track Upgrade Events}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item In \textbf{Events} tab, filter by \texttt{Upgraded} event
+\item Note timestamp and new implementation address for each upgrade
+\item Click on implementation address to see new contract version
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Example Upgrades (as of 2025):}
+\begin{itemize}
+\item V1 $\rightarrow$ V2 (2018): Added permit() function
+\item V2 $\rightarrow$ V2.1 (2020): Gas optimizations
+\item V2.1 $\rightarrow$ V2.2 (2023): EIP-3009 transferWithAuthorization
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Task:}
+\begin{itemize}
+\item How much notice did Circle give before upgrades?
+\item Were upgrades done via timelock or direct?
+\item Compare source code differences between versions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{USDC: Holder Distribution}
+\textbf{Step 6: Analyze Token Holders}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item Click \textbf{Holders} tab on USDC token page
+\item Review top 10 holders
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Typical Distribution (as of 2025):}
+\begin{itemize}
+\item Rank 1: Binance (centralized exchange) - approximately 10\%
+\item Rank 2: Coinbase (centralized exchange) - approximately 8\%
+\item Rank 3: Aave V3 (DeFi lending pool) - approximately 5\%
+\item Rank 4-10: Mix of exchanges and DeFi protocols
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Calculate Concentration:}
+\begin{itemize}
+\item Top 10 holders: Sum percentages (typically 40-50\%)
+\item Compare to DAI (next section)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Question:} What does high concentration in exchanges vs DeFi protocols tell us about usage patterns?
+\end{frame}
+
+\begin{frame}{Part 2: DAI Contract Analysis}
+\textbf{Step 1: Locate DAI Contract}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item Search Etherscan: \texttt{0x6B175474E89094C44Da98b954EedeAC495271d0F}
+\item Click \textbf{Contract} tab
+\item Note: No proxy pattern (DAI uses migration instead)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Step 2: Examine Permit Function}
+\begin{itemize}
+\item In Read Contract, scroll to \texttt{PERMIT\_TYPEHASH()}
+\item This implements EIP-2612 gasless approvals
+\item Users sign approval off-chain, submit on-chain
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Task: Compare to USDC}
+\begin{itemize}
+\item Does USDC have \texttt{permit()}? (Check Read Contract)
+\item Which version added it? (Check upgrade history)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DAI: Minting Authorization}
+\textbf{Step 3: Find Authorized Minters}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item In Read Contract, find \texttt{wards(address)} function
+\item This mapping tracks authorized addresses (ward = authorized)
+\item Enter Maker Vat address: \texttt{0x35D1b3F3D7966A1DFe207aa4514C12a259A0492B}
+\item Should return \texttt{1} (authorized)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Observations:}
+\begin{itemize}
+\item Only Maker Vat can mint DAI (via collateralized debt positions)
+\item No single admin can arbitrarily mint
+\item More decentralized than USDC's masterMinter model
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Step 4: Check for Blacklist}
+\begin{itemize}
+\item Search Read Contract for ``blacklist'' - none found
+\item DAI cannot freeze user addresses (tradeoff: regulatory risk)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DAI: Holder Distribution Comparison}
+\textbf{Step 5: Analyze DAI Holders}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item Click \textbf{Holders} tab on DAI token page
+\item Compare top 10 to USDC
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Typical DAI Distribution:}
+\begin{itemize}
+\item Higher percentage in DeFi protocols (Aave, Compound, Uniswap)
+\item Lower percentage in centralized exchanges
+\item Maker DSR (savings rate contract) often in top 5
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Comparison Table:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} & \textbf{USDC} & \textbf{DAI} \\
+\midrule
+Top 10 concentration & approximately 45\% & approximately 40\% \\
+CEX holdings & approximately 25\% & approximately 10\% \\
+DeFi holdings & approximately 20\% & approximately 30\% \\
+Blacklist capability & Yes & No \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Tracking Whale Activity}
+\textbf{Step 6: Monitor Large Transfers}
+
+\vspace{0.3cm}
+\textbf{For USDC or DAI:}
+\begin{enumerate}
+\item Go to token page, click \textbf{Transactions} tab
+\item Filter by \textbf{ERC-20 Transfers}
+\item Sort by \textbf{Quantity} (descending)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Identify Patterns:}
+\begin{itemize}
+\item \textbf{Exchange Deposits:} User $\rightarrow$ Exchange (sell pressure?)
+\item \textbf{Exchange Withdrawals:} Exchange $\rightarrow$ User (potential accumulation)
+\item \textbf{DeFi Interactions:} User $\rightarrow$ Aave/Compound (borrowing/lending)
+\item \textbf{Whale Swaps:} Large DEX swaps (Uniswap, Curve)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tools for Advanced Analysis:}
+\begin{itemize}
+\item Etherscan Labels: Identify known addresses (exchanges, protocols)
+\item Whale Alert (Twitter bot): Real-time alerts for >1M transfers
+\item Nansen: Paid analytics for labeled wallet tracking
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item \textbf{Etherscan Analysis:} Read/Write Contract tabs enable complete contract interaction and transparency
+
+\item \textbf{USDC Architecture:} Upgradeable proxy with centralized admin roles (owner, minter, pauser, blacklister)
+
+\item \textbf{DAI Architecture:} Non-upgradeable with decentralized minting via Maker Vat, no blacklist capability
+
+\item \textbf{Holder Distribution:} USDC favors CEX, DAI favors DeFi protocols, indicating different use cases
+
+\item \textbf{Whale Tracking:} Large transfers reveal market sentiment (deposits = sell, withdrawals = accumulation)
+
+\item \textbf{Custom Token Deployment:} OpenZeppelin contracts enable rapid development of feature-rich tokens
+
+\item \textbf{Access Control:} Role-based permissions (MINTER, PAUSER) provide granular security
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item How would you design a stablecoin that balances decentralization (like DAI) with regulatory compliance (like USDC)?
+
+\item What are the risks of relying on USDC in a DeFi protocol, given Circle's blacklist capability?
+
+\item How can users verify that a token's claimed features (e.g., ``no team mint'') match the deployed contract?
+
+\item What metrics would you use to assess whether a token is sufficiently decentralized?
+
+\item How might regulators view tokens with pausable transfers vs non-pausable transfers?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Module B Summary: Ethereum and Smart Contracts}
+\textbf{Key Concepts Covered:}
+
+\vspace{0.3cm}
+\begin{itemize}
+\item \textbf{L13:} Ethereum architecture, EVM, account model, Merkle Patricia Trie
+\item \textbf{L14:} Gas mechanics, EIP-1559, optimization strategies
+\item \textbf{L15:} Solidity fundamentals, data types, functions, events, inheritance
+\item \textbf{L16:} Remix IDE, contract deployment, Etherscan verification
+\item \textbf{L17:} ERC-20 standard, allowance mechanism, real-world tokens (USDC, DAI)
+\item \textbf{L18:} ERC-721 NFTs, ERC-1155 multi-token, metadata and IPFS
+\item \textbf{L19:} Token lifecycle, minting strategies, access control, upgradeability
+\item \textbf{L20:} Token analysis on Etherscan, deployment and verification
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Module:} DeFi Protocols (Uniswap, Aave, Compound)
+\end{frame}
+
+\end{document}

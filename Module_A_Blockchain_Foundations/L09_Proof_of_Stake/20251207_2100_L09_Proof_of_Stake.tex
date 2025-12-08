@@ -1,0 +1,672 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{Proof of Stake Consensus}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+    \item Explain the proof-of-stake consensus mechanism
+    \item Describe validator responsibilities: staking, attestation, block proposal
+    \item Understand slashing conditions and economic penalties
+    \item Analyze Ethereum's Beacon Chain architecture
+    \item Distinguish between justification and finality
+    \item Calculate staking rewards and economics
+    \item Evaluate centralization risks in proof-of-stake systems
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Proof of Work vs. Proof of Stake}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Proof of Work}
+\begin{itemize}
+    \item Security via computational cost
+    \item Miners compete by hash power
+    \item Energy-intensive
+    \item Hardware requirements (ASICs)
+    \item Block rewards + transaction fees
+    \item 51\% attack requires hash rate majority
+    \item Used by: Bitcoin, Litecoin, Dogecoin
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Proof of Stake}
+\begin{itemize}
+    \item Security via economic stake
+    \item Validators selected by stake weight
+    \item Energy-efficient (99\% reduction)
+    \item Capital requirements (staking)
+    \item Transaction fees only (or low issuance)
+    \item 51\% attack requires token majority
+    \item Used by: Ethereum, Cardano, Polkadot
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.4cm}
+\textbf{Core Difference:}
+\begin{itemize}
+    \item PoW: external resource (electricity) -> security
+    \item PoS: internal resource (staked tokens) -> security
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Economic Argument for PoS:}
+\begin{itemize}
+    \item Attacking network destroys attacker's stake (self-punishment)
+    \item PoW attacker retains hardware after attack
+    \item PoS aligns economic incentives more directly
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Nothing-at-Stake Problem}
+\textbf{Theoretical Vulnerability:}
+
+\vspace{0.3cm}
+In case of blockchain fork:
+\begin{itemize}
+    \item PoW miners must choose one fork (cannot mine both simultaneously)
+    \item PoS validators can vote on multiple forks simultaneously (no cost)
+    \item Rational strategy: vote on all forks to maximize rewards
+    \item Prevents consensus from converging on single chain
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Solutions:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Slashing:}
+    \begin{itemize}
+        \item Detect validators voting on conflicting blocks
+        \item Destroy portion of their stake as penalty
+        \item Makes voting on multiple forks costly
+    \end{itemize}
+
+    \item \textbf{Finality Gadgets:}
+    \begin{itemize}
+        \item Checkpoint mechanisms (Casper FFG)
+        \item Validators attest to finalized blocks
+        \item Cannot reverse finalized blocks without losing stake
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Practical Observation:}
+\begin{itemize}
+    \item Well-designed PoS systems have never experienced nothing-at-stake attacks
+    \item Slashing and economic incentives effectively mitigate the threat
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ethereum's Transition to Proof of Stake}
+\textbf{The Merge (September 15, 2022):}
+\begin{itemize}
+    \item Ethereum transitioned from PoW to PoS
+    \item Beacon Chain (PoS) launched December 2020
+    \item Ran in parallel with PoW chain for 21 months
+    \item Merge combined execution layer (original chain) with consensus layer (Beacon Chain)
+    \item No downtime, seamless transition
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Impact:}
+\begin{itemize}
+    \item Energy consumption reduced by ~99.95\%
+    \item ETH issuance reduced by ~90\% (from 13,000 ETH/day to ~1,600 ETH/day)
+    \item Block time reduced from ~13s to ~12s
+    \item Transaction finality improved (faster finalization)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Misconceptions Cleared:}
+\begin{itemize}
+    \item Did NOT reduce gas fees (separate issue, addressed by Layer 2s)
+    \item Did NOT increase transaction throughput (scalability via sharding planned later)
+    \item Did change consensus mechanism only
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ethereum Beacon Chain Architecture}
+\textbf{Two-Layer Design:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Execution Layer (EL):}
+    \begin{itemize}
+        \item Processes transactions and smart contracts
+        \item Maintains Ethereum Virtual Machine (EVM)
+        \item Manages account state
+        \item Formerly the entire Ethereum blockchain (pre-Merge)
+    \end{itemize}
+
+    \item \textbf{Consensus Layer (CL / Beacon Chain):}
+    \begin{itemize}
+        \item Selects block proposers
+        \item Coordinates validators
+        \item Manages staking and slashing
+        \item Finalizes blocks
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Communication:}
+\begin{itemize}
+    \item Execution layer clients: Geth, Nethermind, Erigon, Besu
+    \item Consensus layer clients: Prysm, Lighthouse, Teku, Nimbus, Lodestar
+    \item Engine API connects EL and CL
+    \item Validator runs both clients simultaneously
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Validator Responsibilities}
+\textbf{Core Duties:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Attestation (every epoch):}
+    \begin{itemize}
+        \item Vote on head of chain (latest block)
+        \item Vote on justified and finalized checkpoints
+        \item Submit attestation to network
+        \item Attestations aggregated into blocks
+    \end{itemize}
+
+    \item \textbf{Block Proposal (occasionally):}
+    \begin{itemize}
+        \item Selected pseudo-randomly based on stake
+        \item Propose new block with transactions
+        \item Include attestations from other validators
+        \item Earn transaction fees + block reward
+    \end{itemize}
+
+    \item \textbf{Sync Committee Participation (rarely):}
+    \begin{itemize}
+        \item Rotating committee (~27 hours of service)
+        \item Help light clients sync to chain
+        \item Sign block headers
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Timing:}
+\begin{itemize}
+    \item Slot: 12 seconds
+    \item Epoch: 32 slots = 6.4 minutes
+    \item Validator attests once per epoch
+    \item Expected block proposal: every ~2 months (for single validator)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Staking Requirements and Process}
+\textbf{Minimum Stake:}
+\begin{itemize}
+    \item 32 ETH per validator
+    \item Cannot partially activate (all-or-nothing)
+    \item Can run multiple validators (64 ETH = 2 validators, etc.)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Staking Process:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Generate validator keys (BLS12-381 signature scheme)
+    \item Deposit 32 ETH to deposit contract on Ethereum mainnet
+    \item Run validator client (Prysm, Lighthouse, etc.)
+    \item Wait for activation (entry queue, ~24 hours to weeks depending on queue)
+    \item Start attesting and proposing blocks
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Hardware Requirements:}
+\begin{itemize}
+    \item CPU: 4+ cores
+    \item RAM: 16+ GB
+    \item Storage: 2+ TB SSD (grows over time)
+    \item Internet: reliable, high uptime (99\%+)
+    \item Monthly cost: ~\$50-200 (VPS or home setup)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Staking Alternatives:}
+\begin{itemize}
+    \item Staking pools (Lido, Rocket Pool): stake any amount
+    \item Centralized exchanges (Coinbase, Kraken): custodial staking
+    \item Staking-as-a-Service (Allnodes, Staked.us): run validator for you
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Validator Rewards}
+\textbf{Reward Components:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Attestation Rewards:}
+    \begin{itemize}
+        \item Earned for timely, correct attestations
+        \item Proportional to effective balance (max 32 ETH)
+        \item Vote on: head of chain, source checkpoint, target checkpoint
+    \end{itemize}
+
+    \item \textbf{Block Proposal Rewards:}
+    \begin{itemize}
+        \item Transaction fees (priority fees)
+        \item Attestation inclusion rewards
+        \item Sync committee rewards
+    \end{itemize}
+
+    \item \textbf{Sync Committee Rewards:}
+    \begin{itemize}
+        \item Small bonus for participating in sync committee
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Annual Percentage Rate (APR):}
+\[
+\text{APR} \approx \frac{64 \sqrt{N}}{N}
+\]
+where $N$ = total ETH staked (in millions)
+
+\vspace{0.3cm}
+\textbf{Examples (2024):}
+\begin{itemize}
+    \item 30M ETH staked: APR $\approx$ 3.7\%
+    \item 20M ETH staked: APR $\approx$ 4.5\%
+    \item More stakers -> lower APR (reward dilution)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Penalties and Inactivity Leaks}
+\textbf{Missed Attestation Penalty:}
+\begin{itemize}
+    \item Equal to reward you would have earned
+    \item Example: would earn 10,000 gwei -> lose 10,000 gwei
+    \item Validator balance decreases
+    \item No compounding penalties (linear)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Inactivity Leak:}
+\begin{itemize}
+    \item Activated when chain fails to finalize (> 4 epochs without finality)
+    \item Offline validators lose stake at increasing rate
+    \item Purpose: eject offline validators to restore finality
+    \item Quadratic leak rate (accelerates over time)
+    \item Leak stops when chain finalizes again
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example Scenario:}
+\begin{itemize}
+    \item Network partition: 40\% validators offline
+    \item Chain cannot finalize (requires 67\% participation)
+    \item Inactivity leak begins
+    \item Offline validators lose stake rapidly
+    \item Eventually, their stake falls below 33\% threshold
+    \item Online validators (60\%) now constitute 67\%+ of remaining stake
+    \item Chain resumes finalization
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Slashing: Severe Penalties}
+\textbf{Slashable Offenses:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Double Proposal:}
+    \begin{itemize}
+        \item Proposing two different blocks for same slot
+        \item Indicates malicious intent or serious software bug
+    \end{itemize}
+
+    \item \textbf{Surround Vote:}
+    \begin{itemize}
+        \item Attesting to two conflicting checkpoint votes
+        \item Vote A surrounds vote B (violates Casper FFG rules)
+    \end{itemize}
+
+    \item \textbf{Double Vote:}
+    \begin{itemize}
+        \item Attesting to two different blocks in same epoch
+        \item Attempting to create fork
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Slashing Penalties:}
+\begin{itemize}
+    \item \textbf{Initial penalty:} 1 ETH (immediate)
+    \item \textbf{Correlation penalty:} up to entire stake if many validators slashed simultaneously
+    \item \textbf{Forced exit:} validator ejected from active set
+    \item \textbf{Withdrawal delay:} 36 days before funds withdrawable
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Correlation Penalty Formula:}
+\[
+\text{Penalty} = \text{Stake} \times \frac{3 \times \text{Slashed Validators}}{\text{Total Validators}}
+\]
+\begin{itemize}
+    \item If 1\% slashed together: lose ~3\% of stake
+    \item If 33\% slashed together: lose ~99\% of stake (catastrophic)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Casper FFG: Finality Gadget}
+\textbf{Purpose:}
+\begin{itemize}
+    \item Provide economic finality
+    \item Prevent long-range reorganizations
+    \item Make finalized blocks irreversible
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Checkpoint Voting:}
+\begin{itemize}
+    \item Checkpoint = first block of each epoch
+    \item Validators vote on checkpoint pairs: (source, target)
+    \item Source: last justified checkpoint
+    \item Target: current epoch checkpoint
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Justification:}
+\begin{itemize}
+    \item Checkpoint becomes justified if 67\%+ of validators attest to it
+    \item Justification is temporary, can be reverted
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Finalization:}
+\begin{itemize}
+    \item Checkpoint becomes finalized if:
+    \begin{enumerate}
+        \item It is justified
+        \item Next epoch checkpoint is also justified
+    \end{enumerate}
+    \item Finalization is permanent (cannot revert without massive slashing)
+    \item Typically occurs after 2 epochs (~12.8 minutes)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Accountable Safety:}
+\begin{itemize}
+    \item Two conflicting checkpoints cannot both finalize
+    \item If they did, 33\%+ of validators would be slashed
+    \item Economic guarantee: attacker loses large stake
+\end{itemize}
+\end{frame}
+
+\begin{frame}{LMD GHOST: Fork Choice Rule}
+\textbf{Purpose:}
+\begin{itemize}
+    \item Determine canonical chain head
+    \item Resolve forks before finalization
+    \item Ensure validators agree on latest block
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{LMD GHOST (Latest Message Driven Greedy Heaviest Observed SubTree):}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Start at last finalized checkpoint
+    \item At each fork, choose subtree with most validator attestations
+    \item Recursively descend until leaf (chain head)
+    \item Weights updated with each attestation
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+    \item Block A has 100 attestations
+    \item Block B (competing fork) has 150 attestations
+    \item LMD GHOST selects Block B as canonical
+    \item Validators build on Block B
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Combination with Casper FFG:}
+\begin{itemize}
+    \item LMD GHOST: determines head (short-term)
+    \item Casper FFG: determines finality (long-term)
+    \item Together: provide fast confirmation + eventual certainty
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Validator Lifecycle}
+\textbf{States:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Deposited:}
+    \begin{itemize}
+        \item 32 ETH deposited to contract
+        \item Waiting in activation queue
+        \item Not yet earning rewards
+    \end{itemize}
+
+    \item \textbf{Active:}
+    \begin{itemize}
+        \item Attesting and proposing blocks
+        \item Earning rewards or incurring penalties
+        \item Can be slashed
+    \end{itemize}
+
+    \item \textbf{Exiting:}
+    \begin{itemize}
+        \item Voluntary exit initiated
+        \item Still active for ~1 day (exit queue)
+        \item Cannot be canceled
+    \end{itemize}
+
+    \item \textbf{Exited:}
+    \begin{itemize}
+        \item No longer active
+        \item Funds locked for 27 hours (sweep delay)
+    \end{itemize}
+
+    \item \textbf{Withdrawable:}
+    \begin{itemize}
+        \item Funds available for withdrawal
+        \item Automatic withdrawal to specified address (after Shanghai upgrade, April 2023)
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Forced Exit:}
+\begin{itemize}
+    \item Triggered by slashing or balance < 16 ETH
+    \item Validator ejected automatically
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Staking Economics: Risks and Rewards}
+\textbf{Rewards:}
+\begin{itemize}
+    \item Base APR: 3-5\% (varies with total staked)
+    \item Transaction fees: variable (0.5-2\% additional during high activity)
+    \item MEV (Maximal Extractable Value): 0.5-1\% via MEV-Boost
+    \item Total yield: ~4-8\% annually
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Risks:}
+\begin{itemize}
+    \item \textbf{Slashing:} lose stake due to malicious behavior or bugs (rare)
+    \item \textbf{Inactivity penalties:} offline validators lose rewards + leak penalties
+    \item \textbf{Opportunity cost:} locked capital (cannot sell during 36-day exit)
+    \item \textbf{Technical risk:} node downtime, hardware failure, software bugs
+    \item \textbf{Price risk:} ETH price volatility affects total returns
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Break-Even Analysis:}
+\begin{itemize}
+    \item Setup cost: \$500-2000 (hardware or VPS)
+    \item Monthly operating cost: \$50-200
+    \item Annual reward (32 ETH at 4\% APR): 1.28 ETH
+    \item Reward value (ETH = \$2000): \$2560/year
+    \item Annual operating cost: \$600-2400
+    \item Net profit: \$160-1960/year (excluding setup cost)
+    \item Payback period: 3-15 months
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Centralization Risks in Proof of Stake}
+\textbf{Concerns:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Wealth Concentration:}
+    \begin{itemize}
+        \item Rich get richer (compound rewards)
+        \item High entry barrier (32 ETH = \$64,000 at \$2000/ETH)
+        \item Discourages small holders
+    \end{itemize}
+
+    \item \textbf{Exchange Dominance:}
+    \begin{itemize}
+        \item Lido: ~30\% of staked ETH
+        \item Coinbase: ~15\%
+        \item Top 5 entities: ~60\% of stake
+        \item Centralized control risk
+    \end{itemize}
+
+    \item \textbf{Staking Pool Centralization:}
+    \begin{itemize}
+        \item Users delegate stake to pools
+        \item Pool operators control validators
+        \item Censorship risk (e.g., OFAC compliance)
+    \end{itemize}
+
+    \item \textbf{Client Diversity:}
+    \begin{itemize}
+        \item Prysm: ~40\% of validators (2023)
+        \item Single client bug could finalize invalid chain
+        \item Supermajority client creates systemic risk
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Mitigation Efforts:}
+\begin{itemize}
+    \item Promote client diversity (incentives for minority clients)
+    \item Decentralized staking pools (Rocket Pool, distributed validator technology)
+    \item Community norms against >33\% concentration
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MEV (Maximal Extractable Value)}
+\textbf{Definition:}
+\begin{itemize}
+    \item Additional profit beyond block rewards
+    \item Extractable by reordering, inserting, or censoring transactions
+    \item Examples: arbitrage, liquidations, sandwich attacks
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{How it Works:}
+\begin{enumerate}
+    \item Searchers find profitable opportunities (e.g., arbitrage between DEXs)
+    \item Submit bundles to block builders
+    \item Builders construct blocks with MEV transactions
+    \item Validators select highest-paying block (via MEV-Boost)
+    \item Profit split between searcher, builder, validator
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{MEV-Boost:}
+\begin{itemize}
+    \item Middleware connecting validators to block builders
+    \item Validators outsource block construction
+    \item Increases validator rewards by 50-100\%
+    \item Used by ~90\% of validators
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Concerns:}
+\begin{itemize}
+    \item Centralizes block production (few builders dominate)
+    \item Censorship risk (builders can exclude transactions)
+    \item Users pay hidden costs (sandwich attacks)
+    \item Ongoing research: proposer-builder separation, encrypted mempools
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Proof-of-stake replaces computational work with economic stake
+    \item Validators attest to blocks and occasionally propose new blocks
+    \item Slashing penalizes malicious behavior, aligning incentives
+    \item Casper FFG provides economic finality through checkpoint voting
+    \item Ethereum's Beacon Chain reduced energy consumption by 99.95\%
+    \item Staking requires 32 ETH and generates 4-8\% annual returns
+    \item Centralization risks remain (exchanges, pools, client diversity)
+    \item MEV introduces additional revenue but raises censorship concerns
+\end{itemize}
+
+\vspace{0.4cm}
+\textbf{Core Insight:}
+
+Proof-of-stake shifts blockchain security from external resources (energy) to internal resources (staked capital). Attackers must own and risk a significant portion of the network's value, creating strong economic disincentives.
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+    \item How does slashing solve the nothing-at-stake problem?
+
+    \item Why is client diversity critical for proof-of-stake security?
+
+    \item What are the trade-offs between solo staking and using a staking pool?
+
+    \item How does the inactivity leak mechanism help restore finality?
+
+    \item Is proof-of-stake more or less centralized than proof-of-work?
+
+    \item What role does MEV play in validator economics?
+
+    \item How would a 33\% attack differ from a 51\% attack in PoS?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L10 Consensus Mechanism Comparison}
+\textbf{Topics to be covered:}
+\begin{itemize}
+    \item Comprehensive comparison: PoW vs PoS vs DPoS vs PBFT
+    \item Security models and assumptions
+    \item Scalability and throughput trade-offs
+    \item Energy consumption and sustainability
+    \item Decentralization metrics
+    \item Finality and confirmation times
+    \item Use cases and blockchain selection criteria
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Preparation:}
+\begin{itemize}
+    \item Review proof-of-work (Lesson 7) and proof-of-stake (Lesson 9)
+    \item Read about Delegated Proof of Stake (DPoS) used in EOS, Tron
+    \item Explore Byzantine Fault Tolerant (BFT) consensus in Hyperledger, Cosmos
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,630 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Lab Session: Wallet Setup and First Transaction}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Install and configure MetaMask wallet extension
+    \item Understand seed phrase importance and backup procedures
+    \item Connect to Ethereum testnets (Sepolia)
+    \item Obtain testnet ETH from faucets
+    \item Send and receive testnet transactions
+    \item Navigate wallet features: account management, network switching
+    \item Apply security best practices for wallet protection
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Overview}
+\textbf{Structure:}
+\begin{enumerate}
+    \item MetaMask installation (10 minutes)
+    \item Wallet creation and seed phrase backup (15 minutes)
+    \item Testnet configuration (10 minutes)
+    \item Obtaining testnet ETH (15 minutes)
+    \item First transaction (20 minutes)
+    \item Advanced features exploration (15 minutes)
+    \item Security review and best practices (15 minutes)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Total Duration:} 90 minutes
+
+\vspace{0.3cm}
+\textbf{Prerequisites:}
+\begin{itemize}
+    \item Web browser: Chrome, Firefox, Brave, or Edge
+    \item Basic understanding of public-private key cryptography
+    \item Secure location for seed phrase backup (physical storage)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is MetaMask?}
+\textbf{Overview:}
+\begin{itemize}
+    \item Browser extension and mobile app cryptocurrency wallet
+    \item Supports Ethereum and EVM-compatible blockchains
+    \item Non-custodial: you control private keys
+    \item Free and open-source
+    \item Most popular Ethereum wallet (~30 million users)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Features:}
+\begin{itemize}
+    \item Send and receive ETH and ERC-20 tokens
+    \item Interact with decentralized applications (dApps)
+    \item Multiple account management
+    \item Network switching (Mainnet, testnets, custom networks)
+    \item Hardware wallet integration (Ledger, Trezor)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Alternatives:}
+\begin{itemize}
+    \item Browser: Coinbase Wallet, Rabby, Frame
+    \item Mobile: Trust Wallet, Rainbow, Argent
+    \item Hardware: Ledger, Trezor (highest security)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 1: Installing MetaMask}
+\textbf{Installation Steps:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Visit official website: \url{https://metamask.io}
+    \item Click ``Download'' and select your browser
+    \item Install extension from official browser store:
+    \begin{itemize}
+        \item Chrome: Chrome Web Store
+        \item Firefox: Firefox Add-ons
+        \item Brave: Chrome Web Store
+        \item Edge: Microsoft Edge Add-ons
+    \end{itemize}
+    \item Pin extension to browser toolbar for easy access
+    \item Click MetaMask icon to launch setup wizard
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Security Warning:}
+\begin{itemize}
+    \item Only install from official sources
+    \item Beware of phishing sites (check URL carefully)
+    \item Official website uses HTTPS and \texttt{metamask.io} domain
+    \item Fake extensions exist in browser stores (verify developer name)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: Creating Your Wallet}
+\textbf{Setup Wizard Steps:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Click ``Create a new wallet''
+    \item Agree to terms of service
+    \item Set a strong password (8+ characters, mix of letters/numbers/symbols)
+    \item Watch the seed phrase explanation video
+    \item Reveal and record your 12-word seed phrase
+    \item Confirm seed phrase by selecting words in correct order
+    \item Wallet creation complete
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Password Purpose:}
+\begin{itemize}
+    \item Encrypts wallet on your device
+    \item Required each time you access wallet
+    \item Does NOT recover wallet if you forget it
+    \item Password protects seed phrase on local device only
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Critical: Seed Phrase vs. Password}
+\begin{itemize}
+    \item Seed phrase = master backup (recovers wallet on any device)
+    \item Password = local device protection (cannot recover wallet)
+    \item Lose seed phrase -> lose wallet permanently
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Seed Phrase Security: Critical Importance}
+\textbf{What is a Seed Phrase?}
+\begin{itemize}
+    \item 12-word mnemonic (BIP-39 standard)
+    \item Encodes master private key
+    \item Deterministically generates all wallet addresses
+    \item Anyone with seed phrase has FULL control of wallet
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Backup Best Practices:}
+\begin{enumerate}
+    \item Write down on paper (never digital storage)
+    \item Verify correct spelling and order
+    \item Store in secure physical location (safe, safety deposit box)
+    \item Consider multiple redundant copies in separate locations
+    \item Never share with anyone (no support staff will ask for it)
+    \item Do not store in:
+    \begin{itemize}
+        \item Email, cloud storage, screenshots, text files
+        \item Password managers (controversial, higher risk)
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Advanced: Steel Backup}
+\begin{itemize}
+    \item Engrave seed phrase on metal plate (fireproof, waterproof)
+    \item Products: Cryptosteel, Billfodl, Blockplate
+    \item Protects against physical disasters
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 3: Understanding Your Wallet Interface}
+\textbf{Main Wallet Screen:}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{Account Name:} Default ``Account 1'' (customizable)
+    \item \textbf{Public Address:} 0x... (click to copy)
+    \item \textbf{Balance:} ETH amount (and USD value if on mainnet)
+    \item \textbf{Network Selector:} Top-right dropdown (Ethereum Mainnet by default)
+    \item \textbf{Account Menu:} Click circular icon for account management
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tabs:}
+\begin{itemize}
+    \item \textbf{Assets:} View tokens and NFTs
+    \item \textbf{Activity:} Transaction history
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Action Buttons:}
+\begin{itemize}
+    \item \textbf{Buy:} Purchase crypto with fiat (mainnet only)
+    \item \textbf{Send:} Transfer tokens to another address
+    \item \textbf{Swap:} Exchange tokens (decentralized exchange integration)
+    \item \textbf{Receive:} Display QR code and address for receiving funds
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 4: Adding Sepolia Testnet}
+\textbf{Why Use Testnets?}
+\begin{itemize}
+    \item Practice without risking real money
+    \item Free testnet ETH available from faucets
+    \item Identical functionality to mainnet
+    \item Experiment with smart contracts and dApps safely
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Adding Sepolia Network:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Click network selector (top-right dropdown)
+    \item Toggle ``Show test networks'' in settings:
+    \begin{itemize}
+        \item Click three dots (top-right) -> Settings
+        \item Advanced -> Show test networks (enable)
+    \end{itemize}
+    \item Return to network selector
+    \item Select ``Sepolia test network''
+    \item Wallet now displays Sepolia ETH balance (initially 0)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Alternative Testnets:}
+\begin{itemize}
+    \item Goerli (deprecated, use Sepolia instead)
+    \item Holesky (validator testing)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 5: Obtaining Testnet ETH}
+\textbf{What are Faucets?}
+\begin{itemize}
+    \item Free services that distribute small amounts of testnet cryptocurrency
+    \item Rate-limited to prevent abuse (e.g., 0.5 ETH per 24 hours)
+    \item No real value (cannot be exchanged for mainnet ETH)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Sepolia Faucets:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Alchemy Sepolia Faucet:} \url{https://sepoliafaucet.com}
+    \begin{itemize}
+        \item Requires Alchemy account (free)
+        \item Provides 0.5 Sepolia ETH per day
+    \end{itemize}
+
+    \item \textbf{Infura Sepolia Faucet:} \url{https://www.infura.io/faucet/sepolia}
+    \begin{itemize}
+        \item Requires Infura account (free)
+        \item Provides 0.5 Sepolia ETH per day
+    \end{itemize}
+
+    \item \textbf{QuickNode Faucet:} \url{https://faucet.quicknode.com/ethereum/sepolia}
+    \begin{itemize}
+        \item Requires Twitter account verification
+        \item Provides 0.1 Sepolia ETH
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Steps:}
+\begin{itemize}
+    \item Copy your MetaMask address (click address to copy)
+    \item Visit faucet website
+    \item Paste address and request ETH
+    \item Wait 30-60 seconds for transaction confirmation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 6: Sending Your First Transaction}
+\textbf{Transaction Steps:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Ensure you have Sepolia ETH (from faucet)
+    \item Click ``Send'' button in MetaMask
+    \item Enter recipient address:
+    \begin{itemize}
+        \item Option 1: Create second account in MetaMask (send to yourself)
+        \item Option 2: Use classmate's address (coordinate in pairs)
+        \item Option 3: Use burn address: \texttt{0x0000...0000} (test only)
+    \end{itemize}
+    \item Enter amount (e.g., 0.1 Sepolia ETH)
+    \item Review transaction details:
+    \begin{itemize}
+        \item Gas fee estimate (varies by network congestion)
+        \item Total amount (amount + gas fee)
+    \end{itemize}
+    \item Click ``Confirm''
+    \item Wait for transaction confirmation (~15 seconds on Sepolia)
+    \item View in Activity tab (shows pending -> confirmed)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Understanding Gas Fees:}
+\begin{itemize}
+    \item Gas = computational effort to execute transaction
+    \item Fee = gas units $\times$ gas price (in gwei)
+    \item Higher gas price = faster confirmation (priority)
+    \item Sepolia: fees are negligible (testnet)
+    \item Mainnet: fees vary widely (1-50+ USD during congestion)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 7: Viewing Transaction on Block Explorer}
+\textbf{What is a Block Explorer?}
+\begin{itemize}
+    \item Web interface to view blockchain data
+    \item Shows transactions, blocks, addresses, contracts
+    \item Publicly accessible (blockchain is transparent)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Sepolia Block Explorer:}
+\begin{itemize}
+    \item Etherscan Sepolia: \url{https://sepolia.etherscan.io}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Viewing Your Transaction:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item In MetaMask Activity tab, click on your transaction
+    \item Click ``View on block explorer'' (opens Etherscan)
+    \item Observe transaction details:
+    \begin{itemize}
+        \item Transaction hash (unique identifier)
+        \item Status (Success / Pending / Failed)
+        \item Block number (which block included transaction)
+        \item From address (your address)
+        \item To address (recipient)
+        \item Value (amount sent)
+        \item Gas fee paid
+        \item Timestamp
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 8: Creating Additional Accounts}
+\textbf{Why Multiple Accounts?}
+\begin{itemize}
+    \item Organize funds by purpose (personal, business, savings)
+    \item Privacy (different addresses not easily linked)
+    \item Security (isolate risky activities)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Creating New Account:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Click account menu (circular icon, top-right)
+    \item Click ``Add account or hardware wallet''
+    \item Select ``Add a new account''
+    \item Name account (e.g., ``Account 2'')
+    \item New account created with new address
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Important Notes:}
+\begin{itemize}
+    \item All accounts derived from same seed phrase
+    \item Seed phrase recovers ALL accounts
+    \item Accounts use BIP-44 derivation path: \texttt{m/44'/60'/0'/0/index}
+    \item Switching accounts: click account menu, select account
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Task:}
+\begin{itemize}
+    \item Create second account
+    \item Send Sepolia ETH from Account 1 to Account 2
+    \item Verify transaction in block explorer
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 9: Importing Existing Account}
+\textbf{Import Methods:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Private Key Import:}
+    \begin{itemize}
+        \item Account menu -> Add account -> Import account
+        \item Paste private key (64 hexadecimal characters)
+        \item Account added (NOT derived from seed phrase)
+        \item Warning: imported accounts NOT backed up by seed phrase
+    \end{itemize}
+
+    \item \textbf{Hardware Wallet:}
+    \begin{itemize}
+        \item Account menu -> Add account -> Connect hardware wallet
+        \item Select Ledger or Trezor
+        \item Follow on-screen instructions
+        \item Most secure method (private key never leaves device)
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Practice Task (Optional):}
+\begin{itemize}
+    \item Export private key from Account 2:
+    \begin{itemize}
+        \item Account menu -> Account details -> Show private key
+        \item Enter password to reveal
+        \item Copy private key
+    \end{itemize}
+    \item Create new MetaMask wallet (different browser profile)
+    \item Import private key
+    \item Verify same address appears
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Advanced Features: Custom Networks}
+\textbf{Adding Custom Network (Example: Polygon):}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item Click network selector -> Add network
+    \item Enter network details:
+    \begin{itemize}
+        \item Network Name: Polygon Mainnet
+        \item RPC URL: \texttt{https://polygon-rpc.com}
+        \item Chain ID: 137
+        \item Currency Symbol: MATIC
+        \item Block Explorer: \texttt{https://polygonscan.com}
+    \end{itemize}
+    \item Save and switch to network
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Popular EVM Networks:}
+\begin{itemize}
+    \item Binance Smart Chain (BSC)
+    \item Avalanche C-Chain
+    \item Arbitrum (Ethereum Layer 2)
+    \item Optimism (Ethereum Layer 2)
+    \item Fantom
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Network Resources:}
+\begin{itemize}
+    \item Chainlist: \url{https://chainlist.org} (one-click network addition)
+    \item Lists 1000+ EVM-compatible networks with verified parameters
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Security Best Practices}
+\textbf{Critical Security Rules:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Seed Phrase:}
+    \begin{itemize}
+        \item Never share with anyone (no exceptions)
+        \item Never enter on websites (phishing)
+        \item Never store digitally (paper only)
+        \item Never photograph or screenshot
+    \end{itemize}
+
+    \item \textbf{Phishing Protection:}
+    \begin{itemize}
+        \item Bookmark MetaMask extension (avoid typing URL)
+        \item Verify website URLs before connecting wallet
+        \item Beware of fake support contacts (MetaMask never DMs first)
+        \item Check transaction details before confirming
+    \end{itemize}
+
+    \item \textbf{Network Verification:}
+    \begin{itemize}
+        \item Always confirm correct network before transacting
+        \item Mainnet transactions use real money (double-check)
+        \item Testnet assets have no value (safe to experiment)
+    \end{itemize}
+
+    \item \textbf{Transaction Approval:}
+    \begin{itemize}
+        \item Review recipient address carefully (irreversible)
+        \item Check amount and gas fees
+        \item Start with small test transactions
+        \item Revoke unnecessary token approvals (debank.com, revoke.cash)
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Common Security Threats}
+\textbf{Attack Vectors:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Phishing Websites:}
+    \begin{itemize}
+        \item Fake dApp sites request seed phrase
+        \item Look-alike domains (metamask.com vs metarnask.com)
+        \item Mitigation: bookmark trusted sites, verify URLs
+    \end{itemize}
+
+    \item \textbf{Malicious dApps:}
+    \begin{itemize}
+        \item Request unlimited token spending approval
+        \item Drain wallet after approval
+        \item Mitigation: review permissions, limit approvals
+    \end{itemize}
+
+    \item \textbf{Clipboard Malware:}
+    \begin{itemize}
+        \item Replaces copied address with attacker's address
+        \item Victim sends funds to wrong address
+        \item Mitigation: verify first/last characters after pasting
+    \end{itemize}
+
+    \item \textbf{Fake Support Scams:}
+    \begin{itemize}
+        \item Impersonators offer help via DM
+        \item Ask for seed phrase or remote access
+        \item Mitigation: never respond, MetaMask has no live support DMs
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit the following:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Screenshot Collection (single PDF):}
+    \begin{itemize}
+        \item MetaMask wallet main screen showing Sepolia network
+        \item Transaction details from MetaMask Activity tab
+        \item Etherscan transaction page showing confirmed transaction
+        \item Account list showing at least 2 accounts
+    \end{itemize}
+
+    \item \textbf{Lab Report (1-2 pages):}
+    \begin{itemize}
+        \item Your Sepolia address (Account 1)
+        \item Transaction hash of sent transaction
+        \item Reflection questions:
+        \begin{enumerate}
+            \item Why is seed phrase security more critical than password security?
+            \item How does testnet differ from mainnet in practice?
+            \item What are three ways to protect against phishing attacks?
+            \item Why are blockchain transactions irreversible?
+        \end{enumerate}
+    \end{itemize}
+
+    \item \textbf{Bonus (Optional):}
+    \begin{itemize}
+        \item Add Polygon testnet (Mumbai) and obtain testnet MATIC
+        \item Demonstrate cross-chain address consistency (same address on different chains)
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Submission Deadline:} One week from lab session date
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item MetaMask is a non-custodial wallet (you control private keys)
+    \item Seed phrase is the master backup (protects access to all accounts)
+    \item Testnets provide safe environment for learning and experimentation
+    \item Gas fees vary by network congestion (testnet fees negligible)
+    \item Block explorers provide transparency into all blockchain activity
+    \item Security requires vigilance against phishing, malware, and scams
+    \item Blockchain transactions are irreversible (verify before sending)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Next Steps:}
+\begin{itemize}
+    \item Keep wallet active for future labs
+    \item Explore dApps on testnets (Uniswap, Aave, OpenSea testnet versions)
+    \item Practice safe wallet habits
+    \item Never use testnet wallet for mainnet funds (create separate wallet for real funds)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+    \item What would happen if you lost both your password and seed phrase?
+
+    \item Why do imported private keys not get backed up by the seed phrase?
+
+    \item How does MetaMask generate multiple accounts from a single seed phrase?
+
+    \item What is the purpose of requiring gas fees for transactions?
+
+    \item Why are hardware wallets considered more secure than browser extensions?
+
+    \item How can you verify that a website is safe to connect your wallet to?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L09 Proof of Stake Consensus}
+\textbf{Topics to be covered:}
+\begin{itemize}
+    \item Proof-of-stake fundamentals and comparison with proof-of-work
+    \item Validator mechanics: staking, attestation, block proposal
+    \item Slashing conditions and penalties
+    \item Ethereum 2.0 Beacon Chain architecture
+    \item Finality and checkpoint mechanisms
+    \item Staking economics and rewards
+    \item Centralization risks in proof-of-stake systems
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Preparation:}
+\begin{itemize}
+    \item Review proof-of-work consensus (Lesson 7)
+    \item Read about Ethereum's transition to proof-of-stake (The Merge, 2022)
+    \item Explore current staking statistics (beaconcha.in)
+\end{itemize}
+\end{frame}
+
+\end{document}
