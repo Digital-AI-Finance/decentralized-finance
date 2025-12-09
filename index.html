@@ -4,752 +4,493 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blockchain, Crypto Economy & NFTs - Course Materials</title>
+    <meta name="description" content="Comprehensive BSc-level course covering blockchain fundamentals, smart contracts, DeFi, NFTs, and regulatory frameworks">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1e293b;
             --accent: #3b82f6;
+            --accent-hover: #2563eb;
             --success: #10b981;
             --warning: #f59e0b;
+            --danger: #ef4444;
             --bg: #f8fafc;
+            --bg-alt: #f1f5f9;
             --card: #ffffff;
             --text: #334155;
             --text-light: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --transition: 0.2s ease;
+        }
+        [data-theme="dark"] {
+            --primary: #f1f5f9;
+            --bg: #0f172a;
+            --bg-alt: #1e293b;
+            --card: #1e293b;
+            --text: #e2e8f0;
+            --text-light: #94a3b8;
+            --border: #334155;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
+            min-height: 100vh;
         }
-        .header {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-        .header h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; }
-        .header p { opacity: 0.9; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
-
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: -30px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-        .stat-card {
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
             background: var(--card);
-            padding: 20px 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .stat-card .num { font-size: 2rem; font-weight: 700; color: var(--accent); }
-        .stat-card .label { font-size: 0.85rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
-
-        h2 {
-            font-size: 1.5rem;
-            margin: 40px 0 20px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        h2 .badge {
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            color: white;
-            font-weight: 500;
-        }
-
-        .charts-section {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .chart-card {
-            background: var(--bg);
-            border-radius: 12px;
-            padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid #e2e8f0;
-        }
-        .chart-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .chart-card h4 { color: var(--primary); margin-bottom: 8px; font-size: 1rem; }
-        .chart-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
-        .chart-card a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        .chart-card a:hover { text-decoration: underline; }
-
-        .module {
-            background: var(--card);
-            border-radius: 16px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .module-header {
-            padding: 20px 24px;
-            color: white;
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 16px;
         }
-        .module-header h3 { font-size: 1.1rem; font-weight: 600; }
-        .module-header .count {
-            background: rgba(255,255,255,0.2);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            text-decoration: none;
+            white-space: nowrap;
         }
-        .lessons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1px;
-            background: #e2e8f0;
-        }
-        .lesson {
-            background: var(--card);
-            padding: 16px 20px;
+        .navbar-nav {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: background 0.2s;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
-        .lesson:hover { background: var(--bg); }
-        .lesson-num {
+        .nav-link {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .nav-link:hover { background: var(--bg-alt); color: var(--text); }
+        .nav-link[data-module="A"] { border-left: 3px solid #3b82f6; }
+        .nav-link[data-module="B"] { border-left: 3px solid #8b5cf6; }
+        .nav-link[data-module="C"] { border-left: 3px solid #ec4899; }
+        .nav-link[data-module="D"] { border-left: 3px solid #f59e0b; }
+        .nav-link[data-module="E"] { border-left: 3px solid #10b981; }
+        .nav-link[data-module="F"] { border-left: 3px solid #ef4444; }
+        .nav-link[data-module="G"] { border-left: 3px solid #6366f1; }
+        .navbar-actions { display: flex; gap: 8px; align-items: center; }
+        .theme-toggle {
+            background: var(--bg-alt);
+            border: none;
             width: 36px;
             height: 36px;
             border-radius: 8px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: white;
-            flex-shrink: 0;
-        }
-        .lesson-info { flex: 1; min-width: 0; }
-        .lesson-title {
-            font-size: 0.95rem;
-            color: var(--primary);
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .lesson-type {
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
-        .lesson a {
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-        .lesson a:hover { text-decoration: underline; }
-        .lab-badge {
-            background: #dcfce7;
-            color: #166534;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .resources {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 30px;
-            margin-top: 40px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .resources h3 { margin-bottom: 20px; color: var(--primary); }
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-        }
-        .resource-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 16px;
-            background: var(--bg);
-            border-radius: 8px;
             color: var(--text);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: background 0.2s;
+            transition: var(--transition);
         }
-        .resource-link:hover { background: #e2e8f0; }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-light);
+        .theme-toggle:hover { background: var(--border); }
+        .theme-toggle svg { width: 18px; height: 18px; }
+        .search-container { position: relative; max-width: 200px; }
+        .search-input {
+            width: 100%;
+            padding: 8px 12px 8px 36px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
             font-size: 0.85rem;
+            background: var(--bg-alt);
+            color: var(--text);
+            transition: var(--transition);
         }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            width: 16px;
+            height: 16px;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        .header-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.02em; }
+        .header p { opacity: 0.9; font-size: 1.1rem; max-width: 600px; margin: 0 auto 20px; }
+        .header-badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .header-badge { background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; backdrop-filter: blur(4px); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-top: -50px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+        .stat-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .stat-card:hover { transform: translateY(-2px); }
+        .stat-card .num { font-size: 2rem; font-weight: 700; color: var(--accent); line-height: 1; }
+        .stat-card .label { font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+        .section-title { font-size: 1.4rem; margin: 40px 0 20px; color: var(--primary); display: flex; align-items: center; gap: 12px; }
+        .section-title svg { width: 24px; height: 24px; color: var(--accent); }
+        .charts-section { background: var(--card); border-radius: var(--radius); padding: 24px; margin-bottom: 40px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .charts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+        .chart-card { background: var(--bg); border-radius: 10px; padding: 18px; transition: var(--transition); border: 1px solid var(--border); display: flex; flex-direction: column; }
+        .chart-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+        .chart-card h4 { color: var(--primary); margin-bottom: 6px; font-size: 0.95rem; font-weight: 600; }
+        .chart-card p { font-size: 0.8rem; color: var(--text-light); margin-bottom: 12px; flex: 1; }
+        .chart-card a { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: var(--transition); }
+        .chart-card a:hover { color: var(--accent-hover); }
+        .chart-card a svg { width: 14px; height: 14px; }
+        .module { background: var(--card); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); scroll-margin-top: 80px; }
+        .module-header { padding: 18px 24px; color: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: var(--transition); }
+        .module-header:hover { filter: brightness(1.1); }
+        .module-header h3 { font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .module-header .count { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; }
+        .module-header .chevron { transition: transform 0.3s; width: 20px; height: 20px; }
+        .module.collapsed .chevron { transform: rotate(-90deg); }
+        .module.collapsed .lessons-grid { display: none; }
+        .lessons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--border); }
+        .lesson { background: var(--card); padding: 14px 20px; display: flex; align-items: center; gap: 12px; transition: var(--transition); }
+        .lesson:hover { background: var(--bg-alt); }
+        .lesson.hidden { display: none; }
+        .lesson-num { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; color: white; flex-shrink: 0; }
+        .lesson-info { flex: 1; min-width: 0; }
+        .lesson-title { font-size: 0.9rem; color: var(--primary); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .lesson-type { font-size: 0.7rem; color: var(--text-light); display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+        .lab-badge { background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; }
+        [data-theme="dark"] .lab-badge { background: #064e3b; color: #6ee7b7; }
+        .lesson a { color: var(--accent); text-decoration: none; font-size: 0.8rem; font-weight: 500; white-space: nowrap; padding: 6px 12px; border-radius: 6px; background: var(--bg-alt); transition: var(--transition); display: flex; align-items: center; gap: 4px; }
+        .lesson a:hover { background: var(--accent); color: white; }
+        .lesson a svg { width: 12px; height: 12px; }
+        .resources { background: var(--card); border-radius: var(--radius); padding: 24px; margin-top: 40px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .resources h3 { margin-bottom: 16px; color: var(--primary); font-size: 1.1rem; }
+        .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+        .resource-link { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--bg); border-radius: 8px; color: var(--text); text-decoration: none; font-size: 0.85rem; transition: var(--transition); border: 1px solid var(--border); }
+        .resource-link:hover { background: var(--bg-alt); border-color: var(--accent); color: var(--accent); }
+        .resource-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+        footer { text-align: center; padding: 40px 20px; color: var(--text-light); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px; }
         footer a { color: var(--accent); text-decoration: none; }
         footer a:hover { text-decoration: underline; }
-
+        .back-to-top { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; background: var(--accent); color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); opacity: 0; visibility: hidden; transition: var(--transition); z-index: 99; }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { transform: translateY(-2px); }
+        .back-to-top svg { width: 20px; height: 20px; }
+        .no-results { text-align: center; padding: 40px; color: var(--text-light); display: none; }
+        .no-results.visible { display: block; }
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); width: 0%; z-index: 101; transition: width 0.1s; }
         @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .navbar-nav { display: none; }
             .header h1 { font-size: 1.8rem; }
-            .stats-bar { gap: 16px; }
-            .stat-card { padding: 16px 24px; }
+            .header { padding: 40px 20px; }
+            .stats-bar { margin-top: -30px; }
             .lessons-grid { grid-template-columns: 1fr; }
+            .search-container { max-width: 100%; width: 100%; }
+        }
+        @media print {
+            .navbar, .back-to-top, .progress-bar, .search-container, .theme-toggle { display: none; }
+            .module.collapsed .lessons-grid { display: grid; }
         }
     </style>
 </head>
 <body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">Blockchain & Crypto</a>
+        <div class="navbar-nav">
+            <a href="#module-a" class="nav-link" data-module="A">Foundations</a>
+            <a href="#module-b" class="nav-link" data-module="B">Ethereum</a>
+            <a href="#module-c" class="nav-link" data-module="C">NFTs</a>
+            <a href="#module-d" class="nav-link" data-module="D">Tokenomics</a>
+            <a href="#module-e" class="nav-link" data-module="E">DeFi</a>
+            <a href="#module-f" class="nav-link" data-module="F">Advanced</a>
+            <a href="#module-g" class="nav-link" data-module="G">Regulation</a>
+        </div>
+        <div class="navbar-actions">
+            <div class="search-container">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search lessons...">
+            </div>
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            </button>
+        </div>
+    </nav>
     <div class="header">
-        <h1>Blockchain, Crypto Economy & NFTs</h1>
-        <p>Comprehensive BSc-level course covering blockchain fundamentals, smart contracts, DeFi, NFTs, and regulatory frameworks</p>
+        <div class="header-content">
+            <h1>Blockchain, Crypto Economy & NFTs</h1>
+            <p>Comprehensive BSc-level course covering blockchain fundamentals, smart contracts, DeFi, NFTs, and regulatory frameworks</p>
+            <div class="header-badges">
+                <span class="header-badge">BSc Level</span>
+                <span class="header-badge">48 Lessons</span>
+                <span class="header-badge">7 Modules</span>
+            </div>
+        </div>
     </div>
-
     <div class="container">
         <div class="stats-bar">
             <div class="stat-card"><div class="num">48</div><div class="label">Lessons</div></div>
             <div class="stat-card"><div class="num">7</div><div class="label">Modules</div></div>
-            <div class="stat-card"><div class="num">11</div><div class="label">Labs</div></div>
+            <div class="stat-card"><div class="num">11</div><div class="label">Hands-on Labs</div></div>
             <div class="stat-card"><div class="num">8</div><div class="label">Charts</div></div>
         </div>
-
+        <h2 class="section-title">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            Course Visualizations
+        </h2>
         <div class="charts-section">
-            <h2>Course Visualizations</h2>
             <div class="charts-grid">
-                <div class="chart-card">
-                    <h4>Hash Avalanche Effect</h4>
-                    <p>Demonstrates how small input changes cause large output changes</p>
-                    <a href="charts/hash_avalanche/chart.pdf" target="_blank">View PDF</a>
-                </div>
-                <div class="chart-card">
-                    <h4>Bitcoin Halving Schedule</h4>
-                    <p>Block reward reduction timeline and supply curve</p>
-                    <a href="charts/bitcoin_halving/chart.pdf" target="_blank">View PDF</a>
-                </div>
-                <div class="chart-card">
-                    <h4>Gas Costs Comparison</h4>
-                    <p>EVM operation costs across different transaction types</p>
-                    <a href="charts/gas_costs_comparison/chart.pdf" target="_blank">View PDF</a>
-                </div>
-                <div class="chart-card">
-                    <h4>AMM Constant Product</h4>
-                    <p>x*y=k curve visualization for liquidity pools</p>
-                    <a href="charts/amm_constant_product/chart.pdf" target="_blank">View PDF</a>
-                </div>
-                <div class="chart-card">
-                    <h4>Impermanent Loss</h4>
-                    <p>IL calculation across price divergence scenarios</p>
-                    <a href="charts/impermanent_loss/chart.pdf" target="_blank">View PDF</a>
-                </div>
-                <div class="chart-card">
-                    <h4>DeFi TVL Growth</h4>
-                    <p>Total Value Locked historical trends</p>
-                    <a href="charts/tvl_growth/chart.pdf" target="_blank">View PDF</a>
-                </div>
-                <div class="chart-card">
-                    <h4>Stablecoin Market Share</h4>
-                    <p>Distribution of major stablecoins</p>
-                    <a href="charts/stablecoin_market_share/chart.pdf" target="_blank">View PDF</a>
-                </div>
-                <div class="chart-card">
-                    <h4>Layer 2 Comparison</h4>
-                    <p>Rollup and scaling solution comparison</p>
-                    <a href="charts/layer2_comparison/chart.pdf" target="_blank">View PDF</a>
-                </div>
+                <div class="chart-card"><h4>Hash Avalanche Effect</h4><p>Demonstrates how small input changes cause large output changes</p><a href="charts/hash_avalanche/chart.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>View PDF</a></div>
+                <div class="chart-card"><h4>Bitcoin Halving Schedule</h4><p>Block reward reduction timeline and supply curve</p><a href="charts/bitcoin_halving/chart.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>View PDF</a></div>
+                <div class="chart-card"><h4>Gas Costs Comparison</h4><p>EVM operation costs across different transaction types</p><a href="charts/gas_costs_comparison/chart.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>View PDF</a></div>
+                <div class="chart-card"><h4>AMM Constant Product</h4><p>x*y=k curve visualization for liquidity pools</p><a href="charts/amm_constant_product/chart.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>View PDF</a></div>
+                <div class="chart-card"><h4>Impermanent Loss</h4><p>IL calculation across price divergence scenarios</p><a href="charts/impermanent_loss/chart.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>View PDF</a></div>
+                <div class="chart-card"><h4>DeFi TVL Growth</h4><p>Total Value Locked historical trends</p><a href="charts/tvl_growth/chart.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>View PDF</a></div>
+                <div class="chart-card"><h4>Stablecoin Market Share</h4><p>Distribution of major stablecoins</p><a href="charts/stablecoin_market_share/chart.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>View PDF</a></div>
+                <div class="chart-card"><h4>Layer 2 Comparison</h4><p>Rollup and scaling solution comparison</p><a href="charts/layer2_comparison/chart.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>View PDF</a></div>
+            </div>
+        </div>
+        <h2 class="section-title"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>Course Modules</h2>
+        <div class="no-results" id="noResults"><p>No lessons found matching your search.</p></div>
+
+        <div class="module" id="module-a">
+            <div class="module-header" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)" onclick="toggleModule(this)">
+                <h3><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>Module A: Blockchain Foundations</h3>
+                <div style="display:flex;align-items:center;gap:12px"><span class="count">12 lessons</span><svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson" data-title="what is blockchain"><div class="lesson-num" style="background: #3b82f6">01</div><div class="lesson-info"><div class="lesson-title">What is Blockchain?</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L01_What_is_Blockchain/20251207_1500_L01_What_is_Blockchain.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="dlt concepts distributed ledger"><div class="lesson-num" style="background: #3b82f6">02</div><div class="lesson-info"><div class="lesson-title">DLT Concepts</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L02_DLT_Concepts/20251207_1945_L02_DLT_Concepts.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="hash functions cryptography sha256"><div class="lesson-num" style="background: #3b82f6">03</div><div class="lesson-info"><div class="lesson-title">Hash Functions</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L03_Hash_Functions/20251207_1945_L03_Hash_Functions.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab hash experiments practical"><div class="lesson-num" style="background: #3b82f6">04</div><div class="lesson-info"><div class="lesson-title">Lab: Hash Experiments</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_A_Blockchain_Foundations/L04_Lab_Hash_Experiments/20251207_2100_L04_Lab_Hash_Experiments.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="public key cryptography asymmetric"><div class="lesson-num" style="background: #3b82f6">05</div><div class="lesson-info"><div class="lesson-title">Public Key Cryptography</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L05_Public_Key_Cryptography/20251207_2100_L05_Public_Key_Cryptography.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="bitcoin protocol btc satoshi"><div class="lesson-num" style="background: #3b82f6">06</div><div class="lesson-info"><div class="lesson-title">Bitcoin Protocol</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L06_Bitcoin_Protocol/20251207_2100_L06_Bitcoin_Protocol.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="proof of work mining pow"><div class="lesson-num" style="background: #3b82f6">07</div><div class="lesson-info"><div class="lesson-title">Proof of Work</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L07_Proof_of_Work/20251207_2100_L07_Proof_of_Work.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab wallet setup metamask"><div class="lesson-num" style="background: #3b82f6">08</div><div class="lesson-info"><div class="lesson-title">Lab: Wallet Setup</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_A_Blockchain_Foundations/L08_Lab_Wallet_Setup/20251207_2100_L08_Lab_Wallet_Setup.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="proof of stake pos staking"><div class="lesson-num" style="background: #3b82f6">09</div><div class="lesson-info"><div class="lesson-title">Proof of Stake</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L09_Proof_of_Stake/20251207_2100_L09_Proof_of_Stake.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="consensus comparison pbft dpos"><div class="lesson-num" style="background: #3b82f6">10</div><div class="lesson-info"><div class="lesson-title">Consensus Comparison</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L10_Consensus_Comparison/20251207_2100_L10_Consensus_Comparison.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="scalability trilemma"><div class="lesson-num" style="background: #3b82f6">11</div><div class="lesson-info"><div class="lesson-title">Scalability Trilemma</div><div class="lesson-type">Lecture</div></div><a href="Module_A_Blockchain_Foundations/L11_Scalability_Trilemma/20251207_2100_L11_Scalability_Trilemma.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab block explorer etherscan"><div class="lesson-num" style="background: #3b82f6">12</div><div class="lesson-info"><div class="lesson-title">Lab: Block Explorer</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_A_Blockchain_Foundations/L12_Lab_Block_Explorer/20251207_2100_L12_Lab_Block_Explorer.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
             </div>
         </div>
 
-        <div class="module">
-            <div class="module-header" style="background: #3b82f6">
-                <h3>Module A: Blockchain Foundations</h3>
-                <span class="count">12 lessons</span>
+        <div class="module" id="module-b">
+            <div class="module-header" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)" onclick="toggleModule(this)">
+                <h3><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>Module B: Ethereum & Smart Contracts</h3>
+                <div style="display:flex;align-items:center;gap:12px"><span class="count">8 lessons</span><svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
             </div>
             <div class="lessons-grid">
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">01</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">What is Blockchain?</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L01_What_is_Blockchain/20251207_1500_L01_What_is_Blockchain.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">02</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">DLT Concepts</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L02_DLT_Concepts/20251207_1945_L02_DLT_Concepts.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">03</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Hash Functions</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L03_Hash_Functions/20251207_1945_L03_Hash_Functions.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">04</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Hash Experiments</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L04_Lab_Hash_Experiments/20251207_2100_L04_Lab_Hash_Experiments.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">05</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Public Key Cryptography</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L05_Public_Key_Cryptography/20251207_2100_L05_Public_Key_Cryptography.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">06</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Bitcoin Protocol</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L06_Bitcoin_Protocol/20251207_2100_L06_Bitcoin_Protocol.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">07</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Proof of Work</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L07_Proof_of_Work/20251207_2100_L07_Proof_of_Work.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">08</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Wallet Setup</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L08_Lab_Wallet_Setup/20251207_2100_L08_Lab_Wallet_Setup.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">09</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Proof of Stake</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L09_Proof_of_Stake/20251207_2100_L09_Proof_of_Stake.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">10</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Consensus Comparison</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L10_Consensus_Comparison/20251207_2100_L10_Consensus_Comparison.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">11</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Scalability Trilemma</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L11_Scalability_Trilemma/20251207_2100_L11_Scalability_Trilemma.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #3b82f6">12</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Block Explorer</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_A_Blockchain_Foundations/L12_Lab_Block_Explorer/20251207_2100_L12_Lab_Block_Explorer.pdf" target="_blank">Open PDF</a>
-                </div>
+                <div class="lesson" data-title="ethereum architecture evm"><div class="lesson-num" style="background: #8b5cf6">13</div><div class="lesson-info"><div class="lesson-title">Ethereum Architecture</div><div class="lesson-type">Lecture</div></div><a href="Module_B_Ethereum_Smart_Contracts/L13_Ethereum_Architecture/20251207_2130_L13_Ethereum_Architecture.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="gas mechanics fees gwei"><div class="lesson-num" style="background: #8b5cf6">14</div><div class="lesson-info"><div class="lesson-title">Gas Mechanics</div><div class="lesson-type">Lecture</div></div><a href="Module_B_Ethereum_Smart_Contracts/L14_Gas_Mechanics/20251207_2130_L14_Gas_Mechanics.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="solidity fundamentals programming"><div class="lesson-num" style="background: #8b5cf6">15</div><div class="lesson-info"><div class="lesson-title">Solidity Fundamentals</div><div class="lesson-type">Lecture</div></div><a href="Module_B_Ethereum_Smart_Contracts/L15_Solidity_Fundamentals/20251207_2130_L15_Solidity_Fundamentals.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab contract interaction remix"><div class="lesson-num" style="background: #8b5cf6">16</div><div class="lesson-info"><div class="lesson-title">Lab: Contract Interaction</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_B_Ethereum_Smart_Contracts/L16_Lab_Interacting_Contracts/20251207_2130_L16_Lab_Contract_Interaction.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="erc-20 token standard fungible"><div class="lesson-num" style="background: #8b5cf6">17</div><div class="lesson-info"><div class="lesson-title">ERC-20 Token Standard</div><div class="lesson-type">Lecture</div></div><a href="Module_B_Ethereum_Smart_Contracts/L17_ERC20_Token_Standard/20251207_2130_L17_ERC20_Token_Standard.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="erc-721 erc-1155 nft standards"><div class="lesson-num" style="background: #8b5cf6">18</div><div class="lesson-info"><div class="lesson-title">ERC-721 & ERC-1155</div><div class="lesson-type">Lecture</div></div><a href="Module_B_Ethereum_Smart_Contracts/L18_ERC721_ERC1155_Standards/20251207_2130_L18_ERC721_ERC1155_Standards.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="token lifecycle minting burning"><div class="lesson-num" style="background: #8b5cf6">19</div><div class="lesson-info"><div class="lesson-title">Token Lifecycle</div><div class="lesson-type">Lecture</div></div><a href="Module_B_Ethereum_Smart_Contracts/L19_Token_Lifecycle/20251207_2130_L19_Token_Lifecycle.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab token analysis dextools"><div class="lesson-num" style="background: #8b5cf6">20</div><div class="lesson-info"><div class="lesson-title">Lab: Token Analysis</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_B_Ethereum_Smart_Contracts/L20_Lab_Token_Analysis/20251207_2130_L20_Lab_Token_Analysis.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
             </div>
         </div>
 
-        <div class="module">
-            <div class="module-header" style="background: #8b5cf6">
-                <h3>Module B: Ethereum & Smart Contracts</h3>
-                <span class="count">8 lessons</span>
+        <div class="module" id="module-c">
+            <div class="module-header" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%)" onclick="toggleModule(this)">
+                <h3><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Module C: NFTs & Digital Assets</h3>
+                <div style="display:flex;align-items:center;gap:12px"><span class="count">8 lessons</span><svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
             </div>
             <div class="lessons-grid">
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #8b5cf6">13</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Ethereum Architecture</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_B_Ethereum_Smart_Contracts/L13_Ethereum_Architecture/20251207_2130_L13_Ethereum_Architecture.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #8b5cf6">14</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Gas Mechanics</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_B_Ethereum_Smart_Contracts/L14_Gas_Mechanics/20251207_2130_L14_Gas_Mechanics.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #8b5cf6">15</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Solidity Fundamentals</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_B_Ethereum_Smart_Contracts/L15_Solidity_Fundamentals/20251207_2130_L15_Solidity_Fundamentals.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #8b5cf6">16</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Contract Interaction</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_B_Ethereum_Smart_Contracts/L16_Lab_Interacting_Contracts/20251207_2130_L16_Lab_Contract_Interaction.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #8b5cf6">17</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">ERC-20 Token Standard</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_B_Ethereum_Smart_Contracts/L17_ERC20_Token_Standard/20251207_2130_L17_ERC20_Token_Standard.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #8b5cf6">18</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">ERC-721 & ERC-1155</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_B_Ethereum_Smart_Contracts/L18_ERC721_ERC1155_Standards/20251207_2130_L18_ERC721_ERC1155_Standards.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #8b5cf6">19</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Token Lifecycle</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_B_Ethereum_Smart_Contracts/L19_Token_Lifecycle/20251207_2130_L19_Token_Lifecycle.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #8b5cf6">20</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Token Analysis</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_B_Ethereum_Smart_Contracts/L20_Lab_Token_Analysis/20251207_2130_L20_Lab_Token_Analysis.pdf" target="_blank">Open PDF</a>
-                </div>
+                <div class="lesson" data-title="nft technology deep dive"><div class="lesson-num" style="background: #ec4899">21</div><div class="lesson-info"><div class="lesson-title">NFT Technology Deep Dive</div><div class="lesson-type">Lecture</div></div><a href="Module_C_NFTs_Digital_Assets/L21_NFT_Technology/20251207_2200_L21_NFT_Technology_Deep_Dive.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="nft metadata ipfs storage"><div class="lesson-num" style="background: #ec4899">22</div><div class="lesson-info"><div class="lesson-title">NFT Metadata & IPFS</div><div class="lesson-type">Lecture</div></div><a href="Module_C_NFTs_Digital_Assets/L22_NFT_Metadata_IPFS/20251207_2200_L22_NFT_Metadata_IPFS.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="nft marketplaces opensea blur"><div class="lesson-num" style="background: #ec4899">23</div><div class="lesson-info"><div class="lesson-title">NFT Marketplaces</div><div class="lesson-type">Lecture</div></div><a href="Module_C_NFTs_Digital_Assets/L23_NFT_Marketplaces/20251207_2200_L23_NFT_Marketplaces.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab opensea analysis collections"><div class="lesson-num" style="background: #ec4899">24</div><div class="lesson-info"><div class="lesson-title">Lab: OpenSea Analysis</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_C_NFTs_Digital_Assets/L24_Lab_OpenSea_Analysis/20251207_2200_L24_Lab_OpenSea_Analysis.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="digital art collectibles beeple"><div class="lesson-num" style="background: #ec4899">25</div><div class="lesson-info"><div class="lesson-title">Digital Art & Collectibles</div><div class="lesson-type">Lecture</div></div><a href="Module_C_NFTs_Digital_Assets/L25_Digital_Art_Collectibles/20251207_2200_L25_Digital_Art_Collectibles.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="gaming nfts metaverse play-to-earn"><div class="lesson-num" style="background: #ec4899">26</div><div class="lesson-info"><div class="lesson-title">Gaming NFTs & Metaverse</div><div class="lesson-type">Lecture</div></div><a href="Module_C_NFTs_Digital_Assets/L26_Gaming_NFTs_Metaverse/20251207_2200_L26_Gaming_NFTs_Metaverse.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="rwa tokenization real world assets"><div class="lesson-num" style="background: #ec4899">27</div><div class="lesson-info"><div class="lesson-title">RWA Tokenization</div><div class="lesson-type">Lecture</div></div><a href="Module_C_NFTs_Digital_Assets/L27_RWA_Tokenization/20251207_2200_L27_RWA_Tokenization.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab nft evaluation rarity"><div class="lesson-num" style="background: #ec4899">28</div><div class="lesson-info"><div class="lesson-title">Lab: NFT Evaluation</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_C_NFTs_Digital_Assets/L28_Lab_NFT_Evaluation/20251207_2200_L28_Lab_NFT_Evaluation.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
             </div>
         </div>
 
-        <div class="module">
-            <div class="module-header" style="background: #ec4899">
-                <h3>Module C: NFTs & Digital Assets</h3>
-                <span class="count">8 lessons</span>
+        <div class="module" id="module-d">
+            <div class="module-header" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" onclick="toggleModule(this)">
+                <h3><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Module D: Tokenomics</h3>
+                <div style="display:flex;align-items:center;gap:12px"><span class="count">4 lessons</span><svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
             </div>
             <div class="lessons-grid">
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ec4899">21</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">NFT Technology Deep Dive</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_C_NFTs_Digital_Assets/L21_NFT_Technology/20251207_2200_L21_NFT_Technology_Deep_Dive.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ec4899">22</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">NFT Metadata & IPFS</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_C_NFTs_Digital_Assets/L22_NFT_Metadata_IPFS/20251207_2200_L22_NFT_Metadata_IPFS.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ec4899">23</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">NFT Marketplaces</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_C_NFTs_Digital_Assets/L23_NFT_Marketplaces/20251207_2200_L23_NFT_Marketplaces.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ec4899">24</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: OpenSea Analysis</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_C_NFTs_Digital_Assets/L24_Lab_OpenSea_Analysis/20251207_2200_L24_Lab_OpenSea_Analysis.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ec4899">25</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Digital Art & Collectibles</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_C_NFTs_Digital_Assets/L25_Digital_Art_Collectibles/20251207_2200_L25_Digital_Art_Collectibles.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ec4899">26</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Gaming NFTs & Metaverse</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_C_NFTs_Digital_Assets/L26_Gaming_NFTs_Metaverse/20251207_2200_L26_Gaming_NFTs_Metaverse.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ec4899">27</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">RWA Tokenization</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_C_NFTs_Digital_Assets/L27_RWA_Tokenization/20251207_2200_L27_RWA_Tokenization.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ec4899">28</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: NFT Evaluation</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_C_NFTs_Digital_Assets/L28_Lab_NFT_Evaluation/20251207_2200_L28_Lab_NFT_Evaluation.pdf" target="_blank">Open PDF</a>
-                </div>
+                <div class="lesson" data-title="token economics supply demand"><div class="lesson-num" style="background: #f59e0b">29</div><div class="lesson-info"><div class="lesson-title">Token Economics</div><div class="lesson-type">Lecture</div></div><a href="Module_D_Tokenomics/L29_Token_Economics/presentations/20251207_2230_L29_Token_Economics.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="distribution vesting schedule cliff"><div class="lesson-num" style="background: #f59e0b">30</div><div class="lesson-info"><div class="lesson-title">Distribution & Vesting</div><div class="lesson-type">Lecture</div></div><a href="Module_D_Tokenomics/L30_Distribution_Vesting/presentations/20251207_2230_L30_Distribution_Vesting.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="token classification utility security"><div class="lesson-num" style="background: #f59e0b">31</div><div class="lesson-info"><div class="lesson-title">Token Classification</div><div class="lesson-type">Lecture</div></div><a href="Module_D_Tokenomics/L31_Token_Classification/presentations/20251207_2230_L31_Token_Classification.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab tokenomics analysis whitepaper"><div class="lesson-num" style="background: #f59e0b">32</div><div class="lesson-info"><div class="lesson-title">Lab: Tokenomics Analysis</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_D_Tokenomics/L32_Lab_Tokenomics_Analysis/presentations/20251207_2230_L32_Lab_Tokenomics_Analysis.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
             </div>
         </div>
 
-        <div class="module">
-            <div class="module-header" style="background: #f59e0b">
-                <h3>Module D: Tokenomics</h3>
-                <span class="count">4 lessons</span>
+        <div class="module" id="module-e">
+            <div class="module-header" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%)" onclick="toggleModule(this)">
+                <h3><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>Module E: DeFi Ecosystem</h3>
+                <div style="display:flex;align-items:center;gap:12px"><span class="count">8 lessons</span><svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
             </div>
             <div class="lessons-grid">
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #f59e0b">29</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Token Economics</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_D_Tokenomics/L29_Token_Economics/presentations/20251207_2230_L29_Token_Economics.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #f59e0b">30</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Distribution & Vesting</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_D_Tokenomics/L30_Distribution_Vesting/presentations/20251207_2230_L30_Distribution_Vesting.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #f59e0b">31</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Token Classification</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_D_Tokenomics/L31_Token_Classification/presentations/20251207_2230_L31_Token_Classification.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #f59e0b">32</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Tokenomics Analysis</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_D_Tokenomics/L32_Lab_Tokenomics_Analysis/presentations/20251207_2230_L32_Lab_Tokenomics_Analysis.pdf" target="_blank">Open PDF</a>
-                </div>
+                <div class="lesson" data-title="introduction defi decentralized finance"><div class="lesson-num" style="background: #10b981">33</div><div class="lesson-info"><div class="lesson-title">Introduction to DeFi</div><div class="lesson-type">Lecture</div></div><a href="Module_E_DeFi_Ecosystem/L33_Intro_DeFi/presentations/20251207_2230_L33_Intro_DeFi.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="amm mechanics automated market maker"><div class="lesson-num" style="background: #10b981">34</div><div class="lesson-info"><div class="lesson-title">AMM Mechanics</div><div class="lesson-type">Lecture</div></div><a href="Module_E_DeFi_Ecosystem/L34_AMM_Mechanics/presentations/20251207_2230_L34_AMM_Mechanics.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="uniswap deep dive liquidity pool"><div class="lesson-num" style="background: #10b981">35</div><div class="lesson-info"><div class="lesson-title">Uniswap Deep Dive</div><div class="lesson-type">Lecture</div></div><a href="Module_E_DeFi_Ecosystem/L35_Uniswap_Deep_Dive/presentations/20251207_2230_L35_Uniswap_Deep_Dive.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab testnet swap sepolia"><div class="lesson-num" style="background: #10b981">36</div><div class="lesson-info"><div class="lesson-title">Lab: Testnet Swap</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_E_DeFi_Ecosystem/L36_Lab_Testnet_Swap/presentations/20251207_2230_L36_Lab_Testnet_Swap.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lending protocols aave compound"><div class="lesson-num" style="background: #10b981">37</div><div class="lesson-info"><div class="lesson-title">Lending Protocols</div><div class="lesson-type">Lecture</div></div><a href="Module_E_DeFi_Ecosystem/L37_Lending_Protocols/presentations/20251207_2230_L37_Lending_Protocols.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="stablecoin mechanisms usdt usdc dai"><div class="lesson-num" style="background: #10b981">38</div><div class="lesson-info"><div class="lesson-title">Stablecoin Mechanisms</div><div class="lesson-type">Lecture</div></div><a href="Module_E_DeFi_Ecosystem/L38_Stablecoin_Mechanisms/presentations/20251207_2230_L38_Stablecoin_Mechanisms.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="terra luna case study ust collapse"><div class="lesson-num" style="background: #10b981">39</div><div class="lesson-info"><div class="lesson-title">Terra/Luna Case Study</div><div class="lesson-type">Lecture</div></div><a href="Module_E_DeFi_Ecosystem/L39_Terra_Luna_Case_Study/presentations/20251207_2230_L39_Terra_Luna_Case_Study.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab testnet lending aave"><div class="lesson-num" style="background: #10b981">40</div><div class="lesson-info"><div class="lesson-title">Lab: Testnet Lending</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_E_DeFi_Ecosystem/L40_Lab_Testnet_Lending/presentations/20251207_2230_L40_Lab_Testnet_Lending.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
             </div>
         </div>
 
-        <div class="module">
-            <div class="module-header" style="background: #10b981">
-                <h3>Module E: DeFi Ecosystem</h3>
-                <span class="count">8 lessons</span>
+        <div class="module" id="module-f">
+            <div class="module-header" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%)" onclick="toggleModule(this)">
+                <h3><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>Module F: Advanced Topics</h3>
+                <div style="display:flex;align-items:center;gap:12px"><span class="count">4 lessons</span><svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
             </div>
             <div class="lessons-grid">
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #10b981">33</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Introduction to DeFi</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_E_DeFi_Ecosystem/L33_Intro_DeFi/presentations/20251207_2230_L33_Intro_DeFi.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #10b981">34</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">AMM Mechanics</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_E_DeFi_Ecosystem/L34_AMM_Mechanics/presentations/20251207_2230_L34_AMM_Mechanics.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #10b981">35</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Uniswap Deep Dive</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_E_DeFi_Ecosystem/L35_Uniswap_Deep_Dive/presentations/20251207_2230_L35_Uniswap_Deep_Dive.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #10b981">36</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Testnet Swap</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_E_DeFi_Ecosystem/L36_Lab_Testnet_Swap/presentations/20251207_2230_L36_Lab_Testnet_Swap.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #10b981">37</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lending Protocols</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_E_DeFi_Ecosystem/L37_Lending_Protocols/presentations/20251207_2230_L37_Lending_Protocols.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #10b981">38</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Stablecoin Mechanisms</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_E_DeFi_Ecosystem/L38_Stablecoin_Mechanisms/presentations/20251207_2230_L38_Stablecoin_Mechanisms.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #10b981">39</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Terra/Luna Case Study</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_E_DeFi_Ecosystem/L39_Terra_Luna_Case_Study/presentations/20251207_2230_L39_Terra_Luna_Case_Study.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #10b981">40</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Testnet Lending</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_E_DeFi_Ecosystem/L40_Lab_Testnet_Lending/presentations/20251207_2230_L40_Lab_Testnet_Lending.pdf" target="_blank">Open PDF</a>
-                </div>
+                <div class="lesson" data-title="layer 2 scaling rollups optimism arbitrum"><div class="lesson-num" style="background: #ef4444">41</div><div class="lesson-info"><div class="lesson-title">Layer 2 Scaling</div><div class="lesson-type">Lecture</div></div><a href="Module_F_Advanced_Topics/L41_Layer2_Scaling/20251207_2300_L41_Layer2_Scaling.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="flash loans arbitrage aave"><div class="lesson-num" style="background: #ef4444">42</div><div class="lesson-info"><div class="lesson-title">Flash Loans</div><div class="lesson-type">Lecture</div></div><a href="Module_F_Advanced_Topics/L42_Flash_Loans/20251207_2300_L42_Flash_Loans.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="smart contract security reentrancy audit"><div class="lesson-num" style="background: #ef4444">43</div><div class="lesson-info"><div class="lesson-title">Smart Contract Security</div><div class="lesson-type">Lecture</div></div><a href="Module_F_Advanced_Topics/L43_Smart_Contract_Security/20251207_2300_L43_Smart_Contract_Security.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="lab security audit slither mythril"><div class="lesson-num" style="background: #ef4444">44</div><div class="lesson-info"><div class="lesson-title">Lab: Security Audit</div><div class="lesson-type"><span class="lab-badge">Lab</span></div></div><a href="Module_F_Advanced_Topics/L44_Lab_Security_Audit/20251207_2300_L44_Lab_Security_Audit.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
             </div>
         </div>
 
-        <div class="module">
-            <div class="module-header" style="background: #ef4444">
-                <h3>Module F: Advanced Topics</h3>
-                <span class="count">4 lessons</span>
+        <div class="module" id="module-g">
+            <div class="module-header" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)" onclick="toggleModule(this)">
+                <h3><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>Module G: Regulation & Future</h3>
+                <div style="display:flex;align-items:center;gap:12px"><span class="count">4 lessons</span><svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
             </div>
             <div class="lessons-grid">
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ef4444">41</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Layer 2 Scaling</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_F_Advanced_Topics/L41_Layer2_Scaling/20251207_2300_L41_Layer2_Scaling.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ef4444">42</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Flash Loans</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_F_Advanced_Topics/L42_Flash_Loans/20251207_2300_L42_Flash_Loans.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ef4444">43</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Smart Contract Security</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_F_Advanced_Topics/L43_Smart_Contract_Security/20251207_2300_L43_Smart_Contract_Security.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #ef4444">44</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Lab: Security Audit</div>
-                        <div class="lesson-type"><span class='lab-badge'>Lab</span></div>
-                    </div>
-                    <a href="Module_F_Advanced_Topics/L44_Lab_Security_Audit/20251207_2300_L44_Lab_Security_Audit.pdf" target="_blank">Open PDF</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="module">
-            <div class="module-header" style="background: #6366f1">
-                <h3>Module G: Regulation & Future</h3>
-                <span class="count">4 lessons</span>
-            </div>
-            <div class="lessons-grid">
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #6366f1">45</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Global Regulation</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_G_Regulation_Future/L45_Global_Regulation/20251207_2300_L45_Global_Regulation.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #6366f1">46</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Swiss FINMA & EU MiCA</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_G_Regulation_Future/L46_Swiss_FINMA_EU_MiCA/20251207_2300_L46_Swiss_FINMA_EU_MiCA.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #6366f1">47</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">CBDCs & Future</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_G_Regulation_Future/L47_CBDCs_Future/20251207_2300_L47_CBDCs_Future.pdf" target="_blank">Open PDF</a>
-                </div>
-                <div class="lesson">
-                    <div class="lesson-num" style="background: #6366f1">48</div>
-                    <div class="lesson-info">
-                        <div class="lesson-title">Course Synthesis</div>
-                        <div class="lesson-type">Lecture</div>
-                    </div>
-                    <a href="Module_G_Regulation_Future/L48_Course_Synthesis/20251207_2300_L48_Course_Synthesis.pdf" target="_blank">Open PDF</a>
-                </div>
+                <div class="lesson" data-title="global regulation sec kyc aml"><div class="lesson-num" style="background: #6366f1">45</div><div class="lesson-info"><div class="lesson-title">Global Regulation</div><div class="lesson-type">Lecture</div></div><a href="Module_G_Regulation_Future/L45_Global_Regulation/20251207_2300_L45_Global_Regulation.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="swiss finma eu mica regulation"><div class="lesson-num" style="background: #6366f1">46</div><div class="lesson-info"><div class="lesson-title">Swiss FINMA & EU MiCA</div><div class="lesson-type">Lecture</div></div><a href="Module_G_Regulation_Future/L46_Swiss_FINMA_EU_MiCA/20251207_2300_L46_Swiss_FINMA_EU_MiCA.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="cbdcs future central bank digital currency"><div class="lesson-num" style="background: #6366f1">47</div><div class="lesson-info"><div class="lesson-title">CBDCs & Future</div><div class="lesson-type">Lecture</div></div><a href="Module_G_Regulation_Future/L47_CBDCs_Future/20251207_2300_L47_CBDCs_Future.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
+                <div class="lesson" data-title="course synthesis review summary"><div class="lesson-num" style="background: #6366f1">48</div><div class="lesson-info"><div class="lesson-title">Course Synthesis</div><div class="lesson-type">Lecture</div></div><a href="Module_G_Regulation_Future/L48_Course_Synthesis/20251207_2300_L48_Course_Synthesis.pdf" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>PDF</a></div>
             </div>
         </div>
 
         <div class="resources">
             <h3>Additional Resources</h3>
             <div class="resources-grid">
-                <a href="SYLLABUS.md" class="resource-link">Course Syllabus</a>
-                <a href="README.md" class="resource-link">README</a>
-                <a href="assessments/README.md" class="resource-link">Assessments</a>
-                <a href="assessments/quizzes/QUIZ_1_Blockchain_Foundations.md" class="resource-link">Quiz 1</a>
-                <a href="assessments/quizzes/QUIZ_2_Ethereum_Basics.md" class="resource-link">Quiz 2</a>
-                <a href="assessments/quizzes/QUIZ_3_Tokens_NFTs.md" class="resource-link">Quiz 3</a>
-                <a href="assessments/rubrics/RUBRICS.md" class="resource-link">Grading Rubrics</a>
-                <a href="https://github.com/Digital-AI-Finance/decentralized-finance" class="resource-link">GitHub Repository</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/SYLLABUS.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>Course Syllabus</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/README.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>README</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/README.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>Assessments</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/quizzes/QUIZ_1_Blockchain_Foundations.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Quiz 1: Blockchain</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/quizzes/QUIZ_2_Ethereum_Basics.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Quiz 2: Ethereum</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/quizzes/QUIZ_3_Tokens_NFTs.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Quiz 3: Tokens/NFTs</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/quizzes/QUIZ_4_NFT_Applications_Tokenomics.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Quiz 4: NFT Apps</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/quizzes/QUIZ_5_DeFi.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Quiz 5: DeFi</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/quizzes/QUIZ_6_Advanced_Regulation.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Quiz 6: Regulation</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/projects/PROJECT_GUIDE.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>Project Guide</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance/blob/main/assessments/rubrics/RUBRICS.md" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>Grading Rubrics</a>
+                <a href="https://github.com/Digital-AI-Finance/decentralized-finance" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>GitHub Repository</a>
+            </div>
+        </div>
+
+        <div class="resources" style="margin-top: 24px;">
+            <h3>Course Charts</h3>
+            <div class="resources-grid">
+                <a href="charts/hash_avalanche/chart.pdf" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Hash Avalanche Effect</a>
+                <a href="charts/bitcoin_halving/chart.pdf" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Bitcoin Halving</a>
+                <a href="charts/gas_costs_comparison/chart.pdf" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Gas Costs Comparison</a>
+                <a href="charts/amm_constant_product/chart.pdf" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>AMM Constant Product</a>
+                <a href="charts/impermanent_loss/chart.pdf" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Impermanent Loss</a>
+                <a href="charts/tvl_growth/chart.pdf" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>TVL Growth</a>
+                <a href="charts/stablecoin_market_share/chart.pdf" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Stablecoin Market Share</a>
+                <a href="charts/layer2_comparison/chart.pdf" class="resource-link" target="_blank"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Layer 2 Comparison</a>
             </div>
         </div>
     </div>
-
     <footer>
-        <p>Digital AI Finance | <a href="https://github.com/Digital-AI-Finance">GitHub</a></p>
-        <p style="margin-top: 8px; font-size: 0.8rem;">Course materials for educational purposes</p>
+        <p><strong>Digital AI Finance</strong> | <a href="https://github.com/Digital-AI-Finance" target="_blank">GitHub</a></p>
+        <p style="margin-top: 8px;">Course materials for educational purposes | BSc Blockchain & Crypto Economy</p>
     </footer>
+    <button class="back-to-top" id="backToTop" title="Back to top"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        });
+        function toggleModule(header) { header.parentElement.classList.toggle('collapsed'); }
+        const searchInput = document.getElementById('searchInput');
+        const lessons = document.querySelectorAll('.lesson');
+        const modules = document.querySelectorAll('.module');
+        const noResults = document.getElementById('noResults');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+            lessons.forEach(lesson => {
+                const title = lesson.getAttribute('data-title') || '';
+                const lessonTitle = lesson.querySelector('.lesson-title')?.textContent.toLowerCase() || '';
+                const matches = title.includes(query) || lessonTitle.includes(query) || query === '';
+                lesson.classList.toggle('hidden', !matches);
+                if (matches) visibleCount++;
+            });
+            modules.forEach(module => {
+                const visibleLessons = module.querySelectorAll('.lesson:not(.hidden)');
+                module.style.display = visibleLessons.length === 0 && query ? 'none' : 'block';
+                if (query && visibleLessons.length > 0) module.classList.remove('collapsed');
+            });
+            noResults.classList.toggle('visible', visibleCount === 0 && query);
+        });
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => { backToTop.classList.toggle('visible', window.scrollY > 400); });
+        backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey) { e.preventDefault(); searchInput.focus(); }
+            if (e.key === 'Escape') { searchInput.blur(); searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); }
+        });
+    </script>
 </body>
 </html>
