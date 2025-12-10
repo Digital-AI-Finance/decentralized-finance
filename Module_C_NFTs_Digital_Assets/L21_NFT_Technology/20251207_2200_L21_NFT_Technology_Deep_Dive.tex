@@ -337,14 +337,42 @@ By the end of this lesson, you will be able to:
 \end{itemize}
 \end{frame}
 
+\begin{frame}{2023-2024: Bitcoin Ordinals and Inscriptions}
+\textbf{What are Ordinals?}
+\begin{itemize}
+\item NFT-like artifacts directly on Bitcoin blockchain
+\item Uses Ordinal Theory: assigns numbers to individual satoshis
+\item ``Inscriptions'': Data embedded in Bitcoin transaction witness data
+\item Enabled by Taproot upgrade (November 2021)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Differences from Ethereum NFTs:}
+\begin{itemize}
+\item Fully on-chain (no external metadata links)
+\item No smart contracts (Bitcoin Script limitations)
+\item Higher permanence guarantees
+\item Higher inscription costs (\$10-100+ per inscription)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{BRC-20 Tokens:}
+\begin{itemize}
+\item Fungible tokens on Bitcoin using inscriptions
+\item JSON-based token standard (deploy, mint, transfer)
+\item \$1B+ market cap by late 2023
+\item Controversy: Bitcoin ``bloat'' vs innovation debate
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Key Takeaways}
 \begin{enumerate}
 \item NFTs are blockchain tokens with unique identifiers governed by smart contracts (ERC-721/ERC-1155)
 \item Most NFT data is off-chain (images, metadata) with on-chain pointers (tokenURI)
 \item Provenance tracking provides verifiable ownership history and authenticity
-\item ERC-721 uses mappings to track ownership, balances, and approvals efficiently
+\item Bitcoin Ordinals (2023): Brought NFTs to Bitcoin via inscriptions
 \item Technical limitations include off-chain dependencies, gas costs, and centralization risks
-\item Fully on-chain NFTs solve permanence but sacrifice complexity and cost
+\item Fully on-chain NFTs (Ordinals, Art Blocks) solve permanence but sacrifice complexity/cost
 \end{enumerate}
 \end{frame}
 

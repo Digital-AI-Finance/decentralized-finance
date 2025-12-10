@@ -548,16 +548,44 @@ rule balanceNeverIncreases(address user) {
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{2024 Security Landscape}
+\textbf{Total Losses (2024):}
+\begin{itemize}
+\item Estimated \$1.5-2B lost to hacks and exploits
+\item Down from \$3B+ in 2022, but still significant
+\item Bridge exploits remain top category
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Notable 2024 Incidents:}
+\begin{itemize}
+\item \textbf{Orbit Bridge}: \$82M (January) - private key compromise
+\item \textbf{PlayDapp}: \$290M (February) - access control failure
+\item \textbf{Prisma Finance}: \$12M (March) - flash loan attack
+\item \textbf{Various L2 exploits}: Emerging attack surface as L2s grow
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Emerging Trends:}
+\begin{itemize}
+\item AI-assisted vulnerability detection tools
+\item Formal verification becoming more accessible
+\item Insurance protocols maturing (Nexus Mutual, InsurAce)
+\item Real-time monitoring and pause mechanisms standard
+\item ``Security as a Service'': Hypernative, Forta, OpenZeppelin Defender
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Summary}
 \begin{itemize}
-\item \textbf{Smart contract security is critical}: \$3B+ lost to exploits
-\item \textbf{Top vulnerabilities}: Reentrancy, overflow, access control, oracle manipulation, MEV
+\item \textbf{Smart contract security is critical}: \$5B+ cumulative losses
+\item \textbf{Top vulnerabilities}: Reentrancy, access control, oracle manipulation, bridge exploits
 \item \textbf{The DAO hack}: Reentrancy drained \$60M, led to Ethereum hard fork
 \item \textbf{Defense in depth}: Secure coding patterns + automated tools + audits + formal verification
 \item \textbf{Tools}: Slither (fast static analysis), Mythril (symbolic execution), Echidna (fuzzing)
-\item \textbf{Audit process}: Internal review $\rightarrow$ Tools $\rightarrow$ Professional audit $\rightarrow$ Bug bounty
+\item \textbf{2024 Reality}: \$1.5-2B still lost; bridges and access control main vectors
 \item \textbf{Upgradeability}: Proxy patterns allow bug fixes, but introduce admin key risk
-\item \textbf{Continuous vigilance}: Monitoring, incident response, insurance
+\item \textbf{Continuous vigilance}: Real-time monitoring and security services now standard
 \end{itemize}
 \end{frame}
 

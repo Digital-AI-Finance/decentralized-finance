@@ -402,6 +402,33 @@ By the end of this lesson, you will be able to:
 \end{itemize}
 \end{frame}
 
+\begin{frame}{2024 Milestone: Dencun Upgrade (March 13, 2024)}
+\textbf{Major Network Upgrade (Proto-Danksharding):}
+\begin{itemize}
+\item \textbf{EIP-4844}: Introduces ``blob'' transactions for Layer 2 data
+\item \textbf{Problem Solved}: L2 rollups pay expensive calldata for data availability
+\item \textbf{Solution}: New data type (blobs) with separate, cheaper gas market
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{How Blobs Work:}
+\begin{itemize}
+\item Blobs: 128 KB data chunks, stored for ~18 days (not permanent)
+\item Separate ``blob gas'' market (independent of execution gas)
+\item L2s post transaction batches as blobs instead of calldata
+\item Data availability guaranteed, but not permanently stored
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Impact:}
+\begin{itemize}
+\item L2 transaction fees reduced by 90\%+ (from \$0.50 to \$0.01)
+\item Arbitrum, Optimism, Base, zkSync all adopted immediately
+\item Paves way for full Danksharding (future upgrade)
+\item Ethereum becomes true settlement/DA layer
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Key Takeaways}
 \begin{enumerate}
 \item \textbf{EVM:} Deterministic, stack-based virtual machine enabling Turing-complete smart contracts

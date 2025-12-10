@@ -504,6 +504,35 @@ Deploy complex contract (e.g., Uniswap V3) & 4,000,000+ \\
 \end{itemize}
 \end{frame}
 
+\begin{frame}{EIP-4844: Blob Gas Market (Dencun Upgrade, March 2024)}
+\textbf{New Gas Type for Layer 2 Data:}
+\begin{itemize}
+\item Ethereum now has TWO gas markets:
+\begin{enumerate}
+\item \textbf{Execution gas}: Traditional EVM operations (existing market)
+\item \textbf{Blob gas}: Data availability for L2 rollups (new market)
+\end{enumerate}
+\item Markets operate independently with separate base fees
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Blob Gas Mechanics:}
+\begin{itemize}
+\item Target: 3 blobs per block (384 KB)
+\item Maximum: 6 blobs per block (768 KB)
+\item Blob gas price adjusts like EIP-1559 (targets 50\% capacity)
+\item Typical blob gas price: 1-10 Gwei (much cheaper than calldata)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Cost Comparison (posting 100KB of L2 data):}
+\begin{itemize}
+\item \textbf{Pre-Dencun (calldata)}: 100,000 bytes $\times$ 16 gas/byte = 1.6M gas = \$5-50
+\item \textbf{Post-Dencun (blobs)}: ~131,072 blob gas = \$0.01-0.10
+\item \textbf{Savings}: 90-99\% reduction in L2 fees
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Key Takeaways}
 \begin{enumerate}
 \item \textbf{Gas Purpose:} Prevents spam/DoS, compensates validators, allocates scarce block space
