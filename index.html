@@ -152,6 +152,9 @@
         .header p { opacity: 0.9; font-size: 1.1rem; max-width: 600px; margin: 0 auto 20px; }
         .header-badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
         .header-badge { background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; backdrop-filter: blur(4px); }
+        .download-all-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: white; padding: 12px 24px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: var(--transition); margin-top: 20px; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4); }
+        .download-all-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5); }
+        .download-all-btn svg { width: 20px; height: 20px; }
         .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
         .stats-bar {
             display: grid;
@@ -269,6 +272,12 @@
                 <span class="header-badge">48 Lessons</span>
                 <span class="header-badge">7 Modules</span>
             </div>
+            <a href="all_lectures.zip" class="download-all-btn" download>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download All Lectures (6 MB)
+            </a>
         </div>
     </div>
     <div class="container">
