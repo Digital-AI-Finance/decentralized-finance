@@ -56,17 +56,17 @@ ax.plot(years, eth_supply, 'd-', color=MLBLUE, linewidth=2.5, markersize=6, labe
 
 # Add annotations
 ax.axhline(y=21, color=MLORANGE, linestyle='--', alpha=0.5)
-ax.text(2030.2, 21, '21M cap', fontsize=9, va='center', color=MLORANGE)
+ax.text(2030.2, 21, '21M cap', fontsize=14, va='center', color=MLORANGE)
 
 ax.axhline(y=100, color=MLGREEN, linestyle='--', alpha=0.5)
-ax.text(2030.2, 100, '100M target', fontsize=9, va='center', color=MLGREEN)
+ax.text(2030.2, 100, '100M target', fontsize=14, va='center', color=MLGREEN)
 
-ax.set_xlabel('Year', fontsize=12)
-ax.set_ylabel('Token Supply (Millions)', fontsize=12)
+ax.set_xlabel('Year', fontsize=15)
+ax.set_ylabel('Token Supply (Millions)', fontsize=15)
 ax.set_xlim(2019.5, 2032)
 ax.set_ylim(0, 140)
 
-ax.legend(loc='upper left', fontsize=10)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('Token Supply Model Projections', fontweight='bold', fontsize=15, pad=10)

@@ -54,21 +54,21 @@ for (name, score, color, detail), y in zip(blockchains, y_positions):
     ax.scatter(score, y, s=200, color=color, edgecolor='black', linewidth=2, zorder=5)
 
     # Name label
-    ax.text(score, y + 0.08, name, ha='center', va='bottom', fontsize=11, fontweight='bold')
+    ax.text(score, y + 0.08, name, ha='center', va='bottom', fontsize=14, fontweight='bold')
 
     # Detail below
-    ax.text(score, y - 0.08, detail, ha='center', va='top', fontsize=9, color='#555')
+    ax.text(score, y - 0.08, detail, ha='center', va='top', fontsize=14, color='#555')
 
 # Arrow and labels for spectrum
 ax.annotate('', xy=(95, 0.02), xytext=(5, 0.02),
             arrowprops=dict(arrowstyle='->', color='#333', lw=2))
-ax.text(5, -0.05, 'CENTRALIZED', ha='left', fontsize=11, fontweight='bold', color=MLRED)
-ax.text(95, -0.05, 'DECENTRALIZED', ha='right', fontsize=11, fontweight='bold', color=MLGREEN)
+ax.text(5, -0.05, 'CENTRALIZED', ha='left', fontsize=14, fontweight='bold', color=MLRED)
+ax.text(95, -0.05, 'DECENTRALIZED', ha='right', fontsize=14, fontweight='bold', color=MLGREEN)
 
 # Nakamoto coefficient annotation
 props = dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='#333')
 ax.text(50, 0.97, 'Nakamoto Coefficient = min. entities to control 51%/33%',
-        ha='center', fontsize=10, bbox=props)
+        ha='center', fontsize=14, bbox=props)
 
 ax.set_xlim(0, 100)
 ax.set_ylim(-0.15, 1.05)

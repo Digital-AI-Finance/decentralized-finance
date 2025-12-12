@@ -52,15 +52,15 @@ for i, (bar, val) in enumerate(zip(bars, values)):
     ax.annotate(f'{sign}{val}K',
                 xy=(bar.get_x() + bar.get_width()/2, bar.get_height()),
                 xytext=(0, offset), textcoords='offset points',
-                ha='center', va=va, fontsize=11, fontweight='bold')
+                ha='center', va=va, fontsize=14, fontweight='bold')
 
 # Add category labels
-ax.text(1, 120, 'FAUCETS\n(Token Creation)', ha='center', fontsize=11, fontweight='bold', color=MLGREEN)
-ax.text(4, 120, 'SINKS\n(Token Removal)', ha='center', fontsize=11, fontweight='bold', color=MLRED)
+ax.text(1, 120, 'FAUCETS\n(Token Creation)', ha='center', fontsize=14, fontweight='bold', color=MLGREEN)
+ax.text(4, 120, 'SINKS\n(Token Removal)', ha='center', fontsize=14, fontweight='bold', color=MLRED)
 
 ax.set_xticks(x)
-ax.set_xticklabels(categories, fontsize=10)
-ax.set_ylabel('Token Volume (Thousands)', fontsize=12)
+ax.set_xticklabels(categories, fontsize=14)
+ax.set_ylabel('Token Volume (Thousands)', fontsize=15)
 ax.set_ylim(0, 130)
 
 ax.axvline(x=2.5, color='gray', linestyle='--', alpha=0.5)

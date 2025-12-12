@@ -42,7 +42,7 @@ for i, (step, x, color) in enumerate(zip(steps, x_positions, colors)):
     circle = plt.Circle((x, y_position), 0.35, color=color, alpha=0.7, edgecolor='black', linewidth=2)
     ax.add_patch(circle)
     ax.text(x, y_position, str(i+1), ha='center', va='center', fontsize=16, fontweight='bold', color='white')
-    ax.text(x, y_position - 0.55, step, ha='center', va='top', fontsize=10, fontweight='bold')
+    ax.text(x, y_position - 0.55, step, ha='center', va='top', fontsize=14, fontweight='bold')
 
 # Draw arrows between circles
 for i in range(len(x_positions) - 1):
@@ -55,7 +55,7 @@ atomic_box = mpatches.FancyBboxPatch((0.5, -0.3), 5, 1.4, boxstyle="round,pad=0.
                                        facecolor='none', edgecolor=MLRED, linewidth=3, linestyle='--')
 ax.add_patch(atomic_box)
 ax.text(3, 1.2, 'ATOMIC TRANSACTION', ha='center', fontsize=14, fontweight='bold', color=MLRED)
-ax.text(3, 1.0, 'All steps succeed or all revert', ha='center', fontsize=11, style='italic', color='gray')
+ax.text(3, 1.0, 'All steps succeed or all revert', ha='center', fontsize=14, style='italic', color='gray')
 
 ax.set_xlim(0, 6)
 ax.set_ylim(-0.6, 1.5)

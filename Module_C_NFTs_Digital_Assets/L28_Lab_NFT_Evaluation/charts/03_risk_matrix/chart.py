@@ -15,12 +15,12 @@ colors = [MLRED if s >= 7 else MLORANGE if s >= 5 else MLGREEN for s in scores]
 bars = ax.barh(risks, scores, color=colors, edgecolor='black', linewidth=1.5, height=0.6)
 
 for bar, val in zip(bars, scores):
-    ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2, f'{val}/10', ha='left', va='center', fontsize=11, fontweight='bold')
+    ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2, f'{val}/10', ha='left', va='center', fontsize=14, fontweight='bold')
 
 ax.axvline(x=7, color=MLRED, linestyle='--', alpha=0.5, linewidth=2)
-ax.text(7.1, 4.5, 'High Risk', fontsize=9, color=MLRED)
+ax.text(7.1, 4.5, 'High Risk', fontsize=14, color=MLRED)
 
-ax.set_xlabel('Risk Level (1-10)', fontsize=12)
+ax.set_xlabel('Risk Level (1-10)', fontsize=15)
 ax.set_xlim(0, 11)
 ax.grid(True, alpha=0.3, axis='x')
 ax.set_title('NFT Investment Risk Assessment', fontweight='bold', fontsize=14)

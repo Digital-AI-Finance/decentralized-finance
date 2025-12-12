@@ -58,19 +58,19 @@ for size in key_sizes:
     ax.plot(size, slippage[idx], 'o', color=MLORANGE, markersize=10, zorder=5)
     ax.annotate(f'{size} ETH: {slippage[idx]:.1f}%',
                 xy=(size, slippage[idx]), xytext=(size + 1, slippage[idx] + 3),
-                fontsize=9, ha='left')
+                fontsize=14, ha='left')
 
 # Add zones
 ax.axhspan(0, 1, color=MLGREEN, alpha=0.1)
 ax.axhspan(1, 5, color=MLORANGE, alpha=0.1)
 ax.axhspan(5, 40, color=MLRED, alpha=0.1)
 
-ax.text(28, 0.5, 'Acceptable\n(<1%)', fontsize=9, ha='right', color=MLGREEN)
-ax.text(28, 3, 'Caution\n(1-5%)', fontsize=9, ha='right', color=MLORANGE)
-ax.text(28, 15, 'High\n(>5%)', fontsize=9, ha='right', color=MLRED)
+ax.text(28, 0.5, 'Acceptable\n(<1%)', fontsize=14, ha='right', color=MLGREEN)
+ax.text(28, 3, 'Caution\n(1-5%)', fontsize=14, ha='right', color=MLORANGE)
+ax.text(28, 15, 'High\n(>5%)', fontsize=14, ha='right', color=MLRED)
 
-ax.set_xlabel('Trade Size (ETH)', fontsize=12)
-ax.set_ylabel('Slippage (%)', fontsize=12)
+ax.set_xlabel('Trade Size (ETH)', fontsize=15)
+ax.set_ylabel('Slippage (%)', fontsize=15)
 ax.set_xlim(0, 30)
 ax.set_ylim(0, 40)
 

@@ -77,22 +77,22 @@ for strat in strategies:
                                  edgecolor='black', linewidth=1, alpha=0.85)
     ax.add_patch(header_box)
     ax.text(strat['x'] + box_w/2, y_start + box_h - 0.06, strat['name'],
-            ha='center', va='center', fontsize=11, fontweight='bold', color='white')
+            ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
     # Content
     ax.text(strat['x'] + box_w/2, y_start + box_h - 0.22, f"Examples: {strat['examples']}",
-            ha='center', va='center', fontsize=9, fontweight='bold')
+            ha='center', va='center', fontsize=14, fontweight='bold')
     ax.text(strat['x'] + box_w/2, y_start + box_h/2 - 0.05, strat['desc'],
-            ha='center', va='center', fontsize=9)
+            ha='center', va='center', fontsize=14)
     ax.text(strat['x'] + box_w/2, y_start + 0.08, f"Trust: {strat['trust']}",
-            ha='center', va='center', fontsize=9, fontweight='bold',
+            ha='center', va='center', fontsize=14, fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor='#888'))
 
 # Add spectrum arrow at bottom
 ax.annotate('', xy=(0.92, 0.15), xytext=(0.08, 0.15),
             arrowprops=dict(arrowstyle='->', color='black', lw=2))
-ax.text(0.08, 0.08, 'More Decentralized', fontsize=9, ha='left', fontweight='bold', color=MLGREEN)
-ax.text(0.92, 0.08, 'More Centralized', fontsize=9, ha='right', fontweight='bold', color=MLRED)
+ax.text(0.08, 0.08, 'More Decentralized', fontsize=14, ha='left', fontweight='bold', color=MLGREEN)
+ax.text(0.92, 0.08, 'More Centralized', fontsize=14, ha='right', fontweight='bold', color=MLRED)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

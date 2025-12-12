@@ -52,12 +52,12 @@ for i, (feat, values) in enumerate(features.items()):
     bars = ax.bar(x + i * width - 0.3, values, width, label=feat,
                   color=colors[i], edgecolor='black', linewidth=0.5, alpha=0.8)
 
-ax.set_ylabel('Support Level (1-10)', fontsize=12)
+ax.set_ylabel('Support Level (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(standards, fontsize=12, fontweight='bold')
+ax.set_xticklabels(standards, fontsize=15, fontweight='bold')
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper right', fontsize=9, ncol=2)
+ax.legend(loc='upper right', fontsize=14, ncol=2)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add use cases
@@ -67,7 +67,7 @@ use_cases = [
     'Gaming items,\nMulti-assets'
 ]
 for i, use in enumerate(use_cases):
-    ax.text(i, -1.8, use, ha='center', fontsize=9, va='top',
+    ax.text(i, -1.8, use, ha='center', fontsize=14, va='top',
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
 
 ax.set_title('Token Standards Feature Comparison', fontweight='bold', fontsize=15, pad=10)

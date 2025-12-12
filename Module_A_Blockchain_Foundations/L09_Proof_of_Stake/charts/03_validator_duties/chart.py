@@ -39,7 +39,7 @@ validator_circle = Circle((0.50, 0.50), 0.12, facecolor=MLPURPLE,
                            edgecolor='black', linewidth=2)
 ax.add_patch(validator_circle)
 ax.text(0.50, 0.50, 'VALIDATOR', ha='center', va='center',
-        fontsize=12, fontweight='bold', color='white')
+        fontsize=15, fontweight='bold', color='white')
 
 # Three duties around the validator
 duties = [
@@ -54,9 +54,9 @@ for x, y, title, color, freq, reward in duties:
                           edgecolor='black', linewidth=2)
     ax.add_patch(box)
     ax.text(x, y + 0.05, title, ha='center', va='center',
-            fontsize=11, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
     ax.text(x, y - 0.03, freq, ha='center', va='center',
-            fontsize=9, color='white')
+            fontsize=14, color='white')
 
     # Arrow from validator to duty
     ax.annotate('', xy=(x, y - 0.10 + 0.02), xytext=(0.50, 0.50),
@@ -66,7 +66,7 @@ for x, y, title, color, freq, reward in duties:
 # Timing info at bottom
 timing_text = 'Slot = 12 seconds  |  Epoch = 32 slots = 6.4 minutes'
 props = dict(boxstyle='round,pad=0.3', facecolor='#F0F0F0', edgecolor='#333')
-ax.text(0.50, 0.92, timing_text, ha='center', fontsize=11,
+ax.text(0.50, 0.92, timing_text, ha='center', fontsize=14,
         bbox=props, color='#333')
 
 ax.set_xlim(0, 1)

@@ -40,8 +40,8 @@ x = np.arange(len(dates))
 
 # UST Price on left axis
 color1 = MLBLUE
-ax1.set_xlabel('Date (2022)', fontsize=12)
-ax1.set_ylabel('UST Price (USD)', color=color1, fontsize=12)
+ax1.set_xlabel('Date (2022)', fontsize=15)
+ax1.set_ylabel('UST Price (USD)', color=color1, fontsize=15)
 line1 = ax1.plot(x, ust_price, color=color1, marker='o', linewidth=3, markersize=10, label='UST Price')
 ax1.tick_params(axis='y', labelcolor=color1)
 ax1.set_ylim(0, 1.1)
@@ -50,29 +50,29 @@ ax1.axhline(y=1.0, color='gray', linestyle='--', alpha=0.5, label='$1 Peg')
 # LUNA Supply on right axis (log scale)
 ax2 = ax1.twinx()
 color2 = MLORANGE
-ax2.set_ylabel('LUNA Supply (Millions)', color=color2, fontsize=12)
+ax2.set_ylabel('LUNA Supply (Millions)', color=color2, fontsize=15)
 line2 = ax2.plot(x, luna_supply, color=color2, marker='s', linewidth=3, markersize=10, label='LUNA Supply')
 ax2.tick_params(axis='y', labelcolor=color2)
 ax2.set_yscale('log')
 ax2.set_ylim(100, 10000000)
 
 ax1.set_xticks(x)
-ax1.set_xticklabels(dates, fontsize=11)
+ax1.set_xticklabels(dates, fontsize=14)
 
 # Add event annotations
 ax1.annotate('Initial\nDepeg', xy=(1, 0.98), xytext=(1, 0.7),
-            fontsize=9, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
+            fontsize=14, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
 ax1.annotate('Panic\nBegins', xy=(2, 0.92), xytext=(2.3, 0.5),
-            fontsize=9, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
+            fontsize=14, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
 ax1.annotate('Death\nSpiral', xy=(3, 0.60), xytext=(3.3, 0.3),
-            fontsize=9, ha='center', arrowprops=dict(arrowstyle='->', color=MLRED))
+            fontsize=14, ha='center', arrowprops=dict(arrowstyle='->', color=MLRED))
 
 ax1.grid(True, alpha=0.3)
 
 # Combined legend
 lines1, labels1 = ax1.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
-ax1.legend(lines1 + lines2, labels1 + labels2, loc='center right', fontsize=10)
+ax1.legend(lines1 + lines2, labels1 + labels2, loc='center right', fontsize=14)
 
 ax1.set_title('Terra/Luna Death Spiral (May 7-12, 2022)', fontweight='bold', fontsize=14, pad=10)
 plt.tight_layout()

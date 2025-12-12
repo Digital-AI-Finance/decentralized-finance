@@ -49,9 +49,9 @@ for autotext in autotexts:
     autotext.set_fontweight('bold')
 
 # Add detail annotations
-ax.text(1.4, 0.3, 'Team/Investors:\n4-year vesting', fontsize=9, ha='left',
+ax.text(1.4, 0.3, 'Team/Investors:\n4-year vesting', fontsize=14, ha='left',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE))
-ax.text(1.4, -0.3, 'Airdrop:\n400 UNI per user', fontsize=9, ha='left',
+ax.text(1.4, -0.3, 'Airdrop:\n400 UNI per user', fontsize=14, ha='left',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('UNI Token Distribution (1 Billion Total)', fontweight='bold', fontsize=15, pad=10)

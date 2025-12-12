@@ -14,7 +14,7 @@ explode = (0.05, 0, 0, 0)
 
 wedges, texts, autotexts = ax.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.0f%%', startangle=90, textprops={'fontsize': 10})
 
-ax.text(0, -1.3, 'Warning: High concentration (>50% in top 10) = centralization risk', ha='center', fontsize=10, style='italic', color=MLRED)
+ax.text(0, -1.3, 'Warning: High concentration (>50% in top 10) = centralization risk', ha='center', fontsize=14, style='italic', color=MLRED)
 ax.set_title('Typical Token Holder Distribution', fontweight='bold', fontsize=14)
 plt.tight_layout()
 plt.savefig(Path(__file__).parent / 'chart.pdf', bbox_inches='tight', dpi=300)

@@ -59,21 +59,21 @@ ax.axhline(y=1, color=MLRED, linestyle='--', linewidth=2, label='Liquidation Thr
 liq_price = borrowed / (10 * liq_threshold)
 ax.axvline(x=liq_price, color=MLRED, linestyle=':', linewidth=1.5, alpha=0.7)
 ax.annotate(f'Liquidation\n${liq_price:.0f}', xy=(liq_price, 1), xytext=(liq_price-150, 1.5),
-            fontsize=9, ha='center', arrowprops=dict(arrowstyle='->', color=MLRED))
+            fontsize=14, ha='center', arrowprops=dict(arrowstyle='->', color=MLRED))
 
 # Initial price
 ax.axvline(x=2000, color=MLGREEN, linestyle=':', linewidth=1.5, alpha=0.7)
 hf_initial = (10 * 2000 * 0.83) / 12000
 ax.plot(2000, hf_initial, 'o', color=MLGREEN, markersize=10, zorder=5)
 ax.annotate(f'Initial\nHF={hf_initial:.2f}', xy=(2000, hf_initial), xytext=(2150, hf_initial-0.3),
-            fontsize=9, ha='left', arrowprops=dict(arrowstyle='->', color=MLGREEN))
+            fontsize=14, ha='left', arrowprops=dict(arrowstyle='->', color=MLGREEN))
 
-ax.set_xlabel('ETH Price (USD)', fontsize=12)
-ax.set_ylabel('Health Factor', fontsize=12)
+ax.set_xlabel('ETH Price (USD)', fontsize=15)
+ax.set_ylabel('Health Factor', fontsize=15)
 ax.set_xlim(1200, 3000)
 ax.set_ylim(0, 2.5)
 
-ax.legend(loc='upper left', fontsize=9)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('Health Factor vs Collateral Price (10 ETH, $12k Borrowed)', fontweight='bold', fontsize=14, pad=10)

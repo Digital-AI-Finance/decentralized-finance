@@ -53,27 +53,27 @@ ax.plot(solana_years, solana_size, '^-', linewidth=2.5, color=MLGREEN,
 
 # Current values annotation
 ax.annotate(f'{bitcoin_size[-1]} GB', xy=(2024, bitcoin_size[-1]),
-            xytext=(2024.3, bitcoin_size[-1] + 100), fontsize=10,
+            xytext=(2024.3, bitcoin_size[-1] + 100), fontsize=14,
             fontweight='bold', color=MLORANGE)
 ax.annotate(f'{ethereum_size[-1]} GB', xy=(2024, ethereum_size[-1]),
-            xytext=(2024.3, ethereum_size[-1] - 150), fontsize=10,
+            xytext=(2024.3, ethereum_size[-1] - 150), fontsize=14,
             fontweight='bold', color=MLBLUE)
 
 # Storage cost reference
 ax.axhline(y=1000, color=MLRED, linestyle='--', alpha=0.5, linewidth=1.5)
-ax.text(2015.5, 1050, '1 TB threshold', fontsize=10, color=MLRED)
+ax.text(2015.5, 1050, '1 TB threshold', fontsize=14, color=MLRED)
 
 # Problem annotation
 props = dict(boxstyle='round,pad=0.3', facecolor='#FFE0E0', edgecolor=MLRED)
 ax.text(2017, 1200, 'Running full nodes becomes\nprohibitively expensive',
-        fontsize=10, bbox=props, color=MLRED, ha='center')
+        fontsize=14, bbox=props, color=MLRED, ha='center')
 
-ax.set_xlabel('Year', fontsize=13)
-ax.set_ylabel('Blockchain Size (GB)', fontsize=13)
+ax.set_xlabel('Year', fontsize=16)
+ax.set_ylabel('Blockchain Size (GB)', fontsize=16)
 ax.set_xlim(2014.5, 2025.5)
 ax.set_ylim(0, 1500)
 
-ax.legend(loc='upper left', fontsize=11)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('Blockchain State Growth: A Centralization Pressure', fontweight='bold', fontsize=15, pad=10)

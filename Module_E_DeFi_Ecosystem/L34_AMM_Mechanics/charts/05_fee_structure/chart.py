@@ -49,18 +49,18 @@ bars = ax.barh(y_pos, fee_values, color=colors, edgecolor='black', linewidth=1.5
 # Add labels
 for bar, tier, use_case in zip(bars, tiers, use_cases):
     ax.text(bar.get_width() + 0.02, bar.get_y() + bar.get_height()/2,
-            use_case, va='center', fontsize=10)
+            use_case, va='center', fontsize=14)
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(tiers, fontsize=12, fontweight='bold')
-ax.set_xlabel('Fee Per Trade (%)', fontsize=12)
+ax.set_yticklabels(tiers, fontsize=15, fontweight='bold')
+ax.set_xlabel('Fee Per Trade (%)', fontsize=15)
 ax.set_xlim(0, 1.6)
 
 ax.grid(True, alpha=0.3, axis='x')
 
 # Add annotation
 ax.text(0.5, -0.15, 'Lower fees = more competitive for stable pairs; Higher fees = compensation for IL risk',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE))
 
 ax.set_title('Uniswap V3 Fee Tiers', fontweight='bold', fontsize=15, pad=10)

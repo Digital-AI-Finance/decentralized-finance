@@ -51,11 +51,11 @@ for i, stage in enumerate(stages):
                           edgecolor='black', linewidth=2, alpha=0.9)
     ax.add_patch(box)
     ax.text(stage['x'], 0.675, stage['name'], ha='center', va='center',
-            fontsize=11, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
 
     # Description below
     ax.text(stage['x'], 0.40, stage['desc'], ha='center', va='top',
-            fontsize=9, color='#333')
+            fontsize=14, color='#333')
 
     # Arrow to next stage (except last)
     if i < len(stages) - 1:
@@ -67,22 +67,22 @@ for i, stage in enumerate(stages):
 ax.annotate('', xy=(0.5, 0.85), xytext=(0.9, 0.85),
            arrowprops=dict(arrowstyle='->', color='#888', lw=1.5,
                           connectionstyle='arc3,rad=0.3'))
-ax.text(0.70, 0.93, 'Proxy Upgrade', fontsize=9, ha='center', color='#666')
+ax.text(0.70, 0.93, 'Proxy Upgrade', fontsize=14, ha='center', color='#666')
 
 # Loop from Operation to Burning and back
 ax.annotate('', xy=(0.5 + box_width/2, 0.55), xytext=(0.7 - box_width/2, 0.55),
            arrowprops=dict(arrowstyle='<->', color='#888', lw=1.5,
                           connectionstyle='arc3,rad=-0.3'))
-ax.text(0.60, 0.48, 'Continuous', fontsize=8, ha='center', color='#666')
+ax.text(0.60, 0.48, 'Continuous', fontsize=14, ha='center', color='#666')
 
 # Supply indicator
-ax.text(0.30, 0.22, 'Supply +', fontsize=10, fontweight='bold', color=MLGREEN, ha='center')
-ax.text(0.70, 0.22, 'Supply -', fontsize=10, fontweight='bold', color=MLORANGE, ha='center')
+ax.text(0.30, 0.22, 'Supply +', fontsize=14, fontweight='bold', color=MLGREEN, ha='center')
+ax.text(0.70, 0.22, 'Supply -', fontsize=14, fontweight='bold', color=MLORANGE, ha='center')
 
 # Timeline indicator
 ax.axhline(y=0.15, xmin=0.08, xmax=0.92, color='#ccc', linestyle='-', lw=2)
-ax.text(0.08, 0.10, 'Start', fontsize=9, color='#666')
-ax.text(0.92, 0.10, 'Time', fontsize=9, ha='right', color='#666')
+ax.text(0.08, 0.10, 'Start', fontsize=14, color='#666')
+ax.text(0.92, 0.10, 'Time', fontsize=14, ha='right', color='#666')
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

@@ -59,7 +59,7 @@ for bar, t in zip(bars, tps):
     width = bar.get_width()
     label_x = width * 1.2 if width < 50000 else width * 0.3
     ax.text(label_x, bar.get_y() + bar.get_height()/2, f'{t:,} TPS',
-            va='center', fontsize=10, fontweight='bold')
+            va='center', fontsize=14, fontweight='bold')
 
 # Legend for consensus types
 from matplotlib.patches import Patch
@@ -70,9 +70,9 @@ legend_elements = [
     Patch(facecolor=MLPURPLE, edgecolor='black', label='PBFT'),
     Patch(facecolor=MLLAVENDER, edgecolor='black', label='Centralized'),
 ]
-ax.legend(handles=legend_elements, loc='lower right', fontsize=10)
+ax.legend(handles=legend_elements, loc='lower right', fontsize=14)
 
-ax.set_xlabel('Transactions Per Second (log scale)', fontsize=13)
+ax.set_xlabel('Transactions Per Second (log scale)', fontsize=16)
 ax.set_title('Blockchain Throughput Comparison', fontweight='bold', fontsize=15, pad=10)
 ax.grid(True, alpha=0.3, axis='x')
 

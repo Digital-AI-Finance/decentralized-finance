@@ -57,10 +57,10 @@ ax.fill(angles, play_and_earn, alpha=0.25, color=MLGREEN)
 
 # Set labels
 ax.set_xticks(angles[:-1])
-ax.set_xticklabels(categories, fontsize=9, fontweight='bold')
+ax.set_xticklabels(categories, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 10)
 
-ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1), fontsize=10)
+ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1), fontsize=14)
 
 ax.set_title('Blockchain Gaming Model Comparison', fontweight='bold', fontsize=15, pad=20)
 plt.tight_layout()

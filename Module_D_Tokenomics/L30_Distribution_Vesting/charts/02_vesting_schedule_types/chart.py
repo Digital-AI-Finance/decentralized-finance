@@ -65,14 +65,14 @@ ax.plot(months, backloaded, ':', color=MLGREEN, linewidth=3, label='Back-loaded 
 
 # Add cliff annotation
 ax.axvline(x=12, color='gray', linestyle='--', alpha=0.5)
-ax.text(12.5, 95, '1-Year\nCliff', fontsize=9, va='top', color='gray')
+ax.text(12.5, 95, '1-Year\nCliff', fontsize=14, va='top', color='gray')
 
-ax.set_xlabel('Months from TGE', fontsize=12)
-ax.set_ylabel('% Tokens Unlocked', fontsize=12)
+ax.set_xlabel('Months from TGE', fontsize=15)
+ax.set_ylabel('% Tokens Unlocked', fontsize=15)
 ax.set_xlim(0, 50)
 ax.set_ylim(0, 105)
 
-ax.legend(loc='upper left', fontsize=10)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('Vesting Schedule Types Comparison', fontweight='bold', fontsize=15, pad=10)

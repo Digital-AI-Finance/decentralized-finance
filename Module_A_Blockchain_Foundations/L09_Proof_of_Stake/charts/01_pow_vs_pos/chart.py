@@ -51,24 +51,24 @@ bars_pos = ax.barh(y_positions + bar_height/2, pos_scores, bar_height,
 # Labels
 ax.set_yticks(y_positions)
 ax.set_yticklabels(categories)
-ax.set_xlabel('Relative Score', fontsize=13)
+ax.set_xlabel('Relative Score', fontsize=16)
 ax.set_xlim(0, 110)
 
 # Add value labels
 for bar, score in zip(bars_pow, pow_scores):
     ax.text(bar.get_width() + 2, bar.get_y() + bar.get_height()/2,
-            f'{score}', va='center', fontsize=10)
+            f'{score}', va='center', fontsize=14)
 
 for bar, score in zip(bars_pos, pos_scores):
     ax.text(bar.get_width() + 2, bar.get_y() + bar.get_height()/2,
-            f'{score}', va='center', fontsize=10)
+            f'{score}', va='center', fontsize=14)
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F4E8', edgecolor=MLGREEN)
-ax.text(55, 4.5, 'PoS: ~99.95% less energy', fontsize=11, fontweight='bold',
+ax.text(55, 4.5, 'PoS: ~99.95% less energy', fontsize=14, fontweight='bold',
         bbox=props, color='#333')
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 
 ax.set_title('Proof of Work vs Proof of Stake: Key Metrics', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

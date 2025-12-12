@@ -46,11 +46,11 @@ bars = ax.barh(y_pos, bar_values, color=colors, edgecolor='black', linewidth=1.5
 labels = ['$2.8B OUT', '$0.48B IN', '$2.32B GAP']
 for i, (bar, label) in enumerate(zip(bars, labels)):
     ax.text(bar.get_width() + 50, bar.get_y() + bar.get_height()/2,
-            label, va='center', fontsize=12, fontweight='bold')
+            label, va='center', fontsize=15, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(categories, fontsize=11)
-ax.set_xlabel('Annual Amount (Million USD)', fontsize=12)
+ax.set_yticklabels(categories, fontsize=14)
+ax.set_xlabel('Annual Amount (Million USD)', fontsize=15)
 ax.set_xlim(0, 3500)
 
 ax.invert_yaxis()
@@ -58,7 +58,7 @@ ax.grid(True, alpha=0.3, axis='x')
 
 # Add annotation
 ax.text(0.5, -0.15, 'Anchor needed $2.3B/year in subsidies to maintain 20% APY - unsustainable!',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_title('Anchor Protocol: Why 20% APY Was Unsustainable', fontweight='bold', fontsize=14, pad=10)

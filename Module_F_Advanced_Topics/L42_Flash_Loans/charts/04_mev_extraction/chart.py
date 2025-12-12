@@ -49,9 +49,9 @@ for autotext in autotexts:
     autotext.set_fontweight('bold')
 
 # Annotations
-ax.text(1.3, 0.5, 'Profitable\n(legitimate)', fontsize=9, ha='left', color=MLGREEN,
+ax.text(1.3, 0.5, 'Profitable\n(legitimate)', fontsize=14, ha='left', color=MLGREEN,
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#E8F5E9', edgecolor=MLGREEN))
-ax.text(1.3, -0.5, 'Harmful\n(front-running)', fontsize=9, ha='left', color=MLRED,
+ax.text(1.3, -0.5, 'Harmful\n(front-running)', fontsize=14, ha='left', color=MLRED,
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_title('MEV Extraction Methods (2023)', fontweight='bold', fontsize=14, pad=10)

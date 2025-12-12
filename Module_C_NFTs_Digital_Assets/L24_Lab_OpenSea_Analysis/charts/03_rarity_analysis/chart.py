@@ -15,9 +15,9 @@ colors = [MLBLUE, MLORANGE, MLGREEN, MLRED, MLPURPLE]
 bars = ax.bar(factors, weights, color=colors, edgecolor='black', linewidth=1.5, width=0.6)
 
 for bar, val in zip(bars, weights):
-    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1, f'{val}%', ha='center', va='bottom', fontsize=11, fontweight='bold')
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1, f'{val}%', ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Weight in Rarity Score (%)', fontsize=12)
+ax.set_ylabel('Weight in Rarity Score (%)', fontsize=15)
 ax.set_ylim(0, 40)
 ax.grid(True, alpha=0.3, axis='y')
 ax.set_title('NFT Rarity Score Components', fontweight='bold', fontsize=14)

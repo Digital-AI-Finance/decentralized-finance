@@ -60,29 +60,29 @@ vertices = [
 
 for x, y, label, color, desc in vertices:
     props = dict(boxstyle='round,pad=0.4', facecolor=color, edgecolor='black', alpha=0.9)
-    ax.text(x, y, label, ha='center', va='center', fontsize=13,
+    ax.text(x, y, label, ha='center', va='center', fontsize=16,
             fontweight='bold', color='white', bbox=props)
 
 # Descriptions below/beside labels
 ax.text(0.5, 0.78, 'No single point of control\nCensorship resistant',
-        ha='center', fontsize=9, color='#555')
+        ha='center', fontsize=14, color='#555')
 ax.text(0.02, 0.25, 'Attack resistant\nImmutable data',
-        ha='left', fontsize=9, color='#555')
+        ha='left', fontsize=14, color='#555')
 ax.text(0.98, 0.25, 'High throughput\nLow latency',
-        ha='right', fontsize=9, color='#555')
+        ha='right', fontsize=14, color='#555')
 
 # Edge labels
-ax.text(0.26, 0.55, 'Bitcoin', ha='center', fontsize=11, fontweight='bold',
+ax.text(0.26, 0.55, 'Bitcoin', ha='center', fontsize=14, fontweight='bold',
         rotation=58, color=MLBLUE)
-ax.text(0.74, 0.55, 'EOS', ha='center', fontsize=11, fontweight='bold',
+ax.text(0.74, 0.55, 'EOS', ha='center', fontsize=14, fontweight='bold',
         rotation=-58, color=MLORANGE)
-ax.text(0.50, 0.12, 'Centralized DB', ha='center', fontsize=11, fontweight='bold',
+ax.text(0.50, 0.12, 'Centralized DB', ha='center', fontsize=14, fontweight='bold',
         color=MLPURPLE)
 
 # Central question mark
 ax.text(0.5, 0.42, '?', ha='center', va='center', fontsize=50,
         fontweight='bold', color='#888', alpha=0.5)
-ax.text(0.5, 0.30, 'Can we have all three?', ha='center', fontsize=11,
+ax.text(0.5, 0.30, 'Can we have all three?', ha='center', fontsize=14,
         color='#555', style='italic')
 
 ax.set_xlim(0, 1)

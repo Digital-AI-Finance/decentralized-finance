@@ -42,22 +42,22 @@ bars = ax.bar(years, companies, color=colors, edgecolor='black', linewidth=1.5, 
 # Add value labels
 for bar, val in zip(bars, companies):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 15,
-            f'{val}', ha='center', va='bottom', fontsize=10, fontweight='bold')
+            f'{val}', ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Number of Blockchain Companies', fontsize=12)
-ax.set_xlabel('Year', fontsize=12)
+ax.set_ylabel('Number of Blockchain Companies', fontsize=15)
+ax.set_xlabel('Year', fontsize=15)
 ax.set_ylim(0, 1300)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add notable foundations
 ax.annotate('Ethereum Foundation\nTezos, Cardano', xy=(0, 350), xytext=(1.5, 100),
-            fontsize=9, ha='center',
+            fontsize=14, ha='center',
             arrowprops=dict(arrowstyle='->', color='gray', lw=1),
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#E3F2FD', edgecolor=MLBLUE))
 
 # Highlight 1000+ milestone
 ax.axhline(y=1000, color=MLGREEN, linestyle='--', alpha=0.5, linewidth=2)
-ax.text(7.5, 1020, '1,000+ companies', fontsize=9, color=MLGREEN, ha='right')
+ax.text(7.5, 1020, '1,000+ companies', fontsize=14, color=MLGREEN, ha='right')
 
 ax.set_title('Crypto Valley (Zug) Ecosystem Growth', fontweight='bold', fontsize=14, pad=10)
 

@@ -42,17 +42,17 @@ width = 0.35
 bars1 = ax.bar(x - width/2, security, width, label='Security', color=MLGREEN, edgecolor='black')
 bars2 = ax.bar(x + width/2, convenience, width, label='Convenience', color=MLBLUE, edgecolor='black')
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(wallets, fontsize=10)
+ax.set_xticklabels(wallets, fontsize=14)
 ax.set_ylim(0, 11)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add annotation
 ax.annotate('Recommended\nfor Lab', xy=(3, 9), xytext=(3, 10.5),
-            fontsize=9, ha='center', fontweight='bold', color=MLGREEN,
+            fontsize=14, ha='center', fontweight='bold', color=MLGREEN,
             arrowprops=dict(arrowstyle='->', color=MLGREEN))
 
 ax.set_title('Wallet Types: Security vs Convenience Tradeoff', fontweight='bold', fontsize=14, pad=10)

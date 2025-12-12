@@ -56,7 +56,7 @@ for x, label, color in zip(tx_positions, tx_labels, tx_colors):
                           boxstyle="round,pad=0.01", facecolor='white',
                           edgecolor=color, linewidth=2)
     ax.add_patch(box)
-    ax.text(x, tx_y, label, ha='center', va='center', fontsize=12,
+    ax.text(x, tx_y, label, ha='center', va='center', fontsize=15,
             fontweight='bold', color=color)
 
 # Level 1: Hash of each transaction
@@ -68,7 +68,7 @@ for x, label, color in zip(h1_positions, h1_labels, h1_colors):
     circle = Circle((x, h1_y), 0.055, facecolor=color, edgecolor='black', linewidth=1.5, alpha=0.8)
     ax.add_patch(circle)
     ax.text(x, h1_y, label.replace('H(', '').replace(')', ''), ha='center', va='center',
-            fontsize=9, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
     # Arrow from tx to hash
     tx_idx = h1_positions.index(x)
     ax.annotate('', xy=(x, h1_y - 0.055), xytext=(tx_positions[tx_idx], tx_y + 0.06),
@@ -82,7 +82,7 @@ h2_colors = [MLGREEN, MLORANGE]
 for i, (x, label, color) in enumerate(zip(h2_positions, h2_labels, h2_colors)):
     circle = Circle((x, h2_y), 0.06, facecolor=color, edgecolor='black', linewidth=1.5, alpha=0.8)
     ax.add_patch(circle)
-    ax.text(x, h2_y, label, ha='center', va='center', fontsize=11, fontweight='bold', color='white')
+    ax.text(x, h2_y, label, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
     # Arrows from level 1
     if i == 0:
@@ -97,7 +97,7 @@ for i, (x, label, color) in enumerate(zip(h2_positions, h2_labels, h2_colors)):
 root_x = 0.5
 circle = Circle((root_x, root_y), 0.07, facecolor=MLPURPLE, edgecolor='black', linewidth=2)
 ax.add_patch(circle)
-ax.text(root_x, root_y, 'ROOT', ha='center', va='center', fontsize=11, fontweight='bold', color='white')
+ax.text(root_x, root_y, 'ROOT', ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
 # Arrows to root
 for x in h2_positions:
@@ -105,15 +105,15 @@ for x in h2_positions:
                 arrowprops=dict(arrowstyle='->', color='#666', lw=1.5))
 
 # Level labels
-ax.text(0.02, tx_y, 'Level 0\nData', ha='center', va='center', fontsize=10, color='#666')
-ax.text(0.02, h1_y, 'Level 1\nLeaf Hashes', ha='center', va='center', fontsize=10, color='#666')
-ax.text(0.02, h2_y, 'Level 2\nInternal', ha='center', va='center', fontsize=10, color='#666')
-ax.text(0.02, root_y, 'Level 3\nMerkle Root', ha='center', va='center', fontsize=10, color='#666')
+ax.text(0.02, tx_y, 'Level 0\nData', ha='center', va='center', fontsize=14, color='#666')
+ax.text(0.02, h1_y, 'Level 1\nLeaf Hashes', ha='center', va='center', fontsize=14, color='#666')
+ax.text(0.02, h2_y, 'Level 2\nInternal', ha='center', va='center', fontsize=14, color='#666')
+ax.text(0.02, root_y, 'Level 3\nMerkle Root', ha='center', va='center', fontsize=14, color='#666')
 
 # Merkle proof annotation
 proof_text = 'Merkle Proof for Tx3:\n1. H(Tx4) - sibling\n2. H12 - aunt\nVerify: H(H12 || H(H(Tx3)||H(Tx4))) = Root'
 props = dict(boxstyle='round,pad=0.3', facecolor='#FFF5E6', edgecolor=MLORANGE, alpha=0.95)
-ax.text(0.98, 0.25, proof_text, transform=ax.transAxes, fontsize=10,
+ax.text(0.98, 0.25, proof_text, transform=ax.transAxes, fontsize=14,
         verticalalignment='bottom', horizontalalignment='right', bbox=props, color='#333')
 
 ax.set_xlim(-0.05, 1.05)

@@ -47,9 +47,9 @@ for i, (x, y) in enumerate(utxo_positions):
     coin = Circle((x, y), 0.08, facecolor=MLORANGE, edgecolor='#333', linewidth=2)
     ax1.add_patch(coin)
     ax1.text(x, y, f'{0.3*(i+1):.1f}', ha='center', va='center',
-             fontsize=11, fontweight='bold', color='white')
+             fontsize=14, fontweight='bold', color='white')
 
-ax1.text(0.5, 0.60, 'Each "coin" is a separate UTXO', ha='center', fontsize=11, color='#555')
+ax1.text(0.5, 0.60, 'Each "coin" is a separate UTXO', ha='center', fontsize=14, color='#555')
 
 # Properties
 props_utxo = [
@@ -62,9 +62,9 @@ props_utxo = [
 
 for i, prop in enumerate(props_utxo):
     y = 0.45 - i * 0.08
-    ax1.text(0.08, y, '+' if i < 3 else '-', ha='center', fontsize=12,
+    ax1.text(0.08, y, '+' if i < 3 else '-', ha='center', fontsize=15,
              fontweight='bold', color=MLGREEN if i < 3 else MLRED)
-    ax1.text(0.15, y, prop, ha='left', fontsize=11, color='#333')
+    ax1.text(0.15, y, prop, ha='left', fontsize=14, color='#333')
 
 # Box around
 box1 = FancyBboxPatch((0.02, 0.02), 0.96, 0.96, boxstyle="round,pad=0.02",
@@ -83,10 +83,10 @@ account_box = FancyBboxPatch((0.25, 0.65), 0.50, 0.20,
                               boxstyle="round,pad=0.02", facecolor=MLBLUE,
                               edgecolor='#333', linewidth=2)
 ax2.add_patch(account_box)
-ax2.text(0.5, 0.78, 'Account', ha='center', fontsize=12, fontweight='bold', color='white')
-ax2.text(0.5, 0.70, 'Balance: 1.8 ETH', ha='center', fontsize=11, color='white')
+ax2.text(0.5, 0.78, 'Account', ha='center', fontsize=15, fontweight='bold', color='white')
+ax2.text(0.5, 0.70, 'Balance: 1.8 ETH', ha='center', fontsize=14, color='white')
 
-ax2.text(0.5, 0.58, 'Single balance per address', ha='center', fontsize=11, color='#555')
+ax2.text(0.5, 0.58, 'Single balance per address', ha='center', fontsize=14, color='#555')
 
 # Properties
 props_account = [
@@ -99,9 +99,9 @@ props_account = [
 
 for i, prop in enumerate(props_account):
     y = 0.45 - i * 0.08
-    ax2.text(0.08, y, '+' if i < 3 else '-', ha='center', fontsize=12,
+    ax2.text(0.08, y, '+' if i < 3 else '-', ha='center', fontsize=15,
              fontweight='bold', color=MLGREEN if i < 3 else MLRED)
-    ax2.text(0.15, y, prop, ha='left', fontsize=11, color='#333')
+    ax2.text(0.15, y, prop, ha='left', fontsize=14, color='#333')
 
 # Box around
 box2 = FancyBboxPatch((0.02, 0.02), 0.96, 0.96, boxstyle="round,pad=0.02",

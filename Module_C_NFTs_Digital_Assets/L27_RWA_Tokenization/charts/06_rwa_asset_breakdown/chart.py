@@ -57,11 +57,11 @@ legend_labels = [
 ]
 
 ax.legend(wedges, legend_labels, loc='center left', bbox_to_anchor=(1, 0.5),
-          fontsize=9, frameon=True, facecolor='white', edgecolor='#888')
+          fontsize=14, frameon=True, facecolor='white', edgecolor='#888')
 
 # Total annotation
 ax.text(0.5, -0.05, f'Total: ${sum(sizes):.0f}B+ On-Chain (2024)',
-        transform=ax.transAxes, ha='center', fontsize=11, fontweight='bold')
+        transform=ax.transAxes, ha='center', fontsize=14, fontweight='bold')
 
 ax.set_title('Tokenized Real-World Assets by Category', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

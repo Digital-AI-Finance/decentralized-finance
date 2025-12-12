@@ -75,7 +75,7 @@ ax.set_yticks([2, 4, 6, 8, 10])
 ax.set_yticklabels(['2', '4', '6', '8', '10'], size=9)
 
 # Legend
-ax.legend(loc='upper right', bbox_to_anchor=(1.35, 1.05), fontsize=11)
+ax.legend(loc='upper right', bbox_to_anchor=(1.35, 1.05), fontsize=14)
 
 plt.title('Consensus Mechanism Comparison', fontweight='bold', fontsize=15, pad=20)
 plt.tight_layout()

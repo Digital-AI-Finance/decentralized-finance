@@ -50,19 +50,19 @@ for i, bar in enumerate(bars):
 # Add time labels
 for i, (bar, time) in enumerate(zip(bars, time_estimate)):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() * 1.1,
-            time, ha='center', va='bottom', fontsize=9, fontweight='bold')
+            time, ha='center', va='bottom', fontsize=14, fontweight='bold')
 
 ax.set_yscale('log')
-ax.set_xlabel('Difficulty (Leading Zeros)', fontsize=12)
-ax.set_ylabel('Average Attempts (log scale)', fontsize=12)
+ax.set_xlabel('Difficulty (Leading Zeros)', fontsize=15)
+ax.set_ylabel('Average Attempts (log scale)', fontsize=15)
 ax.set_xticks(difficulty)
-ax.set_xticklabels(['1 zero', '2 zeros', '3 zeros', '4 zeros', '5 zeros'], fontsize=10)
+ax.set_xticklabels(['1 zero', '2 zeros', '3 zeros', '4 zeros', '5 zeros'], fontsize=14)
 
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add formula annotation
 ax.text(0.98, 0.02, 'Expected attempts = 16^difficulty',
-        transform=ax.transAxes, fontsize=10, ha='right', va='bottom',
+        transform=ax.transAxes, fontsize=14, ha='right', va='bottom',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('Mining Difficulty: Exponential Growth in Computation', fontweight='bold', fontsize=14, pad=10)

@@ -47,16 +47,16 @@ bars = ax.barh(y_pos, percentages, color=colors, edgecolor='black', linewidth=0.
 # Add value labels
 for bar, val in zip(bars, percentages):
     ax.text(bar.get_width() + 0.5, bar.get_y() + bar.get_height()/2,
-            f'{val}%', va='center', ha='left', fontsize=10, fontweight='bold')
+            f'{val}%', va='center', ha='left', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(categories, fontsize=10)
-ax.set_xlabel('Allocation (%)', fontsize=12)
+ax.set_yticklabels(categories, fontsize=14)
+ax.set_xlabel('Allocation (%)', fontsize=15)
 ax.set_xlim(0, 45)
 
 # Add insider annotation
 ax.text(0.95, 0.95, 'Insiders: ~35%\nCommunity: ~65%', transform=ax.transAxes,
-        ha='right', va='top', fontsize=10, fontweight='bold',
+        ha='right', va='top', fontsize=14, fontweight='bold',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.grid(True, alpha=0.3, axis='x')

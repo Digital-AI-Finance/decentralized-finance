@@ -50,11 +50,11 @@ for i, (explorer, color) in enumerate(zip(explorers, colors)):
     offset = (i - 1.5) * width
     bars = ax.bar(x + offset, scores[i], width, label=explorer, color=color, edgecolor='black')
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(features, fontsize=10)
+ax.set_xticklabels(features, fontsize=14)
 ax.set_ylim(0, 12)
-ax.legend(loc='upper right', fontsize=9)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 ax.set_title('Block Explorer Comparison by Feature', fontweight='bold', fontsize=14, pad=10)

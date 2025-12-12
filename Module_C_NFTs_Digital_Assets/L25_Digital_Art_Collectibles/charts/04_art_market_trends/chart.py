@@ -41,25 +41,25 @@ ax.plot(years, volume, color=MLBLUE, linewidth=3, marker='o', markersize=10)
 
 # Annotate peak
 ax.annotate('Peak: $25B\n(NFT Mania)', xy=(1, 25), xytext=(1.5, 28),
-            fontsize=10, fontweight='bold', ha='center',
+            fontsize=14, fontweight='bold', ha='center',
             arrowprops=dict(arrowstyle='->', color='black'))
 
 # Annotate Beeple sale
 ax.annotate('Beeple $69M\nSale', xy=(1, 25), xytext=(0.3, 20),
-            fontsize=9, ha='center',
+            fontsize=14, ha='center',
             arrowprops=dict(arrowstyle='->', color=MLGREEN))
 
 # Annotate bear market
 ax.annotate('Bear Market\nCorrection', xy=(2, 10), xytext=(2, 15),
-            fontsize=9, ha='center',
+            fontsize=14, ha='center',
             arrowprops=dict(arrowstyle='->', color=MLRED))
 
 # Add value labels
 for i, (year, vol) in enumerate(zip(years, volume)):
-    ax.text(i, vol + 1.5, f'${vol}B', ha='center', fontsize=10, fontweight='bold')
+    ax.text(i, vol + 1.5, f'${vol}B', ha='center', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Annual Volume (Billions USD)', fontsize=12)
-ax.set_xlabel('Year', fontsize=12)
+ax.set_ylabel('Annual Volume (Billions USD)', fontsize=15)
+ax.set_xlabel('Year', fontsize=15)
 ax.set_ylim(0, 32)
 ax.grid(True, alpha=0.3)
 

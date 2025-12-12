@@ -51,11 +51,11 @@ bars = ax.barh(y_pos, values, color=colors, edgecolor='black', linewidth=0.5, he
 # Add value labels
 for i, (bar, val) in enumerate(zip(bars, values)):
     ax.text(bar.get_width() + 0.5, bar.get_y() + bar.get_height()/2,
-            f'${val}M', va='center', ha='left', fontsize=11, fontweight='bold')
+            f'${val}M', va='center', ha='left', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(labels, fontsize=9, fontweight='bold')
-ax.set_xlabel('Sale Price (Millions USD)', fontsize=12)
+ax.set_yticklabels(labels, fontsize=14, fontweight='bold')
+ax.set_xlabel('Sale Price (Millions USD)', fontsize=15)
 ax.set_xlim(0, 80)
 ax.grid(True, alpha=0.3, axis='x')
 
@@ -66,7 +66,7 @@ legend_elements = [
     Patch(facecolor=MLPURPLE, label='CryptoPunks (PFP)'),
     Patch(facecolor=MLORANGE, label='Art Blocks (Generative)'),
 ]
-ax.legend(handles=legend_elements, loc='lower right', fontsize=9)
+ax.legend(handles=legend_elements, loc='lower right', fontsize=14)
 
 ax.set_title('Top NFT Art Sales (All Time)', fontweight='bold', fontsize=15, pad=10)
 ax.invert_yaxis()

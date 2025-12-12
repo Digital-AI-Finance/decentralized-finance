@@ -54,11 +54,11 @@ for i, (x, y, label, desc, color) in enumerate(steps):
     ax.add_patch(box)
 
     # Label
-    ax.text(x, y + 0.06, label, ha='center', va='center', fontsize=11,
+    ax.text(x, y + 0.06, label, ha='center', va='center', fontsize=14,
             fontweight='bold', color='white')
 
     # Description
-    ax.text(x, y - 0.04, desc, ha='center', va='center', fontsize=9,
+    ax.text(x, y - 0.04, desc, ha='center', va='center', fontsize=14,
             color='white')
 
     # Arrow
@@ -78,11 +78,11 @@ examples = [
 ]
 
 for x, y, text in examples:
-    ax.text(x, y, text, ha='center', va='center', fontsize=9,
+    ax.text(x, y, text, ha='center', va='center', fontsize=14,
             color='#555', style='italic')
 
 # One-way arrows annotation
-ax.annotate('One-way function', xy=(0.19, 0.68), fontsize=10, color=MLRED,
+ax.annotate('One-way function', xy=(0.19, 0.68), fontsize=14, color=MLRED,
             ha='center')
 ax.annotate('', xy=(0.26, 0.65), xytext=(0.12, 0.65),
             arrowprops=dict(arrowstyle='->', color=MLRED, lw=1.5))
@@ -90,7 +90,7 @@ ax.annotate('', xy=(0.26, 0.65), xytext=(0.12, 0.65),
 # Key insight
 insight_text = 'Cannot reverse: Address -> Private Key'
 props = dict(boxstyle='round,pad=0.3', facecolor='#FFE0E0', edgecolor=MLRED, alpha=0.95)
-ax.text(0.5, 0.88, insight_text, ha='center', va='center', fontsize=12,
+ax.text(0.5, 0.88, insight_text, ha='center', va='center', fontsize=15,
         fontweight='bold', bbox=props, color=MLRED)
 
 ax.set_xlim(0, 1)

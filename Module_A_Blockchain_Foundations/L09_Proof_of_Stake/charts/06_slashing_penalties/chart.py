@@ -53,24 +53,24 @@ thresholds = [
 for x, y, label in thresholds:
     ax.plot(x, y, 'o', markersize=10, color=MLORANGE)
     ax.annotate(f'{label}\n({y:.0f}% loss)', xy=(x, y), xytext=(x + 2, y + 10),
-                fontsize=9, arrowprops=dict(arrowstyle='->', color='#333'))
+                fontsize=14, arrowprops=dict(arrowstyle='->', color='#333'))
 
 # Initial 1 ETH penalty annotation
 ax.axhline(y=3.125, color=MLBLUE, linestyle='--', linewidth=1.5, alpha=0.7)
-ax.text(35, 5, 'Initial penalty: 1 ETH (~3% of 32 ETH)', fontsize=10,
+ax.text(35, 5, 'Initial penalty: 1 ETH (~3% of 32 ETH)', fontsize=14,
         ha='right', color=MLBLUE)
 
-ax.set_xlabel('Validators Slashed Together (%)', fontsize=13)
-ax.set_ylabel('Stake Lost (%)', fontsize=13)
+ax.set_xlabel('Validators Slashed Together (%)', fontsize=16)
+ax.set_ylabel('Stake Lost (%)', fontsize=16)
 ax.set_xlim(0, 36)
 ax.set_ylim(0, 110)
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#FFE0E0', edgecolor=MLRED)
 ax.text(18, 90, 'Coordinated attacks = Catastrophic losses',
-        fontsize=12, fontweight='bold', bbox=props, color=MLRED, ha='center')
+        fontsize=15, fontweight='bold', bbox=props, color=MLRED, ha='center')
 
-ax.legend(loc='lower right', fontsize=11)
+ax.legend(loc='lower right', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('Ethereum Slashing: Correlation Penalty', fontweight='bold', fontsize=15, pad=10)

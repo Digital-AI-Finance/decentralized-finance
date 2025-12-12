@@ -51,12 +51,12 @@ for i, (attr, color) in enumerate(zip(attributes, colors)):
     bars = ax.bar(x + i * width - 0.3, scores[:, i], width, label=attr,
                   color=color, edgecolor='black', linewidth=0.5, alpha=0.85)
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(token_types, fontsize=10, fontweight='bold')
+ax.set_xticklabels(token_types, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=3, fontsize=9)
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=3, fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 ax.set_title('Token Type Characteristics Comparison', fontweight='bold', fontsize=15, pad=10)

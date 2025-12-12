@@ -48,22 +48,22 @@ bars2 = ax.bar(x + width/2, mica_scores, width, label='EU MiCA', color=MLBLUE, e
 # Add value labels
 for bar in bars1:
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.2,
-            f'{int(bar.get_height())}', ha='center', va='bottom', fontsize=9)
+            f'{int(bar.get_height())}', ha='center', va='bottom', fontsize=14)
 for bar in bars2:
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.2,
-            f'{int(bar.get_height())}', ha='center', va='bottom', fontsize=9)
+            f'{int(bar.get_height())}', ha='center', va='bottom', fontsize=14)
 
-ax.set_ylabel('Score (1-10, higher = better)', fontsize=12)
+ax.set_ylabel('Score (1-10, higher = better)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(dimensions, fontsize=10)
+ax.set_xticklabels(dimensions, fontsize=14)
 ax.set_ylim(0, 11)
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Annotation
 ax.text(0.02, 0.98, 'MiCA: EU-wide passport\nFINMA: Swiss market only',
-        transform=ax.transAxes, fontsize=9, va='top',
+        transform=ax.transAxes, fontsize=14, va='top',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.set_title('Swiss FINMA vs EU MiCA: Framework Comparison', fontweight='bold', fontsize=14, pad=10)

@@ -49,7 +49,7 @@ phases = [
 
 for x_pos, y_pos, label, color in phases:
     ax.axvline(x=x_pos, color=color, linestyle='--', alpha=0.5, linewidth=1)
-    ax.text(x_pos, y_pos + 5, label, ha='center', va='bottom', fontsize=9,
+    ax.text(x_pos, y_pos + 5, label, ha='center', va='bottom', fontsize=14,
             color=color, fontweight='bold')
 
 # Mark current position (2024)
@@ -58,15 +58,15 @@ current_y = 100 / (1 + np.exp(-1.2 * (current_x - 6)))
 ax.scatter([current_x], [current_y], s=150, c=MLRED, zorder=5, edgecolors='black', linewidth=2)
 ax.annotate('We Are Here\n(2024)', (current_x, current_y),
             xytext=(current_x - 1.5, current_y + 15),
-            fontsize=10, fontweight='bold', color=MLRED,
+            fontsize=14, fontweight='bold', color=MLRED,
             arrowprops=dict(arrowstyle='->', color=MLRED, lw=2))
 
 # Add percentage labels
-ax.text(11, 95, 'Global\nAdoption', ha='center', va='center', fontsize=9,
+ax.text(11, 95, 'Global\nAdoption', ha='center', va='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
-ax.set_xlabel('Time (Years)', fontsize=12)
-ax.set_ylabel('Adoption Rate (%)', fontsize=12)
+ax.set_xlabel('Time (Years)', fontsize=15)
+ax.set_ylabel('Adoption Rate (%)', fontsize=15)
 ax.set_xlim(0, 12)
 ax.set_ylim(0, 105)
 ax.set_xticks([])  # Hide x-axis ticks (years are shown in labels)

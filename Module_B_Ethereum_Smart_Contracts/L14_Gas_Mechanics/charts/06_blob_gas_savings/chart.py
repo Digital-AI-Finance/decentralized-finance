@@ -56,33 +56,33 @@ bars_post = ax.bar(x + width/2, post_dencun_cost, width, label='Post-Dencun (Blo
 for bar, cost in zip(bars_pre, pre_dencun_cost):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, height + 1,
-            f'${cost:.2f}', ha='center', fontsize=10)
+            f'${cost:.2f}', ha='center', fontsize=14)
 
 for bar, cost in zip(bars_post, post_dencun_cost):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, height + 1,
-            f'${cost:.2f}', ha='center', fontsize=10, fontweight='bold', color=MLGREEN)
+            f'${cost:.2f}', ha='center', fontsize=14, fontweight='bold', color=MLGREEN)
 
 # Savings annotation
 for i, (pre, post) in enumerate(zip(pre_dencun_cost, post_dencun_cost)):
     savings = (1 - post/pre) * 100
-    ax.text(i, 25, f'-{savings:.0f}%', ha='center', fontsize=11,
+    ax.text(i, 25, f'-{savings:.0f}%', ha='center', fontsize=14,
             fontweight='bold', color=MLGREEN)
 
-ax.set_xlabel('L2 Data Size Posted to Ethereum', fontsize=13)
-ax.set_ylabel('Cost (USD)', fontsize=13)
+ax.set_xlabel('L2 Data Size Posted to Ethereum', fontsize=16)
+ax.set_ylabel('Cost (USD)', fontsize=16)
 ax.set_xticks(x)
-ax.set_xticklabels(data_sizes, fontsize=11)
+ax.set_xticklabels(data_sizes, fontsize=14)
 ax.set_ylim(0, 35)
 
-ax.legend(loc='upper left', fontsize=11)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN)
 ax.text(0.98, 0.95, 'EIP-4844 (March 2024):\n90-99% L2 cost reduction',
         transform=ax.transAxes, ha='right', va='top',
-        fontsize=11, fontweight='bold', bbox=props, color=MLGREEN)
+        fontsize=14, fontweight='bold', bbox=props, color=MLGREEN)
 
 ax.set_title('EIP-4844: Blob Gas vs Calldata Costs', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

@@ -42,30 +42,30 @@ bars = ax.bar(categories, fees, color=colors, edgecolor='black', linewidth=1.5)
 for bar, fee in zip(bars, fees):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2., height + 2,
-            f'{fee} sat/vB', ha='center', va='bottom', fontsize=12, fontweight='bold')
+            f'{fee} sat/vB', ha='center', va='bottom', fontsize=15, fontweight='bold')
 
 # Add cost estimate for typical transaction (250 vB)
 ax.text(0.98, 0.95, 'Typical TX: ~250 vBytes', transform=ax.transAxes,
-        ha='right', fontsize=11, color='#555', style='italic')
+        ha='right', fontsize=14, color='#555', style='italic')
 
 # Horizontal lines for context
 ax.axhline(y=20, color='#888', linestyle='--', linewidth=1, alpha=0.5)
-ax.text(3.5, 22, 'Average fee', fontsize=10, color='#555')
+ax.text(3.5, 22, 'Average fee', fontsize=14, color='#555')
 
-ax.set_ylabel('Fee Rate (satoshis/vByte)', fontsize=13)
-ax.set_xlabel('Confirmation Speed', fontsize=13)
+ax.set_ylabel('Fee Rate (satoshis/vByte)', fontsize=16)
+ax.set_xlabel('Confirmation Speed', fontsize=16)
 ax.set_ylim(0, 100)
 
 # Add secondary y-axis for USD (approximate)
 ax2 = ax.twinx()
 ax2.set_ylim(0, 100 * 250 / 100000000 * 100000)  # Approximate USD at $100k/BTC
-ax2.set_ylabel('Est. Fee (USD) @ $100k BTC', fontsize=11, color='#666')
+ax2.set_ylabel('Est. Fee (USD) @ $100k BTC', fontsize=14, color='#666')
 ax2.tick_params(axis='y', labelcolor='#666')
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#FFF8E0', edgecolor=MLORANGE, alpha=0.95)
 ax.text(0.5, 85, 'Fee = Fee Rate x Transaction Size (vBytes)',
-        ha='center', fontsize=12, fontweight='bold', bbox=props, color='#333')
+        ha='center', fontsize=15, fontweight='bold', bbox=props, color='#333')
 
 ax.set_title('Bitcoin Fee Market: Pay for Priority', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

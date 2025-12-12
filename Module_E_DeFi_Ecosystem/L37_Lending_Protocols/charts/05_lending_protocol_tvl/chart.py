@@ -44,13 +44,13 @@ bars = ax.barh(y_pos, tvl, color=colors, edgecolor='black', linewidth=1.5, heigh
 # Add value labels and chain info
 for bar, val, chain in zip(bars, tvl, chains):
     ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2,
-            f'${val}B', va='center', fontsize=11, fontweight='bold')
+            f'${val}B', va='center', fontsize=14, fontweight='bold')
     ax.text(0.2, bar.get_y() + bar.get_height()/2,
-            chain, va='center', fontsize=9, color='white')
+            chain, va='center', fontsize=14, color='white')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(protocols, fontsize=11, fontweight='bold')
-ax.set_xlabel('Total Value Locked (Billion USD)', fontsize=12)
+ax.set_yticklabels(protocols, fontsize=14, fontweight='bold')
+ax.set_xlabel('Total Value Locked (Billion USD)', fontsize=15)
 ax.set_xlim(0, 15)
 
 ax.invert_yaxis()
@@ -58,7 +58,7 @@ ax.grid(True, alpha=0.3, axis='x')
 
 # Add annotation
 ax.text(0.5, -0.12, 'Aave dominates multi-chain lending; MakerDAO TVL includes DAI collateral',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#F3E5F5', edgecolor='#B6509E'))
 
 ax.set_title('DeFi Lending Protocols by TVL (Dec 2024)', fontweight='bold', fontsize=14, pad=10)

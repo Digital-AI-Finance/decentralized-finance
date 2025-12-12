@@ -40,7 +40,7 @@ ax.add_patch(contract_box)
 ax.text(0.50, 0.86, 'ERC-721 Smart Contract', ha='center', va='center',
         fontsize=14, fontweight='bold', color='white')
 ax.text(0.50, 0.79, 'contract MyNFT is ERC721 { ... }', ha='center',
-        fontsize=10, color='#DDD', family='monospace')
+        fontsize=14, color='#DDD', family='monospace')
 
 # State variables
 mappings = [
@@ -57,18 +57,18 @@ for m in mappings:
                           edgecolor='black', linewidth=1.5, alpha=0.85)
     ax.add_patch(box)
     ax.text(m['x'], 0.58, m['name'], ha='center', va='center',
-            fontsize=10, fontweight='bold', color='white', family='monospace')
+            fontsize=14, fontweight='bold', color='white', family='monospace')
     ax.text(m['x'], 0.48, m['desc'], ha='center', va='center',
-            fontsize=8, color='white')
+            fontsize=14, color='white')
 
     # Example box
     ax.text(m['x'], 0.35, m['example'], ha='center', va='center',
-            fontsize=7, color='white', family='monospace',
+            fontsize=14, color='white', family='monospace',
             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=m['color'], alpha=0.3))
 
 # Description at bottom
 ax.text(0.50, 0.12, 'Mappings provide O(1) lookup by key - efficient for sparse token IDs',
-        ha='center', fontsize=10, style='italic', color='#555')
+        ha='center', fontsize=14, style='italic', color='#555')
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0.05, 0.98)

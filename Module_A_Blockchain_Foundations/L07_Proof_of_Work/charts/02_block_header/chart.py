@@ -60,19 +60,19 @@ for name, bytes_size, color, size_label in components:
     # Label inside or outside based on width
     if width > 0.15:
         ax.text(x_pos + width/2, y_start + 0.05, name, ha='center', va='center',
-                fontsize=10, fontweight='bold', color='white')
+                fontsize=14, fontweight='bold', color='white')
         ax.text(x_pos + width/2, y_start - 0.08, size_label, ha='center', va='center',
-                fontsize=9, color='white')
+                fontsize=14, color='white')
     else:
         ax.text(x_pos + width/2, y_start + 0.25, name, ha='center', va='bottom',
-                fontsize=9, fontweight='bold', color=color, rotation=45)
+                fontsize=14, fontweight='bold', color=color, rotation=45)
         ax.text(x_pos + width/2, y_start - 0.22, size_label, ha='center', va='top',
-                fontsize=8, color='#555')
+                fontsize=14, color='#555')
 
     x_pos += width
 
 # Total size annotation
-ax.text(0.50, 0.32, 'Total: 80 bytes', ha='center', fontsize=13, fontweight='bold', color='#333')
+ax.text(0.50, 0.32, 'Total: 80 bytes', ha='center', fontsize=16, fontweight='bold', color='#333')
 
 # Mining process description
 process_text = [
@@ -82,14 +82,14 @@ process_text = [
 ]
 
 for text, x, y in process_text:
-    ax.text(x, y, text, ha='center', fontsize=11, color='#444')
+    ax.text(x, y, text, ha='center', fontsize=14, color='#444')
 
 # Nonce highlight
 highlight = FancyBboxPatch((0.88, 0.08), 0.10, 0.10,
                             boxstyle="round,pad=0.02", facecolor='#FFE0E0',
                             edgecolor=MLRED, linewidth=2)
 ax.add_patch(highlight)
-ax.text(0.93, 0.13, 'Nonce:\nThe only field\nminers change', ha='center', fontsize=9,
+ax.text(0.93, 0.13, 'Nonce:\nThe only field\nminers change', ha='center', fontsize=14,
         color=MLRED, fontweight='bold')
 
 # Arrow showing nonce is modified

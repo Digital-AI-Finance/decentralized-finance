@@ -47,20 +47,20 @@ for x, y, label, color, sublabel in boxes:
                                     linewidth=2, alpha=0.85)
     ax.add_patch(rect)
     ax.text(x, y+0.02, label, ha='center', va='center',
-            fontsize=10, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
     ax.text(x, y-0.06, sublabel, ha='center', va='center',
-            fontsize=8, color='white', style='italic')
+            fontsize=14, color='white', style='italic')
 
 # Draw arrows
 arrow_props = dict(arrowstyle='->', color='black', lw=2)
 
 # New players -> Game economy
 ax.annotate('', xy=(0.3, 0.7), xytext=(0.2, 0.7), arrowprops=arrow_props)
-ax.text(0.25, 0.78, 'NFT\nPurchases', ha='center', fontsize=8, fontweight='bold')
+ax.text(0.25, 0.78, 'NFT\nPurchases', ha='center', fontsize=14, fontweight='bold')
 
 # Game economy -> Existing players
 ax.annotate('', xy=(0.6, 0.7), xytext=(0.5, 0.7), arrowprops=arrow_props)
-ax.text(0.55, 0.78, 'Token\nRewards', ha='center', fontsize=8, fontweight='bold')
+ax.text(0.55, 0.78, 'Token\nRewards', ha='center', fontsize=14, fontweight='bold')
 
 # Down arrow to sustainability
 ax.annotate('', xy=(0.4, 0.4), xytext=(0.4, 0.55), arrowprops=arrow_props)
@@ -68,7 +68,7 @@ ax.annotate('', xy=(0.4, 0.4), xytext=(0.4, 0.55), arrowprops=arrow_props)
 # Feedback loop (dashed)
 ax.annotate('', xy=(0.65, 0.6), xytext=(0.15, 0.6),
             arrowprops=dict(arrowstyle='->', color='gray', lw=1.5, linestyle='dashed'))
-ax.text(0.4, 0.52, 'Some players become sellers', ha='center', fontsize=8, color='gray')
+ax.text(0.4, 0.52, 'Some players become sellers', ha='center', fontsize=14, color='gray')
 
 # Warning box
 warning_rect = mpatches.FancyBboxPatch((0.65, 0.15), 0.3, 0.15,
@@ -77,9 +77,9 @@ warning_rect = mpatches.FancyBboxPatch((0.65, 0.15), 0.3, 0.15,
                                         linewidth=2)
 ax.add_patch(warning_rect)
 ax.text(0.8, 0.225, 'Warning: Ponzi Risk', ha='center', va='center',
-        fontsize=9, fontweight='bold', color=MLRED)
+        fontsize=14, fontweight='bold', color=MLRED)
 ax.text(0.8, 0.175, 'If new players decline,\neconomy collapses', ha='center', va='center',
-        fontsize=7, color=MLRED)
+        fontsize=14, color=MLRED)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

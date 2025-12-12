@@ -44,12 +44,12 @@ bars1 = ax.bar(x - width, cbdc, width, label='CBDC', color=MLGREEN, edgecolor='b
 bars2 = ax.bar(x, stablecoin, width, label='Stablecoin', color=MLBLUE, edgecolor='black')
 bars3 = ax.bar(x + width, crypto, width, label='Cryptocurrency', color=MLORANGE, edgecolor='black')
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(characteristics, fontsize=10)
+ax.set_xticklabels(characteristics, fontsize=14)
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add value labels
@@ -59,7 +59,7 @@ for bars in [bars1, bars2, bars3]:
         ax.annotate(f'{int(height)}',
                     xy=(bar.get_x() + bar.get_width()/2, height),
                     xytext=(0, 2), textcoords='offset points',
-                    ha='center', va='bottom', fontsize=8)
+                    ha='center', va='bottom', fontsize=14)
 
 ax.set_title('Digital Currency Comparison: CBDC vs Stablecoin vs Crypto', fontweight='bold', fontsize=14, pad=10)
 

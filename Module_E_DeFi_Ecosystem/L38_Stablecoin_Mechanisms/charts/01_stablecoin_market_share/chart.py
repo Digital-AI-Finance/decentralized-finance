@@ -45,12 +45,12 @@ for autotext in autotexts:
     autotext.set_color('white')
 
 # Add total
-ax.text(0, 0, f'Total\n$140B', ha='center', va='center', fontsize=12, fontweight='bold')
+ax.text(0, 0, f'Total\n$140B', ha='center', va='center', fontsize=15, fontweight='bold')
 
 # Add legend with type
 legend_labels = ['USDT - Fiat-backed', 'USDC - Fiat-backed', 'DAI - Crypto-backed',
                  'FDUSD - Fiat-backed', 'USDE - Hybrid', 'Other']
-ax.legend(wedges, legend_labels, loc='center left', bbox_to_anchor=(1, 0.5), fontsize=9)
+ax.legend(wedges, legend_labels, loc='center left', bbox_to_anchor=(1, 0.5), fontsize=14)
 
 ax.set_title('Stablecoin Market Share (Dec 2024)', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

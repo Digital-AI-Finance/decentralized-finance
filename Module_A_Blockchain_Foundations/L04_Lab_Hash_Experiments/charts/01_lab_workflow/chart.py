@@ -45,16 +45,16 @@ for i, (exercise, duration, pos, color) in enumerate(zip(exercises, durations, p
     ax.barh(0, duration, left=pos, height=0.5, color=color, edgecolor='black', linewidth=1.5)
     # Label inside bar
     ax.text(pos + duration/2, 0, f'{exercise}\n({duration} min)',
-            ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+            ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
 # Add time markers
 for t in [0, 30, 60, 90]:
     ax.axvline(x=t, color='gray', linestyle='--', alpha=0.5, linewidth=1)
-    ax.text(t, -0.4, f'{t} min', ha='center', va='top', fontsize=10)
+    ax.text(t, -0.4, f'{t} min', ha='center', va='top', fontsize=14)
 
 ax.set_xlim(-2, 95)
 ax.set_ylim(-0.6, 0.6)
-ax.set_xlabel('Time (minutes)', fontsize=12)
+ax.set_xlabel('Time (minutes)', fontsize=15)
 ax.set_yticks([])
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)

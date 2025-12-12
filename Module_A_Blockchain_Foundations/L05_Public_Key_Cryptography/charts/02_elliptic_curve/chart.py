@@ -65,30 +65,30 @@ ax.plot(x_line, y_line, color=MLORANGE, linestyle='--', linewidth=2, alpha=0.7, 
 Rx = 3.2
 Ry_neg = -np.sqrt(Rx**3 + 7)
 ax.scatter([Rx], [Ry_neg], s=150, color=MLRED, zorder=5, edgecolor='black', linewidth=2)
-ax.text(Rx + 0.15, Ry_neg - 0.4, 'R = P + Q', fontsize=12, fontweight='bold', color=MLRED)
+ax.text(Rx + 0.15, Ry_neg - 0.4, 'R = P + Q', fontsize=15, fontweight='bold', color=MLRED)
 
 # Show reflection line
 Ry_pos = np.sqrt(Rx**3 + 7)
 ax.plot([Rx, Rx], [Ry_neg, Ry_pos], color=MLRED, linestyle=':', linewidth=2, alpha=0.7)
 ax.scatter([Rx], [Ry_pos], s=80, color=MLRED, zorder=4, alpha=0.5, edgecolor='black')
-ax.text(Rx + 0.15, Ry_pos + 0.2, "R'", fontsize=11, color=MLRED, alpha=0.7)
+ax.text(Rx + 0.15, Ry_pos + 0.2, "R'", fontsize=14, color=MLRED, alpha=0.7)
 
 # Axis
 ax.axhline(y=0, color='gray', linewidth=0.5)
 ax.axvline(x=0, color='gray', linewidth=0.5)
 
-ax.set_xlabel('x', fontsize=13)
-ax.set_ylabel('y', fontsize=13)
+ax.set_xlabel('x', fontsize=16)
+ax.set_ylabel('y', fontsize=16)
 ax.set_xlim(-2, 4.5)
 ax.set_ylim(-5, 5)
 
-ax.legend(loc='lower right', fontsize=11)
+ax.legend(loc='lower right', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 # Equation box
 eq_text = "Bitcoin's secp256k1 curve:\n$y^2 = x^3 + 7$ (mod p)\n\nPoint Addition:\nR = P + Q"
 props = dict(boxstyle='round,pad=0.4', facecolor='white', edgecolor=MLPURPLE, alpha=0.95)
-ax.text(0.02, 0.98, eq_text, transform=ax.transAxes, fontsize=11,
+ax.text(0.02, 0.98, eq_text, transform=ax.transAxes, fontsize=14,
         verticalalignment='top', bbox=props, color='#333')
 
 plt.title('Elliptic Curve Cryptography: Point Addition', fontweight='bold', fontsize=15, pad=10)

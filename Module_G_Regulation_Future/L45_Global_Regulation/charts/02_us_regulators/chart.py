@@ -46,17 +46,17 @@ bars2 = ax.bar(x - 0.5*width, cftc, width, label='CFTC', color=MLORANGE, edgecol
 bars3 = ax.bar(x + 0.5*width, fincen, width, label='FinCEN', color=MLGREEN, edgecolor='black')
 bars4 = ax.bar(x + 1.5*width, states, width, label='States', color=MLPURPLE, edgecolor='black')
 
-ax.set_ylabel('Regulatory Authority (Relative)', fontsize=12)
+ax.set_ylabel('Regulatory Authority (Relative)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(asset_types, fontsize=10)
+ax.set_xticklabels(asset_types, fontsize=14)
 ax.set_ylim(0, 11)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Annotation
 ax.annotate('Jurisdiction\nOverlap', xy=(3, 9), xytext=(4.5, 9.5),
-            fontsize=9, ha='center',
+            fontsize=14, ha='center',
             arrowprops=dict(arrowstyle='->', color='gray', lw=1),
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#FFF3E0', edgecolor=MLORANGE))
 

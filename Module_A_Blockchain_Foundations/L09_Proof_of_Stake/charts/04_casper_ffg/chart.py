@@ -50,10 +50,10 @@ for x, label, color, status in epochs:
                           edgecolor='black', linewidth=2)
     ax.add_patch(box)
     ax.text(x, y + 0.05, label, ha='center', va='center',
-            fontsize=11, fontweight='bold',
+            fontsize=14, fontweight='bold',
             color='white' if color in [MLGREEN, MLORANGE] else '#333')
     ax.text(x, y - 0.05, status, ha='center', va='center',
-            fontsize=10, color='white' if color in [MLGREEN, MLORANGE] else '#555')
+            fontsize=14, color='white' if color in [MLGREEN, MLORANGE] else '#555')
 
 # Arrows between epochs
 for i in range(len(epochs) - 1):
@@ -64,18 +64,18 @@ for i in range(len(epochs) - 1):
 
 # Voting arrows (curved) from validators to checkpoints
 ax.text(0.50, 0.20, '67%+ validators vote on (source, target) pairs',
-        ha='center', fontsize=11, color='#333', fontweight='bold')
+        ha='center', fontsize=14, color='#333', fontweight='bold')
 
 # Justification and Finalization explanation
 ax.text(0.10, 0.85, 'Justified: 67%+ attestations', ha='center',
-        fontsize=10, color=MLORANGE, fontweight='bold')
+        fontsize=14, color=MLORANGE, fontweight='bold')
 ax.text(0.35, 0.85, 'Finalized: Justified + next justified', ha='center',
-        fontsize=10, color=MLGREEN, fontweight='bold')
+        fontsize=14, color=MLGREEN, fontweight='bold')
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#FFE0E0', edgecolor=MLRED)
 ax.text(0.50, 0.08, 'Reverting finalized block requires 33%+ stake to be slashed',
-        ha='center', fontsize=11, fontweight='bold', bbox=props, color=MLRED)
+        ha='center', fontsize=14, fontweight='bold', bbox=props, color=MLRED)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

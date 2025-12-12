@@ -55,7 +55,7 @@ for year, reward, label in halvings:
     ax1.plot(year, reward, 'o', markersize=10, color=MLRED if year <= 2024 else '#888')
     if year <= 2024:
         ax1.annotate(label, (year, reward), textcoords="offset points",
-                     xytext=(0, 15), ha='center', fontsize=10, fontweight='bold')
+                     xytext=(0, 15), ha='center', fontsize=14, fontweight='bold')
 
 # Cumulative supply on secondary axis
 ax2 = ax1.twinx()
@@ -80,11 +80,11 @@ for year in cum_years:
 
 ax2.plot(cum_years, cum_supply, color=MLBLUE, linewidth=2, linestyle='--', label='Total Supply')
 ax2.axhline(y=21, color=MLPURPLE, linestyle=':', linewidth=2, alpha=0.7)
-ax2.text(2100, 21.3, '21M Cap', fontsize=11, color=MLPURPLE, fontweight='bold')
+ax2.text(2100, 21.3, '21M Cap', fontsize=14, color=MLPURPLE, fontweight='bold')
 
-ax1.set_xlabel('Year', fontsize=13)
-ax1.set_ylabel('Block Reward (BTC)', fontsize=13, color=MLORANGE)
-ax2.set_ylabel('Total Supply (Millions BTC)', fontsize=13, color=MLBLUE)
+ax1.set_xlabel('Year', fontsize=16)
+ax1.set_ylabel('Block Reward (BTC)', fontsize=16, color=MLORANGE)
+ax2.set_ylabel('Total Supply (Millions BTC)', fontsize=16, color=MLBLUE)
 
 ax1.tick_params(axis='y', labelcolor=MLORANGE)
 ax2.tick_params(axis='y', labelcolor=MLBLUE)
@@ -95,12 +95,12 @@ ax2.set_ylim(0, 22)
 
 # Current marker
 ax1.axvline(x=2024, color=MLGREEN, linestyle='-', linewidth=2, alpha=0.7)
-ax1.text(2024.5, 45, 'Current\n(2024)', fontsize=10, color=MLGREEN, fontweight='bold')
+ax1.text(2024.5, 45, 'Current\n(2024)', fontsize=14, color=MLGREEN, fontweight='bold')
 
 # Legend
 lines1, labels1 = ax1.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
-ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper right', fontsize=11)
+ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper right', fontsize=14)
 
 ax1.set_title('Bitcoin Halving: Block Reward Reduction Every 210,000 Blocks',
               fontweight='bold', fontsize=15, pad=10)

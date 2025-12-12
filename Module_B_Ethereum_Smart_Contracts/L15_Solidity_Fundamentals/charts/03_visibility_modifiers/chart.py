@@ -59,9 +59,9 @@ for i, mod in enumerate(modifiers):
 
 # Labels
 ax.set_xticks([0.5, 1.5, 2.5])
-ax.set_xticklabels(callers, fontsize=11)
+ax.set_xticklabels(callers, fontsize=14)
 ax.set_yticks([0.5, 1.5, 2.5, 3.5])
-ax.set_yticklabels(reversed(modifiers), fontsize=11, fontweight='bold')
+ax.set_yticklabels(reversed(modifiers), fontsize=14, fontweight='bold')
 
 ax.set_xlim(0, 3)
 ax.set_ylim(0, 4)
@@ -72,13 +72,13 @@ legend_elements = [
     Patch(facecolor=MLGREEN, alpha=0.7, label='Can Access'),
     Patch(facecolor=MLRED, alpha=0.7, label='Cannot Access'),
 ]
-ax.legend(handles=legend_elements, loc='upper right', fontsize=10,
+ax.legend(handles=legend_elements, loc='upper right', fontsize=14,
           bbox_to_anchor=(1.0, 1.15))
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN)
 ax.text(1.5, -0.4, 'Tip: Use external for gas efficiency when only called from outside',
-        ha='center', fontsize=10, bbox=props, color=MLGREEN)
+        ha='center', fontsize=14, bbox=props, color=MLGREEN)
 
 ax.set_title('Solidity Function Visibility Access', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

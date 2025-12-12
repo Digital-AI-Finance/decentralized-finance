@@ -43,9 +43,9 @@ for autotext in autotexts:
     autotext.set_fontweight('bold')
 
 # Add annotations
-ax.text(1.3, 0.5, 'Centralized\ncollateral\n(60%)', fontsize=9, ha='left', color='gray',
+ax.text(1.3, 0.5, 'Centralized\ncollateral\n(60%)', fontsize=14, ha='left', color='gray',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor='gray'))
-ax.text(1.3, -0.5, 'Crypto\ncollateral\n(40%)', fontsize=9, ha='left', color='gray',
+ax.text(1.3, -0.5, 'Crypto\ncollateral\n(40%)', fontsize=14, ha='left', color='gray',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor='gray'))
 
 ax.set_title('DAI Collateral Composition (Dec 2024)', fontweight='bold', fontsize=15, pad=10)

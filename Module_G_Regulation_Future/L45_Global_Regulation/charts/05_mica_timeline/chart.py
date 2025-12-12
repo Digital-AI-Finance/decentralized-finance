@@ -45,24 +45,24 @@ for i, (date, event, color) in enumerate(zip(dates, events, colors)):
 
     # Alternate label positions
     if i % 2 == 0:
-        ax.text(date, 0.65, event, ha='center', va='bottom', fontsize=10, fontweight='bold')
+        ax.text(date, 0.65, event, ha='center', va='bottom', fontsize=14, fontweight='bold')
         ax.plot([date, date], [0.5, 0.62], 'k-', linewidth=1)
     else:
-        ax.text(date, 0.35, event, ha='center', va='top', fontsize=10, fontweight='bold')
+        ax.text(date, 0.35, event, ha='center', va='top', fontsize=14, fontweight='bold')
         ax.plot([date, date], [0.5, 0.38], 'k-', linewidth=1)
 
 # Add year labels
 for date in dates:
     if date == 2024.5:
-        ax.text(date, 0.48, 'Jun 2024', ha='center', va='top', fontsize=9, color='gray')
+        ax.text(date, 0.48, 'Jun 2024', ha='center', va='top', fontsize=14, color='gray')
     elif date == 2025:
-        ax.text(date, 0.52, 'Dec 2024', ha='center', va='bottom', fontsize=9, color='gray')
+        ax.text(date, 0.52, 'Dec 2024', ha='center', va='bottom', fontsize=14, color='gray')
     else:
-        ax.text(date, 0.48, str(int(date)), ha='center', va='top', fontsize=9, color='gray')
+        ax.text(date, 0.48, str(int(date)), ha='center', va='top', fontsize=14, color='gray')
 
 # Annotations
 ax.annotate('Single framework\nfor 27 EU countries', xy=(2025, 0.5), xytext=(2024.2, 0.2),
-            fontsize=9, ha='center',
+            fontsize=14, ha='center',
             arrowprops=dict(arrowstyle='->', color=MLGREEN, lw=1.5),
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#E8F5E9', edgecolor=MLGREEN))
 

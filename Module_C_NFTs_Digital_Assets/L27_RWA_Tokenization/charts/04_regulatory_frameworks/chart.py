@@ -47,17 +47,17 @@ for i, (metric, values) in enumerate(metrics.items()):
     bars = ax.bar(x + i * width - 0.25, values, width, label=metric,
                   color=colors[i], edgecolor='black', linewidth=0.5, alpha=0.85)
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(jurisdictions, fontsize=10, fontweight='bold')
+ax.set_xticklabels(jurisdictions, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 11)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Key frameworks note
 ax.text(0.5, -0.12, 'Key: Switzerland DLT Act (2021), Singapore MAS Sandbox, EU MiCA (2024), USA Reg D/A+/S',
-        transform=ax.transAxes, ha='center', fontsize=8,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#F5F5F5', edgecolor='#888'))
 
 ax.set_title('RWA Regulatory Framework Comparison', fontweight='bold', fontsize=15, pad=10)

@@ -45,7 +45,7 @@ base_fee = FancyBboxPatch((0.10, y_pos), base_fee_width, bar_height,
                            edgecolor='black', linewidth=1)
 ax.add_patch(base_fee)
 ax.text(0.10 + base_fee_width/2, y_pos + bar_height/2, 'BASE FEE: 30 Gwei',
-        ha='center', va='center', fontsize=12, fontweight='bold', color='white')
+        ha='center', va='center', fontsize=15, fontweight='bold', color='white')
 
 # Priority fee portion (6% = 2/32)
 priority_width = total_width * 0.06
@@ -56,36 +56,36 @@ ax.add_patch(priority_fee)
 
 # Priority label (outside bar because too small)
 ax.text(0.10 + base_fee_width + priority_width + 0.02, y_pos + bar_height/2,
-        'Tip: 2', ha='left', va='center', fontsize=10, fontweight='bold', color=MLGREEN)
+        'Tip: 2', ha='left', va='center', fontsize=14, fontweight='bold', color=MLGREEN)
 
 # Arrow showing flow for Base Fee
 ax.annotate('', xy=(0.10 + base_fee_width/2, y_pos - 0.05),
             xytext=(0.10 + base_fee_width/2, y_pos - 0.20),
             arrowprops=dict(arrowstyle='->', color=MLRED, lw=2))
 ax.text(0.10 + base_fee_width/2, y_pos - 0.28, 'BURNED', ha='center',
-        fontsize=12, fontweight='bold', color=MLRED)
+        fontsize=15, fontweight='bold', color=MLRED)
 ax.text(0.10 + base_fee_width/2, y_pos - 0.35, '(Removed from supply)',
-        ha='center', fontsize=10, color='#555')
+        ha='center', fontsize=14, color='#555')
 
 # Arrow showing flow for Priority Fee
 ax.annotate('', xy=(0.10 + base_fee_width + priority_width/2, y_pos - 0.05),
             xytext=(0.75, y_pos - 0.20),
             arrowprops=dict(arrowstyle='->', color=MLGREEN, lw=2))
 ax.text(0.75, y_pos - 0.28, 'TO VALIDATOR', ha='center',
-        fontsize=12, fontweight='bold', color=MLGREEN)
+        fontsize=15, fontweight='bold', color=MLGREEN)
 ax.text(0.75, y_pos - 0.35, '(Incentive for inclusion)',
-        ha='center', fontsize=10, color='#555')
+        ha='center', fontsize=14, color='#555')
 
 # Title and labels
 ax.text(0.50, 0.88, 'EIP-1559: Transaction Fee Structure', ha='center',
         fontsize=14, fontweight='bold')
 ax.text(0.50, 0.80, 'Effective Gas Price = Base Fee + Priority Fee = 32 Gwei',
-        ha='center', fontsize=12, family='monospace')
+        ha='center', fontsize=15, family='monospace')
 
 # Max fee explanation
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8E8E8', edgecolor='#888')
 ax.text(0.50, 0.08, 'Max Fee (user sets cap) >= Base Fee + Priority Fee\nUnused Max Fee is refunded',
-        ha='center', fontsize=10, bbox=props)
+        ha='center', fontsize=14, bbox=props)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 0.95)

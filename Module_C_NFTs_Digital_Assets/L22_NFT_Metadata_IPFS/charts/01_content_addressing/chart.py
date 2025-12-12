@@ -33,7 +33,7 @@ MLRED = '#D62728'
 fig, ax = plt.subplots(figsize=(10, 6))
 
 # Left side - Location Addressing (HTTP)
-ax.text(0.25, 0.92, 'Location Addressing (HTTP)', ha='center', fontsize=12,
+ax.text(0.25, 0.92, 'Location Addressing (HTTP)', ha='center', fontsize=15,
         fontweight='bold', color=MLRED,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
@@ -50,9 +50,9 @@ for b in loc_boxes:
                           edgecolor='black', linewidth=1.5, alpha=0.8)
     ax.add_patch(box)
     ax.text(b['x'], b['y'] + 0.02, b['name'], ha='center', va='center',
-            fontsize=10, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
     ax.text(b['x'], b['y'] - 0.04, b['desc'], ha='center', va='center',
-            fontsize=7, color='white')
+            fontsize=14, color='white')
 
 # Arrows
 ax.annotate('', xy=(0.19, 0.65), xytext=(0.14, 0.65),
@@ -61,11 +61,11 @@ ax.annotate('', xy=(0.36, 0.65), xytext=(0.31, 0.65),
            arrowprops=dict(arrowstyle='->', color='#666', lw=2))
 
 # Problem: Server down = 404
-ax.text(0.25, 0.45, 'Server down = 404 Error', ha='center', fontsize=10,
+ax.text(0.25, 0.45, 'Server down = 404 Error', ha='center', fontsize=14,
         color=MLRED, fontweight='bold')
 
 # Right side - Content Addressing (IPFS)
-ax.text(0.75, 0.92, 'Content Addressing (IPFS)', ha='center', fontsize=12,
+ax.text(0.75, 0.92, 'Content Addressing (IPFS)', ha='center', fontsize=15,
         fontweight='bold', color=MLGREEN,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
@@ -82,9 +82,9 @@ for b in cont_boxes:
                           edgecolor='black', linewidth=1.5, alpha=0.8)
     ax.add_patch(box)
     ax.text(b['x'], b['y'] + 0.02, b['name'], ha='center', va='center',
-            fontsize=10, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
     ax.text(b['x'], b['y'] - 0.04, b['desc'], ha='center', va='center',
-            fontsize=7, color='white')
+            fontsize=14, color='white')
 
 # Arrows
 ax.annotate('', xy=(0.69, 0.65), xytext=(0.64, 0.65),
@@ -93,7 +93,7 @@ ax.annotate('', xy=(0.86, 0.65), xytext=(0.81, 0.65),
            arrowprops=dict(arrowstyle='->', color='#666', lw=2))
 
 # Advantage: Multiple sources
-ax.text(0.75, 0.45, 'Any node can serve file', ha='center', fontsize=10,
+ax.text(0.75, 0.45, 'Any node can serve file', ha='center', fontsize=14,
         color=MLGREEN, fontweight='bold')
 
 # Key differences at bottom
@@ -105,8 +105,8 @@ differences = [
 
 for i, (loc, cont) in enumerate(differences):
     y = 0.30 - i * 0.08
-    ax.text(0.25, y, loc, ha='center', fontsize=9, color=MLRED)
-    ax.text(0.75, y, cont, ha='center', fontsize=9, color=MLGREEN)
+    ax.text(0.25, y, loc, ha='center', fontsize=14, color=MLRED)
+    ax.text(0.75, y, cont, ha='center', fontsize=14, color=MLGREEN)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0.05, 1)

@@ -51,15 +51,15 @@ for i, (token, scores) in enumerate(token_types.items()):
     bars = ax.bar(x + i * width - 0.3, scores, width, label=token,
                   color=colors[i], edgecolor='black', linewidth=0.5, alpha=0.85)
 
-ax.set_ylabel('Meets Criterion (0=No, 1=Yes)', fontsize=12)
+ax.set_ylabel('Meets Criterion (0=No, 1=Yes)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(criteria, fontsize=10, fontweight='bold')
+ax.set_xticklabels(criteria, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 1.2)
 
 ax.axhline(y=0.5, color='gray', linestyle='--', alpha=0.5)
-ax.text(3.7, 0.52, 'Gray Area', fontsize=9, va='bottom', color='gray')
+ax.text(3.7, 0.52, 'Gray Area', fontsize=14, va='bottom', color='gray')
 
-ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=3, fontsize=9)
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=3, fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 ax.set_title('Howey Test Applied to Different Token Types', fontweight='bold', fontsize=15, pad=10)

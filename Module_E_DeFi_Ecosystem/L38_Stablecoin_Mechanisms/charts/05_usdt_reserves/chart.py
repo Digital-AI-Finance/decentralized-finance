@@ -43,11 +43,11 @@ bars = ax.barh(y_pos, percentages, color=colors, edgecolor='black', linewidth=1.
 # Add value labels
 for bar, pct in zip(bars, percentages):
     ax.text(bar.get_width() + 1, bar.get_y() + bar.get_height()/2,
-            f'{pct}%', va='center', fontsize=11, fontweight='bold')
+            f'{pct}%', va='center', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(reserve_types, fontsize=10)
-ax.set_xlabel('Percentage of Reserves', fontsize=12)
+ax.set_yticklabels(reserve_types, fontsize=14)
+ax.set_xlabel('Percentage of Reserves', fontsize=15)
 ax.set_xlim(0, 100)
 
 ax.invert_yaxis()
@@ -55,7 +55,7 @@ ax.grid(True, alpha=0.3, axis='x')
 
 # Add annotation
 ax.text(0.5, -0.15, 'Tether has shifted heavily to US Treasuries after 2022 criticism',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('USDT (Tether) Reserve Composition (2024)', fontweight='bold', fontsize=14, pad=10)

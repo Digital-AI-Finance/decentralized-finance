@@ -53,23 +53,23 @@ bars1 = ax.bar(x - width/2, severity, width, label='Severity',
 bars2 = ax.bar(x + width/2, likelihood, width, label='Likelihood',
                color=MLORANGE, edgecolor='black', linewidth=0.5, alpha=0.85)
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(risks, fontsize=9, fontweight='bold')
+ax.set_xticklabels(risks, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Risk score (severity * likelihood / 10)
 risk_scores = [s * l / 10 for s, l in zip(severity, likelihood)]
 for i, score in enumerate(risk_scores):
     ax.text(i, max(severity[i], likelihood[i]) + 0.5, f'Risk: {score:.1f}',
-            ha='center', fontsize=9, fontweight='bold', color='#333')
+            ha='center', fontsize=14, fontweight='bold', color='#333')
 
 # Mitigation note
 ax.text(0.5, -0.15, 'Mitigation: Pin to multiple services, use immutable tokenURI, prefer IPFS/Arweave over HTTP',
-        transform=ax.transAxes, ha='center', fontsize=9,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('NFT Metadata Permanence Risks', fontweight='bold', fontsize=15, pad=10)

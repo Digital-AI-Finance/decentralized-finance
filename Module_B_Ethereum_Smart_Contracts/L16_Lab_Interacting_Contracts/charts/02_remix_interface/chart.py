@@ -19,7 +19,7 @@ areas = [
 for x, y, w, h, label, color in areas:
     rect = mpatches.FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.02", facecolor=color, edgecolor='black', linewidth=2, alpha=0.8)
     ax.add_patch(rect)
-    ax.text(x + w/2, y + h/2, label, ha='center', va='center', fontsize=11, fontweight='bold', color='white')
+    ax.text(x + w/2, y + h/2, label, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
 ax.text(0.5, 0.95, 'Remix IDE Layout', ha='center', va='center', fontsize=14, fontweight='bold')
 ax.set_xlim(0, 1)

@@ -44,11 +44,11 @@ bars = ax.barh(y_pos, tvl, color=colors, edgecolor='black', linewidth=1.5, heigh
 # Add value labels and type annotations
 for bar, val, rtype in zip(bars, tvl, rollup_type):
     ax.text(bar.get_width() + 0.3, bar.get_y() + bar.get_height()/2,
-            f'${val}B ({rtype})', va='center', fontsize=10, fontweight='bold')
+            f'${val}B ({rtype})', va='center', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(l2s, fontsize=11)
-ax.set_xlabel('Total Value Locked (Billion USD)', fontsize=12)
+ax.set_yticklabels(l2s, fontsize=14)
+ax.set_xlabel('Total Value Locked (Billion USD)', fontsize=15)
 ax.set_xlim(0, 22)
 
 ax.invert_yaxis()
@@ -57,7 +57,7 @@ ax.grid(True, alpha=0.3, axis='x')
 # Total annotation
 total_tvl = sum(tvl)
 ax.text(0.5, -0.12, f'Total L2 TVL: ~${total_tvl:.0f}B (up from $10B in early 2024)',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('Ethereum L2 TVL Distribution (Q4 2024)', fontweight='bold', fontsize=14, pad=10)

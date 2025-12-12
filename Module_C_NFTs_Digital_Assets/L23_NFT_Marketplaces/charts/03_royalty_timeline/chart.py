@@ -52,21 +52,21 @@ for i, (year, event, status, color) in enumerate(events):
     # Event label (alternating above/below)
     if i % 2 == 0:
         ax.annotate(event, xy=(year, 0.5), xytext=(year, 0.75),
-                    ha='center', va='bottom', fontsize=9, fontweight='bold',
+                    ha='center', va='bottom', fontsize=14, fontweight='bold',
                     arrowprops=dict(arrowstyle='-', color=color, lw=1.5))
-        ax.text(year, 0.88, status, ha='center', va='bottom', fontsize=8,
+        ax.text(year, 0.88, status, ha='center', va='bottom', fontsize=14,
                 bbox=dict(boxstyle='round,pad=0.2', facecolor=color, alpha=0.3))
     else:
         ax.annotate(event, xy=(year, 0.5), xytext=(year, 0.25),
-                    ha='center', va='top', fontsize=9, fontweight='bold',
+                    ha='center', va='top', fontsize=14, fontweight='bold',
                     arrowprops=dict(arrowstyle='-', color=color, lw=1.5))
-        ax.text(year, 0.12, status, ha='center', va='top', fontsize=8,
+        ax.text(year, 0.12, status, ha='center', va='top', fontsize=14,
                 bbox=dict(boxstyle='round,pad=0.2', facecolor=color, alpha=0.3))
 
 # Year labels on axis
 years = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
 for year in years:
-    ax.text(year, 0.42, str(year), ha='center', va='top', fontsize=9, fontweight='bold')
+    ax.text(year, 0.42, str(year), ha='center', va='top', fontsize=14, fontweight='bold')
 
 # Styling
 ax.set_xlim(2016.5, 2024.5)
@@ -77,7 +77,7 @@ ax.set_axis_off()
 mandatory = mpatches.Patch(color=MLGREEN, alpha=0.7, label='Mandatory Royalties Era (2017-2022)')
 optional = mpatches.Patch(color=MLORANGE, alpha=0.7, label='Optional Royalties Era (2022+)')
 ax.legend(handles=[mandatory, optional], loc='upper center', bbox_to_anchor=(0.5, 0.05),
-          ncol=2, fontsize=10, frameon=True)
+          ncol=2, fontsize=14, frameon=True)
 
 ax.set_title('NFT Creator Royalty Enforcement Timeline', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

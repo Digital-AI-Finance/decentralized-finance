@@ -49,7 +49,7 @@ for autotext in autotexts:
     autotext.set_fontweight('bold')
 
 # Annotations
-ax.text(1.3, 0.3, 'Bridge exploits\nare largest\ncategory (~$2.5B)', fontsize=9, ha='left', color=MLRED,
+ax.text(1.3, 0.3, 'Bridge exploits\nare largest\ncategory (~$2.5B)', fontsize=14, ha='left', color=MLRED,
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_title('DeFi Attack Vectors by Total Losses (2020-2024)', fontweight='bold', fontsize=14, pad=10)

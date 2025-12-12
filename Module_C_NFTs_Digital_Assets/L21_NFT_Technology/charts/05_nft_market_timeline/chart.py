@@ -59,11 +59,11 @@ for evt in events:
 
     ax.axvline(x=evt['year'], color=evt['color'], linestyle='--', alpha=0.5)
     ax.annotate(evt['event'], xy=(evt['year'], min(y_val + 2, 20)),
-               ha='center', fontsize=8, fontweight='bold', color=evt['color'],
+               ha='center', fontsize=14, fontweight='bold', color=evt['color'],
                bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=evt['color'], alpha=0.9))
 
-ax.set_xlabel('Year', fontsize=12)
-ax.set_ylabel('Market Volume ($ Billions)', fontsize=12)
+ax.set_xlabel('Year', fontsize=15)
+ax.set_ylabel('Market Volume ($ Billions)', fontsize=15)
 ax.set_xlim(2016.5, 2024.5)
 ax.set_ylim(0, 30)
 
@@ -72,7 +72,7 @@ ax.grid(True, alpha=0.3)
 # Peak annotation
 ax.annotate('Peak: $25B\n(2021)', xy=(2021, 25), xytext=(2022, 27),
            arrowprops=dict(arrowstyle='->', color='black'),
-           fontsize=9, ha='center')
+           fontsize=14, ha='center')
 
 ax.set_title('NFT Market Evolution and Key Milestones', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

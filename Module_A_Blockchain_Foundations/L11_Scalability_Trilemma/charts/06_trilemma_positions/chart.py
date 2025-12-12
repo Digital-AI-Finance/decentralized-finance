@@ -53,30 +53,30 @@ for dec, scale, sec, name, color in blockchains:
     offset_y = 5 if name not in ['Ethereum L1', 'Bitcoin'] else -8
     ha = 'left' if offset_x > 0 else 'right'
     ax.annotate(name, (dec, scale), xytext=(dec + offset_x, scale + offset_y),
-                fontsize=10, fontweight='bold', ha=ha)
+                fontsize=14, fontweight='bold', ha=ha)
 
 # Ideal corner annotation
-ax.annotate('Ideal\n(impossible?)', xy=(90, 90), fontsize=11, ha='center',
+ax.annotate('Ideal\n(impossible?)', xy=(90, 90), fontsize=14, ha='center',
             style='italic', color='#888')
 ax.scatter(90, 90, s=150, color='#888', alpha=0.3, marker='*')
 
 # Axes labels and styling
-ax.set_xlabel('Decentralization Score', fontsize=13)
-ax.set_ylabel('Scalability Score (TPS)', fontsize=13)
+ax.set_xlabel('Decentralization Score', fontsize=16)
+ax.set_ylabel('Scalability Score (TPS)', fontsize=16)
 ax.set_xlim(0, 100)
 ax.set_ylim(0, 100)
 
 # Quadrant labels
-ax.text(85, 5, 'Decentralized\nNot Scalable', ha='center', fontsize=9,
+ax.text(85, 5, 'Decentralized\nNot Scalable', ha='center', fontsize=14,
         color=MLBLUE, alpha=0.7)
-ax.text(15, 95, 'Scalable\nNot Decentralized', ha='center', fontsize=9,
+ax.text(15, 95, 'Scalable\nNot Decentralized', ha='center', fontsize=14,
         color=MLRED, alpha=0.7)
 
 # Size legend
 ax.scatter([], [], s=50*3, color='gray', alpha=0.7, label='Security: Low')
 ax.scatter([], [], s=75*3, color='gray', alpha=0.7, label='Security: Medium')
 ax.scatter([], [], s=95*3, color='gray', alpha=0.7, label='Security: High')
-ax.legend(loc='lower right', fontsize=9, title='Bubble Size = Security')
+ax.legend(loc='lower right', fontsize=14, title='Bubble Size = Security')
 
 ax.grid(True, alpha=0.3)
 ax.set_title('Blockchain Trilemma Positioning', fontweight='bold', fontsize=15, pad=10)

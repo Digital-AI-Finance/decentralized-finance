@@ -56,11 +56,11 @@ bars = ax.barh(y_pos, severity, color=colors, edgecolor='black', linewidth=0.5, 
 # Add value labels
 for i, (bar, sev) in enumerate(zip(bars, severity)):
     ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2,
-            f'{sev}/10', va='center', ha='left', fontsize=11, fontweight='bold')
+            f'{sev}/10', va='center', ha='left', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(labels, fontsize=10, fontweight='bold')
-ax.set_xlabel('Severity (1-10)', fontsize=12)
+ax.set_yticklabels(labels, fontsize=14, fontweight='bold')
+ax.set_xlabel('Severity (1-10)', fontsize=15)
 ax.set_xlim(0, 11)
 ax.grid(True, alpha=0.3, axis='x')
 
@@ -71,11 +71,11 @@ legend_elements = [
     Patch(facecolor=MLORANGE, label='Game Design'),
     Patch(facecolor=MLRED, label='Economic'),
 ]
-ax.legend(handles=legend_elements, loc='lower right', fontsize=9)
+ax.legend(handles=legend_elements, loc='lower right', fontsize=14)
 
 # Note
 ax.text(0.5, -0.12, 'Result: Very limited cross-game interoperability exists today',
-        transform=ax.transAxes, ha='center', fontsize=9,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.set_title('Barriers to Cross-Game Asset Interoperability', fontweight='bold', fontsize=15, pad=10)

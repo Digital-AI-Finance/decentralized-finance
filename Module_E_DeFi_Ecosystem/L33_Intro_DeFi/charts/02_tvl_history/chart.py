@@ -40,16 +40,16 @@ ax.plot(dates, tvl, '-o', color=MLBLUE, linewidth=2.5, markersize=8)
 ax.fill_between(dates, tvl, alpha=0.2, color=MLBLUE)
 
 # Key events annotations
-ax.annotate('DeFi Summer\n2020', xy=(4, 25), fontsize=9, ha='center',
+ax.annotate('DeFi Summer\n2020', xy=(4, 25), fontsize=14, ha='center',
             bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
-ax.annotate('ATH: $180B', xy=(6, 180), xytext=(7, 160), fontsize=9, ha='center',
+ax.annotate('ATH: $180B', xy=(6, 180), xytext=(7, 160), fontsize=14, ha='center',
             arrowprops=dict(arrowstyle='->', color='black', lw=1),
             bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
-ax.annotate('Terra/Luna\nCollapse', xy=(8, 40), xytext=(9, 70), fontsize=9, ha='center',
+ax.annotate('Terra/Luna\nCollapse', xy=(8, 40), xytext=(9, 70), fontsize=14, ha='center',
             arrowprops=dict(arrowstyle='->', color='black', lw=1),
             bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
-ax.set_ylabel('Total Value Locked (Billion USD)', fontsize=12)
+ax.set_ylabel('Total Value Locked (Billion USD)', fontsize=15)
 ax.set_ylim(0, 200)
 
 ax.grid(True, alpha=0.3)

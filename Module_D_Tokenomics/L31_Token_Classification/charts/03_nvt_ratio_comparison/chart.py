@@ -53,16 +53,16 @@ for bar, val in zip(bars, nvt_ratios):
     ax.annotate(f'{val}',
                 xy=(bar.get_x() + bar.get_width()/2, bar.get_height()),
                 xytext=(0, 5), textcoords='offset points',
-                ha='center', va='bottom', fontsize=12, fontweight='bold')
+                ha='center', va='bottom', fontsize=15, fontweight='bold')
 
 # Add interpretation zones
 ax.axhline(y=50, color=MLORANGE, linestyle='--', alpha=0.5)
-ax.text(5.6, 52, 'Store of Value\n(NVT > 50)', fontsize=9, va='bottom', color=MLORANGE)
+ax.text(5.6, 52, 'Store of Value\n(NVT > 50)', fontsize=14, va='bottom', color=MLORANGE)
 
 ax.axhline(y=20, color=MLGREEN, linestyle='--', alpha=0.5)
-ax.text(5.6, 12, 'High Utility\n(NVT < 20)', fontsize=9, va='bottom', color=MLGREEN)
+ax.text(5.6, 12, 'High Utility\n(NVT < 20)', fontsize=14, va='bottom', color=MLGREEN)
 
-ax.set_ylabel('NVT Ratio (Market Cap / Daily Tx Volume)', fontsize=11)
+ax.set_ylabel('NVT Ratio (Market Cap / Daily Tx Volume)', fontsize=14)
 ax.set_ylim(0, 90)
 
 ax.grid(True, alpha=0.3, axis='y')

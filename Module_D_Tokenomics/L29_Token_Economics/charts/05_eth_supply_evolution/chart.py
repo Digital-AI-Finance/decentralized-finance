@@ -52,20 +52,20 @@ for bars, vals in [(bars1, issuance), (bars2, burn_rate), (bars3, net_change)]:
         ax.annotate(f'{sign}{val}%',
                     xy=(bar.get_x() + bar.get_width()/2, bar.get_height()),
                     xytext=(0, 3), textcoords='offset points',
-                    ha='center', va='bottom', fontsize=10, fontweight='bold')
+                    ha='center', va='bottom', fontsize=14, fontweight='bold')
 
 # Add milestone annotations
 ax.annotate('EIP-1559:\nFee Burns Begin', xy=(1, 3.5), xytext=(0.3, 4.5),
-            fontsize=9, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
+            fontsize=14, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
 ax.annotate('The Merge:\n90% Issuance Cut', xy=(2, 1.5), xytext=(2.7, 3),
-            fontsize=9, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
+            fontsize=14, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
 
-ax.set_ylabel('Annual Rate (%)', fontsize=12)
+ax.set_ylabel('Annual Rate (%)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(periods, fontsize=10, fontweight='bold')
+ax.set_xticklabels(periods, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 5.5)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 ax.set_title('Ethereum Supply Evolution: From Inflationary to Deflationary', fontweight='bold', fontsize=14, pad=10)

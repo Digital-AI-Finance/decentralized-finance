@@ -47,18 +47,18 @@ labels_text = ['~10 MH/s', '~500 MH/s', '~1 GH/s', '~200 TH/s']
 for bar, label in zip(bars, labels_text):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2., height * 1.1,
-            label, ha='center', va='bottom', fontsize=11, fontweight='bold')
+            label, ha='center', va='bottom', fontsize=14, fontweight='bold')
 
 ax.set_yscale('log')
-ax.set_ylabel('Hash Rate (log scale)', fontsize=13)
-ax.set_xlabel('Hardware Generation', fontsize=13)
+ax.set_ylabel('Hash Rate (log scale)', fontsize=16)
+ax.set_xlabel('Hardware Generation', fontsize=16)
 ax.set_ylim(1, 1e10)
 
 # Efficiency annotation
 ax.text(0.02, 0.95, 'Efficiency Improvement:', transform=ax.transAxes,
-        fontsize=11, fontweight='bold', color='#333')
+        fontsize=14, fontweight='bold', color='#333')
 ax.text(0.02, 0.88, 'ASIC is ~10,000x more efficient than CPU', transform=ax.transAxes,
-        fontsize=10, color='#555')
+        fontsize=14, color='#555')
 
 # Timeline annotation
 timeline = [('2009', 0), ('2010', 0.75), ('2013', 2.25), ('2024', 3.25)]

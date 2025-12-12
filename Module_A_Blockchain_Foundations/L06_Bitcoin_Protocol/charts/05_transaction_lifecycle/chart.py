@@ -56,11 +56,11 @@ for x, title, desc, color in stages:
             fontweight='bold', color='white')
 
     # Title above
-    ax.text(x, y_center + 0.15, title, ha='center', fontsize=12,
+    ax.text(x, y_center + 0.15, title, ha='center', fontsize=15,
             fontweight='bold', color=color)
 
     # Description below
-    ax.text(x, y_center - 0.18, desc, ha='center', fontsize=10, color='#555')
+    ax.text(x, y_center - 0.18, desc, ha='center', fontsize=14, color='#555')
 
 # Arrows between stages
 for i in range(len(stages) - 1):
@@ -81,16 +81,16 @@ confirmations = [
 
 for x, label, time in confirmations:
     ax.plot(x, 0.15, 'o', markersize=8, color=MLGREEN if '6' in label else MLORANGE)
-    ax.text(x, 0.20, label, ha='center', fontsize=9, fontweight='bold', color='#333')
-    ax.text(x, 0.08, time, ha='center', fontsize=9, color='#555')
+    ax.text(x, 0.20, label, ha='center', fontsize=14, fontweight='bold', color='#333')
+    ax.text(x, 0.08, time, ha='center', fontsize=14, color='#555')
 
-ax.text(0.50, 0.22, 'Confirmation Timeline', ha='center', fontsize=11,
+ax.text(0.50, 0.22, 'Confirmation Timeline', ha='center', fontsize=14,
         fontweight='bold', color='#333')
 
 # Key insight
 insight = 'More confirmations = Higher security (6+ for large amounts)'
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F4E8', edgecolor=MLGREEN)
-ax.text(0.50, 0.88, insight, ha='center', fontsize=11, fontweight='bold',
+ax.text(0.50, 0.88, insight, ha='center', fontsize=14, fontweight='bold',
         bbox=props, color='#333')
 
 ax.set_xlim(0, 1)

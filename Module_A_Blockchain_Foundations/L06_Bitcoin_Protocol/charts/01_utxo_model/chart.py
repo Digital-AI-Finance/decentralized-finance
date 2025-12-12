@@ -36,7 +36,7 @@ fig, ax = plt.subplots(figsize=(10, 6))
 
 # Draw wallet UTXOs on left
 ax.text(0.12, 0.92, "Alice's Wallet", ha='center', fontsize=14, fontweight='bold', color=MLBLUE)
-ax.text(0.12, 0.86, "(UTXOs owned)", ha='center', fontsize=11, color='#555')
+ax.text(0.12, 0.86, "(UTXOs owned)", ha='center', fontsize=14, color='#555')
 
 # UTXOs as coins
 utxos = [
@@ -48,24 +48,24 @@ utxos = [
 for x, y, label, color in utxos:
     coin = Circle((x, y), 0.06, facecolor=color, edgecolor='#333', linewidth=2)
     ax.add_patch(coin)
-    ax.text(x, y, label, ha='center', va='center', fontsize=10, fontweight='bold', color='white')
+    ax.text(x, y, label, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
-ax.text(0.12, 0.40, 'Total: 1.5 BTC', ha='center', fontsize=12, fontweight='bold', color=MLGREEN)
+ax.text(0.12, 0.40, 'Total: 1.5 BTC', ha='center', fontsize=15, fontweight='bold', color=MLGREEN)
 
 # Transaction in center
 tx_box = FancyBboxPatch((0.35, 0.35), 0.30, 0.40,
                          boxstyle="round,pad=0.02", facecolor=MLLAVENDER,
                          edgecolor='black', linewidth=2)
 ax.add_patch(tx_box)
-ax.text(0.50, 0.70, 'TRANSACTION', ha='center', fontsize=13, fontweight='bold', color=MLPURPLE)
+ax.text(0.50, 0.70, 'TRANSACTION', ha='center', fontsize=16, fontweight='bold', color=MLPURPLE)
 
 # Inputs
-ax.text(0.50, 0.60, 'Inputs:', ha='center', fontsize=11, fontweight='bold', color='#333')
-ax.text(0.50, 0.53, '0.5 BTC (consumed)', ha='center', fontsize=10, color=MLRED)
-ax.text(0.50, 0.47, '0.3 BTC (consumed)', ha='center', fontsize=10, color=MLRED)
+ax.text(0.50, 0.60, 'Inputs:', ha='center', fontsize=14, fontweight='bold', color='#333')
+ax.text(0.50, 0.53, '0.5 BTC (consumed)', ha='center', fontsize=14, color=MLRED)
+ax.text(0.50, 0.47, '0.3 BTC (consumed)', ha='center', fontsize=14, color=MLRED)
 
 # Outputs
-ax.text(0.50, 0.40, 'Outputs:', ha='center', fontsize=11, fontweight='bold', color='#333')
+ax.text(0.50, 0.40, 'Outputs:', ha='center', fontsize=14, fontweight='bold', color='#333')
 
 # Arrow from UTXOs to TX
 ax.annotate('', xy=(0.35, 0.55), xytext=(0.25, 0.55),
@@ -83,26 +83,26 @@ new_utxos = [
 for x, y, label, color, desc in new_utxos:
     coin = Circle((x, y), 0.055, facecolor=color, edgecolor='#333', linewidth=2)
     ax.add_patch(coin)
-    ax.text(x, y, label, ha='center', va='center', fontsize=9, fontweight='bold', color='white')
-    ax.text(x, y - 0.12, desc, ha='center', fontsize=10, color='#555')
+    ax.text(x, y, label, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
+    ax.text(x, y - 0.12, desc, ha='center', fontsize=14, color='#555')
 
 # Arrow from TX to outputs
 ax.annotate('', xy=(0.70, 0.55), xytext=(0.65, 0.55),
             arrowprops=dict(arrowstyle='->', color='#333', lw=2))
 
 # Fee annotation
-ax.text(0.82, 0.40, 'Fee: 0.01 BTC', ha='center', fontsize=11,
+ax.text(0.82, 0.40, 'Fee: 0.01 BTC', ha='center', fontsize=14,
         fontweight='bold', color=MLRED)
-ax.text(0.82, 0.33, '(0.8 - 0.6 - 0.19)', ha='center', fontsize=10, color='#666')
+ax.text(0.82, 0.33, '(0.8 - 0.6 - 0.19)', ha='center', fontsize=14, color='#666')
 
 # Key insight box
 insight_text = 'UTXOs are consumed entirely, change returned as new UTXO'
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F4E8', edgecolor=MLGREEN, alpha=0.95)
-ax.text(0.50, 0.12, insight_text, ha='center', va='center', fontsize=11,
+ax.text(0.50, 0.12, insight_text, ha='center', va='center', fontsize=14,
         fontweight='bold', bbox=props, color='#333')
 
 # Remaining UTXO annotation
-ax.text(0.12, 0.25, '0.7 BTC remains\n(unspent)', ha='center', fontsize=10,
+ax.text(0.12, 0.25, '0.7 BTC remains\n(unspent)', ha='center', fontsize=14,
         color='#555', style='italic')
 
 ax.set_xlim(0, 1)

@@ -46,7 +46,7 @@ for proj in projects:
                edgecolor='black', linewidth=1.5, alpha=0.8, zorder=3)
     ax.annotate(proj['name'], (proj['year'], proj['value']),
                 xytext=(5, 5), textcoords='offset points',
-                fontsize=10, fontweight='bold')
+                fontsize=14, fontweight='bold')
 
 # Categories legend
 from matplotlib.patches import Patch
@@ -56,10 +56,10 @@ legend_elements = [
     Patch(facecolor=MLGREEN, edgecolor='black', label='Utility NFTs'),
     Patch(facecolor=MLRED, edgecolor='black', label='Generative Art'),
 ]
-ax.legend(handles=legend_elements, loc='lower right', fontsize=9)
+ax.legend(handles=legend_elements, loc='lower right', fontsize=14)
 
-ax.set_xlabel('Launch Year', fontsize=12)
-ax.set_ylabel('Market Significance (relative)', fontsize=12)
+ax.set_xlabel('Launch Year', fontsize=15)
+ax.set_ylabel('Market Significance (relative)', fontsize=15)
 ax.set_xlim(2016.5, 2022)
 ax.set_ylim(0, 2.5)
 
@@ -67,10 +67,10 @@ ax.grid(True, alpha=0.3)
 
 # Timeline annotations
 ax.axvline(x=2017, color='#888', linestyle='--', alpha=0.3)
-ax.text(2017, 2.3, 'ERC-721\nStandard', ha='center', fontsize=9, color='#666')
+ax.text(2017, 2.3, 'ERC-721\nStandard', ha='center', fontsize=14, color='#666')
 
 ax.axvline(x=2021, color='#888', linestyle='--', alpha=0.3)
-ax.text(2021, 2.3, 'NFT\nBoom', ha='center', fontsize=9, color='#666')
+ax.text(2021, 2.3, 'NFT\nBoom', ha='center', fontsize=14, color='#666')
 
 ax.set_title('NFT Ecosystem: Major Projects Timeline', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

@@ -43,28 +43,28 @@ ax.plot(x, y, '-', color=MLBLUE, linewidth=2.5, label='x * y = k')
 # Mark initial point
 ax.plot(100, 200000, 'o', color=MLGREEN, markersize=12, zorder=5)
 ax.annotate('Initial\n100 ETH\n200k USDC', xy=(100, 200000), xytext=(115, 220000),
-            fontsize=10, ha='left',
+            fontsize=14, ha='left',
             arrowprops=dict(arrowstyle='->', color='black', lw=1))
 
 # Mark after buying 10 ETH
 ax.plot(90, k/90, 'o', color=MLORANGE, markersize=12, zorder=5)
 ax.annotate('After buying 10 ETH\n90 ETH, 222k USDC', xy=(90, k/90), xytext=(55, 260000),
-            fontsize=10, ha='left',
+            fontsize=14, ha='left',
             arrowprops=dict(arrowstyle='->', color='black', lw=1))
 
 # Mark extreme point
 ax.plot(150, k/150, 'o', color=MLRED, markersize=10, zorder=5)
 ax.annotate('After selling ETH\n150 ETH, 133k USDC', xy=(150, k/150), xytext=(155, 160000),
-            fontsize=10, ha='left',
+            fontsize=14, ha='left',
             arrowprops=dict(arrowstyle='->', color='black', lw=1))
 
 # Add arrow showing trade direction
 ax.annotate('', xy=(90, 250000), xytext=(100, 200000),
             arrowprops=dict(arrowstyle='->', color=MLGREEN, lw=2))
-ax.text(85, 225000, 'Buy\nETH', fontsize=9, ha='center', color=MLGREEN)
+ax.text(85, 225000, 'Buy\nETH', fontsize=14, ha='center', color=MLGREEN)
 
-ax.set_xlabel('ETH in Pool', fontsize=12)
-ax.set_ylabel('USDC in Pool', fontsize=12)
+ax.set_xlabel('ETH in Pool', fontsize=15)
+ax.set_ylabel('USDC in Pool', fontsize=15)
 ax.set_xlim(40, 210)
 ax.set_ylim(80000, 420000)
 
@@ -72,7 +72,7 @@ ax.set_ylim(80000, 420000)
 ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x/1000:.0f}k'))
 
 ax.grid(True, alpha=0.3)
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 
 ax.set_title('Constant Product AMM: x * y = k', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

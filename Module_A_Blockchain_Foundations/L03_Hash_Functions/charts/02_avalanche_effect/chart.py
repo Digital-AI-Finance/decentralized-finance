@@ -76,19 +76,19 @@ ax.set_title(f'Avalanche Effect: SHA-256("{input1}") vs SHA-256("{input2}")',
 # Add statistics box
 stats_text = f'Input change: 1 bit (b vs B)\nOutput bits changed: {differences}/256\nPercentage: {percentage:.1f}%'
 props = dict(boxstyle='round,pad=0.5', facecolor='white', edgecolor=MLPURPLE, alpha=0.95)
-ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, fontsize=12,
+ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, fontsize=15,
         verticalalignment='top', bbox=props, color=MLPURPLE)
 
 # Legend
 legend_text = 'Green = Same bit | Red = Different bit'
 ax.text(0.5, -0.08, legend_text, transform=ax.transAxes, ha='center',
-        fontsize=12, color='#444')
+        fontsize=15, color='#444')
 
 # Show hash prefixes
 ax.text(0.5, 1.08, f'Hash 1: {hash1[:16]}...', transform=ax.transAxes, ha='center',
-        fontsize=10, color=MLGREEN, family='monospace')
+        fontsize=14, color=MLGREEN, family='monospace')
 ax.text(0.5, 1.03, f'Hash 2: {hash2[:16]}...', transform=ax.transAxes, ha='center',
-        fontsize=10, color=MLRED, family='monospace')
+        fontsize=14, color=MLRED, family='monospace')
 
 plt.tight_layout()
 

@@ -50,18 +50,18 @@ for i, (char, values) in enumerate(characteristics.items()):
     bars = ax.bar(x + i * width - 0.3, values, width, label=char,
                   color=colors[i], edgecolor='black', linewidth=0.5, alpha=0.85)
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(services, fontsize=10, fontweight='bold')
+ax.set_xticklabels(services, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper right', fontsize=9, ncol=2)
+ax.legend(loc='upper right', fontsize=14, ncol=2)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Pricing info
 pricing = ['$0.15/GB/mo', 'Free (Filecoin)', '$0.08/GB/mo', 'Server costs']
 for i, price in enumerate(pricing):
-    ax.text(i, -1.5, price, ha='center', fontsize=8,
+    ax.text(i, -1.5, price, ha='center', fontsize=14,
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
 
 ax.set_title('IPFS Pinning Services Comparison', fontweight='bold', fontsize=15, pad=10)

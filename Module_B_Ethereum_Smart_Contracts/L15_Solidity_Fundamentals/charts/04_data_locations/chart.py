@@ -55,15 +55,15 @@ for i, (char_name, values) in enumerate(characteristics.items()):
         height = bar.get_height()
         label = 'High' if val >= 8 else ('Med' if val >= 4 else 'Low')
         ax.text(bar.get_x() + bar.get_width()/2, height + 0.3,
-                label, ha='center', fontsize=9, fontweight='bold')
+                label, ha='center', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Level (0-10)', fontsize=12)
-ax.set_xlabel('Data Location', fontsize=12)
+ax.set_ylabel('Level (0-10)', fontsize=15)
+ax.set_xlabel('Data Location', fontsize=15)
 ax.set_xticks(x + width)
-ax.set_xticklabels(locations, fontsize=12, fontweight='bold')
+ax.set_xticklabels(locations, fontsize=15, fontweight='bold')
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add use case annotations
@@ -74,7 +74,7 @@ use_cases = [
 ]
 
 for i, (loc, desc) in enumerate(use_cases):
-    ax.text(i + width, -1.8, desc, ha='center', fontsize=9, va='top',
+    ax.text(i + width, -1.8, desc, ha='center', fontsize=14, va='top',
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
 
 ax.set_title('Solidity Data Locations: Cost vs Capability', fontweight='bold', fontsize=15, pad=10)

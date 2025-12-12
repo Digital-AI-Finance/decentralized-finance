@@ -53,7 +53,7 @@ for x, label, color in blocks_honest:
                           edgecolor='black', linewidth=1.5)
     ax.add_patch(box)
     ax.text(x, y_honest, label, ha='center', va='center',
-            fontsize=11, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
 
 # Arrows between honest blocks
 for i in range(len(blocks_honest) - 1):
@@ -62,7 +62,7 @@ for i in range(len(blocks_honest) - 1):
                 arrowprops=dict(arrowstyle='->', color='#333', lw=1.5))
 
 ax.text(0.02, y_honest, 'Honest\nChain', ha='center', va='center',
-        fontsize=10, fontweight='bold', color=MLBLUE)
+        fontsize=14, fontweight='bold', color=MLBLUE)
 
 # Attack chain (secret)
 y_attack = 0.40
@@ -79,7 +79,7 @@ for x, label, color in blocks_attack:
                           edgecolor='black', linewidth=1.5)
     ax.add_patch(box)
     ax.text(x, y_attack, label, ha='center', va='center',
-            fontsize=11, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
 
 # Arrows between attack blocks
 for i in range(len(blocks_attack) - 1):
@@ -93,18 +93,18 @@ ax.annotate('', xy=(0.31, y_attack + 0.08), xytext=(0.27, y_honest - 0.08),
                            connectionstyle="arc3,rad=-0.2"))
 
 ax.text(0.02, y_attack, 'Attacker\nChain', ha='center', va='center',
-        fontsize=10, fontweight='bold', color=MLRED)
+        fontsize=14, fontweight='bold', color=MLRED)
 
 # Transaction annotation
-ax.text(0.50, y_honest + 0.18, 'TX: Pay merchant', ha='center', fontsize=10,
+ax.text(0.50, y_honest + 0.18, 'TX: Pay merchant', ha='center', fontsize=14,
         color=MLBLUE, style='italic')
-ax.text(0.50, y_attack - 0.18, 'TX*: Pay self (no merchant)', ha='center', fontsize=10,
+ax.text(0.50, y_attack - 0.18, 'TX*: Pay self (no merchant)', ha='center', fontsize=14,
         color=MLRED, style='italic')
 
 # Longer chain wins
 ax.annotate('', xy=(0.85, 0.55), xytext=(0.85, y_attack + 0.08),
             arrowprops=dict(arrowstyle='->', color=MLGREEN, lw=2))
-ax.text(0.88, 0.52, 'Attacker\nbroadcasts\nlonger chain', ha='left', fontsize=9,
+ax.text(0.88, 0.52, 'Attacker\nbroadcasts\nlonger chain', ha='left', fontsize=14,
         fontweight='bold', color=MLGREEN)
 
 # Cost box
@@ -112,9 +112,9 @@ cost_box = FancyBboxPatch((0.05, 0.05), 0.40, 0.18,
                            boxstyle="round,pad=0.02", facecolor='#FFE0E0',
                            edgecolor=MLRED, linewidth=2)
 ax.add_patch(cost_box)
-ax.text(0.25, 0.18, 'Bitcoin 51% Attack Cost:', ha='center', fontsize=11,
+ax.text(0.25, 0.18, 'Bitcoin 51% Attack Cost:', ha='center', fontsize=14,
         fontweight='bold', color=MLRED)
-ax.text(0.25, 0.10, '~$7 billion (hardware + electricity)', ha='center', fontsize=10,
+ax.text(0.25, 0.10, '~$7 billion (hardware + electricity)', ha='center', fontsize=14,
         color='#333')
 
 # Defense box
@@ -122,9 +122,9 @@ defense_box = FancyBboxPatch((0.55, 0.05), 0.40, 0.18,
                               boxstyle="round,pad=0.02", facecolor='#E0FFE0',
                               edgecolor=MLGREEN, linewidth=2)
 ax.add_patch(defense_box)
-ax.text(0.75, 0.18, 'Defense:', ha='center', fontsize=11,
+ax.text(0.75, 0.18, 'Defense:', ha='center', fontsize=14,
         fontweight='bold', color=MLGREEN)
-ax.text(0.75, 0.10, 'Wait for 6+ confirmations', ha='center', fontsize=10,
+ax.text(0.75, 0.10, 'Wait for 6+ confirmations', ha='center', fontsize=14,
         color='#333')
 
 ax.set_xlim(0, 1)

@@ -42,20 +42,20 @@ y_pos = np.arange(len(cases))
 bars = ax.barh(y_pos, fines, color=colors, edgecolor='black', linewidth=1.2, height=0.6)
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(cases, fontsize=10)
-ax.set_xlabel('Penalty Amount (Billion USD)', fontsize=12)
+ax.set_yticklabels(cases, fontsize=14)
+ax.set_xlabel('Penalty Amount (Billion USD)', fontsize=15)
 ax.set_xlim(0, 5.5)
 
 # Add value labels
 for bar, fine in zip(bars, fines):
     ax.text(fine + 0.1, bar.get_y() + bar.get_height()/2, f'${fine:.1f}B',
-            va='center', fontsize=10, fontweight='bold')
+            va='center', fontsize=14, fontweight='bold')
 
 ax.grid(True, alpha=0.3, axis='x')
 
 # Total annotation
 total = sum(fines)
-ax.text(4.5, -0.8, f'Total: ${total:.1f}B+', fontsize=11, fontweight='bold',
+ax.text(4.5, -0.8, f'Total: ${total:.1f}B+', fontsize=14, fontweight='bold',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_title('Major Crypto Enforcement Actions (2022-2024)', fontweight='bold', fontsize=14, pad=10)

@@ -48,19 +48,19 @@ for i, (mc, fv) in enumerate(zip(market_cap, fdv)):
     color = MLGREEN if ratio < 1.5 else (MLORANGE if ratio < 3 else MLRED)
     ax.annotate(f'{ratio:.1f}x',
                 xy=(x[i], max(mc, fv) + 20),
-                ha='center', fontsize=10, fontweight='bold', color=color)
+                ha='center', fontsize=14, fontweight='bold', color=color)
 
-ax.set_ylabel('Value (Billions USD)', fontsize=12)
+ax.set_ylabel('Value (Billions USD)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(tokens, fontsize=10, fontweight='bold')
+ax.set_xticklabels(tokens, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 900)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add warning annotation
 ax.text(0.5, -0.12, 'High FDV/MC ratio (>3x) indicates significant future dilution risk',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_title('Market Cap vs Fully Diluted Valuation (FDV)', fontweight='bold', fontsize=15, pad=10)

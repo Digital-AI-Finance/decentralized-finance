@@ -51,15 +51,15 @@ ax.plot(users, linear_value, '--', color=MLGRAY, linewidth=2, label='Linear Grow
 ax.scatter(users[::10], actual_value[::10], s=30, color=MLORANGE, alpha=0.7, label='Actual Network (simulated)', zorder=5)
 
 # Add annotations
-ax.annotate('Network effects\naccelerate growth', xy=(700, 490), fontsize=10, ha='center',
+ax.annotate('Network effects\naccelerate growth', xy=(700, 490), fontsize=14, ha='center',
             bbox=dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE))
 
-ax.set_xlabel('Number of Users (Active Addresses)', fontsize=12)
-ax.set_ylabel('Network Value (Normalized)', fontsize=12)
+ax.set_xlabel('Number of Users (Active Addresses)', fontsize=15)
+ax.set_ylabel('Network Value (Normalized)', fontsize=15)
 ax.set_xlim(0, 1050)
 ax.set_ylim(0, 1100)
 
-ax.legend(loc='upper left', fontsize=10)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title("Metcalfe's Law: Network Value vs. User Growth", fontweight='bold', fontsize=15, pad=10)

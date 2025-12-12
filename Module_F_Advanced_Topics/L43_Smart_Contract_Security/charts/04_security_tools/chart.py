@@ -51,21 +51,21 @@ for bars in [bars1, bars2, bars3]:
         ax.annotate(f'{int(height)}',
                     xy=(bar.get_x() + bar.get_width()/2, height),
                     xytext=(0, 3), textcoords='offset points',
-                    ha='center', va='bottom', fontsize=8)
+                    ha='center', va='bottom', fontsize=14)
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(tools, fontsize=11)
+ax.set_xticklabels(tools, fontsize=14)
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Type annotations
-ax.text(0, -1, 'Static', ha='center', fontsize=9, color='gray')
-ax.text(1, -1, 'Symbolic', ha='center', fontsize=9, color='gray')
-ax.text(2, -1, 'Fuzzing', ha='center', fontsize=9, color='gray')
-ax.text(3, -1, 'Formal', ha='center', fontsize=9, color='gray')
+ax.text(0, -1, 'Static', ha='center', fontsize=14, color='gray')
+ax.text(1, -1, 'Symbolic', ha='center', fontsize=14, color='gray')
+ax.text(2, -1, 'Fuzzing', ha='center', fontsize=14, color='gray')
+ax.text(3, -1, 'Formal', ha='center', fontsize=14, color='gray')
 
 ax.set_title('Smart Contract Security Tools Comparison', fontweight='bold', fontsize=14, pad=10)
 plt.tight_layout()

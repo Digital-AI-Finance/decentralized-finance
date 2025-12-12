@@ -55,17 +55,17 @@ bars2 = ax.barh(y_pos + height/2, sustainability, height, label='Long-term Susta
 # Add value labels
 for bar, val in zip(bars1, direct_value):
     ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2,
-            f'{val}', va='center', ha='left', fontsize=10, fontweight='bold')
+            f'{val}', va='center', ha='left', fontsize=14, fontweight='bold')
 for bar, val in zip(bars2, sustainability):
     ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2,
-            f'{val}', va='center', ha='left', fontsize=10, fontweight='bold')
+            f'{val}', va='center', ha='left', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(mechanisms, fontsize=10)
-ax.set_xlabel('Effectiveness Score (1-10)', fontsize=12)
+ax.set_yticklabels(mechanisms, fontsize=14)
+ax.set_xlabel('Effectiveness Score (1-10)', fontsize=15)
 ax.set_xlim(0, 11)
 
-ax.legend(loc='lower right', fontsize=10)
+ax.legend(loc='lower right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='x')
 
 ax.set_title('Value Accrual Mechanisms Comparison', fontweight='bold', fontsize=15, pad=10)

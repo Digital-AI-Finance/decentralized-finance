@@ -51,10 +51,10 @@ for name, y, time_sec, color, label in finality_types:
     ax.barh(y, time_sec, height=0.5, color=color, alpha=0.8, left=0.0001)
 
     # Label on the right
-    ax.text(time_sec * 1.5, y, label, va='center', fontsize=11, fontweight='bold')
+    ax.text(time_sec * 1.5, y, label, va='center', fontsize=14, fontweight='bold')
 
     # Name on the left
-    ax.text(0.00005, y, name, va='center', ha='right', fontsize=11)
+    ax.text(0.00005, y, name, va='center', ha='right', fontsize=14)
 
 # Add vertical lines for reference points
 reference_times = [
@@ -66,17 +66,17 @@ reference_times = [
 
 for t, label in reference_times:
     ax.axvline(x=t, color='#888', linestyle='--', alpha=0.5, linewidth=1)
-    ax.text(t, 4.7, label, ha='center', fontsize=9, color='#555')
+    ax.text(t, 4.7, label, ha='center', fontsize=14, color='#555')
 
 # Finality type annotations
 ax.text(0.001, 0.3, 'INSTANT FINALITY\n(Deterministic)', ha='center',
-        fontsize=10, color=MLPURPLE, fontweight='bold')
+        fontsize=14, color=MLPURPLE, fontweight='bold')
 ax.text(100, 0.3, 'ECONOMIC FINALITY\n(Slashing guarantee)', ha='center',
-        fontsize=10, color=MLGREEN, fontweight='bold')
+        fontsize=14, color=MLGREEN, fontweight='bold')
 ax.text(5000, 0.3, 'PROBABILISTIC\n(Confirmation depth)', ha='center',
-        fontsize=10, color=MLBLUE, fontweight='bold')
+        fontsize=14, color=MLBLUE, fontweight='bold')
 
-ax.set_xlabel('Time to Finality (seconds, log scale)', fontsize=13)
+ax.set_xlabel('Time to Finality (seconds, log scale)', fontsize=16)
 ax.set_yticks([])
 ax.set_ylim(0, 5)
 

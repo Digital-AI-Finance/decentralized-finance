@@ -14,7 +14,7 @@ positions = np.cumsum([0] + durations[:-1])
 
 for exercise, duration, pos, color in zip(exercises, durations, positions, colors):
     ax.barh(0, duration, left=pos, height=0.5, color=color, edgecolor='black', linewidth=1.5)
-    ax.text(pos + duration/2, 0, f'{exercise}\n({duration} min)', ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+    ax.text(pos + duration/2, 0, f'{exercise}\n({duration} min)', ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
 ax.set_xlim(-2, 105)
 ax.set_ylim(-0.6, 0.6)

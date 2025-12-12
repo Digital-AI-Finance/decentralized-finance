@@ -49,10 +49,10 @@ ax.text(0.32, 0.72, 'Blockchain', ha='center', va='center',
         fontsize=15, fontweight='bold', color=MLORANGE)
 
 # Blockchain examples
-ax.text(0.32, 0.58, 'Bitcoin', ha='center', va='center', fontsize=12, color='#444')
-ax.text(0.32, 0.48, 'Ethereum', ha='center', va='center', fontsize=12, color='#444')
-ax.text(0.32, 0.38, 'Cardano', ha='center', va='center', fontsize=12, color='#444')
-ax.text(0.32, 0.28, 'Solana', ha='center', va='center', fontsize=12, color='#444')
+ax.text(0.32, 0.58, 'Bitcoin', ha='center', va='center', fontsize=15, color='#444')
+ax.text(0.32, 0.48, 'Ethereum', ha='center', va='center', fontsize=15, color='#444')
+ax.text(0.32, 0.38, 'Cardano', ha='center', va='center', fontsize=15, color='#444')
+ax.text(0.32, 0.28, 'Solana', ha='center', va='center', fontsize=15, color='#444')
 
 # DAG ellipse (right)
 dag_ellipse = Ellipse((0.68, 0.48), 0.32, 0.45, facecolor='#E0FFE0',
@@ -62,20 +62,20 @@ ax.text(0.68, 0.68, 'DAG', ha='center', va='center',
         fontsize=15, fontweight='bold', color=MLGREEN)
 
 # DAG examples
-ax.text(0.68, 0.52, 'IOTA (Tangle)', ha='center', va='center', fontsize=12, color='#444')
-ax.text(0.68, 0.42, 'Hedera', ha='center', va='center', fontsize=12, color='#444')
-ax.text(0.68, 0.32, 'Nano', ha='center', va='center', fontsize=12, color='#444')
+ax.text(0.68, 0.52, 'IOTA (Tangle)', ha='center', va='center', fontsize=15, color='#444')
+ax.text(0.68, 0.42, 'Hedera', ha='center', va='center', fontsize=15, color='#444')
+ax.text(0.68, 0.32, 'Nano', ha='center', va='center', fontsize=15, color='#444')
 
 # Other DLT label
 ax.text(0.85, 0.18, 'Other DLTs:', ha='center', va='center',
-        fontsize=13, fontweight='bold', color=MLBLUE)
+        fontsize=16, fontweight='bold', color=MLBLUE)
 ax.text(0.85, 0.10, 'Holochain, Tempo', ha='center', va='center',
-        fontsize=11, color='#666', style='italic')
+        fontsize=14, color='#666', style='italic')
 
 # Key insight box
 props = dict(boxstyle='round,pad=0.4', facecolor='white', edgecolor=MLPURPLE, alpha=0.9)
 ax.text(0.5, 0.03, 'All blockchains are DLTs, but not all DLTs are blockchains',
-        ha='center', va='center', fontsize=13, style='italic',
+        ha='center', va='center', fontsize=16, style='italic',
         bbox=props, color=MLPURPLE)
 
 ax.set_xlim(0, 1)

@@ -51,9 +51,9 @@ for autotext in autotexts:
 
 # Add centralization warning
 ax.text(0, -1.35, 'Top 5 pools control ~85% of hash rate',
-        ha='center', fontsize=12, fontweight='bold', color=MLRED)
+        ha='center', fontsize=15, fontweight='bold', color=MLRED)
 ax.text(0, -1.50, '(Miners can switch pools - pools do not own hardware)',
-        ha='center', fontsize=10, color='#555', style='italic')
+        ha='center', fontsize=14, color='#555', style='italic')
 
 ax.set_title('Bitcoin Mining Pool Distribution (2024)', fontweight='bold', fontsize=15, pad=20)
 

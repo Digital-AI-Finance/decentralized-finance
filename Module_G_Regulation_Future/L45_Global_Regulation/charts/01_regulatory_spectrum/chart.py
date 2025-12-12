@@ -52,15 +52,15 @@ y_pos = np.arange(len(countries))
 bars = ax.barh(y_pos, scores, color=colors, edgecolor='black', linewidth=1.2, height=0.7)
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(countries, fontsize=11)
+ax.set_yticklabels(countries, fontsize=14)
 ax.set_xlim(0, 5.5)
 ax.set_xticks([1, 2, 3, 4, 5])
-ax.set_xticklabels(['Hostile', 'Restrictive', 'Developing', 'Permissive', 'Embracing'], fontsize=10)
+ax.set_xticklabels(['Hostile', 'Restrictive', 'Developing', 'Permissive', 'Embracing'], fontsize=14)
 
 # Add score labels
 for bar, score in zip(bars, scores):
     ax.text(score + 0.1, bar.get_y() + bar.get_height()/2, f'{score:.1f}',
-            va='center', fontsize=9)
+            va='center', fontsize=14)
 
 ax.axvline(x=3, color='gray', linestyle='--', alpha=0.5, linewidth=1)
 ax.grid(True, alpha=0.3, axis='x')

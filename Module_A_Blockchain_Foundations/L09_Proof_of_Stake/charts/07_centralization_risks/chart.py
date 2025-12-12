@@ -48,15 +48,15 @@ for autotext in autotexts:
 
 # Add danger zone annotation
 ax.text(0, -1.35, 'Top 5 entities: ~53% of staked ETH', ha='center',
-        fontsize=12, fontweight='bold', color=MLRED)
+        fontsize=15, fontweight='bold', color=MLRED)
 ax.text(0, -1.50, '33% threshold = finality blocking power', ha='center',
-        fontsize=10, color='#555', style='italic')
+        fontsize=14, color='#555', style='italic')
 
 # Decentralization trends
-ax.text(1.2, 0.6, 'Trends:', ha='left', fontsize=11, fontweight='bold')
-ax.text(1.2, 0.45, '- Lido share declining', ha='left', fontsize=10, color=MLGREEN)
-ax.text(1.2, 0.30, '- Solo stakers growing', ha='left', fontsize=10, color=MLGREEN)
-ax.text(1.2, 0.15, '- DVT adoption rising', ha='left', fontsize=10, color=MLGREEN)
+ax.text(1.2, 0.6, 'Trends:', ha='left', fontsize=14, fontweight='bold')
+ax.text(1.2, 0.45, '- Lido share declining', ha='left', fontsize=14, color=MLGREEN)
+ax.text(1.2, 0.30, '- Solo stakers growing', ha='left', fontsize=14, color=MLGREEN)
+ax.text(1.2, 0.15, '- DVT adoption rising', ha='left', fontsize=14, color=MLGREEN)
 
 ax.set_title('Ethereum Staking Concentration (2024)', fontweight='bold', fontsize=15, pad=20)
 

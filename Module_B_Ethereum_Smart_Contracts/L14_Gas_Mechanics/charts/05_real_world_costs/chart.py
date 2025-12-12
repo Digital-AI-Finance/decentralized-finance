@@ -50,15 +50,15 @@ bars = ax.bar(tx_types, usd_costs, color=colors, edgecolor='black', linewidth=0.
 for bar, cost, gas in zip(bars, usd_costs, gas_used):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, height + 0.5,
-            f'${cost:.2f}', ha='center', fontsize=11, fontweight='bold')
+            f'${cost:.2f}', ha='center', fontsize=14, fontweight='bold')
     ax.text(bar.get_x() + bar.get_width()/2, height/2,
-            f'{gas/1000:.0f}K gas', ha='center', fontsize=9, color='white')
+            f'{gas/1000:.0f}K gas', ha='center', fontsize=14, color='white')
 
 # Reference line
 ax.axhline(y=5, color=MLRED, linestyle='--', alpha=0.5, linewidth=1.5)
-ax.text(5.5, 5.5, 'Typical "reasonable" threshold', fontsize=9, color=MLRED)
+ax.text(5.5, 5.5, 'Typical "reasonable" threshold', fontsize=14, color=MLRED)
 
-ax.set_ylabel('Cost (USD) at 32 Gwei, $2000/ETH', fontsize=12)
+ax.set_ylabel('Cost (USD) at 32 Gwei, $2000/ETH', fontsize=15)
 ax.set_ylim(0, 30)
 
 # Legend
@@ -69,7 +69,7 @@ legend_elements = [
     Patch(facecolor=MLORANGE, edgecolor='black', label='NFT'),
     Patch(facecolor=MLRED, edgecolor='black', label='Complex'),
 ]
-ax.legend(handles=legend_elements, loc='upper left', fontsize=10)
+ax.legend(handles=legend_elements, loc='upper left', fontsize=14)
 
 ax.grid(True, alpha=0.3, axis='y')
 

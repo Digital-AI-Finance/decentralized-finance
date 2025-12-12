@@ -39,23 +39,23 @@ pump = FancyBboxPatch((0.05, 0.35), 0.15, 0.40,
                        edgecolor='black', linewidth=2)
 ax.add_patch(pump)
 ax.text(0.125, 0.60, 'GAS', ha='center', fontsize=16, fontweight='bold', color='white')
-ax.text(0.125, 0.45, 'Unit of\nWork', ha='center', fontsize=10, color='white')
+ax.text(0.125, 0.45, 'Unit of\nWork', ha='center', fontsize=14, color='white')
 
 # Transaction (center)
 tx_box = FancyBboxPatch((0.30, 0.40), 0.18, 0.25,
                          boxstyle="round,pad=0.01", facecolor=MLBLUE,
                          edgecolor='black', linewidth=1.5)
 ax.add_patch(tx_box)
-ax.text(0.39, 0.55, 'Transaction', ha='center', fontsize=11, fontweight='bold', color='white')
-ax.text(0.39, 0.47, 'Uses Gas', ha='center', fontsize=10, color='white')
+ax.text(0.39, 0.55, 'Transaction', ha='center', fontsize=14, fontweight='bold', color='white')
+ax.text(0.39, 0.47, 'Uses Gas', ha='center', fontsize=14, color='white')
 
 # Validator (right)
 validator_box = FancyBboxPatch((0.58, 0.40), 0.18, 0.25,
                                 boxstyle="round,pad=0.01", facecolor=MLGREEN,
                                 edgecolor='black', linewidth=1.5)
 ax.add_patch(validator_box)
-ax.text(0.67, 0.55, 'Validator', ha='center', fontsize=11, fontweight='bold', color='white')
-ax.text(0.67, 0.47, 'Earns Fees', ha='center', fontsize=10, color='white')
+ax.text(0.67, 0.55, 'Validator', ha='center', fontsize=14, fontweight='bold', color='white')
+ax.text(0.67, 0.47, 'Earns Fees', ha='center', fontsize=14, color='white')
 
 # Arrows
 ax.annotate('', xy=(0.28, 0.52), xytext=(0.22, 0.52),
@@ -69,7 +69,7 @@ ax.text(0.50, 0.85, 'Transaction Fee = Gas Used x Gas Price', ha='center',
 
 # Example
 ax.text(0.50, 0.75, '21,000 gas x 30 Gwei = 630,000 Gwei = 0.00063 ETH',
-        ha='center', fontsize=11, family='monospace', color='#555')
+        ha='center', fontsize=14, family='monospace', color='#555')
 
 # Three purposes at bottom
 purposes = [
@@ -80,8 +80,8 @@ purposes = [
 
 for x, title, desc in purposes:
     props = dict(boxstyle='round,pad=0.2', facecolor='#E8E8E8', edgecolor='#888')
-    ax.text(x, 0.22, title, ha='center', fontsize=11, fontweight='bold', bbox=props)
-    ax.text(x, 0.08, desc, ha='center', fontsize=9, color='#555')
+    ax.text(x, 0.22, title, ha='center', fontsize=14, fontweight='bold', bbox=props)
+    ax.text(x, 0.08, desc, ha='center', fontsize=14, color='#555')
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 0.95)

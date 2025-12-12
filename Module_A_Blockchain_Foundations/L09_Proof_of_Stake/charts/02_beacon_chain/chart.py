@@ -55,14 +55,14 @@ for x, y, text in cl_components:
                           boxstyle="round,pad=0.01", facecolor='white',
                           edgecolor='black', linewidth=1)
     ax.add_patch(box)
-    ax.text(x, y, text, ha='center', va='center', fontsize=9, color='#333')
+    ax.text(x, y, text, ha='center', va='center', fontsize=14, color='#333')
 
 # Engine API (connection)
 api_box = FancyBboxPatch((0.35, 0.45), 0.30, 0.08,
                           boxstyle="round,pad=0.01", facecolor=MLORANGE,
                           edgecolor='black', linewidth=2)
 ax.add_patch(api_box)
-ax.text(0.50, 0.49, 'Engine API', ha='center', fontsize=11,
+ax.text(0.50, 0.49, 'Engine API', ha='center', fontsize=14,
         fontweight='bold', color='white')
 
 # Arrows
@@ -90,13 +90,13 @@ for x, y, text in el_components:
                           boxstyle="round,pad=0.01", facecolor='white',
                           edgecolor='black', linewidth=1)
     ax.add_patch(box)
-    ax.text(x, y, text, ha='center', va='center', fontsize=9, color='#333')
+    ax.text(x, y, text, ha='center', va='center', fontsize=14, color='#333')
 
 # Client labels on sides
 ax.text(0.02, 0.72, 'CL Clients:\nPrysm\nLighthouse\nTeku\nNimbus', ha='left',
-        fontsize=9, color='#555', va='center')
+        fontsize=14, color='#555', va='center')
 ax.text(0.02, 0.23, 'EL Clients:\nGeth\nNethermind\nErigon\nBesu', ha='left',
-        fontsize=9, color='#555', va='center')
+        fontsize=14, color='#555', va='center')
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

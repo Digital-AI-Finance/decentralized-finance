@@ -54,28 +54,28 @@ for i in range(20):
 # Plot difficulty
 ax1.plot(periods, difficulty, 'o-', color=MLBLUE, linewidth=2, markersize=6, label='Difficulty')
 ax1.fill_between(periods, difficulty, alpha=0.2, color=MLBLUE)
-ax1.set_xlabel('Adjustment Period (every 2016 blocks)', fontsize=13)
-ax1.set_ylabel('Relative Difficulty', fontsize=13, color=MLBLUE)
+ax1.set_xlabel('Adjustment Period (every 2016 blocks)', fontsize=16)
+ax1.set_ylabel('Relative Difficulty', fontsize=16, color=MLBLUE)
 ax1.tick_params(axis='y', labelcolor=MLBLUE)
 
 # Plot block time on secondary axis
 ax2 = ax1.twinx()
 ax2.bar(periods, block_time, alpha=0.5, color=MLORANGE, width=0.6, label='Avg Block Time')
 ax2.axhline(y=10, color=MLGREEN, linestyle='--', linewidth=2, label='Target: 10 min')
-ax2.set_ylabel('Average Block Time (minutes)', fontsize=13, color=MLORANGE)
+ax2.set_ylabel('Average Block Time (minutes)', fontsize=16, color=MLORANGE)
 ax2.tick_params(axis='y', labelcolor=MLORANGE)
 ax2.set_ylim(0, 20)
 
 # Adjustment formula annotation
 formula = r'New Difficulty = Old Difficulty $\times$ $\frac{\text{Actual Time}}{\text{Expected Time}}$'
 props = dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor=MLPURPLE, alpha=0.95)
-ax1.text(10, max(difficulty) * 0.95, formula, ha='center', fontsize=11,
+ax1.text(10, max(difficulty) * 0.95, formula, ha='center', fontsize=14,
          bbox=props, color='#333')
 
 # Legend
 lines1, labels1 = ax1.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
-ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left', fontsize=10)
+ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left', fontsize=14)
 
 ax1.set_title('Bitcoin Difficulty Adjustment Mechanism', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

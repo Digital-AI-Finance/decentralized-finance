@@ -54,7 +54,7 @@ events = [
 
 # Draw sections
 # Read functions (left)
-ax.text(0.17, 0.92, 'View Functions', fontsize=12, fontweight='bold',
+ax.text(0.17, 0.92, 'View Functions', fontsize=15, fontweight='bold',
         ha='center', va='center', color=MLBLUE,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE))
 
@@ -65,11 +65,11 @@ for i, (func, desc) in enumerate(read_funcs):
                           boxstyle="round,pad=0.02", facecolor=MLBLUE,
                           edgecolor='black', linewidth=1, alpha=0.2)
     ax.add_patch(box)
-    ax.text(0.04, y + 0.02, func, fontsize=9, fontweight='bold', va='center', family='monospace')
-    ax.text(0.04, y - 0.03, desc, fontsize=8, va='center', color='#555')
+    ax.text(0.04, y + 0.02, func, fontsize=14, fontweight='bold', va='center', family='monospace')
+    ax.text(0.04, y - 0.03, desc, fontsize=14, va='center', color='#555')
 
 # Write functions (middle)
-ax.text(0.52, 0.92, 'State-Changing Functions', fontsize=12, fontweight='bold',
+ax.text(0.52, 0.92, 'State-Changing Functions', fontsize=15, fontweight='bold',
         ha='center', va='center', color=MLGREEN,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
@@ -79,11 +79,11 @@ for i, (func, desc) in enumerate(write_funcs):
                           boxstyle="round,pad=0.02", facecolor=MLGREEN,
                           edgecolor='black', linewidth=1, alpha=0.2)
     ax.add_patch(box)
-    ax.text(0.39, y + 0.02, func, fontsize=9, fontweight='bold', va='center', family='monospace')
-    ax.text(0.39, y - 0.03, desc, fontsize=8, va='center', color='#555')
+    ax.text(0.39, y + 0.02, func, fontsize=14, fontweight='bold', va='center', family='monospace')
+    ax.text(0.39, y - 0.03, desc, fontsize=14, va='center', color='#555')
 
 # Events (right)
-ax.text(0.85, 0.92, 'Events', fontsize=12, fontweight='bold',
+ax.text(0.85, 0.92, 'Events', fontsize=15, fontweight='bold',
         ha='center', va='center', color=MLORANGE,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
@@ -93,13 +93,13 @@ for i, (func, desc) in enumerate(events):
                           boxstyle="round,pad=0.02", facecolor=MLORANGE,
                           edgecolor='black', linewidth=1, alpha=0.2)
     ax.add_patch(box)
-    ax.text(0.72, y + 0.02, func, fontsize=8, fontweight='bold', va='center', family='monospace')
-    ax.text(0.72, y - 0.03, desc, fontsize=8, va='center', color='#555')
+    ax.text(0.72, y + 0.02, func, fontsize=14, fontweight='bold', va='center', family='monospace')
+    ax.text(0.72, y - 0.03, desc, fontsize=14, va='center', color='#555')
 
 # Key insight at bottom
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8E8E8', edgecolor='#888')
 ax.text(0.50, 0.08, 'Optional: name(), symbol(), decimals() for metadata',
-        ha='center', fontsize=10, bbox=props)
+        ha='center', fontsize=14, bbox=props)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

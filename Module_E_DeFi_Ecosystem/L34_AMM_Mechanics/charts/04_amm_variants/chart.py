@@ -58,20 +58,20 @@ ax.plot(x, y_sum, '--', color=MLGREEN, linewidth=2, label='Constant Sum (x+y=k)'
 
 # Mark the 1:1 point
 ax.plot(1, 1, 'o', color='black', markersize=10, zorder=5)
-ax.annotate('1:1 price', xy=(1, 1), xytext=(1.15, 1.2), fontsize=10,
+ax.annotate('1:1 price', xy=(1, 1), xytext=(1.15, 1.2), fontsize=14,
             arrowprops=dict(arrowstyle='->', color='black', lw=1))
 
 # Add annotations for each curve
-ax.text(0.3, 1.7, 'High slippage\nat extremes', fontsize=9, color=MLBLUE)
-ax.text(1.5, 0.8, 'Flat near 1:1\n(low slippage)', fontsize=9, color=MLORANGE)
-ax.text(0.2, 1.2, 'Pool drains\n(dangerous)', fontsize=9, color=MLGREEN, alpha=0.7)
+ax.text(0.3, 1.7, 'High slippage\nat extremes', fontsize=14, color=MLBLUE)
+ax.text(1.5, 0.8, 'Flat near 1:1\n(low slippage)', fontsize=14, color=MLORANGE)
+ax.text(0.2, 1.2, 'Pool drains\n(dangerous)', fontsize=14, color=MLGREEN, alpha=0.7)
 
-ax.set_xlabel('Token A Reserve', fontsize=12)
-ax.set_ylabel('Token B Reserve', fontsize=12)
+ax.set_xlabel('Token A Reserve', fontsize=15)
+ax.set_ylabel('Token B Reserve', fontsize=15)
 ax.set_xlim(0, 2)
 ax.set_ylim(0, 2)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('AMM Curve Variants', fontweight='bold', fontsize=15, pad=10)

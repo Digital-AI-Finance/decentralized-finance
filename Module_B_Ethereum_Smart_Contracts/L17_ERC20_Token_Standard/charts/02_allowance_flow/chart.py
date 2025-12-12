@@ -48,35 +48,35 @@ for ent in entities:
                           edgecolor='black', linewidth=2, alpha=0.85)
     ax.add_patch(box)
     ax.text(ent['x'] + box_w/2, ent['y'], ent['name'],
-            ha='center', va='center', fontsize=11, fontweight='bold', color='white')
+            ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
 # Step 1: approve
 ax.annotate('', xy=(0.45, 0.72), xytext=(0.22, 0.72),
             arrowprops=dict(arrowstyle='->', color=MLORANGE, lw=2.5))
-ax.text(0.33, 0.80, 'Step 1: approve(DEX, 100)', fontsize=10, ha='center',
+ax.text(0.33, 0.80, 'Step 1: approve(DEX, 100)', fontsize=14, ha='center',
         fontweight='bold', color=MLORANGE, family='monospace')
 
 # Step 2: transferFrom (DEX calls token)
 ax.annotate('', xy=(0.57, 0.68), xytext=(0.80, 0.68),
             arrowprops=dict(arrowstyle='->', color=MLGREEN, lw=2.5))
-ax.text(0.68, 0.58, 'Step 2: transferFrom(Alice, Pool, 100)', fontsize=9, ha='center',
+ax.text(0.68, 0.58, 'Step 2: transferFrom(Alice, Pool, 100)', fontsize=14, ha='center',
         fontweight='bold', color=MLGREEN, family='monospace')
 
 # Show allowance storage
 ax.text(0.45 + box_w/2, 0.45, 'allowance[Alice][DEX] = 100',
-        ha='center', fontsize=9, family='monospace',
+        ha='center', fontsize=14, family='monospace',
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
 
 # After step 2: tokens flow
 ax.annotate('', xy=(0.80, 0.35), xytext=(0.22, 0.35),
             arrowprops=dict(arrowstyle='->', color=MLRED, lw=2, linestyle='--'))
-ax.text(0.51, 0.28, 'Tokens move: Alice -> Pool', fontsize=10, ha='center',
+ax.text(0.51, 0.28, 'Tokens move: Alice -> Pool', fontsize=14, ha='center',
         fontweight='bold', color=MLRED)
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN)
 ax.text(0.50, 0.08, 'Allowance enables DEX to move user tokens without private key',
-        ha='center', fontsize=10, fontweight='bold', bbox=props, color=MLGREEN)
+        ha='center', fontsize=14, fontweight='bold', bbox=props, color=MLGREEN)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 0.95)

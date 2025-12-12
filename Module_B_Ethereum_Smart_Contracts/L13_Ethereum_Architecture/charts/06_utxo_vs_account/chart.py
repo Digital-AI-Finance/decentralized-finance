@@ -42,30 +42,30 @@ utxo1 = FancyBboxPatch((0.08, 0.60), 0.12, 0.18,
                         boxstyle="round,pad=0.01", facecolor=MLORANGE,
                         edgecolor='black', linewidth=1.5)
 ax.add_patch(utxo1)
-ax.text(0.14, 0.72, 'UTXO', ha='center', fontsize=9, fontweight='bold', color='white')
-ax.text(0.14, 0.65, '5 BTC', ha='center', fontsize=10, color='white')
+ax.text(0.14, 0.72, 'UTXO', ha='center', fontsize=14, fontweight='bold', color='white')
+ax.text(0.14, 0.65, '5 BTC', ha='center', fontsize=14, color='white')
 
 # Arrow showing spend
 ax.annotate('', xy=(0.30, 0.69), xytext=(0.22, 0.69),
             arrowprops=dict(arrowstyle='->', color='#333', lw=2))
-ax.text(0.26, 0.73, 'Spend', fontsize=8, ha='center')
+ax.text(0.26, 0.73, 'Spend', fontsize=14, ha='center')
 
 # New UTXOs
 utxo2 = FancyBboxPatch((0.30, 0.70), 0.10, 0.13,
                         boxstyle="round,pad=0.01", facecolor=MLGREEN,
                         edgecolor='black', linewidth=1.5)
 ax.add_patch(utxo2)
-ax.text(0.35, 0.78, '2 BTC', ha='center', fontsize=9, color='white')
-ax.text(0.35, 0.72, 'Bob', ha='center', fontsize=8, color='white')
+ax.text(0.35, 0.78, '2 BTC', ha='center', fontsize=14, color='white')
+ax.text(0.35, 0.72, 'Bob', ha='center', fontsize=14, color='white')
 
 utxo3 = FancyBboxPatch((0.30, 0.55), 0.10, 0.13,
                         boxstyle="round,pad=0.01", facecolor=MLBLUE,
                         edgecolor='black', linewidth=1.5)
 ax.add_patch(utxo3)
-ax.text(0.35, 0.63, '3 BTC', ha='center', fontsize=9, color='white')
-ax.text(0.35, 0.57, 'Change', ha='center', fontsize=8, color='white')
+ax.text(0.35, 0.63, '3 BTC', ha='center', fontsize=14, color='white')
+ax.text(0.35, 0.57, 'Change', ha='center', fontsize=14, color='white')
 
-ax.text(0.14, 0.50, 'Destroyed', ha='center', fontsize=9, color=MLRED)
+ax.text(0.14, 0.50, 'Destroyed', ha='center', fontsize=14, color=MLRED)
 
 # Right: Ethereum Account
 ax.text(0.75, 0.92, 'Ethereum: Account Model', ha='center', fontsize=14,
@@ -76,30 +76,30 @@ acc_alice = FancyBboxPatch((0.55, 0.60), 0.15, 0.18,
                             boxstyle="round,pad=0.01", facecolor=MLBLUE,
                             edgecolor='black', linewidth=1.5)
 ax.add_patch(acc_alice)
-ax.text(0.625, 0.72, 'Alice', ha='center', fontsize=10, fontweight='bold', color='white')
-ax.text(0.625, 0.65, '5 ETH', ha='center', fontsize=10, color='white')
+ax.text(0.625, 0.72, 'Alice', ha='center', fontsize=14, fontweight='bold', color='white')
+ax.text(0.625, 0.65, '5 ETH', ha='center', fontsize=14, color='white')
 
 # Arrow showing transfer
 ax.annotate('', xy=(0.80, 0.69), xytext=(0.72, 0.69),
             arrowprops=dict(arrowstyle='->', color='#333', lw=2))
-ax.text(0.76, 0.73, '-2 ETH', fontsize=8, ha='center')
+ax.text(0.76, 0.73, '-2 ETH', fontsize=14, ha='center')
 
 # Updated balances
 acc_alice2 = FancyBboxPatch((0.80, 0.70), 0.12, 0.13,
                              boxstyle="round,pad=0.01", facecolor=MLBLUE,
                              edgecolor='black', linewidth=1.5)
 ax.add_patch(acc_alice2)
-ax.text(0.86, 0.78, 'Alice', ha='center', fontsize=9, color='white')
-ax.text(0.86, 0.72, '3 ETH', ha='center', fontsize=9, color='white')
+ax.text(0.86, 0.78, 'Alice', ha='center', fontsize=14, color='white')
+ax.text(0.86, 0.72, '3 ETH', ha='center', fontsize=14, color='white')
 
 acc_bob = FancyBboxPatch((0.80, 0.55), 0.12, 0.13,
                           boxstyle="round,pad=0.01", facecolor=MLGREEN,
                           edgecolor='black', linewidth=1.5)
 ax.add_patch(acc_bob)
-ax.text(0.86, 0.63, 'Bob', ha='center', fontsize=9, color='white')
-ax.text(0.86, 0.57, '+2 ETH', ha='center', fontsize=9, color='white')
+ax.text(0.86, 0.63, 'Bob', ha='center', fontsize=14, color='white')
+ax.text(0.86, 0.57, '+2 ETH', ha='center', fontsize=14, color='white')
 
-ax.text(0.625, 0.50, 'Persists', ha='center', fontsize=9, color=MLGREEN)
+ax.text(0.625, 0.50, 'Persists', ha='center', fontsize=14, color=MLGREEN)
 
 # Comparison table at bottom
 comparisons = [
@@ -113,8 +113,8 @@ ax.axhline(y=0.42, color='#888', linestyle='-', linewidth=1)
 
 for i, (utxo, acc) in enumerate(comparisons):
     y = 0.35 - i * 0.08
-    ax.text(0.25, y, utxo, ha='center', fontsize=9, color=MLORANGE)
-    ax.text(0.75, y, acc, ha='center', fontsize=9, color=MLBLUE)
+    ax.text(0.25, y, utxo, ha='center', fontsize=14, color=MLORANGE)
+    ax.text(0.75, y, acc, ha='center', fontsize=14, color=MLBLUE)
 
 # Dividing line
 ax.axvline(x=0.50, color='#888', linestyle='--', linewidth=1.5, alpha=0.5)

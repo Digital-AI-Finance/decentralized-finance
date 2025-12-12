@@ -44,25 +44,25 @@ bars = ax.bar(x, decimals, color=colors, edgecolor='black', linewidth=0.5, alpha
 for bar, dec in zip(bars, decimals):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, height + 0.5,
-            str(dec), ha='center', fontsize=12, fontweight='bold')
+            str(dec), ha='center', fontsize=15, fontweight='bold')
 
-ax.set_ylabel('Decimals', fontsize=12)
-ax.set_xlabel('Token', fontsize=12)
+ax.set_ylabel('Decimals', fontsize=15)
+ax.set_xlabel('Token', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(tokens, fontsize=11, fontweight='bold')
+ax.set_xticklabels(tokens, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 22)
 
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add raw value annotations
 for i, (tok, raw) in enumerate(zip(tokens, raw_for_one)):
-    ax.text(i, -2.5, f'1 {tok} = {raw} units', ha='center', fontsize=8,
+    ax.text(i, -2.5, f'1 {tok} = {raw} units', ha='center', fontsize=14,
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8E8E8', edgecolor='#888')
 ax.text(0.50, 0.95, 'Convention: 18 decimals (like ETH) unless stablecoin (6 decimals)',
-        transform=ax.transAxes, ha='center', fontsize=10, bbox=props)
+        transform=ax.transAxes, ha='center', fontsize=14, bbox=props)
 
 ax.set_title('ERC-20 Token Decimals Comparison', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

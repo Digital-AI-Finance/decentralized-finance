@@ -42,7 +42,7 @@ ax.axhline(y=2, color='gray', linewidth=3, alpha=0.5)
 for i, (x, version, color) in enumerate(zip(x_positions, versions, colors)):
     # Version box
     ax.scatter(x, 2, s=1000, color=color, zorder=5, edgecolor='black', linewidth=2)
-    ax.annotate(version, xy=(x, 2), ha='center', va='center', fontsize=10, fontweight='bold')
+    ax.annotate(version, xy=(x, 2), ha='center', va='center', fontsize=14, fontweight='bold')
 
 # Key features for each version
 features = [
@@ -54,7 +54,7 @@ features = [
 
 for i, (x, feat_list) in enumerate(zip(x_positions, features)):
     for j, feat in enumerate(feat_list):
-        ax.annotate(feat, xy=(x, 0.8 - j*0.4), ha='center', fontsize=9,
+        ax.annotate(feat, xy=(x, 0.8 - j*0.4), ha='center', fontsize=14,
                     bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=colors[i]))
 
 ax.set_xlim(-0.8, 5.3)

@@ -50,32 +50,32 @@ bars_after = ax.bar(x + width/2, costs_after, width, label='After Dencun (March 
 for bar in bars_before:
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, height + 0.02,
-            f'${height:.2f}', ha='center', fontsize=9)
+            f'${height:.2f}', ha='center', fontsize=14)
 
 for bar in bars_after:
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, height + 0.02,
-            f'${height:.3f}', ha='center', fontsize=9)
+            f'${height:.3f}', ha='center', fontsize=14)
 
 # Reduction annotation
 for i, (before, after) in enumerate(zip(costs_before, costs_after)):
     reduction = (1 - after/before) * 100
-    ax.annotate(f'-{reduction:.0f}%', xy=(i, 0.35), fontsize=10,
+    ax.annotate(f'-{reduction:.0f}%', xy=(i, 0.35), fontsize=14,
                 ha='center', fontweight='bold', color=MLGREEN)
 
-ax.set_xlabel('Layer 2 Solution', fontsize=13)
-ax.set_ylabel('Average Transaction Cost (USD)', fontsize=13)
+ax.set_xlabel('Layer 2 Solution', fontsize=16)
+ax.set_ylabel('Average Transaction Cost (USD)', fontsize=16)
 ax.set_xticks(x)
-ax.set_xticklabels(l2s, fontsize=11)
+ax.set_xticklabels(l2s, fontsize=14)
 ax.set_ylim(0, 0.7)
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN)
 ax.text(0.5, 0.65, 'EIP-4844: Blob transactions reduce L2 data costs by 90%+',
-        transform=ax.transAxes, ha='center', fontsize=11, fontweight='bold',
+        transform=ax.transAxes, ha='center', fontsize=14, fontweight='bold',
         bbox=props, color=MLGREEN)
 
 ax.set_title('Dencun Upgrade: L2 Fee Reduction', fontweight='bold', fontsize=15, pad=10)

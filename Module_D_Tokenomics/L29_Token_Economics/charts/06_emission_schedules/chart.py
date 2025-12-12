@@ -58,17 +58,17 @@ ax.plot(years, front_loaded, 'd-', color=MLRED, linewidth=2.5, markersize=6, lab
 
 # Add annotations
 ax.axhline(y=50, color='gray', linestyle='--', alpha=0.5)
-ax.text(10.2, 50, '50%', fontsize=9, va='center', color='gray')
+ax.text(10.2, 50, '50%', fontsize=14, va='center', color='gray')
 
 ax.axhline(y=100, color='gray', linestyle='--', alpha=0.5)
-ax.text(10.2, 100, '100%', fontsize=9, va='center', color='gray')
+ax.text(10.2, 100, '100%', fontsize=14, va='center', color='gray')
 
-ax.set_xlabel('Years from Launch', fontsize=12)
-ax.set_ylabel('Cumulative Supply (%)', fontsize=12)
+ax.set_xlabel('Years from Launch', fontsize=15)
+ax.set_ylabel('Cumulative Supply (%)', fontsize=15)
 ax.set_xlim(-0.5, 11)
 ax.set_ylim(0, 110)
 
-ax.legend(loc='lower right', fontsize=10)
+ax.legend(loc='lower right', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('Token Emission Schedule Comparison', fontweight='bold', fontsize=15, pad=10)

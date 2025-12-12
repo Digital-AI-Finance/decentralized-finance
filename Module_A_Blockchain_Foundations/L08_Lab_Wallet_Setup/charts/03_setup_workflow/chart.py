@@ -42,7 +42,7 @@ for i, (x, step, color) in enumerate(zip(x_positions, steps, colors)):
                                     boxstyle="round,pad=0.02",
                                     facecolor=color, edgecolor='black', linewidth=2)
     ax.add_patch(rect)
-    ax.text(x, 0.5, step, ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+    ax.text(x, 0.5, step, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
     if i < len(steps) - 1:
         ax.annotate('', xy=(x_positions[i+1] - 0.06, 0.5), xytext=(x + 0.06, 0.5),
@@ -51,10 +51,10 @@ for i, (x, step, color) in enumerate(zip(x_positions, steps, colors)):
 # Time estimates
 times = ['2 min', '1 min', '5 min', '3 min', '2 min', '5 min']
 for x, time in zip(x_positions, times):
-    ax.text(x, 0.25, time, ha='center', va='center', fontsize=9, color='gray')
+    ax.text(x, 0.25, time, ha='center', va='center', fontsize=14, color='gray')
 
 # Importance labels
-ax.text(0.325, 0.75, 'CRITICAL STEPS', ha='center', va='center', fontsize=10,
+ax.text(0.325, 0.75, 'CRITICAL STEPS', ha='center', va='center', fontsize=14,
         fontweight='bold', color=MLRED,
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#FFEBEE', edgecolor=MLRED))
 

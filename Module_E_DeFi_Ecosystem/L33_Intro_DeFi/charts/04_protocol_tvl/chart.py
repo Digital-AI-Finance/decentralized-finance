@@ -53,13 +53,13 @@ bars = ax.barh(y_pos, tvl, color=colors, edgecolor='black', linewidth=1)
 # Add value labels
 for bar, val, cat in zip(bars, tvl, categories):
     ax.text(bar.get_width() + 0.3, bar.get_y() + bar.get_height()/2,
-            f'${val}B', va='center', fontsize=11, fontweight='bold')
+            f'${val}B', va='center', fontsize=14, fontweight='bold')
     ax.text(bar.get_width() - 0.3, bar.get_y() + bar.get_height()/2,
-            cat, va='center', ha='right', fontsize=9, color='white')
+            cat, va='center', ha='right', fontsize=14, color='white')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(protocols, fontsize=11, fontweight='bold')
-ax.set_xlabel('Total Value Locked (Billion USD)', fontsize=12)
+ax.set_yticklabels(protocols, fontsize=14, fontweight='bold')
+ax.set_xlabel('Total Value Locked (Billion USD)', fontsize=15)
 ax.set_xlim(0, 30)
 
 ax.invert_yaxis()

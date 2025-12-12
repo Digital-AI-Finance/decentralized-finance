@@ -52,7 +52,7 @@ label_positions = [
 ]
 for pos, label in zip(label_positions, labels):
     ax.text(pos[0], pos[1], label, ha='center', va='center',
-            fontsize=11, fontweight='bold', color=MLBLUE)
+            fontsize=14, fontweight='bold', color=MLBLUE)
 
 # Add blockchain positions
 blockchains = {
@@ -65,11 +65,11 @@ blockchains = {
 for name, (x, y, color) in blockchains.items():
     ax.scatter(x, y, s=200, c=color, edgecolors='black', linewidth=1.5, zorder=5)
     ax.annotate(name, (x, y), xytext=(10, 5), textcoords='offset points',
-                fontsize=10, fontweight='bold', color=color)
+                fontsize=14, fontweight='bold', color=color)
 
 # Add explanatory text
 ax.text(0.5, 0.02, 'The Trilemma: No blockchain can fully optimize all three properties simultaneously',
-        ha='center', va='bottom', fontsize=9, style='italic',
+        ha='center', va='bottom', fontsize=14, style='italic',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.set_xlim(0, 1)

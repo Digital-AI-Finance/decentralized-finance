@@ -50,7 +50,7 @@ ax.set_xlim(1, 50000)
 for bar, cost in zip(bars, costs):
     width = bar.get_width()
     ax.text(width * 1.3, bar.get_y() + bar.get_height()/2,
-            f'{cost:,}', va='center', fontsize=10, fontweight='bold')
+            f'{cost:,}', va='center', fontsize=14, fontweight='bold')
 
 # Legend
 from matplotlib.patches import Patch
@@ -60,9 +60,9 @@ legend_elements = [
     Patch(facecolor=MLORANGE, edgecolor='black', label='Memory/Calls'),
     Patch(facecolor=MLRED, edgecolor='black', label='Storage (expensive!)'),
 ]
-ax.legend(handles=legend_elements, loc='lower right', fontsize=10)
+ax.legend(handles=legend_elements, loc='lower right', fontsize=14)
 
-ax.set_xlabel('Gas Cost (log scale)', fontsize=13)
+ax.set_xlabel('Gas Cost (log scale)', fontsize=16)
 ax.set_title('EVM Operation Gas Costs', fontweight='bold', fontsize=15, pad=10)
 ax.grid(True, alpha=0.3, axis='x')
 

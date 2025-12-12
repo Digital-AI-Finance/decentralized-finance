@@ -51,8 +51,8 @@ components = [
 ]
 
 for x, y, label, value, color in components:
-    ax.text(x, y, f'{label}:', ha='left', va='center', fontsize=10, fontweight='bold', color=color)
-    ax.text(x + 0.18, y, value, ha='left', va='center', fontsize=10, color='gray')
+    ax.text(x, y, f'{label}:', ha='left', va='center', fontsize=14, fontweight='bold', color=color)
+    ax.text(x + 0.18, y, value, ha='left', va='center', fontsize=14, color='gray')
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

@@ -41,7 +41,7 @@ ax.add_patch(eoa_box)
 
 # EOA icon (key)
 ax.text(0.24, 0.80, 'EOA', ha='center', fontsize=16, fontweight='bold', color=MLBLUE)
-ax.text(0.24, 0.72, 'Externally Owned Account', ha='center', fontsize=10, color=MLBLUE)
+ax.text(0.24, 0.72, 'Externally Owned Account', ha='center', fontsize=14, color=MLBLUE)
 
 # EOA components
 components_eoa = [
@@ -52,11 +52,11 @@ components_eoa = [
 ]
 
 for label, desc, y in components_eoa:
-    ax.text(0.10, y, label + ':', ha='left', fontsize=10, fontweight='bold')
-    ax.text(0.27, y, desc, ha='left', fontsize=10, color='#555')
+    ax.text(0.10, y, label + ':', ha='left', fontsize=14, fontweight='bold')
+    ax.text(0.27, y, desc, ha='left', fontsize=14, color='#555')
 
 # Key icon
-ax.text(0.24, 0.90, 'Controlled by Private Key', ha='center', fontsize=9,
+ax.text(0.24, 0.90, 'Controlled by Private Key', ha='center', fontsize=14,
         color='#555', style='italic')
 
 # Right: Contract Account
@@ -66,7 +66,7 @@ contract_box = FancyBboxPatch((0.57, 0.20), 0.38, 0.65,
 ax.add_patch(contract_box)
 
 ax.text(0.76, 0.80, 'Contract Account', ha='center', fontsize=16, fontweight='bold', color=MLORANGE)
-ax.text(0.76, 0.72, 'Smart Contract', ha='center', fontsize=10, color=MLORANGE)
+ax.text(0.76, 0.72, 'Smart Contract', ha='center', fontsize=14, color=MLORANGE)
 
 # Contract components
 components_contract = [
@@ -77,23 +77,23 @@ components_contract = [
 ]
 
 for label, desc, y in components_contract:
-    ax.text(0.62, y, label + ':', ha='left', fontsize=10, fontweight='bold')
-    ax.text(0.79, y, desc, ha='left', fontsize=10, color='#555')
+    ax.text(0.62, y, label + ':', ha='left', fontsize=14, fontweight='bold')
+    ax.text(0.79, y, desc, ha='left', fontsize=14, color='#555')
 
-ax.text(0.76, 0.90, 'Controlled by Code Logic', ha='center', fontsize=9,
+ax.text(0.76, 0.90, 'Controlled by Code Logic', ha='center', fontsize=14,
         color='#555', style='italic')
 
 # Comparison at bottom
 props = dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor='#888')
-ax.text(0.24, 0.10, 'Can initiate TX', ha='center', fontsize=9,
+ax.text(0.24, 0.10, 'Can initiate TX', ha='center', fontsize=14,
         bbox=props, color=MLGREEN)
-ax.text(0.76, 0.10, 'Cannot initiate TX', ha='center', fontsize=9,
+ax.text(0.76, 0.10, 'Cannot initiate TX', ha='center', fontsize=14,
         bbox=props, color=MLRED)
 
 # Arrow between them
 ax.annotate('', xy=(0.55, 0.52), xytext=(0.45, 0.52),
             arrowprops=dict(arrowstyle='<->', color='#333', lw=2))
-ax.text(0.50, 0.56, 'Both have', ha='center', fontsize=9, color='#555')
+ax.text(0.50, 0.56, 'Both have', ha='center', fontsize=14, color='#555')
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 0.95)

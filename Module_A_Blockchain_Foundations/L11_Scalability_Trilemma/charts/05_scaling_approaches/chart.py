@@ -37,7 +37,7 @@ fig, ax = plt.subplots(figsize=(10, 6))
 # Left side: Vertical Scaling
 ax.text(0.25, 0.95, 'VERTICAL SCALING', ha='center', fontsize=14,
         fontweight='bold', color=MLORANGE)
-ax.text(0.25, 0.88, '(Scale Up)', ha='center', fontsize=11, color='#666')
+ax.text(0.25, 0.88, '(Scale Up)', ha='center', fontsize=14, color='#666')
 
 # Draw big server
 big_server = FancyBboxPatch((0.15, 0.35), 0.20, 0.45,
@@ -45,19 +45,19 @@ big_server = FancyBboxPatch((0.15, 0.35), 0.20, 0.45,
                              edgecolor='black', linewidth=2)
 ax.add_patch(big_server)
 ax.text(0.25, 0.57, 'POWERFUL\nNODE', ha='center', va='center',
-        fontsize=11, fontweight='bold', color='white')
+        fontsize=14, fontweight='bold', color='white')
 
 # Characteristics
-ax.text(0.25, 0.28, 'Bigger blocks', ha='center', fontsize=10)
-ax.text(0.25, 0.22, 'Faster processing', ha='center', fontsize=10)
-ax.text(0.25, 0.16, 'Higher hardware req.', ha='center', fontsize=10)
-ax.text(0.25, 0.08, 'Examples: Solana, EOS', ha='center', fontsize=10,
+ax.text(0.25, 0.28, 'Bigger blocks', ha='center', fontsize=14)
+ax.text(0.25, 0.22, 'Faster processing', ha='center', fontsize=14)
+ax.text(0.25, 0.16, 'Higher hardware req.', ha='center', fontsize=14)
+ax.text(0.25, 0.08, 'Examples: Solana, EOS', ha='center', fontsize=14,
         fontweight='bold', color=MLORANGE)
 
 # Right side: Horizontal Scaling
 ax.text(0.75, 0.95, 'HORIZONTAL SCALING', ha='center', fontsize=14,
         fontweight='bold', color=MLGREEN)
-ax.text(0.75, 0.88, '(Scale Out)', ha='center', fontsize=11, color='#666')
+ax.text(0.75, 0.88, '(Scale Out)', ha='center', fontsize=14, color='#666')
 
 # Draw multiple small servers (shards)
 shard_positions = [(0.58, 0.55), (0.70, 0.55), (0.82, 0.55),
@@ -69,13 +69,13 @@ for i, (x, y) in enumerate(shard_positions):
                             edgecolor='black', linewidth=1.5)
     ax.add_patch(shard)
     ax.text(x + 0.05, y + 0.09, f'S{i+1}', ha='center', va='center',
-            fontsize=10, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
 
 # Characteristics
-ax.text(0.75, 0.28, 'Parallel processing', ha='center', fontsize=10)
-ax.text(0.75, 0.22, 'Preserved decentralization', ha='center', fontsize=10)
-ax.text(0.75, 0.16, 'Complex coordination', ha='center', fontsize=10)
-ax.text(0.75, 0.08, 'Examples: Sharding, L2', ha='center', fontsize=10,
+ax.text(0.75, 0.28, 'Parallel processing', ha='center', fontsize=14)
+ax.text(0.75, 0.22, 'Preserved decentralization', ha='center', fontsize=14)
+ax.text(0.75, 0.16, 'Complex coordination', ha='center', fontsize=14)
+ax.text(0.75, 0.08, 'Examples: Sharding, L2', ha='center', fontsize=14,
         fontweight='bold', color=MLGREEN)
 
 # Dividing line
@@ -85,9 +85,9 @@ ax.axvline(x=0.5, color='#888', linestyle='--', linewidth=2, alpha=0.5)
 props_bad = dict(boxstyle='round,pad=0.2', facecolor='#FFE0E0', edgecolor=MLRED)
 props_good = dict(boxstyle='round,pad=0.2', facecolor='#E8F5E9', edgecolor=MLGREEN)
 
-ax.text(0.25, 0.02, 'Centralization risk', ha='center', fontsize=9,
+ax.text(0.25, 0.02, 'Centralization risk', ha='center', fontsize=14,
         bbox=props_bad, color=MLRED)
-ax.text(0.75, 0.02, 'Preserves decentralization', ha='center', fontsize=9,
+ax.text(0.75, 0.02, 'Preserves decentralization', ha='center', fontsize=14,
         bbox=props_good, color=MLGREEN)
 
 ax.set_xlim(0, 1)

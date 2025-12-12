@@ -44,11 +44,11 @@ bars = ax.barh(y_pos, percentage, color=colors, edgecolor='black', linewidth=1.5
 # Add value labels
 for bar, pct in zip(bars, percentage):
     ax.text(bar.get_width() + 1, bar.get_y() + bar.get_height()/2,
-            f'{pct}%', va='center', fontsize=11, fontweight='bold')
+            f'{pct}%', va='center', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(use_cases, fontsize=11)
-ax.set_xlabel('Share of Flash Loan Transactions (%)', fontsize=12)
+ax.set_yticklabels(use_cases, fontsize=14)
+ax.set_xlabel('Share of Flash Loan Transactions (%)', fontsize=15)
 ax.set_xlim(0, 65)
 
 ax.invert_yaxis()
@@ -56,7 +56,7 @@ ax.grid(True, alpha=0.3, axis='x')
 
 # Annotation
 ax.text(0.5, -0.15, 'All use cases require $0 upfront capital (only gas fees)',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('Legitimate Flash Loan Use Cases', fontweight='bold', fontsize=14, pad=10)

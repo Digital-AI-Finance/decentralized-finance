@@ -69,8 +69,8 @@ for i, (name, desc, color) in enumerate(value_types):
                           boxstyle="round,pad=0.02", facecolor=color,
                           edgecolor='black', linewidth=1, alpha=0.15)
     ax.add_patch(box)
-    ax.text(0.08, y, name, fontsize=11, fontweight='bold', va='center', color=color)
-    ax.text(0.42, y, desc, fontsize=9, va='center', ha='right', color='#555')
+    ax.text(0.08, y, name, fontsize=14, fontweight='bold', va='center', color=color)
+    ax.text(0.42, y, desc, fontsize=14, va='center', ha='right', color='#555')
 
 # Draw reference types
 for i, (name, desc, color) in enumerate(ref_types):
@@ -79,17 +79,17 @@ for i, (name, desc, color) in enumerate(ref_types):
                           boxstyle="round,pad=0.02", facecolor=color,
                           edgecolor='black', linewidth=1, alpha=0.15)
     ax.add_patch(box)
-    ax.text(0.58, y, name, fontsize=11, fontweight='bold', va='center', color=color)
-    ax.text(0.92, y, desc, fontsize=9, va='center', ha='right', color='#555')
+    ax.text(0.58, y, name, fontsize=14, fontweight='bold', va='center', color=color)
+    ax.text(0.92, y, desc, fontsize=14, va='center', ha='right', color='#555')
 
 # Add key differences at bottom
 props_val = dict(boxstyle='round,pad=0.2', facecolor='#E3F2FD', edgecolor=MLBLUE)
 props_ref = dict(boxstyle='round,pad=0.2', facecolor='#FFF3E0', edgecolor=MLORANGE)
 
 ax.text(0.25, 0.06, 'Copied when assigned\nStored directly in memory/storage',
-        ha='center', va='center', fontsize=9, bbox=props_val, color=MLBLUE)
+        ha='center', va='center', fontsize=14, bbox=props_val, color=MLBLUE)
 ax.text(0.75, 0.06, 'Passed by reference\nRequire data location (storage/memory/calldata)',
-        ha='center', va='center', fontsize=9, bbox=props_ref, color=MLORANGE)
+        ha='center', va='center', fontsize=14, bbox=props_ref, color=MLORANGE)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

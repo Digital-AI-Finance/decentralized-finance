@@ -42,22 +42,22 @@ bars = ax.bar(years, market_size, color=colors, edgecolor='black', linewidth=1.5
 # Add value labels
 for bar, val in zip(bars, market_size):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.3,
-            f'${val}T', ha='center', va='bottom', fontsize=10, fontweight='bold')
+            f'${val}T', ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Market Size (Trillion USD)', fontsize=12)
-ax.set_xlabel('Year (* = projected)', fontsize=12)
+ax.set_ylabel('Market Size (Trillion USD)', fontsize=15)
+ax.set_xlabel('Year (* = projected)', fontsize=15)
 ax.set_ylim(0, 20)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add growth annotation
 ax.annotate('BCG Estimate:\n$16T by 2030', xy=(6, 16), xytext=(5, 18),
-            fontsize=9, ha='center',
+            fontsize=14, ha='center',
             arrowprops=dict(arrowstyle='->', color=MLGREEN, lw=1.5),
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 # Asset class breakdown annotation
 ax.text(0.02, 0.98, 'Includes:\nReal Estate, Bonds,\nPrivate Equity, Art',
-        transform=ax.transAxes, fontsize=9, va='top',
+        transform=ax.transAxes, fontsize=14, va='top',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.set_title('Real World Asset (RWA) Tokenization Market', fontweight='bold', fontsize=14, pad=10)

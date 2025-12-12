@@ -40,15 +40,15 @@ positions = np.cumsum([0] + durations[:-1])
 for i, (exercise, duration, pos, color) in enumerate(zip(exercises, durations, positions, colors)):
     ax.barh(0, duration, left=pos, height=0.5, color=color, edgecolor='black', linewidth=1.5)
     ax.text(pos + duration/2, 0, f'{exercise}\n({duration} min)',
-            ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+            ha='center', va='center', fontsize=14, fontweight='bold', color='white')
 
 for t in [0, 30, 60, 90, 100]:
     ax.axvline(x=t, color='gray', linestyle='--', alpha=0.5, linewidth=1)
-    ax.text(t, -0.4, f'{t} min', ha='center', va='top', fontsize=10)
+    ax.text(t, -0.4, f'{t} min', ha='center', va='top', fontsize=14)
 
 ax.set_xlim(-2, 105)
 ax.set_ylim(-0.6, 0.6)
-ax.set_xlabel('Time (minutes)', fontsize=12)
+ax.set_xlabel('Time (minutes)', fontsize=15)
 ax.set_yticks([])
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)

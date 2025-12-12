@@ -43,19 +43,19 @@ bars = ax.bar(etfs, aum, color=colors, edgecolor='black', linewidth=1.5, width=0
 # Add value labels
 for bar, val in zip(bars, aum):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.3,
-            f'${val}B', ha='center', va='bottom', fontsize=10, fontweight='bold')
+            f'${val}B', ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Assets Under Management (Billion USD)', fontsize=12)
+ax.set_ylabel('Assets Under Management (Billion USD)', fontsize=15)
 ax.set_ylim(0, 30)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Total annotation
 total = sum(aum)
-ax.text(5.5, 25, f'Total AUM:\n${total:.0f}B+', fontsize=11, fontweight='bold',
+ax.text(5.5, 25, f'Total AUM:\n${total:.0f}B+', fontsize=14, fontweight='bold',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE))
 
 # Timeline note
-ax.text(0.5, 27, 'Approved: Jan 10, 2024', fontsize=9, color='gray', style='italic')
+ax.text(0.5, 27, 'Approved: Jan 10, 2024', fontsize=14, color='gray', style='italic')
 
 ax.set_title('US Spot Bitcoin ETF AUM (Q4 2024)', fontweight='bold', fontsize=14, pad=10)
 

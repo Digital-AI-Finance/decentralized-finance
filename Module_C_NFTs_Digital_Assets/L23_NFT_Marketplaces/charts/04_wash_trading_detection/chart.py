@@ -50,21 +50,21 @@ bars = ax.barh(y_pos, reliability, color=colors, edgecolor='black', linewidth=0.
 # Add percentage labels
 for i, (bar, rel) in enumerate(zip(bars, reliability)):
     ax.text(bar.get_width() + 1, bar.get_y() + bar.get_height()/2,
-            f'{rel}%', va='center', ha='left', fontsize=11, fontweight='bold')
+            f'{rel}%', va='center', ha='left', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(red_flags, fontsize=10, fontweight='bold')
-ax.set_xlabel('Reliability as Wash Trading Indicator (%)', fontsize=12)
+ax.set_yticklabels(red_flags, fontsize=14, fontweight='bold')
+ax.set_xlabel('Reliability as Wash Trading Indicator (%)', fontsize=15)
 ax.set_xlim(0, 105)
 ax.grid(True, alpha=0.3, axis='x')
 
 # Threshold line
 ax.axvline(x=80, color='#333', linestyle='--', linewidth=1.5, alpha=0.7)
-ax.text(81, 4.5, 'High\nconfidence\nthreshold', fontsize=8, va='center')
+ax.text(81, 4.5, 'High\nconfidence\nthreshold', fontsize=14, va='center')
 
 # Detection tools note
 ax.text(0.5, -0.12, 'Tools: Nansen wallet analysis, Dune Analytics SQL queries, Chainalysis forensics',
-        transform=ax.transAxes, ha='center', fontsize=9,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE))
 
 ax.set_title('Wash Trading Detection Indicators', fontweight='bold', fontsize=15, pad=10)

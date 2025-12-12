@@ -51,7 +51,7 @@ for autotext in autotexts:
 
 # Add insider vs community breakdown
 ax.text(0.5, -0.12, 'Insiders (Team+VCs+Advisors): ~40%  |  Community: ~60%',
-        transform=ax.transAxes, ha='center', fontsize=10, fontweight='bold',
+        transform=ax.transAxes, ha='center', fontsize=14, fontweight='bold',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('Typical Token Allocation (Healthy Project)', fontweight='bold', fontsize=15, pad=10)

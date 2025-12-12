@@ -42,12 +42,12 @@ stage_x = [0.12, 0.35, 0.60, 0.88]
 ax.plot([0.05, 0.95], [0.92, 0.92], color='gray', linewidth=2, zorder=1)
 for i, (x, label) in enumerate(zip(stage_x, stages)):
     ax.plot(x, 0.92, 'o', markersize=12, color=MLPURPLE, zorder=2)
-    ax.text(x, 0.97, label, ha='center', va='bottom', fontsize=11, color=MLPURPLE)
+    ax.text(x, 0.97, label, ha='center', va='bottom', fontsize=14, color=MLPURPLE)
 
 # Stage 0: Miner finds block
 ax.add_patch(Circle((0.12, 0.6), 0.06, facecolor=MLGREEN, edgecolor='black', linewidth=2))
 ax.text(0.12, 0.6, 'M', ha='center', va='center', fontsize=14, fontweight='bold', color='white')
-ax.text(0.12, 0.48, 'Miner', ha='center', fontsize=11, color='#444')
+ax.text(0.12, 0.48, 'Miner', ha='center', fontsize=14, color='#444')
 
 # Stage 1: Direct peers (3 nodes)
 peers1_y = [0.7, 0.6, 0.5]
@@ -91,13 +91,13 @@ legend_elements = [
     plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=MLBLUE, markersize=10, label='2nd hop peers'),
     plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=MLLAVENDER, markersize=10, label='Full network'),
 ]
-ax.legend(handles=legend_elements, loc='lower center', ncol=4, fontsize=10,
+ax.legend(handles=legend_elements, loc='lower center', ncol=4, fontsize=14,
           framealpha=0.9, bbox_to_anchor=(0.5, -0.02))
 
 # Stats box
 stats_text = 'Bitcoin: ~6-12 sec to reach 95% of network\nEthereum: ~2-6 sec propagation time'
 props = dict(boxstyle='round,pad=0.4', facecolor='white', edgecolor=MLPURPLE, alpha=0.9)
-ax.text(0.5, 0.18, stats_text, ha='center', va='center', fontsize=11,
+ax.text(0.5, 0.18, stats_text, ha='center', va='center', fontsize=14,
         bbox=props, color='#333')
 
 ax.set_xlim(0, 1)

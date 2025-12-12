@@ -45,11 +45,11 @@ bars = ax.barh(y_pos, losses, color=colors, edgecolor='black', linewidth=1.5, he
 # Add value labels
 for bar, val, atype in zip(bars, losses, attack_types):
     ax.text(bar.get_width() + 5, bar.get_y() + bar.get_height()/2,
-            f'${val}M ({atype})', va='center', fontsize=10, fontweight='bold')
+            f'${val}M ({atype})', va='center', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(attacks, fontsize=10)
-ax.set_xlabel('Losses (Million USD)', fontsize=12)
+ax.set_yticklabels(attacks, fontsize=14)
+ax.set_xlabel('Losses (Million USD)', fontsize=15)
 ax.set_xlim(0, 260)
 
 ax.invert_yaxis()
@@ -58,7 +58,7 @@ ax.grid(True, alpha=0.3, axis='x')
 # Total annotation
 total_loss = sum(losses)
 ax.text(0.5, -0.15, f'Total flash loan-related losses: ~${total_loss:.0f}M (2020-2023)',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_title('Major Flash Loan Attacks by Loss Amount', fontweight='bold', fontsize=14, pad=10)

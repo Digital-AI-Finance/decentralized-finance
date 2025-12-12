@@ -50,18 +50,18 @@ for bar, val in zip(bars, values):
     ax.annotate(label,
                 xy=(bar.get_x() + bar.get_width() / 2, height),
                 xytext=(0, 5), textcoords="offset points",
-                ha='center', va='bottom', fontsize=12, fontweight='bold')
+                ha='center', va='bottom', fontsize=15, fontweight='bold')
 
-ax.set_ylabel('Market Size (Trillions USD)', fontsize=12)
+ax.set_ylabel('Market Size (Trillions USD)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(years, fontsize=10, fontweight='bold')
+ax.set_xticklabels(years, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 20)
 
 ax.grid(True, alpha=0.3, axis='y')
 
 # Growth annotation
 ax.annotate('320x Growth\n(2024-2030)', xy=(3, 16), xytext=(2, 18),
-            fontsize=10, fontweight='bold', ha='center',
+            fontsize=14, fontweight='bold', ha='center',
             arrowprops=dict(arrowstyle='->', color='black'))
 
 ax.set_title('Tokenized RWA Market Projections', fontweight='bold', fontsize=15, pad=10)

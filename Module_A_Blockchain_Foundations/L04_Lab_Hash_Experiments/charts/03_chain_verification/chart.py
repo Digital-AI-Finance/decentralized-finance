@@ -40,8 +40,8 @@ for i, (x, label) in enumerate(zip(blocks_x, block_labels)):
                                     boxstyle="round,pad=0.02",
                                     facecolor=MLGREEN, edgecolor='black', linewidth=2)
     ax1.add_patch(rect)
-    ax1.text(x, 0.5, label, ha='center', va='center', fontsize=9, fontweight='bold', color='white')
-    ax1.text(x, 0.35, 'Valid', ha='center', va='center', fontsize=8, color='white')
+    ax1.text(x, 0.5, label, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
+    ax1.text(x, 0.35, 'Valid', ha='center', va='center', fontsize=14, color='white')
 
     # Draw arrows
     if i > 0:
@@ -51,7 +51,7 @@ for i, (x, label) in enumerate(zip(blocks_x, block_labels)):
 ax1.set_xlim(0, 1)
 ax1.set_ylim(0, 1)
 ax1.axis('off')
-ax1.set_title('Valid Chain: All Hashes Match', fontweight='bold', fontsize=12, color=MLGREEN)
+ax1.set_title('Valid Chain: All Hashes Match', fontweight='bold', fontsize=15, color=MLGREEN)
 
 # Tampered chain (bottom)
 for i, (x, label) in enumerate(zip(blocks_x, block_labels)):
@@ -69,8 +69,8 @@ for i, (x, label) in enumerate(zip(blocks_x, block_labels)):
                                     boxstyle="round,pad=0.02",
                                     facecolor=color, edgecolor='black', linewidth=2)
     ax2.add_patch(rect)
-    ax2.text(x, 0.5, label, ha='center', va='center', fontsize=9, fontweight='bold', color='white')
-    ax2.text(x, 0.35, status, ha='center', va='center', fontsize=8, color='white')
+    ax2.text(x, 0.5, label, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
+    ax2.text(x, 0.35, status, ha='center', va='center', fontsize=14, color='white')
 
     # Draw arrows (broken for tampered)
     if i > 0:
@@ -86,7 +86,7 @@ ax2.text(0.58, 0.5, 'X', ha='center', va='center', fontsize=16, fontweight='bold
 ax2.set_xlim(0, 1)
 ax2.set_ylim(0, 1)
 ax2.axis('off')
-ax2.set_title('Tampered Chain: Hash Mismatch Detected', fontweight='bold', fontsize=12, color=MLRED)
+ax2.set_title('Tampered Chain: Hash Mismatch Detected', fontweight='bold', fontsize=15, color=MLRED)
 
 plt.suptitle('Hash Chain Integrity Verification', fontweight='bold', fontsize=14, y=0.98)
 plt.tight_layout()

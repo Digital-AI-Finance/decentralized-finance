@@ -52,7 +52,7 @@ for autotext in autotexts:
 
 # Add annotation
 ax.text(0, -1.4, 'Ethereum maintains dominance; Layer 2s growing share rapidly',
-        ha='center', fontsize=10,
+        ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE))
 
 ax.set_title('DeFi TVL Distribution by Blockchain (Dec 2024)', fontweight='bold', fontsize=15, pad=10)

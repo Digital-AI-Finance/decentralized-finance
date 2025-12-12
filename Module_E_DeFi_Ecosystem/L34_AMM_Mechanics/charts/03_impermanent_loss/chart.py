@@ -50,15 +50,15 @@ for ratio, label in zip(key_ratios, key_labels):
     y_offset = -3 if ratio == 1.0 else 2
     ax.annotate(f'{il_val*100:.1f}%', xy=(ratio, il_val*100),
                 xytext=(0, y_offset), textcoords='offset points',
-                fontsize=9, ha='center', fontweight='bold')
+                fontsize=14, ha='center', fontweight='bold')
 
 # Add reference line at 0
 ax.axhline(y=0, color='black', linestyle='-', linewidth=0.5)
 ax.axvline(x=1, color=MLGREEN, linestyle='--', linewidth=1, alpha=0.7)
-ax.text(1.05, -3, 'No change\n(IL = 0)', fontsize=9, color=MLGREEN)
+ax.text(1.05, -3, 'No change\n(IL = 0)', fontsize=14, color=MLGREEN)
 
-ax.set_xlabel('Price Ratio (Final / Initial)', fontsize=12)
-ax.set_ylabel('Impermanent Loss (%)', fontsize=12)
+ax.set_xlabel('Price Ratio (Final / Initial)', fontsize=15)
+ax.set_ylabel('Impermanent Loss (%)', fontsize=15)
 ax.set_xlim(0, 5.2)
 ax.set_ylim(-30, 5)
 
@@ -66,7 +66,7 @@ ax.grid(True, alpha=0.3)
 
 # Add formula
 ax.text(0.95, 0.95, r'$IL = \frac{2\sqrt{r}}{1+r} - 1$', transform=ax.transAxes,
-        fontsize=12, va='top', ha='right',
+        fontsize=15, va='top', ha='right',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor=MLBLUE))
 
 ax.set_title('Impermanent Loss vs Price Change', fontweight='bold', fontsize=15, pad=10)

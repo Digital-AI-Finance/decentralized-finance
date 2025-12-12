@@ -49,19 +49,19 @@ for i, (ltv, liq) in enumerate(zip(max_ltv, liq_threshold)):
     buffer = liq - ltv
     ax.annotate(f'+{buffer}%\nbuffer',
                 xy=(x[i] + width/4, (ltv + liq)/2),
-                fontsize=8, ha='center', color='gray')
+                fontsize=14, ha='center', color='gray')
 
-ax.set_ylabel('Percentage (%)', fontsize=12)
+ax.set_ylabel('Percentage (%)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(assets, fontsize=10, fontweight='bold')
+ax.set_xticklabels(assets, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 100)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add annotation
 ax.text(0.5, -0.12, 'Lower risk assets (stablecoins) have higher LTV; volatile assets have lower LTV',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE))
 
 ax.set_title('Aave LTV and Liquidation Thresholds by Asset', fontweight='bold', fontsize=14, pad=10)

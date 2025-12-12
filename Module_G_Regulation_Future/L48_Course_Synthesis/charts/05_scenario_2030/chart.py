@@ -52,24 +52,24 @@ bars2 = ax.bar(x + width/2, norm_2030, width, label='2030 Projected', color=MLGR
 for bar, val in zip(bars1, values_2024):
     label = f'{val}B' if val >= 100 else str(val)
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,
-            label, ha='center', va='bottom', fontsize=9, fontweight='bold', color=MLBLUE)
+            label, ha='center', va='bottom', fontsize=14, fontweight='bold', color=MLBLUE)
 
 for bar, val in zip(bars2, values_2030):
     label = f'{val}B' if val >= 100 else str(val)
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,
-            label, ha='center', va='bottom', fontsize=9, fontweight='bold', color=MLGREEN)
+            label, ha='center', va='bottom', fontsize=14, fontweight='bold', color=MLGREEN)
 
-ax.set_ylabel('Relative Scale (%)', fontsize=12)
+ax.set_ylabel('Relative Scale (%)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(categories, fontsize=9)
+ax.set_xticklabels(categories, fontsize=14)
 ax.set_ylim(0, 120)
 
-ax.legend(loc='upper left', fontsize=10)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add growth annotation
 ax.text(0.98, 0.98, 'Average Growth:\n4-8x across metrics',
-        transform=ax.transAxes, fontsize=9, ha='right', va='top',
+        transform=ax.transAxes, fontsize=14, ha='right', va='top',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.set_title('Blockchain Industry: 2024 vs 2030 Projections', fontweight='bold', fontsize=14, pad=10)

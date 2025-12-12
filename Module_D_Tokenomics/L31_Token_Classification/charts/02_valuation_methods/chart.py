@@ -50,16 +50,16 @@ bars3 = ax.barh(y_pos + height, ease_of_use, height, label='Ease of Use',
                 color=MLORANGE, edgecolor='black', linewidth=0.5)
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(methods, fontsize=10)
-ax.set_xlabel('Score (1-10)', fontsize=12)
+ax.set_yticklabels(methods, fontsize=14)
+ax.set_xlabel('Score (1-10)', fontsize=15)
 ax.set_xlim(0, 11)
 
-ax.legend(loc='lower right', fontsize=10)
+ax.legend(loc='lower right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='x')
 
 # Add annotations
 ax.text(0.5, -0.12, 'Use multiple methods; no single approach is definitive for crypto valuation',
-        transform=ax.transAxes, ha='center', fontsize=9,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.set_title('Token Valuation Methods Comparison', fontweight='bold', fontsize=15, pad=10)

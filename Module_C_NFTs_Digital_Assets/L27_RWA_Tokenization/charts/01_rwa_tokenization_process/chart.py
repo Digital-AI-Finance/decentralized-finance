@@ -48,9 +48,9 @@ for x, y, label, color, sublabel in steps:
                                     linewidth=2, alpha=0.85)
     ax.add_patch(rect)
     ax.text(x, y+0.03, label, ha='center', va='center',
-            fontsize=9, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
     ax.text(x, y-0.08, sublabel, ha='center', va='center',
-            fontsize=7, color='white', style='italic')
+            fontsize=14, color='white', style='italic')
 
 # Draw arrows between steps
 arrow_props = dict(arrowstyle='->', color='black', lw=2)
@@ -72,8 +72,8 @@ for x, y, title, color, text in info_boxes:
                                     linewidth=1.5)
     ax.add_patch(rect)
     ax.text(x, y+0.05, title, ha='center', va='center',
-            fontsize=10, fontweight='bold')
-    ax.text(x, y-0.05, text, ha='center', va='center', fontsize=8)
+            fontsize=14, fontweight='bold')
+    ax.text(x, y-0.05, text, ha='center', va='center', fontsize=14)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

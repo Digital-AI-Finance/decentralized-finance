@@ -61,7 +61,7 @@ ax.plot(utilization, supply_rate, '-', color=MLGREEN, linewidth=2.5, label='Supp
 
 # Mark optimal utilization
 ax.axvline(x=optimal_util, color='gray', linestyle='--', linewidth=1.5)
-ax.annotate('Optimal\nUtilization', xy=(optimal_util, 60), fontsize=10, ha='center',
+ax.annotate('Optimal\nUtilization', xy=(optimal_util, 60), fontsize=14, ha='center',
             bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='gray'))
 
 # Mark current zones
@@ -69,15 +69,15 @@ ax.fill_between(utilization, 0, 5, where=(utilization <= 60), color=MLGREEN, alp
 ax.fill_between(utilization, 0, 5, where=(utilization > 60) & (utilization <= 90), color=MLORANGE, alpha=0.1)
 ax.fill_between(utilization, 0, 5, where=(utilization > 90), color=MLRED, alpha=0.1)
 
-ax.text(30, 2, 'Low Rates\n(Encourage\nBorrowing)', fontsize=9, ha='center', color=MLGREEN)
-ax.text(97, 50, 'High Rates\n(Discourage\nBorrowing)', fontsize=9, ha='center', color=MLRED)
+ax.text(30, 2, 'Low Rates\n(Encourage\nBorrowing)', fontsize=14, ha='center', color=MLGREEN)
+ax.text(97, 50, 'High Rates\n(Discourage\nBorrowing)', fontsize=14, ha='center', color=MLRED)
 
-ax.set_xlabel('Utilization Rate (%)', fontsize=12)
-ax.set_ylabel('Interest Rate (APY %)', fontsize=12)
+ax.set_xlabel('Utilization Rate (%)', fontsize=15)
+ax.set_ylabel('Interest Rate (APY %)', fontsize=15)
 ax.set_xlim(0, 100)
 ax.set_ylim(0, 110)
 
-ax.legend(loc='upper left', fontsize=10)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('Aave Interest Rate Model (USDC)', fontweight='bold', fontsize=14, pad=10)

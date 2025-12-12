@@ -41,15 +41,15 @@ bars = ax.barh(tiers, scores, color=colors, edgecolor='black', linewidth=1.5, he
 
 for bar, example in zip(bars, examples):
     ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2,
-            example, ha='left', va='center', fontsize=10, style='italic')
+            example, ha='left', va='center', fontsize=14, style='italic')
 
-ax.set_xlabel('Security Score', fontsize=12)
+ax.set_xlabel('Security Score', fontsize=15)
 ax.set_xlim(0, 14)
 ax.grid(True, alpha=0.3, axis='x')
 
 # Lab recommendation
 ax.axvline(x=6, color=MLPURPLE, linestyle='--', linewidth=2, alpha=0.7)
-ax.text(6.2, 3.5, 'Lab\nMinimum', fontsize=9, color=MLPURPLE, fontweight='bold')
+ax.text(6.2, 3.5, 'Lab\nMinimum', fontsize=14, color=MLPURPLE, fontweight='bold')
 
 ax.set_title('Key Storage Security Tiers', fontweight='bold', fontsize=14, pad=10)
 

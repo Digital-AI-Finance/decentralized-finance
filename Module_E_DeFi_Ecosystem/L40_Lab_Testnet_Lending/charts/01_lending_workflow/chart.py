@@ -14,12 +14,12 @@ positions = np.cumsum([0] + durations[:-1])
 
 for i, (pos, dur, ex, col) in enumerate(zip(positions, durations, exercises, colors)):
     ax.barh(0, dur, left=pos, height=0.5, color=col, edgecolor='black', linewidth=1.5, alpha=0.85)
-    ax.text(pos + dur/2, 0, ex, ha='center', va='center', fontsize=10, fontweight='bold', color='white')
-    ax.text(pos + dur/2, -0.4, f'{dur} min', ha='center', va='center', fontsize=9)
+    ax.text(pos + dur/2, 0, ex, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
+    ax.text(pos + dur/2, -0.4, f'{dur} min', ha='center', va='center', fontsize=14)
 
 ax.set_xlim(-2, 95)
 ax.set_ylim(-0.8, 0.8)
-ax.set_xlabel('Time (minutes)', fontsize=12)
+ax.set_xlabel('Time (minutes)', fontsize=15)
 ax.set_title('Testnet Lending Lab: 90-Minute Session', fontweight='bold', fontsize=14)
 ax.set_yticks([])
 ax.grid(True, alpha=0.3, axis='x')

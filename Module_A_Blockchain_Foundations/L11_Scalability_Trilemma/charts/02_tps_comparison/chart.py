@@ -50,15 +50,15 @@ ax.set_ylim(1, 100000)
 for bar, t, n in zip(bars, tps, nodes):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, height * 1.2,
-            f'{t:,}', ha='center', fontsize=10, fontweight='bold')
+            f'{t:,}', ha='center', fontsize=14, fontweight='bold')
     ax.text(bar.get_x() + bar.get_width()/2, height * 0.4,
-            n, ha='center', fontsize=8, color='white', rotation=90)
+            n, ha='center', fontsize=14, color='white', rotation=90)
 
 # Reference lines
 ax.axhline(y=24000, color=MLLAVENDER, linestyle='--', alpha=0.7, linewidth=1.5)
-ax.text(7.5, 28000, 'Visa avg.', ha='right', fontsize=9, color='#666')
+ax.text(7.5, 28000, 'Visa avg.', ha='right', fontsize=14, color='#666')
 
-ax.set_ylabel('Transactions Per Second (log scale)', fontsize=13)
+ax.set_ylabel('Transactions Per Second (log scale)', fontsize=16)
 ax.set_title('Layer 1 Throughput: TPS vs Decentralization Trade-off', fontweight='bold', fontsize=15, pad=10)
 ax.grid(True, alpha=0.3, axis='y')
 
@@ -70,7 +70,7 @@ legend_elements = [
     Patch(facecolor=MLORANGE, edgecolor='black', label='Low Decentralization'),
     Patch(facecolor=MLRED, edgecolor='black', label='Vertical Scaling'),
 ]
-ax.legend(handles=legend_elements, loc='upper left', fontsize=10)
+ax.legend(handles=legend_elements, loc='upper left', fontsize=14)
 
 plt.tight_layout()
 

@@ -41,13 +41,13 @@ bars = ax.bar(categories, values, color=colors, edgecolor='black', linewidth=1.5
 # Add value labels
 for bar, val in zip(bars, values):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5,
-            f'${val}B', ha='center', va='bottom', fontsize=13, fontweight='bold')
+            f'${val}B', ha='center', va='bottom', fontsize=16, fontweight='bold')
 
 # Add total annotation
 ax.axhline(y=60, color=MLRED, linestyle='--', linewidth=2, alpha=0.7)
-ax.text(3.5, 62, 'Total Ecosystem: ~$60B', ha='right', fontsize=11, color=MLRED, fontweight='bold')
+ax.text(3.5, 62, 'Total Ecosystem: ~$60B', ha='right', fontsize=14, color=MLRED, fontweight='bold')
 
-ax.set_ylabel('Value (Billion USD)', fontsize=12)
+ax.set_ylabel('Value (Billion USD)', fontsize=15)
 ax.set_ylim(0, 70)
 ax.grid(True, alpha=0.3, axis='y')
 

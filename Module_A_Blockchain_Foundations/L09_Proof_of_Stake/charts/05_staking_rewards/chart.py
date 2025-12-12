@@ -51,20 +51,20 @@ current_apr = 64 / np.sqrt(current_stake)
 ax.plot(current_stake, current_apr, 'o', markersize=12, color=MLRED, zorder=5)
 ax.annotate(f'Current (2024)\n{current_stake}M ETH\n{current_apr:.1f}% APR',
             xy=(current_stake, current_apr), xytext=(40, 5),
-            fontsize=10, fontweight='bold',
+            fontsize=14, fontweight='bold',
             arrowprops=dict(arrowstyle='->', color='#333', lw=1.5))
 
-ax.set_xlabel('Total ETH Staked (Millions)', fontsize=13)
-ax.set_ylabel('Annual Percentage Rate (%)', fontsize=13)
+ax.set_xlabel('Total ETH Staked (Millions)', fontsize=16)
+ax.set_ylabel('Annual Percentage Rate (%)', fontsize=16)
 ax.set_xlim(0, 50)
 ax.set_ylim(0, 25)
 
 # Formula annotation
 formula = r'$APR \approx \frac{64}{\sqrt{N}}$ where N = total ETH staked (millions)'
 props = dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor=MLPURPLE)
-ax.text(30, 18, formula, fontsize=11, bbox=props, color='#333')
+ax.text(30, 18, formula, fontsize=14, bbox=props, color='#333')
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('Ethereum Staking Rewards: APR vs Total Stake', fontweight='bold', fontsize=15, pad=10)

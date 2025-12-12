@@ -41,16 +41,16 @@ bars = ax.bar(years, losses, color=colors, edgecolor='black', linewidth=1.5, wid
 # Add value labels
 for bar, val in zip(bars, losses):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.05,
-            f'${val}B', ha='center', va='bottom', fontsize=10, fontweight='bold')
+            f'${val}B', ha='center', va='bottom', fontsize=14, fontweight='bold')
 
 # Highlight The DAO (2016) and peak (2022)
 ax.annotate('The DAO\n($60M)', xy=(0, 0.06), xytext=(0.5, 1.0),
-            fontsize=9, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
+            fontsize=14, ha='center', arrowprops=dict(arrowstyle='->', color='gray'))
 ax.annotate('Peak Year', xy=(6, 3.1), xytext=(6, 3.6),
-            fontsize=9, ha='center', arrowprops=dict(arrowstyle='->', color=MLRED))
+            fontsize=14, ha='center', arrowprops=dict(arrowstyle='->', color=MLRED))
 
-ax.set_ylabel('Losses (Billion USD)', fontsize=12)
-ax.set_xlabel('Year', fontsize=12)
+ax.set_ylabel('Losses (Billion USD)', fontsize=15)
+ax.set_xlabel('Year', fontsize=15)
 ax.set_ylim(0, 4.0)
 
 ax.grid(True, alpha=0.3, axis='y')

@@ -54,18 +54,18 @@ for x, y, label, height, color in legacy_parts:
                           boxstyle="round,pad=0.01", facecolor=color,
                           edgecolor='black', linewidth=1.5)
     ax1.add_patch(box)
-    ax1.text(x, y, label, ha='center', va='center', fontsize=10,
+    ax1.text(x, y, label, ha='center', va='center', fontsize=14,
              fontweight='bold', color='#333' if color != MLRED else 'white')
 
 # Bracket showing TX ID includes signature
 ax1.annotate('', xy=(0.88, 0.90), xytext=(0.88, 0.10),
              arrowprops=dict(arrowstyle='-[', color=MLRED, lw=2))
-ax1.text(0.92, 0.50, 'TX ID\nincludes\nSignature', ha='left', fontsize=9,
+ax1.text(0.92, 0.50, 'TX ID\nincludes\nSignature', ha='left', fontsize=14,
          color=MLRED, fontweight='bold')
 
 # Problem annotation
 ax1.text(0.50, 0.02, 'Malleability: Sig changes -> TX ID changes',
-         ha='center', fontsize=9, color=MLRED, style='italic')
+         ha='center', fontsize=14, color=MLRED, style='italic')
 
 # Right: SegWit transaction structure
 ax2.set_xlim(0, 1)
@@ -87,7 +87,7 @@ for x, y, label, height, color in segwit_main:
                           boxstyle="round,pad=0.01", facecolor=color,
                           edgecolor='black', linewidth=1.5)
     ax2.add_patch(box)
-    ax2.text(x, y, label, ha='center', va='center', fontsize=10,
+    ax2.text(x, y, label, ha='center', va='center', fontsize=14,
              fontweight='bold', color='white' if color == MLBLUE else '#333')
 
 # Witness data (separate)
@@ -95,20 +95,20 @@ witness_box = FancyBboxPatch((0.70, 0.40), 0.25, 0.35,
                               boxstyle="round,pad=0.01", facecolor=MLGREEN,
                               edgecolor='black', linewidth=2)
 ax2.add_patch(witness_box)
-ax2.text(0.825, 0.65, 'Witness', ha='center', fontsize=11, fontweight='bold', color='white')
-ax2.text(0.825, 0.55, '(Signatures)', ha='center', fontsize=10, color='white')
-ax2.text(0.825, 0.45, 'Segregated!', ha='center', fontsize=10,
+ax2.text(0.825, 0.65, 'Witness', ha='center', fontsize=14, fontweight='bold', color='white')
+ax2.text(0.825, 0.55, '(Signatures)', ha='center', fontsize=14, color='white')
+ax2.text(0.825, 0.45, 'Segregated!', ha='center', fontsize=14,
          color='white', style='italic')
 
 # Bracket showing TX ID excludes witness
 ax2.annotate('', xy=(0.02, 0.90), xytext=(0.02, 0.25),
              arrowprops=dict(arrowstyle='-[', color=MLPURPLE, lw=2))
-ax2.text(0.00, 0.57, 'TX ID', ha='right', fontsize=9, color=MLPURPLE, fontweight='bold')
+ax2.text(0.00, 0.57, 'TX ID', ha='right', fontsize=14, color=MLPURPLE, fontweight='bold')
 
 # Benefits
-ax2.text(0.50, 0.12, 'No malleability', ha='center', fontsize=10,
+ax2.text(0.50, 0.12, 'No malleability', ha='center', fontsize=14,
          color=MLGREEN, fontweight='bold')
-ax2.text(0.50, 0.05, '~40% smaller effective size', ha='center', fontsize=10,
+ax2.text(0.50, 0.05, '~40% smaller effective size', ha='center', fontsize=14,
          color=MLGREEN)
 
 plt.suptitle('Segregated Witness: Separating Signatures', fontsize=15, fontweight='bold', y=0.98)

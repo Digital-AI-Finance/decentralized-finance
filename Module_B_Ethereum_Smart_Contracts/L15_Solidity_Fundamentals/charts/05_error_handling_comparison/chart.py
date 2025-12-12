@@ -49,12 +49,12 @@ bars2 = ax.bar(x, error_info, width, label='Error Info Quality',
 bars3 = ax.bar(x + width, use_case_fit, width, label='Overall Usefulness',
                color=MLGREEN, edgecolor='black', linewidth=0.5, alpha=0.8)
 
-ax.set_ylabel('Score', fontsize=12)
+ax.set_ylabel('Score', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(methods, fontsize=11, fontweight='bold')
+ax.set_xticklabels(methods, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 110)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add use case labels
@@ -66,14 +66,14 @@ use_cases = [
 ]
 
 for i, (bar, use) in enumerate(zip(bars1, use_cases)):
-    ax.text(i, 105, use, ha='center', fontsize=9, va='bottom',
+    ax.text(i, 105, use, ha='center', fontsize=14, va='bottom',
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
 
 # Add recommendation
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN)
 ax.text(0.98, 0.02, 'Recommendation: Use custom errors (0.8.4+)\nfor best gas efficiency and error context',
         transform=ax.transAxes, ha='right', va='bottom',
-        fontsize=10, fontweight='bold', bbox=props, color=MLGREEN)
+        fontsize=14, fontweight='bold', bbox=props, color=MLGREEN)
 
 ax.set_title('Solidity Error Handling Methods', fontweight='bold', fontsize=15, pad=15)
 plt.tight_layout()

@@ -60,21 +60,21 @@ def draw_multisig(ax, m, n, title, use_case, color):
 
         circle = Circle((x, y), 0.08, facecolor=key_color, edgecolor='black', linewidth=2)
         ax.add_patch(circle)
-        ax.text(x, y, f'K{i+1}', ha='center', va='center', fontsize=12,
+        ax.text(x, y, f'K{i+1}', ha='center', va='center', fontsize=15,
                 fontweight='bold', color='white')
 
     # Required vs total
     ax.text(0.5, 0.45, f'{m} signatures required', ha='center', va='center',
-            fontsize=11, color=color, fontweight='bold')
+            fontsize=14, color=color, fontweight='bold')
     ax.text(0.5, 0.38, f'out of {n} total keys', ha='center', va='center',
-            fontsize=10, color='#666')
+            fontsize=14, color='#666')
 
     # Use case box
     use_box = FancyBboxPatch((0.1, 0.08), 0.8, 0.18,
                               boxstyle="round,pad=0.02", facecolor='white',
                               edgecolor=color, linewidth=2)
     ax.add_patch(use_box)
-    ax.text(0.5, 0.17, use_case, ha='center', va='center', fontsize=10,
+    ax.text(0.5, 0.17, use_case, ha='center', va='center', fontsize=14,
             color='#333', style='italic')
 
 # 2-of-3 (most common)
@@ -88,7 +88,7 @@ draw_multisig(axes[2], 2, 2, '2-of-2', 'Joint accounts\nBuyer + Seller', MLORANG
 
 # Add legend at bottom
 fig.text(0.5, 0.02, 'Green = Required for signing | Gray = Spare/backup key',
-         ha='center', fontsize=11, color='#555')
+         ha='center', fontsize=14, color='#555')
 
 plt.suptitle('Multi-Signature (M-of-N) Wallet Configurations', fontsize=15,
              fontweight='bold', y=0.98)

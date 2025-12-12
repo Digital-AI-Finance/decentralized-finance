@@ -55,11 +55,11 @@ for i, (x, y, label, desc, color) in enumerate(steps):
     ax.add_patch(box)
 
     # Label (bold)
-    ax.text(x, y + 0.08, label, ha='center', va='center', fontsize=11,
+    ax.text(x, y + 0.08, label, ha='center', va='center', fontsize=14,
             fontweight='bold', color='white')
 
     # Description
-    ax.text(x, y - 0.05, desc, ha='center', va='center', fontsize=9,
+    ax.text(x, y - 0.05, desc, ha='center', va='center', fontsize=14,
             color='white')
 
     # Arrow to next step
@@ -77,7 +77,7 @@ details = [
 ]
 
 for x, y, text in details:
-    ax.text(x, y, text, ha='center', va='center', fontsize=9,
+    ax.text(x, y, text, ha='center', va='center', fontsize=14,
             color='#555', style='italic')
     # Dotted line up
     ax.plot([x, x], [y + 0.05, 0.5 - box_height/2 - 0.02],
@@ -85,12 +85,12 @@ for x, y, text in details:
 
 # Initial hash values annotation
 ax.annotate('Initialize with\n8 constants\n(prime roots)', xy=(0.59, 0.7),
-            xytext=(0.59, 0.88), ha='center', fontsize=10, color=MLPURPLE,
+            xytext=(0.59, 0.88), ha='center', fontsize=14, color=MLPURPLE,
             arrowprops=dict(arrowstyle='->', color=MLPURPLE, lw=1.5))
 
 # Example sizes
-ax.text(0.08, 0.18, '"abc"\n(3 bytes)', ha='center', va='center', fontsize=10, color=MLBLUE)
-ax.text(0.93, 0.18, '64 hex\ncharacters', ha='center', va='center', fontsize=10, color=MLBLUE)
+ax.text(0.08, 0.18, '"abc"\n(3 bytes)', ha='center', va='center', fontsize=14, color=MLBLUE)
+ax.text(0.93, 0.18, '64 hex\ncharacters', ha='center', va='center', fontsize=14, color=MLBLUE)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)

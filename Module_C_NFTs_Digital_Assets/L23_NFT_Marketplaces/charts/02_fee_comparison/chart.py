@@ -50,26 +50,26 @@ for bar in bars1:
     ax.annotate(f'{height}%',
                 xy=(bar.get_x() + bar.get_width() / 2, height),
                 xytext=(0, 3), textcoords="offset points",
-                ha='center', va='bottom', fontsize=10, fontweight='bold')
+                ha='center', va='bottom', fontsize=14, fontweight='bold')
 
 for bar in bars2:
     height = bar.get_height()
     ax.annotate(f'{height}%',
                 xy=(bar.get_x() + bar.get_width() / 2, height),
                 xytext=(0, 3), textcoords="offset points",
-                ha='center', va='bottom', fontsize=10, fontweight='bold')
+                ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Fee Percentage (%)', fontsize=12)
+ax.set_ylabel('Fee Percentage (%)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(marketplaces, fontsize=10, fontweight='bold')
+ax.set_xticklabels(marketplaces, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 4)
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Note about optional royalties
 ax.text(0.5, -0.12, 'Note: Creator royalties are optional on most platforms (buyer decides)',
-        transform=ax.transAxes, ha='center', fontsize=9,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.set_title('NFT Marketplace Fee Structures (2024)', fontweight='bold', fontsize=15, pad=10)

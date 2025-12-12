@@ -51,21 +51,21 @@ for bar in bars1:
     ax.annotate(f'{height}',
                 xy=(bar.get_x() + bar.get_width() / 2, height),
                 xytext=(0, 3), textcoords="offset points",
-                ha='center', va='bottom', fontsize=9, fontweight='bold')
+                ha='center', va='bottom', fontsize=14, fontweight='bold')
 
 for bar in bars2:
     height = bar.get_height()
     ax.annotate(f'{height}',
                 xy=(bar.get_x() + bar.get_width() / 2, height),
                 xytext=(0, 3), textcoords="offset points",
-                ha='center', va='bottom', fontsize=9, fontweight='bold')
+                ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(benefits, fontsize=10, fontweight='bold')
+ax.set_xticklabels(benefits, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper left', fontsize=11)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 ax.set_title('Traditional vs Tokenized Asset Ownership', fontweight='bold', fontsize=15, pad=10)

@@ -62,18 +62,18 @@ for bar, cost, desc in zip(bars, costs, descriptions):
 
     # Cost on the bar
     ax.text(width * 0.5, bar.get_y() + bar.get_height()/2, label,
-            va='center', ha='center', fontsize=11, fontweight='bold', color='white')
+            va='center', ha='center', fontsize=14, fontweight='bold', color='white')
 
     # Description on the right
     ax.text(width * 1.5, bar.get_y() + bar.get_height()/2, desc,
-            va='center', fontsize=9, color='#555')
+            va='center', fontsize=14, color='#555')
 
 # Security insight annotation
 props = dict(boxstyle='round,pad=0.3', facecolor='#FFE0E0', edgecolor=MLRED)
 ax.text(0.005, -0.8, 'Lower cost = Higher vulnerability',
-        fontsize=11, fontweight='bold', bbox=props, color=MLRED)
+        fontsize=14, fontweight='bold', bbox=props, color=MLRED)
 
-ax.set_xlabel('Estimated Attack Cost (USD, log scale)', fontsize=13)
+ax.set_xlabel('Estimated Attack Cost (USD, log scale)', fontsize=16)
 ax.set_title('Cost to Attack Different Consensus Mechanisms', fontweight='bold', fontsize=15, pad=10)
 ax.grid(True, alpha=0.3, axis='x')
 

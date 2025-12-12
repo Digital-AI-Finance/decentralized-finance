@@ -60,9 +60,9 @@ for x, y, title, desc, color in properties:
                                boxstyle="round,pad=0.02", facecolor='white',
                                edgecolor=color, linewidth=2.5)
     ax.add_patch(prop_box)
-    ax.text(x, y + 0.03, title, ha='center', va='center', fontsize=11,
+    ax.text(x, y + 0.03, title, ha='center', va='center', fontsize=14,
             fontweight='bold', color=color)
-    ax.text(x, y - 0.05, desc, ha='center', va='center', fontsize=9,
+    ax.text(x, y - 0.05, desc, ha='center', va='center', fontsize=14,
             color='#444')
 
     # Arrow to center

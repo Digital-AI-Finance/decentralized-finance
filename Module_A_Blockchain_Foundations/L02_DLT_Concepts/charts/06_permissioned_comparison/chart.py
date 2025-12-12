@@ -51,26 +51,26 @@ bars2 = ax.barh(x + width/2, permissioned, width, label='Permissioned (Private)'
 for bar in bars1:
     width_val = bar.get_width()
     ax.text(width_val + 0.1, bar.get_y() + bar.get_height()/2.,
-            f'{int(width_val)}', va='center', fontsize=12, fontweight='bold', color=MLGREEN)
+            f'{int(width_val)}', va='center', fontsize=15, fontweight='bold', color=MLGREEN)
 
 for bar in bars2:
     width_val = bar.get_width()
     ax.text(width_val + 0.1, bar.get_y() + bar.get_height()/2.,
-            f'{int(width_val)}', va='center', fontsize=12, fontweight='bold', color=MLORANGE)
+            f'{int(width_val)}', va='center', fontsize=15, fontweight='bold', color=MLORANGE)
 
 # Labels and formatting
 ax.set_yticks(x)
-ax.set_yticklabels(categories, fontsize=13)
-ax.set_xlabel('Score (1=Low, 5=High)', fontsize=13)
+ax.set_yticklabels(categories, fontsize=16)
+ax.set_xlabel('Score (1=Low, 5=High)', fontsize=16)
 ax.set_xlim(0, 6)
 
 # Add examples as annotations
 examples_permissionless = 'Bitcoin, Ethereum'
 examples_permissioned = 'Hyperledger, R3 Corda'
 
-ax.text(3, -1.2, f'Examples: {examples_permissionless}', ha='center', fontsize=11,
+ax.text(3, -1.2, f'Examples: {examples_permissionless}', ha='center', fontsize=14,
         color=MLGREEN, fontweight='bold')
-ax.text(3, -1.6, f'Examples: {examples_permissioned}', ha='center', fontsize=11,
+ax.text(3, -1.6, f'Examples: {examples_permissioned}', ha='center', fontsize=14,
         color=MLORANGE, fontweight='bold')
 
 # Remove top and right spines
@@ -78,7 +78,7 @@ ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
 # Legend
-ax.legend(loc='upper right', fontsize=12, framealpha=0.9)
+ax.legend(loc='upper right', fontsize=15, framealpha=0.9)
 
 plt.title('Permissionless vs Permissioned Blockchains', fontweight='bold', fontsize=15, pad=15)
 plt.tight_layout()

@@ -48,17 +48,17 @@ bars2 = ax.bar(x - 0.5*width, price_discount, width, label='Price Discount', col
 bars3 = ax.bar(x + 0.5*width, vesting_length, width, label='Vesting Length', color=MLORANGE, edgecolor='black', linewidth=0.5)
 bars4 = ax.bar(x + 1.5*width, risk, width, label='Investment Risk', color=MLRED, edgecolor='black', linewidth=0.5)
 
-ax.set_ylabel('Score (Normalized)', fontsize=12)
+ax.set_ylabel('Score (Normalized)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(rounds, fontsize=11, fontweight='bold')
+ax.set_xticklabels(rounds, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 12)
 
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add annotation
 ax.text(0.5, -0.12, 'Earlier rounds: Lower price, longer vesting, higher risk/reward',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#F5F5F5', edgecolor='#888'))
 
 ax.set_title('Investment Round Characteristics', fontweight='bold', fontsize=15, pad=10)

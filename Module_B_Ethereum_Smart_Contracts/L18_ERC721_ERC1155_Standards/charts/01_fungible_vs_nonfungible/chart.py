@@ -44,11 +44,11 @@ for i in range(4):
                         facecolor=MLBLUE, edgecolor='black', linewidth=1)
         ax.add_patch(circle)
         ax.text(0.12 + i * 0.09, 0.68 - j * 0.12, '$', ha='center', va='center',
-                fontsize=10, fontweight='bold', color='white')
+                fontsize=14, fontweight='bold', color='white')
 
-ax.text(0.25, 0.42, '1 USDC = 1 USDC', ha='center', fontsize=11,
+ax.text(0.25, 0.42, '1 USDC = 1 USDC', ha='center', fontsize=14,
         fontweight='bold', family='monospace')
-ax.text(0.25, 0.32, 'Interchangeable\nDivisible\nUniform value', ha='center', fontsize=10)
+ax.text(0.25, 0.32, 'Interchangeable\nDivisible\nUniform value', ha='center', fontsize=14)
 
 # Right side: Non-Fungible (unique items)
 ax.text(0.75, 0.92, 'Non-Fungible (ERC-721)', fontsize=14, fontweight='bold',
@@ -69,19 +69,19 @@ for shape in shapes:
                           edgecolor='black', linewidth=1.5)
     ax.add_patch(box)
     ax.text(shape['x'], shape['y'], shape['id'], ha='center', va='center',
-            fontsize=9, fontweight='bold', color='white')
+            fontsize=14, fontweight='bold', color='white')
 
-ax.text(0.75, 0.42, 'Token #1 != Token #2', ha='center', fontsize=11,
+ax.text(0.75, 0.42, 'Token #1 != Token #2', ha='center', fontsize=14,
         fontweight='bold', family='monospace')
-ax.text(0.75, 0.32, 'Unique ownership\nIndivisible\nIndividual value', ha='center', fontsize=10)
+ax.text(0.75, 0.32, 'Unique ownership\nIndivisible\nIndividual value', ha='center', fontsize=14)
 
 # Dividing line
 ax.axvline(x=0.50, color='#888', linestyle='--', linewidth=1.5, alpha=0.5)
 
 # Examples at bottom
-ax.text(0.25, 0.10, 'Examples: USDC, DAI, UNI', ha='center', fontsize=9,
+ax.text(0.25, 0.10, 'Examples: USDC, DAI, UNI', ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
-ax.text(0.75, 0.10, 'Examples: BAYC, CryptoPunks, ENS', ha='center', fontsize=9,
+ax.text(0.75, 0.10, 'Examples: BAYC, CryptoPunks, ENS', ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
 
 ax.set_xlim(0, 1)

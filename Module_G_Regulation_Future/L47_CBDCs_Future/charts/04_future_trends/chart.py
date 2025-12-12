@@ -44,15 +44,15 @@ bars1 = ax.barh(y - height/2, adoption_2024, height, label='2024 Adoption', colo
 bars2 = ax.barh(y + height/2, projected_2027, height, label='2027 Projected', color=MLGREEN, edgecolor='black')
 
 ax.set_yticks(y)
-ax.set_yticklabels(trends, fontsize=10)
-ax.set_xlabel('Adoption/Maturity Level (%)', fontsize=12)
+ax.set_yticklabels(trends, fontsize=14)
+ax.set_xlabel('Adoption/Maturity Level (%)', fontsize=15)
 ax.set_xlim(0, 100)
 
-ax.legend(loc='lower right', fontsize=10)
+ax.legend(loc='lower right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='x')
 
 # Growth annotation
-ax.text(85, 5, 'ZK proofs:\n+45%', fontsize=9, color=MLGREEN,
+ax.text(85, 5, 'ZK proofs:\n+45%', fontsize=14, color=MLGREEN,
         bbox=dict(boxstyle='round,pad=0.2', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('Blockchain Future Trends: Current vs Projected', fontweight='bold', fontsize=14, pad=10)

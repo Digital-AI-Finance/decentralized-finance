@@ -53,13 +53,13 @@ bars3 = ax.bar(x + width, speed, width, label='Speed Requirement',
                color=MLGREEN, edgecolor='black', linewidth=1)
 
 # Labels and formatting
-ax.set_ylabel('Importance (1=Low, 5=Critical)', fontsize=12)
+ax.set_ylabel('Importance (1=Low, 5=Critical)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(applications, fontsize=11)
+ax.set_xticklabels(applications, fontsize=14)
 ax.set_ylim(0, 6)
 
 # Legend
-ax.legend(loc='upper right', fontsize=11, framealpha=0.9)
+ax.legend(loc='upper right', fontsize=14, framealpha=0.9)
 
 # Grid
 ax.yaxis.grid(True, alpha=0.3)
@@ -72,13 +72,13 @@ ax.spines['right'].set_visible(False)
 # Add hash function used labels below
 hash_funcs = ['bcrypt\nArgon2', 'SHA-256\nSHA-3', 'SHA-256\nEd25519', 'SHA-256\n(double)', 'SHA-1*\nSHA-256', 'SHA-256\nSHA-384']
 for i, hf in enumerate(hash_funcs):
-    ax.text(i, -0.8, hf, ha='center', va='top', fontsize=9, color='#666', style='italic')
+    ax.text(i, -0.8, hf, ha='center', va='top', fontsize=14, color='#666', style='italic')
 
-ax.text(-0.8, -0.8, 'Hash Used:', ha='right', va='top', fontsize=9, color='#666', fontweight='bold')
+ax.text(-0.8, -0.8, 'Hash Used:', ha='right', va='top', fontsize=14, color='#666', fontweight='bold')
 
 # Note
 ax.text(0.5, -0.18, '*SHA-1 deprecated; Git transitioning to SHA-256', transform=ax.transAxes,
-        ha='center', fontsize=10, color=MLRED, style='italic')
+        ha='center', fontsize=14, color=MLRED, style='italic')
 
 plt.title('Hash Function Applications: Property Requirements', fontweight='bold', fontsize=15, pad=15)
 plt.tight_layout()

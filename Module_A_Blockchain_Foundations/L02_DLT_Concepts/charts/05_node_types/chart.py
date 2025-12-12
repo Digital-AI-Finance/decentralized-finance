@@ -53,7 +53,7 @@ storage_labels = ['~500 GB', '<100 MB', '~500 GB+', '~100 GB', '>12 TB']
 for bar, label in zip(bars, storage_labels):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2., height + 2,
-            label, ha='center', va='bottom', fontsize=12, fontweight='bold')
+            label, ha='center', va='bottom', fontsize=15, fontweight='bold')
 
 # Trust level indicators (circles at bottom)
 trust_levels = ['Trustless', 'Trust others', 'Trustless', 'Trustless', 'Trustless']
@@ -63,17 +63,17 @@ for i, (trust, color) in enumerate(zip(trust_levels, colors)):
     else:
         marker_color = MLORANGE
     ax.scatter(i, -8, s=200, c=marker_color, marker='s', zorder=5, edgecolor='black', linewidth=1)
-    ax.text(i, -15, trust, ha='center', va='top', fontsize=10, color='#444')
+    ax.text(i, -15, trust, ha='center', va='top', fontsize=14, color='#444')
 
 # Use cases
 use_cases = ['Personal\nsovereignty', 'Mobile\nwallets', 'Mining\nrevenue', 'Staking\nrewards', 'Block\nexplorers']
 for i, use in enumerate(use_cases):
-    ax.text(i, -28, use, ha='center', va='top', fontsize=10, color='#666', style='italic')
+    ax.text(i, -28, use, ha='center', va='top', fontsize=14, color='#666', style='italic')
 
 # Customize axes
 ax.set_xticks(x)
-ax.set_xticklabels(node_types, fontsize=12)
-ax.set_ylabel('Relative Storage Requirement', fontsize=13)
+ax.set_xticklabels(node_types, fontsize=15)
+ax.set_ylabel('Relative Storage Requirement', fontsize=16)
 ax.set_ylim(-35, 120)
 
 # Remove top and right spines
@@ -81,9 +81,9 @@ ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
 # Add section labels
-ax.text(-0.7, 95, 'Storage:', fontsize=11, fontweight='bold', color='#444')
-ax.text(-0.7, -8, 'Trust:', fontsize=11, fontweight='bold', color='#444')
-ax.text(-0.7, -28, 'Use Case:', fontsize=11, fontweight='bold', color='#444')
+ax.text(-0.7, 95, 'Storage:', fontsize=14, fontweight='bold', color='#444')
+ax.text(-0.7, -8, 'Trust:', fontsize=14, fontweight='bold', color='#444')
+ax.text(-0.7, -28, 'Use Case:', fontsize=14, fontweight='bold', color='#444')
 
 # Add horizontal line separating sections
 ax.axhline(y=0, color='gray', linestyle='-', linewidth=0.5)

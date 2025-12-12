@@ -57,11 +57,11 @@ for i, step in enumerate(steps):
 
     # Step name
     ax.text(step['x'], 0.60, step['name'], ha='center', va='center',
-            fontsize=9, fontweight='bold', color='white' if step['color'] not in ['#E8E8E8'] else 'black')
+            fontsize=14, fontweight='bold', color='white' if step['color'] not in ['#E8E8E8'] else 'black')
 
     # Description
     ax.text(step['x'], 0.50, step['desc'], ha='center', va='center',
-            fontsize=8, color='white' if step['color'] not in ['#E8E8E8'] else 'black')
+            fontsize=14, color='white' if step['color'] not in ['#E8E8E8'] else 'black')
 
     # Arrow to next step
     if i < len(steps) - 1:
@@ -72,12 +72,12 @@ for i, step in enumerate(steps):
 # Data flow labels
 flow_labels = ['Call', 'URI', 'JSON', 'Image']
 for i, label in enumerate(flow_labels):
-    ax.text(0.20 + i * 0.20, 0.82, label, ha='center', fontsize=9,
+    ax.text(0.20 + i * 0.20, 0.82, label, ha='center', fontsize=14,
             color='#666', fontweight='bold')
 
 # Key insight at bottom
 ax.text(0.50, 0.20, 'Critical: If any step fails (server down, IPFS unpinned), NFT becomes unrenderable',
-        ha='center', fontsize=10, fontweight='bold',
+        ha='center', fontsize=14, fontweight='bold',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_xlim(0, 1)

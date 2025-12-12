@@ -57,12 +57,12 @@ for bar, t in zip(bars, tps):
     width = bar.get_width()
     label = f'{t:,}' if t < 1000000 else '1M+'
     ax.text(width * 1.5, bar.get_y() + bar.get_height()/2,
-            f'{label} TPS', va='center', fontsize=10, fontweight='bold')
+            f'{label} TPS', va='center', fontsize=14, fontweight='bold')
 
 # Improvement annotation
 ax.annotate('', xy=(4000, 1), xytext=(30, 1),
             arrowprops=dict(arrowstyle='->', color=MLGREEN, lw=2))
-ax.text(100, 0.5, '100x+', fontsize=11, fontweight='bold', color=MLGREEN)
+ax.text(100, 0.5, '100x+', fontsize=14, fontweight='bold', color=MLGREEN)
 
 # Legend
 from matplotlib.patches import Patch
@@ -73,9 +73,9 @@ legend_elements = [
     Patch(facecolor=MLPURPLE, edgecolor='black', label='Sidechain'),
     Patch(facecolor=MLRED, edgecolor='black', label='Payment Channels'),
 ]
-ax.legend(handles=legend_elements, loc='lower right', fontsize=10)
+ax.legend(handles=legend_elements, loc='lower right', fontsize=14)
 
-ax.set_xlabel('Transactions Per Second (log scale)', fontsize=13)
+ax.set_xlabel('Transactions Per Second (log scale)', fontsize=16)
 ax.set_title('Layer 2 Scaling: 100-10,000x Improvement over L1', fontweight='bold', fontsize=15, pad=10)
 ax.grid(True, alpha=0.3, axis='x')
 

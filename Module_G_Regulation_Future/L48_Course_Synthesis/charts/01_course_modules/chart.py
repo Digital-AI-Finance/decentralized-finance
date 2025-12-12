@@ -47,11 +47,11 @@ bars = ax.barh(y_pos, lessons, color=colors, edgecolor='black', linewidth=1.5, h
 # Add value labels
 for bar, val in zip(bars, lessons):
     ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2,
-            f'{val} lessons', ha='left', va='center', fontsize=11, fontweight='bold')
+            f'{val} lessons', ha='left', va='center', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(modules, fontsize=10)
-ax.set_xlabel('Number of Lessons', fontsize=12)
+ax.set_yticklabels(modules, fontsize=14)
+ax.set_xlabel('Number of Lessons', fontsize=15)
 ax.set_xlim(0, 15)
 ax.invert_yaxis()
 
@@ -59,7 +59,7 @@ ax.grid(True, alpha=0.3, axis='x')
 
 # Add total annotation
 ax.text(0.98, 0.02, f'Total: {sum(lessons)} lessons\n12 weeks',
-        transform=ax.transAxes, fontsize=10, ha='right', va='bottom',
+        transform=ax.transAxes, fontsize=14, ha='right', va='bottom',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('Course Structure: 7 Modules, 48 Lessons', fontweight='bold', fontsize=14, pad=10)

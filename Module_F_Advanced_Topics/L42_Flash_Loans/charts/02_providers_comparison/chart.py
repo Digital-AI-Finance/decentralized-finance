@@ -48,15 +48,15 @@ bars2 = ax2.bar(x + width/2, fees, width, label='Fee (%)', color=MLORANGE, edgec
 # Add value labels
 for bar, val in zip(bars1, liquidity):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.2,
-            f'${val}B', ha='center', va='bottom', fontsize=10, fontweight='bold')
+            f'${val}B', ha='center', va='bottom', fontsize=14, fontweight='bold')
 for bar, val in zip(bars2, fees):
     ax2.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.002,
-            f'{val}%', ha='center', va='bottom', fontsize=10, fontweight='bold')
+            f'{val}%', ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Liquidity (Billion USD)', fontsize=12, color=MLBLUE)
-ax2.set_ylabel('Fee (%)', fontsize=12, color=MLORANGE)
+ax.set_ylabel('Liquidity (Billion USD)', fontsize=15, color=MLBLUE)
+ax2.set_ylabel('Fee (%)', fontsize=15, color=MLORANGE)
 ax.set_xticks(x)
-ax.set_xticklabels(providers, fontsize=11)
+ax.set_xticklabels(providers, fontsize=14)
 ax.set_ylim(0, 15)
 ax2.set_ylim(0, 0.12)
 
@@ -66,7 +66,7 @@ ax2.tick_params(axis='y', labelcolor=MLORANGE)
 # Combined legend
 lines1, labels1 = ax.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
-ax.legend(lines1 + lines2, labels1 + labels2, loc='upper right', fontsize=10)
+ax.legend(lines1 + lines2, labels1 + labels2, loc='upper right', fontsize=14)
 
 ax.grid(True, alpha=0.3, axis='y')
 

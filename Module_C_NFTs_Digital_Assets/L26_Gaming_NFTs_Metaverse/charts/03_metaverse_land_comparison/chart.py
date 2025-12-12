@@ -48,18 +48,18 @@ for i, (metric, values) in enumerate(metrics.items()):
     bars = ax.bar(x + i * width - 0.3, values, width, label=metric,
                   color=colors[i], edgecolor='black', linewidth=0.5, alpha=0.85)
 
-ax.set_ylabel('Score (1-10)', fontsize=12)
+ax.set_ylabel('Score (1-10)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(platforms, fontsize=10, fontweight='bold')
+ax.set_xticklabels(platforms, fontsize=14, fontweight='bold')
 ax.set_ylim(0, 11)
 
-ax.legend(loc='upper right', fontsize=9, ncol=2)
+ax.legend(loc='upper right', fontsize=14, ncol=2)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Platform details
 details = ['90K parcels\n<1K DAU', '166K parcels\nPolygon', '100K parcels\nIn Dev', 'VR Focus\nNiche']
 for i, detail in enumerate(details):
-    ax.text(i, -1.2, detail, ha='center', fontsize=7,
+    ax.text(i, -1.2, detail, ha='center', fontsize=14,
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#F5F5F5', edgecolor='#888'))
 
 ax.set_title('Metaverse Virtual Land Platform Comparison', fontweight='bold', fontsize=15, pad=10)

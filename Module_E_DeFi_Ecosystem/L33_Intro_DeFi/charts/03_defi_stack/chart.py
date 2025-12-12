@@ -45,13 +45,13 @@ bar_height = 0.7
 
 for i, (layer, examples, color) in enumerate(layers):
     ax.barh(i, 1, height=bar_height, color=color, edgecolor='black', linewidth=1.5)
-    ax.text(0.02, i, layer, va='center', ha='left', fontsize=12, fontweight='bold', color='white')
-    ax.text(0.98, i, examples, va='center', ha='right', fontsize=10, color='white')
+    ax.text(0.02, i, layer, va='center', ha='left', fontsize=15, fontweight='bold', color='white')
+    ax.text(0.98, i, examples, va='center', ha='right', fontsize=14, color='white')
 
 # Add arrow showing composability
 ax.annotate('', xy=(1.05, 4), xytext=(1.05, 0),
             arrowprops=dict(arrowstyle='<->', color='black', lw=2))
-ax.text(1.12, 2, 'Composability\n(Money Legos)', va='center', ha='left', fontsize=10, rotation=90)
+ax.text(1.12, 2, 'Composability\n(Money Legos)', va='center', ha='left', fontsize=14, rotation=90)
 
 ax.set_xlim(0, 1.25)
 ax.set_ylim(-0.5, 4.5)

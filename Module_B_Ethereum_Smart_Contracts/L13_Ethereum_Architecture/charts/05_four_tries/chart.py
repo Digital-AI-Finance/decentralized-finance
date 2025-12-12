@@ -38,8 +38,8 @@ block_header = FancyBboxPatch((0.30, 0.72), 0.40, 0.18,
                                boxstyle="round,pad=0.02", facecolor='#E8E8E8',
                                edgecolor='#333', linewidth=2)
 ax.add_patch(block_header)
-ax.text(0.50, 0.85, 'Block Header', ha='center', fontsize=13, fontweight='bold')
-ax.text(0.50, 0.77, 'stateRoot | txRoot | receiptsRoot', ha='center', fontsize=9,
+ax.text(0.50, 0.85, 'Block Header', ha='center', fontsize=16, fontweight='bold')
+ax.text(0.50, 0.77, 'stateRoot | txRoot | receiptsRoot', ha='center', fontsize=14,
         family='monospace')
 
 # Four tries
@@ -57,12 +57,12 @@ for x, name, color, scope, mapping in tries:
                            edgecolor='black', linewidth=1.5)
     ax.add_patch(trie)
 
-    ax.text(x + 0.09, 0.52, name.split()[0], ha='center', fontsize=10,
+    ax.text(x + 0.09, 0.52, name.split()[0], ha='center', fontsize=14,
             fontweight='bold', color='white')
     ax.text(x + 0.09, 0.46, name.split()[1] if len(name.split()) > 1 else '',
-            ha='center', fontsize=10, fontweight='bold', color='white')
-    ax.text(x + 0.09, 0.38, scope, ha='center', fontsize=9, color='white')
-    ax.text(x + 0.09, 0.30, mapping, ha='center', fontsize=8, color='white')
+            ha='center', fontsize=14, fontweight='bold', color='white')
+    ax.text(x + 0.09, 0.38, scope, ha='center', fontsize=14, color='white')
+    ax.text(x + 0.09, 0.30, mapping, ha='center', fontsize=14, color='white')
 
     # Connection to block header
     ax.plot([x + 0.09, 0.50], [0.60, 0.72], 'k-', linewidth=1, alpha=0.5)
@@ -74,12 +74,12 @@ props_text = [
     'Efficient updates',
 ]
 for i, txt in enumerate(props_text):
-    ax.text(0.15 + i * 0.30, 0.12, txt, ha='center', fontsize=10, color='#555')
+    ax.text(0.15 + i * 0.30, 0.12, txt, ha='center', fontsize=14, color='#555')
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E3F2FD', edgecolor=MLBLUE)
 ax.text(0.50, 0.05, 'Root hashes in block header enable light client verification',
-        ha='center', fontsize=10, bbox=props, color=MLBLUE)
+        ha='center', fontsize=14, bbox=props, color=MLBLUE)
 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 0.95)

@@ -50,7 +50,7 @@ for i, (x, y, text, color) in enumerate(sign_steps):
                           boxstyle="round,pad=0.02", facecolor=color,
                           edgecolor='black', linewidth=1.5, alpha=0.85)
     ax.add_patch(box)
-    ax.text(x, y, text, ha='center', va='center', fontsize=9,
+    ax.text(x, y, text, ha='center', va='center', fontsize=14,
             fontweight='bold', color='white')
 
     if i < len(sign_steps) - 1:
@@ -61,7 +61,7 @@ for i, (x, y, text, color) in enumerate(sign_steps):
 # Send arrow
 ax.annotate('', xy=(0.75, 0.50), xytext=(0.60, 0.67),
             arrowprops=dict(arrowstyle='->', color='#333', lw=2))
-ax.text(0.70, 0.60, 'Send:\nm + (r,s)', ha='center', fontsize=10, color='#444')
+ax.text(0.70, 0.60, 'Send:\nm + (r,s)', ha='center', fontsize=14, color='#444')
 
 # Verification section (bottom)
 ax.text(0.75, 0.95, 'VERIFICATION (Anyone)', ha='center', fontsize=14, fontweight='bold', color=MLGREEN)
@@ -78,7 +78,7 @@ for i, (x, y, text, color) in enumerate(verify_steps):
                           boxstyle="round,pad=0.02", facecolor=color,
                           edgecolor='black', linewidth=1.5, alpha=0.85)
     ax.add_patch(box)
-    ax.text(x, y, text, ha='center', va='center', fontsize=9,
+    ax.text(x, y, text, ha='center', va='center', fontsize=14,
             fontweight='bold', color='white' if color != MLLAVENDER else '#333')
 
     if i < len(verify_steps) - 1:
@@ -91,7 +91,7 @@ result_box = FancyBboxPatch((0.83, 0.08), 0.14, 0.12,
                              boxstyle="round,pad=0.02", facecolor=MLGREEN,
                              edgecolor='black', linewidth=2)
 ax.add_patch(result_box)
-ax.text(0.90, 0.14, 'Valid?', ha='center', va='center', fontsize=11,
+ax.text(0.90, 0.14, 'Valid?', ha='center', va='center', fontsize=14,
         fontweight='bold', color='white')
 
 ax.annotate('', xy=(0.90, 0.20), xytext=(0.90, 0.22),
@@ -100,13 +100,13 @@ ax.annotate('', xy=(0.90, 0.20), xytext=(0.90, 0.22),
 # Key properties box
 props_text = 'Properties:\n- Authentication\n- Integrity\n- Non-repudiation'
 props = dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor=MLPURPLE, alpha=0.95)
-ax.text(0.15, 0.30, props_text, ha='left', va='center', fontsize=10,
+ax.text(0.15, 0.30, props_text, ha='left', va='center', fontsize=14,
         bbox=props, color='#333')
 
 # Warning about nonce
 warn_text = 'CRITICAL: Never reuse nonce!'
 warn_props = dict(boxstyle='round,pad=0.2', facecolor='#FFE0E0', edgecolor=MLRED)
-ax.text(0.42, 0.55, warn_text, ha='center', va='center', fontsize=10,
+ax.text(0.42, 0.55, warn_text, ha='center', va='center', fontsize=14,
         fontweight='bold', bbox=warn_props, color=MLRED)
 
 ax.set_xlim(0, 1)

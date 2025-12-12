@@ -48,20 +48,20 @@ for bar in bars1:
     ax.annotate(f'{int(height)}',
                 xy=(bar.get_x() + bar.get_width()/2, height),
                 xytext=(0, 3), textcoords='offset points',
-                ha='center', va='bottom', fontsize=9)
+                ha='center', va='bottom', fontsize=14)
 for bar in bars2:
     height = bar.get_height()
     ax.annotate(f'{int(height)}',
                 xy=(bar.get_x() + bar.get_width()/2, height),
                 xytext=(0, 3), textcoords='offset points',
-                ha='center', va='bottom', fontsize=9)
+                ha='center', va='bottom', fontsize=14)
 
-ax.set_ylabel('Score (1-10, higher = better)', fontsize=12)
+ax.set_ylabel('Score (1-10, higher = better)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(metrics, fontsize=10)
+ax.set_xticklabels(metrics, fontsize=14)
 ax.set_ylim(0, 11)
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 ax.set_title('Optimistic vs ZK-Rollups: Feature Comparison', fontweight='bold', fontsize=14, pad=10)

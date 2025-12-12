@@ -43,15 +43,15 @@ bars = ax.bar(services, capital, color=colors, edgecolor='black', linewidth=1.5,
 # Add value labels
 for bar, val in zip(bars, capital):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 3,
-            f'{val}k', ha='center', va='bottom', fontsize=10, fontweight='bold')
+            f'{val}k', ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Minimum Capital (EUR thousands)', fontsize=12)
+ax.set_ylabel('Minimum Capital (EUR thousands)', fontsize=15)
 ax.set_ylim(0, 180)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add threshold line
 ax.axhline(y=125, color='gray', linestyle='--', alpha=0.5, linewidth=1)
-ax.text(5.5, 128, 'Standard tier', fontsize=9, color='gray', ha='right')
+ax.text(5.5, 128, 'Standard tier', fontsize=14, color='gray', ha='right')
 
 ax.set_title('MiCA CASP Minimum Capital Requirements', fontweight='bold', fontsize=14, pad=10)
 

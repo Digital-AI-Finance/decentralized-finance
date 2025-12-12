@@ -53,11 +53,11 @@ bars = ax.barh(y_pos, losses, color=MLRED, edgecolor='black', linewidth=1, alpha
 # Add labels
 for i, (bar, name, loss, desc) in enumerate(zip(bars, names, losses, descriptions)):
     ax.text(bar.get_width() + 0.5, bar.get_y() + bar.get_height()/2,
-            f'${loss}B - {desc}', va='center', fontsize=9)
+            f'${loss}B - {desc}', va='center', fontsize=14)
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels([f'{m}\n{n}' for m, n in zip(months, names)], fontsize=10, fontweight='bold')
-ax.set_xlabel('Estimated Losses (Billion USD)', fontsize=12)
+ax.set_yticklabels([f'{m}\n{n}' for m, n in zip(months, names)], fontsize=14, fontweight='bold')
+ax.set_xlabel('Estimated Losses (Billion USD)', fontsize=15)
 ax.set_xlim(0, 55)
 
 ax.invert_yaxis()
@@ -66,7 +66,7 @@ ax.grid(True, alpha=0.3, axis='x')
 # Add summary
 total_loss = sum(losses)
 ax.text(0.5, -0.12, f'Total CeFi losses in 2022: ~${total_loss:.0f}B | Major DeFi protocols (Aave, Uniswap, MakerDAO) survived',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('2022 CeFi Collapses: The Case for Non-Custodial Finance', fontweight='bold', fontsize=14, pad=10)

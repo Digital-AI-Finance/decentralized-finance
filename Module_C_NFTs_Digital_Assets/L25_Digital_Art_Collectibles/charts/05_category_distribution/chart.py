@@ -56,7 +56,7 @@ legend_labels = [
 ]
 
 ax.legend(wedges, legend_labels, loc='center left', bbox_to_anchor=(1, 0.5),
-          fontsize=9, frameon=True, facecolor='white', edgecolor='#888')
+          fontsize=14, frameon=True, facecolor='white', edgecolor='#888')
 
 ax.set_title('NFT Art Market Category Distribution (2024)', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

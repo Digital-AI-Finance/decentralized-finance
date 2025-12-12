@@ -58,16 +58,16 @@ for x, date, label, color, pos in events:
     # Date label
     ax.text(x, 0.5 + (0.05 if pos == 'top' else -0.05), date,
             ha='center', va='bottom' if pos == 'top' else 'top',
-            fontsize=9, fontweight='bold')
+            fontsize=14, fontweight='bold')
 
     # Event label
     ax.text(x, y_text, label, ha='center', va='center',
-            fontsize=9, color=color,
+            fontsize=14, color=color,
             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=color, alpha=0.9))
 
 # Add BTC price annotation
 ax.annotate('BTC: $100K+', xy=(13, 0.5), xytext=(13, 0.75),
-            fontsize=10, ha='center', fontweight='bold', color=MLORANGE,
+            fontsize=14, ha='center', fontweight='bold', color=MLORANGE,
             arrowprops=dict(arrowstyle='->', color=MLORANGE))
 
 ax.set_xlim(0, 16)

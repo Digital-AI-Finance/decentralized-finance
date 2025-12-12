@@ -49,11 +49,11 @@ for bar, val in zip(bars, tps):
     else:
         label = f'{val} TPS'
     ax.text(bar.get_width() * 1.05, bar.get_y() + bar.get_height()/2,
-            label, va='center', fontsize=10, fontweight='bold')
+            label, va='center', fontsize=14, fontweight='bold')
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(solutions, fontsize=10)
-ax.set_xlabel('Transactions Per Second (TPS)', fontsize=12)
+ax.set_yticklabels(solutions, fontsize=14)
+ax.set_xlabel('Transactions Per Second (TPS)', fontsize=15)
 ax.set_xscale('log')
 ax.set_xlim(10, 2000000)
 
@@ -62,7 +62,7 @@ ax.grid(True, alpha=0.3, axis='x')
 
 # Visa comparison line
 ax.axvline(x=65000, color='gray', linestyle='--', linewidth=2, alpha=0.7)
-ax.text(65000, -0.5, 'Visa (65K TPS)', fontsize=9, ha='center', color='gray')
+ax.text(65000, -0.5, 'Visa (65K TPS)', fontsize=14, ha='center', color='gray')
 
 ax.set_title('Blockchain Throughput Comparison (Log Scale)', fontweight='bold', fontsize=14, pad=10)
 plt.tight_layout()

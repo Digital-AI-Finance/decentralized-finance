@@ -61,7 +61,7 @@ def draw_centralized(ax):
         ax.add_patch(node)
 
     ax.set_title('CENTRALIZED', fontsize=14, fontweight='bold', color=MLRED, pad=10)
-    ax.text(0.5, 0.08, 'Single point of failure', ha='center', fontsize=11, color='gray', style='italic')
+    ax.text(0.5, 0.08, 'Single point of failure', ha='center', fontsize=14, color='gray', style='italic')
 
 def draw_decentralized(ax):
     """Draw decentralized network - multiple hubs"""
@@ -101,7 +101,7 @@ def draw_decentralized(ax):
             ax.add_patch(node)
 
     ax.set_title('DECENTRALIZED', fontsize=14, fontweight='bold', color=MLORANGE, pad=10)
-    ax.text(0.5, 0.08, 'Multiple hubs, federated', ha='center', fontsize=11, color='gray', style='italic')
+    ax.text(0.5, 0.08, 'Multiple hubs, federated', ha='center', fontsize=14, color='gray', style='italic')
 
 def draw_distributed(ax):
     """Draw distributed network - P2P mesh"""
@@ -131,7 +131,7 @@ def draw_distributed(ax):
         ax.add_patch(node)
 
     ax.set_title('DISTRIBUTED', fontsize=14, fontweight='bold', color=MLGREEN, pad=10)
-    ax.text(0.5, 0.08, 'P2P, no central authority', ha='center', fontsize=11, color='gray', style='italic')
+    ax.text(0.5, 0.08, 'P2P, no central authority', ha='center', fontsize=14, color='gray', style='italic')
 
 # Draw all three topologies
 draw_centralized(axes[0])

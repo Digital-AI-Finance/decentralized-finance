@@ -50,21 +50,21 @@ bars2 = ax.bar(x + width/2, [g/1000 for g in erc1155_gas], width,
 for i, (e721, e1155) in enumerate(zip(erc721_gas, erc1155_gas)):
     savings = (1 - e1155/e721) * 100
     ax.text(i, max(e721, e1155)/1000 + 50, f'-{savings:.0f}%',
-            ha='center', fontsize=10, fontweight='bold', color=MLGREEN)
+            ha='center', fontsize=14, fontweight='bold', color=MLGREEN)
 
-ax.set_xlabel('Number of Items Transferred', fontsize=12)
-ax.set_ylabel('Gas Used (thousands)', fontsize=12)
+ax.set_xlabel('Number of Items Transferred', fontsize=15)
+ax.set_ylabel('Gas Used (thousands)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(items, fontsize=11)
+ax.set_xticklabels(items, fontsize=14)
 
-ax.legend(loc='upper left', fontsize=11)
+ax.legend(loc='upper left', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN)
 ax.text(0.98, 0.98, 'ERC-1155 batch transfers\nsave 50-87% gas',
         transform=ax.transAxes, ha='right', va='top',
-        fontsize=11, fontweight='bold', bbox=props, color=MLGREEN)
+        fontsize=14, fontweight='bold', bbox=props, color=MLGREEN)
 
 ax.set_title('Gas Costs: ERC-721 vs ERC-1155 Batch Transfers', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()

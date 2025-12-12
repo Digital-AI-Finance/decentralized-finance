@@ -55,23 +55,23 @@ ax.plot(blocks, base_fee, linewidth=2.5, color=MLBLUE, label='Base Fee')
 ax.axhline(y=30, color=MLORANGE, linestyle='--', linewidth=1.5, alpha=0.7, label='Initial base fee')
 
 # Annotations for key events
-ax.annotate('High demand\n(blocks > 50% full)', xy=(15, 38), fontsize=9,
+ax.annotate('High demand\n(blocks > 50% full)', xy=(15, 38), fontsize=14,
             ha='center', color=MLRED)
-ax.annotate('Lower demand\n(blocks < 50% full)', xy=(35, 26), fontsize=9,
+ax.annotate('Lower demand\n(blocks < 50% full)', xy=(35, 26), fontsize=14,
             ha='center', color=MLGREEN)
 
 # Add rule box
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8E8E8', edgecolor='#888')
 rule_text = 'Block > 50% full: Base fee +up to 12.5%\nBlock < 50% full: Base fee -up to 12.5%'
-ax.text(0.98, 0.98, rule_text, transform=ax.transAxes, fontsize=10,
+ax.text(0.98, 0.98, rule_text, transform=ax.transAxes, fontsize=14,
         verticalalignment='top', horizontalalignment='right', bbox=props)
 
-ax.set_xlabel('Block Number', fontsize=13)
-ax.set_ylabel('Base Fee (Gwei)', fontsize=13)
+ax.set_xlabel('Block Number', fontsize=16)
+ax.set_ylabel('Base Fee (Gwei)', fontsize=16)
 ax.set_xlim(0, 50)
 ax.set_ylim(20, 45)
 
-ax.legend(loc='lower right', fontsize=11)
+ax.legend(loc='lower right', fontsize=14)
 ax.grid(True, alpha=0.3)
 
 ax.set_title('EIP-1559 Base Fee Adjustment Mechanism', fontweight='bold', fontsize=15, pad=10)

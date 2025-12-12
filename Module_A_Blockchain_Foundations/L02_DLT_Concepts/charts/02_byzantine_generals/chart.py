@@ -62,7 +62,7 @@ for gen, (x, y) in positions.items():
 
     # Label below
     label_y = y - 0.14 if y > 0.5 else y + 0.14
-    ax.text(x, label_y, label, ha='center', va='center', fontsize=11, color='#333')
+    ax.text(x, label_y, label, ha='center', va='center', fontsize=14, color='#333')
 
 # Draw arrows with messages
 # Commander A sends "ATTACK" to all
@@ -91,7 +91,7 @@ for src, dst, msg, color, offset in arrows:
 
     mid_x, mid_y = (x1 + x2) / 2 + offset, (y1 + y2) / 2 + 0.04
     ax.text(mid_x, mid_y, f'"{msg}"', ha='center', va='center',
-            fontsize=12, color=color, fontweight='bold',
+            fontsize=15, color=color, fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=color, alpha=0.9))
 
 # Traitor D sends conflicting messages
@@ -118,7 +118,7 @@ for src, dst, msg, color, offset in traitor_arrows:
 
     mid_x, mid_y = (x1 + x2) / 2, (y1 + y2) / 2 + offset
     ax.text(mid_x, mid_y, msg, ha='center', va='center',
-            fontsize=11, color=color, fontweight='bold', style='italic',
+            fontsize=14, color=color, fontweight='bold', style='italic',
             bbox=dict(boxstyle='round,pad=0.2', facecolor='#FFF0F0', edgecolor=color, alpha=0.9))
 
 # Legend
@@ -127,12 +127,12 @@ legend_elements = [
     plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=MLGREEN, markersize=12, label='Loyal General'),
     plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=MLRED, markersize=12, label='Traitor'),
 ]
-ax.legend(handles=legend_elements, loc='upper center', ncol=3, fontsize=11,
+ax.legend(handles=legend_elements, loc='upper center', ncol=3, fontsize=14,
           framealpha=0.9, bbox_to_anchor=(0.5, 1.02))
 
 # Problem statement
 ax.text(0.5, 0.02, 'Problem: How can loyal generals reach consensus when traitors send conflicting messages?',
-        ha='center', va='center', fontsize=12, style='italic', color=MLPURPLE,
+        ha='center', va='center', fontsize=15, style='italic', color=MLPURPLE,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor=MLPURPLE))
 
 ax.set_xlim(0, 1)

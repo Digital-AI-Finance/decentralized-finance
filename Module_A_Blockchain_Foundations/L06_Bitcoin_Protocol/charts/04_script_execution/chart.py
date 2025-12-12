@@ -43,9 +43,9 @@ sig_box = FancyBboxPatch((0.05, 0.78), 0.40, 0.10,
                           boxstyle="round,pad=0.01", facecolor='#FFE0E0',
                           edgecolor=MLRED, linewidth=2)
 ax.add_patch(sig_box)
-ax.text(0.25, 0.85, 'ScriptSig (Unlocking)', ha='center', fontsize=11,
+ax.text(0.25, 0.85, 'ScriptSig (Unlocking)', ha='center', fontsize=14,
         fontweight='bold', color=MLRED)
-ax.text(0.25, 0.80, '<sig> <pubKey>', ha='center', fontsize=10,
+ax.text(0.25, 0.80, '<sig> <pubKey>', ha='center', fontsize=14,
         family='monospace', color='#333')
 
 # ScriptPubKey (locking)
@@ -53,10 +53,10 @@ pubkey_box = FancyBboxPatch((0.55, 0.78), 0.40, 0.10,
                              boxstyle="round,pad=0.01", facecolor='#E0FFE0',
                              edgecolor=MLGREEN, linewidth=2)
 ax.add_patch(pubkey_box)
-ax.text(0.75, 0.85, 'ScriptPubKey (Locking)', ha='center', fontsize=11,
+ax.text(0.75, 0.85, 'ScriptPubKey (Locking)', ha='center', fontsize=14,
         fontweight='bold', color=MLGREEN)
 ax.text(0.75, 0.80, 'OP_DUP OP_HASH160 <hash> OP_EQUALVERIFY OP_CHECKSIG',
-        ha='center', fontsize=8, family='monospace', color='#333')
+        ha='center', fontsize=14, family='monospace', color='#333')
 
 # Execution steps
 steps = [
@@ -73,7 +73,7 @@ steps = [
 base_y = 0.65
 for i, (x, op, stack) in enumerate(steps):
     # Operation label
-    ax.text(x, base_y + 0.03, f'{i+1}. {op}', ha='center', fontsize=9,
+    ax.text(x, base_y + 0.03, f'{i+1}. {op}', ha='center', fontsize=14,
             fontweight='bold', color=MLBLUE, rotation=45)
 
     # Stack visualization
@@ -87,7 +87,7 @@ for i, (x, op, stack) in enumerate(steps):
         ax.add_patch(box)
         # Truncate long items
         display = item[:6] + '..' if len(item) > 6 else item
-        ax.text(x, y, display, ha='center', va='center', fontsize=7,
+        ax.text(x, y, display, ha='center', va='center', fontsize=14,
                 color='white' if item == 'TRUE' else '#333')
 
 # Result annotation
@@ -95,11 +95,11 @@ result_box = FancyBboxPatch((0.35, 0.03), 0.30, 0.10,
                              boxstyle="round,pad=0.02", facecolor=MLGREEN,
                              edgecolor='black', linewidth=2)
 ax.add_patch(result_box)
-ax.text(0.50, 0.08, 'Stack = TRUE -> Valid!', ha='center', fontsize=12,
+ax.text(0.50, 0.08, 'Stack = TRUE -> Valid!', ha='center', fontsize=15,
         fontweight='bold', color='white')
 
 # Legend
-ax.text(0.85, 0.15, 'Stack grows\ndownward', ha='center', fontsize=10,
+ax.text(0.85, 0.15, 'Stack grows\ndownward', ha='center', fontsize=14,
         color='#555', style='italic')
 
 ax.set_xlim(0, 1)

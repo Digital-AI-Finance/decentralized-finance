@@ -57,20 +57,20 @@ ax.plot(x, volume, color='black', linewidth=2.5, marker='o', markersize=6, label
 peak_idx = volume.index(max(volume))
 ax.annotate(f'Peak: ${max(volume)}B', xy=(peak_idx, max(volume)),
             xytext=(peak_idx + 0.5, max(volume) + 0.5),
-            fontsize=10, fontweight='bold',
+            fontsize=14, fontweight='bold',
             arrowprops=dict(arrowstyle='->', color='black'))
 
 # Annotate current
 ax.annotate(f'${volume[-1]}B\n(-94% from peak)', xy=(len(volume)-1, volume[-1]),
             xytext=(len(volume)-1.5, volume[-1] + 1),
-            fontsize=9, fontweight='bold', ha='center',
+            fontsize=14, fontweight='bold', ha='center',
             arrowprops=dict(arrowstyle='->', color=MLRED))
 
 ax.set_xticks(x)
-ax.set_xticklabels(months, fontsize=9)
-ax.set_ylabel('Monthly Volume (Billions USD)', fontsize=12)
+ax.set_xticklabels(months, fontsize=14)
+ax.set_ylabel('Monthly Volume (Billions USD)', fontsize=15)
 ax.set_ylim(0, 6)
-ax.legend(loc='upper right', fontsize=10)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 ax.set_title('NFT Marketplace Trading Volume (2021-2024)', fontweight='bold', fontsize=15, pad=10)

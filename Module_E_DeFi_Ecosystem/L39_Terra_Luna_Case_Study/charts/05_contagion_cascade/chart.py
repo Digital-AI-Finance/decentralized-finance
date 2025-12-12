@@ -45,25 +45,25 @@ bars = ax.bar(x, losses, color=colors, edgecolor='black', linewidth=1.5, width=0
 # Add value labels
 for bar, val, date in zip(bars, losses, dates):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.3,
-            f'${val}B', ha='center', va='bottom', fontsize=10, fontweight='bold')
+            f'${val}B', ha='center', va='bottom', fontsize=14, fontweight='bold')
     ax.text(bar.get_x() + bar.get_width()/2, -3,
-            date, ha='center', va='top', fontsize=9, color='gray')
+            date, ha='center', va='top', fontsize=14, color='gray')
 
 # Add arrow showing cascade
 ax.annotate('', xy=(4.5, 7), xytext=(0.5, 58),
             arrowprops=dict(arrowstyle='->', color='gray', lw=2, ls='--'))
-ax.text(2.5, 35, 'Contagion\nCascade', ha='center', fontsize=10, color='gray', style='italic')
+ax.text(2.5, 35, 'Contagion\nCascade', ha='center', fontsize=14, color='gray', style='italic')
 
-ax.set_ylabel('Estimated Losses (Billion USD)', fontsize=12)
+ax.set_ylabel('Estimated Losses (Billion USD)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(events, fontsize=9)
+ax.set_xticklabels(events, fontsize=14)
 ax.set_ylim(0, 70)
 
 ax.grid(True, alpha=0.3, axis='y')
 
 # Legend annotation
 ax.text(0.02, 0.98, 'Terra collapse triggered $200B+ total crypto market crash',
-        transform=ax.transAxes, ha='left', va='top', fontsize=10,
+        transform=ax.transAxes, ha='left', va='top', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_title('Crypto Contagion: Terra as First Domino (2022)', fontweight='bold', fontsize=14, pad=10)

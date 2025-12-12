@@ -50,25 +50,25 @@ for bar in bars1:
     ax.annotate(f'${height:.2f}',
                 xy=(bar.get_x() + bar.get_width()/2, height),
                 xytext=(0, 3), textcoords='offset points',
-                ha='center', va='bottom', fontsize=10, fontweight='bold')
+                ha='center', va='bottom', fontsize=14, fontweight='bold')
 for bar in bars2:
     height = bar.get_height()
     ax.annotate(f'${height:.2f}',
                 xy=(bar.get_x() + bar.get_width()/2, height),
                 xytext=(0, 3), textcoords='offset points',
-                ha='center', va='bottom', fontsize=10, fontweight='bold')
+                ha='center', va='bottom', fontsize=14, fontweight='bold')
 
-ax.set_ylabel('Average Transaction Cost (USD)', fontsize=12)
+ax.set_ylabel('Average Transaction Cost (USD)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(l2s, fontsize=12)
+ax.set_xticklabels(l2s, fontsize=15)
 ax.set_ylim(0, 0.8)
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Reduction annotation
 ax.text(0.5, -0.15, 'EIP-4844 (Blobs) reduced L2 transaction costs by 90-95%',
-        transform=ax.transAxes, ha='center', fontsize=11,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('Dencun Upgrade Impact on L2 Transaction Costs', fontweight='bold', fontsize=14, pad=10)

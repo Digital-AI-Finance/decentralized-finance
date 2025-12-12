@@ -53,16 +53,16 @@ for bar, e in zip(bars, energy):
         label = f'{e:.3f} TWh'
     label_x = width * 1.5
     ax.text(label_x, bar.get_y() + bar.get_height()/2, label,
-            va='center', fontsize=10, fontweight='bold')
+            va='center', fontsize=14, fontweight='bold')
 
 # Add comparison annotations
 ax.axvline(x=150, color=MLRED, linestyle='--', alpha=0.5, linewidth=1.5)
-ax.text(150, 7.2, 'Argentina\n(~150 TWh/yr)', ha='center', fontsize=9, color=MLRED)
+ax.text(150, 7.2, 'Argentina\n(~150 TWh/yr)', ha='center', fontsize=14, color=MLRED)
 
 # Key insight box
 props = dict(boxstyle='round,pad=0.4', facecolor='#E8F5E9', edgecolor=MLGREEN)
 ax.text(0.003, 1.5, 'PoS: 99.95%\nenergy reduction\nvs PoW',
-        fontsize=10, fontweight='bold', bbox=props, color=MLGREEN, ha='left')
+        fontsize=14, fontweight='bold', bbox=props, color=MLGREEN, ha='left')
 
 # Legend
 from matplotlib.patches import Patch
@@ -70,9 +70,9 @@ legend_elements = [
     Patch(facecolor=MLBLUE, edgecolor='black', label='Proof of Work'),
     Patch(facecolor=MLGREEN, edgecolor='black', label='Proof of Stake'),
 ]
-ax.legend(handles=legend_elements, loc='upper right', fontsize=11)
+ax.legend(handles=legend_elements, loc='upper right', fontsize=14)
 
-ax.set_xlabel('Annual Energy Consumption (TWh, log scale)', fontsize=13)
+ax.set_xlabel('Annual Energy Consumption (TWh, log scale)', fontsize=16)
 ax.set_title('Blockchain Energy Consumption by Consensus Type', fontweight='bold', fontsize=15, pad=10)
 ax.grid(True, alpha=0.3, axis='x')
 

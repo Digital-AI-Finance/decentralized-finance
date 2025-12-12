@@ -44,20 +44,20 @@ bars = ax.bar(x_pos, efficiency, color=colors, edgecolor='black', linewidth=1.5,
 # Add efficiency labels
 for bar, eff, risk in zip(bars, efficiency, risk_level):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 5,
-            f'{eff}x', ha='center', fontsize=11, fontweight='bold')
+            f'{eff}x', ha='center', fontsize=14, fontweight='bold')
     ax.text(bar.get_x() + bar.get_width()/2, 5,
-            f'Risk:\n{risk}', ha='center', fontsize=8, color='white', fontweight='bold')
+            f'Risk:\n{risk}', ha='center', fontsize=14, color='white', fontweight='bold')
 
 ax.set_xticks(x_pos)
-ax.set_xticklabels(range_widths, fontsize=10)
-ax.set_ylabel('Capital Efficiency (vs V2)', fontsize=12)
+ax.set_xticklabels(range_widths, fontsize=14)
+ax.set_ylabel('Capital Efficiency (vs V2)', fontsize=15)
 ax.set_ylim(0, 250)
 
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add annotation
 ax.text(0.5, -0.15, 'Narrower ranges = higher returns when price stays in range, but requires active management',
-        transform=ax.transAxes, ha='center', fontsize=10,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFF3E0', edgecolor=MLORANGE))
 
 ax.set_title('Uniswap V3: Capital Efficiency by Range Width', fontweight='bold', fontsize=14, pad=10)

@@ -19,17 +19,17 @@ width = 0.35
 bars1 = ax.bar(x - width/2, gas_cost, width, label='Gas Cost (base)', color=MLBLUE, edgecolor='black')
 bars2 = ax.bar(x + width/2, state_change, width, label='State Change', color=MLORANGE, edgecolor='black')
 
-ax.set_ylabel('Relative Cost/Impact', fontsize=12)
+ax.set_ylabel('Relative Cost/Impact', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(functions, fontsize=11)
+ax.set_xticklabels(functions, fontsize=14)
 ax.legend(loc='upper right')
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add annotations
-ax.text(0, -8000, 'Read-only', ha='center', fontsize=9, style='italic')
-ax.text(1, -8000, 'No state', ha='center', fontsize=9, style='italic')
-ax.text(2, -8000, 'Accepts ETH', ha='center', fontsize=9, style='italic')
-ax.text(3, -8000, 'Modifies state', ha='center', fontsize=9, style='italic')
+ax.text(0, -8000, 'Read-only', ha='center', fontsize=14, style='italic')
+ax.text(1, -8000, 'No state', ha='center', fontsize=14, style='italic')
+ax.text(2, -8000, 'Accepts ETH', ha='center', fontsize=14, style='italic')
+ax.text(3, -8000, 'Modifies state', ha='center', fontsize=14, style='italic')
 
 ax.set_title('Solidity Function Types: Gas and State Impact', fontweight='bold', fontsize=14)
 plt.tight_layout()

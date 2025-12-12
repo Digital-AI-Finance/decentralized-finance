@@ -47,24 +47,24 @@ bars2 = ax.bar(x + width/2, post_collapse, width, label='May 15, 2022 (Post)',
 # Add value labels for pre-collapse
 for bar, val in zip(bars1, pre_collapse):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5,
-            f'${val}B', ha='center', va='bottom', fontsize=11, fontweight='bold')
+            f'${val}B', ha='center', va='bottom', fontsize=14, fontweight='bold')
 
 # Add "~$0" labels for post-collapse
 for bar in bars2:
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5,
-            '~$0', ha='center', va='bottom', fontsize=11, fontweight='bold', color=MLRED)
+            '~$0', ha='center', va='bottom', fontsize=14, fontweight='bold', color=MLRED)
 
-ax.set_ylabel('Market Cap (Billion USD)', fontsize=12)
+ax.set_ylabel('Market Cap (Billion USD)', fontsize=15)
 ax.set_xticks(x)
-ax.set_xticklabels(categories, fontsize=12)
+ax.set_xticklabels(categories, fontsize=15)
 ax.set_ylim(0, 50)
 
-ax.legend(loc='upper right', fontsize=11)
+ax.legend(loc='upper right', fontsize=14)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add loss annotation
 ax.text(0.5, -0.15, 'Total value destroyed: ~$60 billion in 72 hours (99%+ loss)',
-        transform=ax.transAxes, ha='center', fontsize=11,
+        transform=ax.transAxes, ha='center', fontsize=14,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#FFEBEE', edgecolor=MLRED))
 
 ax.set_title('Terra Ecosystem: Value Destruction', fontweight='bold', fontsize=14, pad=10)

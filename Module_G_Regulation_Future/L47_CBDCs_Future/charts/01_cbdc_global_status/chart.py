@@ -41,20 +41,20 @@ bars = ax.bar(stages, counts, color=colors, edgecolor='black', linewidth=1.5, wi
 # Add value labels
 for bar, val in zip(bars, counts):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
-            f'{val}', ha='center', va='bottom', fontsize=12, fontweight='bold')
+            f'{val}', ha='center', va='bottom', fontsize=15, fontweight='bold')
 
-ax.set_ylabel('Number of Countries', fontsize=12)
+ax.set_ylabel('Number of Countries', fontsize=15)
 ax.set_ylim(0, 85)
 ax.grid(True, alpha=0.3, axis='y')
 
 # Add examples
 examples = ['US, Germany\nJapan', 'EU, UK\nIndia', 'China, Brazil\nRussia', 'Bahamas\nNigeria, Jamaica']
 for i, (bar, ex) in enumerate(zip(bars, examples)):
-    ax.text(bar.get_x() + bar.get_width()/2, 5, ex, ha='center', va='bottom', fontsize=8, color='white')
+    ax.text(bar.get_x() + bar.get_width()/2, 5, ex, ha='center', va='bottom', fontsize=14, color='white')
 
 # Total annotation
 total = sum(counts)
-ax.text(3.5, 75, f'Total: {total}+\ncountries\nexploring', fontsize=10, fontweight='bold',
+ax.text(3.5, 75, f'Total: {total}+\ncountries\nexploring', fontsize=14, fontweight='bold',
         bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
 
 ax.set_title('Global CBDC Development Status (Late 2024)', fontweight='bold', fontsize=14, pad=10)

@@ -51,7 +51,7 @@ for stage in stages:
                           edgecolor='black', linewidth=2, alpha=0.85)
     ax.add_patch(box)
     ax.text(stage['x'] + box_width/2, y_center, stage['name'],
-            ha='center', va='center', fontsize=12, fontweight='bold', color='white')
+            ha='center', va='center', fontsize=15, fontweight='bold', color='white')
 
 # Add arrows between stages
 arrow_y = y_center
@@ -72,7 +72,7 @@ for output in outputs:
                           edgecolor='black', linewidth=1, alpha=0.7)
     ax.add_patch(box)
     ax.text(output['x'] + 0.06, output['y'], output['name'],
-            ha='center', va='center', fontsize=9, color='white')
+            ha='center', va='center', fontsize=14, color='white')
 
 # Arrows from compiler to outputs
 ax.annotate('', xy=(0.36, 0.23), xytext=(0.36, y_center - box_height/2),
@@ -82,17 +82,17 @@ ax.annotate('', xy=(0.50, 0.23), xytext=(0.40, y_center - box_height/2),
 
 # Add annotations
 ax.text(0.15, 0.88, 'pragma solidity ^0.8.0;\ncontract {...}',
-        fontsize=9, family='monospace', ha='center', va='center',
+        fontsize=14, family='monospace', ha='center', va='center',
         bbox=dict(boxstyle='round', facecolor='#E8E8E8', edgecolor='#888'))
 
 ax.text(0.58, 0.88, '0x6080604052...',
-        fontsize=9, family='monospace', ha='center', va='center',
+        fontsize=14, family='monospace', ha='center', va='center',
         bbox=dict(boxstyle='round', facecolor='#E8E8E8', edgecolor='#888'))
 
 # Key insight
 props = dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN)
 ax.text(0.82, 0.15, 'Deployed to\nBlockchain',
-        ha='center', va='center', fontsize=10, fontweight='bold',
+        ha='center', va='center', fontsize=14, fontweight='bold',
         bbox=props, color=MLGREEN)
 
 ax.set_xlim(0, 1)

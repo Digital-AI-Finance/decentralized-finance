@@ -49,14 +49,14 @@ header_box = FancyBboxPatch((0.18, 0.73), 0.64, 0.10,
                              edgecolor='black', linewidth=1.5)
 ax.add_patch(header_box)
 ax.text(0.50, 0.78, 'Header: Version (4 bytes) | Input Count | Output Count | Locktime (4 bytes)',
-        ha='center', fontsize=10, color='#333')
+        ha='center', fontsize=14, color='#333')
 
 # Inputs section
 input_box = FancyBboxPatch((0.18, 0.42), 0.30, 0.28,
                             boxstyle="round,pad=0.01", facecolor='#FFE0E0',
                             edgecolor=MLRED, linewidth=2)
 ax.add_patch(input_box)
-ax.text(0.33, 0.66, 'INPUTS', ha='center', fontsize=12, fontweight='bold', color=MLRED)
+ax.text(0.33, 0.66, 'INPUTS', ha='center', fontsize=15, fontweight='bold', color=MLRED)
 
 input_fields = [
     ('Previous TX Hash', '32 bytes'),
@@ -67,15 +67,15 @@ input_fields = [
 
 for i, (field, size) in enumerate(input_fields):
     y = 0.58 - i * 0.055
-    ax.text(0.20, y, f'{field}:', ha='left', fontsize=9, color='#333')
-    ax.text(0.46, y, size, ha='right', fontsize=9, color='#666', style='italic')
+    ax.text(0.20, y, f'{field}:', ha='left', fontsize=14, color='#333')
+    ax.text(0.46, y, size, ha='right', fontsize=14, color='#666', style='italic')
 
 # Outputs section
 output_box = FancyBboxPatch((0.52, 0.42), 0.30, 0.28,
                              boxstyle="round,pad=0.01", facecolor='#E0FFE0',
                              edgecolor=MLGREEN, linewidth=2)
 ax.add_patch(output_box)
-ax.text(0.67, 0.66, 'OUTPUTS', ha='center', fontsize=12, fontweight='bold', color=MLGREEN)
+ax.text(0.67, 0.66, 'OUTPUTS', ha='center', fontsize=15, fontweight='bold', color=MLGREEN)
 
 output_fields = [
     ('Value', '8 bytes (satoshis)'),
@@ -85,8 +85,8 @@ output_fields = [
 
 for i, (field, size) in enumerate(output_fields):
     y = 0.58 - i * 0.055
-    ax.text(0.54, y, f'{field}:', ha='left', fontsize=9, color='#333')
-    ax.text(0.80, y, size, ha='right', fontsize=9, color='#666', style='italic')
+    ax.text(0.54, y, f'{field}:', ha='left', fontsize=14, color='#333')
+    ax.text(0.80, y, size, ha='right', fontsize=14, color='#666', style='italic')
 
 # Arrow showing flow
 ax.annotate('', xy=(0.52, 0.55), xytext=(0.48, 0.55),
@@ -97,17 +97,17 @@ fee_box = FancyBboxPatch((0.25, 0.18), 0.50, 0.12,
                           boxstyle="round,pad=0.01", facecolor='#FFF8E0',
                           edgecolor=MLORANGE, linewidth=1.5)
 ax.add_patch(fee_box)
-ax.text(0.50, 0.26, 'Fee = Sum(Inputs) - Sum(Outputs)', ha='center', fontsize=11,
+ax.text(0.50, 0.26, 'Fee = Sum(Inputs) - Sum(Outputs)', ha='center', fontsize=14,
         fontweight='bold', color=MLORANGE)
-ax.text(0.50, 0.20, 'Implicit fee (not a field)', ha='center', fontsize=10, color='#666')
+ax.text(0.50, 0.20, 'Implicit fee (not a field)', ha='center', fontsize=14, color='#666')
 
 # Annotations
-ax.text(0.92, 0.60, 'References\nprevious\nUTXOs', ha='center', fontsize=9,
+ax.text(0.92, 0.60, 'References\nprevious\nUTXOs', ha='center', fontsize=14,
         color=MLRED, style='italic')
 ax.annotate('', xy=(0.85, 0.55), xytext=(0.88, 0.55),
             arrowprops=dict(arrowstyle='->', color=MLRED, lw=1.5))
 
-ax.text(0.08, 0.55, 'Creates\nnew\nUTXOs', ha='center', fontsize=9,
+ax.text(0.08, 0.55, 'Creates\nnew\nUTXOs', ha='center', fontsize=14,
         color=MLGREEN, style='italic')
 ax.annotate('', xy=(0.15, 0.55), xytext=(0.12, 0.55),
             arrowprops=dict(arrowstyle='->', color=MLGREEN, lw=1.5))
