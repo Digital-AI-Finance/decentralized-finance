@@ -1,0 +1,45 @@
+name: Compile and Verify LaTeX
+
+on:
+  push:
+    paths:
+      - 'Module_*/**/*.tex'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install PyPDF2
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
+
+      - name: Compile and verify all lessons
+        run: python compile_and_verify.py
+
+      - name: Commit status updates
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add index.html .pdf_hashes.json
+          git diff --staged --quiet || git commit -m "Update compilation status [skip ci]"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
