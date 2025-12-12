@@ -1,0 +1,467 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\footnotesize\textit{#1}}
+
+\title{Consensus Mechanism Comparison}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+    \item Compare proof-of-work, proof-of-stake, delegated proof-of-stake, and PBFT
+    \item Evaluate security models and threat assumptions
+    \item Analyze scalability and throughput trade-offs
+    \item Assess energy consumption and environmental impact
+    \item Measure decentralization across consensus protocols
+    \item Understand finality and confirmation time differences
+    \item Select appropriate consensus mechanism for specific use cases
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Consensus Mechanisms Overview}
+\textbf{What is Consensus?}
+\begin{itemize}
+    \item Agreement among distributed nodes on shared state
+    \item Ensures all participants have same transaction history
+    \item Prevents double-spending and conflicting updates
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Major Consensus Families:}
+\begin{enumerate}
+    \item \textbf{Proof-of-Work (PoW):} Bitcoin, Litecoin, Dogecoin
+    \item \textbf{Proof-of-Stake (PoS):} Ethereum, Cardano, Polkadot
+    \item \textbf{Delegated Proof-of-Stake (DPoS):} EOS, Tron, Cosmos
+    \item \textbf{Practical BFT (PBFT):} Hyperledger Fabric, Zilliqa
+    \item \textbf{Hybrid Models:} Decred (PoW + PoS), Algorand (Pure PoS + VRF)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Consensus Mechanism Comparison}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/01_consensus_radar/chart.pdf}
+\end{center}
+\bottomnote{No single mechanism excels in all dimensions -- trade-offs are fundamental.}
+\end{frame}
+
+\begin{frame}{Proof of Work: Deep Dive}
+\textbf{Mechanism:}
+\begin{itemize}
+    \item Miners compete to find valid block hash (difficulty target)
+    \item First to find valid hash broadcasts block
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Security Model:}
+\begin{itemize}
+    \item Honest majority: $>$ 50\% hash rate honest
+    \item Attack cost proportional to hash rate
+    \item Probabilistic finality (deeper blocks = safer)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Advantages:}
+\begin{itemize}
+    \item Proven security (Bitcoin: 15+ years, no successful attack)
+    \item No trusted setup, permissionless, external security
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item High energy (150 TWh/year for Bitcoin)
+    \item Low throughput (7 TPS), slow finality (1 hour)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Proof of Stake: Deep Dive}
+\textbf{Mechanism:}
+\begin{itemize}
+    \item Validators stake tokens as collateral
+    \item Pseudo-random selection for block proposal (weighted by stake)
+    \item Penalties for misbehavior (slashing)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Security Model:}
+\begin{itemize}
+    \item Honest majority: $>$ 67\% stake honest (for finality)
+    \item Attack cost = token price $\times$ stake amount
+    \item Economic finality (slashing guarantees)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Advantages:}
+\begin{itemize}
+    \item Energy-efficient (99\% reduction vs. PoW)
+    \item Faster finality (12 min for Ethereum)
+    \item Economic alignment (attackers lose stake)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Wealth concentration, high capital requirement
+    \item Centralization risk (exchanges, staking pools)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Delegated Proof of Stake (DPoS)}
+\textbf{Mechanism:}
+\begin{itemize}
+    \item Token holders vote for delegates (block producers)
+    \item Top N delegates (21 in EOS, 27 in Tron) produce blocks in rotation
+    \item Delegates share rewards with voters
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Security Model:}
+\begin{itemize}
+    \item Honest majority: $>$ 50\% of delegates honest
+    \item Reputation-based trust (delegates have identities)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Advantages:}
+\begin{itemize}
+    \item High throughput (4,000 TPS for EOS)
+    \item Fast finality (1-3 seconds), energy-efficient
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item High centralization (only 21-100 block producers)
+    \item Voter apathy, plutocracy, cartel risk
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Practical Byzantine Fault Tolerance (PBFT)}
+\textbf{Mechanism:}
+\begin{itemize}
+    \item Pre-selected committee of validators
+    \item Three-phase consensus: pre-prepare, prepare, commit
+    \item 2/3+ agreement required to finalize block
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Security Model:}
+\begin{itemize}
+    \item BFT: tolerates $<$ 1/3 malicious nodes
+    \item Known validator set (permissioned)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Advantages:}
+\begin{itemize}
+    \item Instant finality (no probabilistic confirmation)
+    \item High throughput (1,000-10,000 TPS), energy-efficient
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Requires permissioned network
+    \item Poor scalability ($O(N^2)$ communication)
+    \item Centralized, not censorship-resistant
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Throughput Comparison}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_throughput_comparison/chart.pdf}
+\end{center}
+\bottomnote{Higher throughput typically requires sacrificing decentralization.}
+\end{frame}
+
+\begin{frame}{Consensus Comparison Table}
+\small
+\begin{tabular}{lllll}
+\toprule
+\textbf{Property} & \textbf{PoW} & \textbf{PoS} & \textbf{DPoS} & \textbf{PBFT} \\
+\midrule
+\textbf{Throughput} & 7-15 TPS & 30-100 TPS & 1,000-4,000 & 1,000-10,000 \\
+\textbf{Finality} & Probabilistic & 10-15 min & 1-3 sec & Instant \\
+\textbf{Energy} & Very High & Very Low & Very Low & Very Low \\
+\textbf{Decentralization} & High & Medium & Low & Very Low \\
+\textbf{Permissionless} & Yes & Yes & Yes & No \\
+\textbf{Attack Cost} & Hash rate & Stake value & Vote buying & Compromise 1/3 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4cm}
+\textbf{Key Insight:}
+\begin{itemize}
+    \item No consensus mechanism is universally superior
+    \item Trade-offs exist between decentralization, scalability, and finality
+    \item Choice depends on use case requirements
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Finality Comparison}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/03_finality_timeline/chart.pdf}
+\end{center}
+\bottomnote{Finality type affects settlement guarantees and application design.}
+\end{frame}
+
+\begin{frame}{Security Analysis: Attack Vectors}
+\textbf{Proof of Work:}
+\begin{itemize}
+    \item \textbf{51\% Attack:} control $>$ 50\% hash rate
+    \item Cost: hardware + electricity (billions for Bitcoin)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Proof of Stake:}
+\begin{itemize}
+    \item \textbf{33\% Attack (liveness):} prevent finality with 33\% stake
+    \item \textbf{67\% Attack (safety):} finalize conflicting blocks
+    \item Mitigation: slashing destroys attacker's stake
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Delegated Proof of Stake:}
+\begin{itemize}
+    \item \textbf{Delegate Cartel:} majority of delegates collude
+    \item \textbf{Vote Buying:} bribe token holders for votes
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{PBFT:}
+\begin{itemize}
+    \item \textbf{Byzantine Generals:} $>$ 1/3 validators malicious
+    \item Cost depends on permission model (regulatory/legal)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Attack Cost Comparison}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/06_attack_cost_comparison/chart.pdf}
+\end{center}
+\bottomnote{Economic security varies dramatically across consensus mechanisms.}
+\end{frame}
+
+\begin{frame}[t]{Energy Consumption Analysis}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/04_energy_comparison/chart.pdf}
+\end{center}
+\bottomnote{The Merge reduced Ethereum's energy by 99.95\% -- from Argentina's usage to negligible.}
+\end{frame}
+
+\begin{frame}{Energy and Environmental Context}
+\textbf{Bitcoin Energy Usage:}
+\begin{itemize}
+    \item 150 TWh/year -- comparable to Argentina
+    \item 70 Mt CO2/year carbon footprint
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{PoS Reduction:}
+\begin{itemize}
+    \item Ethereum post-Merge: 0.01 TWh/year (99.95\% reduction)
+    \item All PoS chains combined: $<$ 0.1 TWh/year
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Context:}
+\begin{itemize}
+    \item Traditional banking: $\sim$260 TWh/year (estimated)
+    \item Data centers globally: $\sim$200-300 TWh/year
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Environmental Debate:}
+\begin{itemize}
+    \item PoW advocates: energy secures network, incentivizes renewables
+    \item Critics: wasteful expenditure for limited throughput
+    \item Industry trend: shift toward PoS driven by environmental concerns
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Decentralization Spectrum}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/05_decentralization_spectrum/chart.pdf}
+\end{center}
+\bottomnote{Nakamoto coefficient measures minimum entities to control 51\%/33\% of the network.}
+\end{frame}
+
+\begin{frame}{Decentralization Metrics}
+\textbf{How to Measure Decentralization?}
+\begin{enumerate}
+    \item \textbf{Nakamoto Coefficient:}
+    \begin{itemize}
+        \item Minimum entities needed to control 51\% (PoW) or 33\% (PoS)
+        \item Bitcoin pools: $\sim$4 | Ethereum: $>$1000 | EOS: 11
+    \end{itemize}
+
+    \item \textbf{Node Distribution:}
+    \begin{itemize}
+        \item Bitcoin: $\sim$15,000 nodes | Ethereum: $\sim$7,000 nodes
+        \item Permissioned chains: 10-100 nodes
+    \end{itemize}
+
+    \item \textbf{Client Diversity:}
+    \begin{itemize}
+        \item Multiple implementations reduce single-point-of-failure
+        \item Ethereum: 5+ clients | Monolithic chains: 1 client
+    \end{itemize}
+
+    \item \textbf{Wealth Distribution:}
+    \begin{itemize}
+        \item Gini coefficient for token holdings
+        \item PoS risk: concentrated wealth = concentrated power
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Use Case Selection Matrix}
+\textbf{Proof of Work:}
+\begin{itemize}
+    \item Maximum decentralization, censorship resistance critical
+    \item Examples: digital gold (Bitcoin), privacy coins (Monero)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Proof of Stake:}
+\begin{itemize}
+    \item Balance decentralization and scalability, environmental sustainability
+    \item Examples: DeFi platforms (Ethereum), general-purpose chains
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Delegated Proof of Stake:}
+\begin{itemize}
+    \item High throughput, fast finality essential
+    \item Examples: gaming, social media dApps (EOS, Steemit)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{PBFT:}
+\begin{itemize}
+    \item Permissioned acceptable, enterprise/consortium use
+    \item Examples: supply chain (Hyperledger), interbank settlement
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Emerging Consensus Mechanisms}
+\textbf{Proof of History (Solana):}
+\begin{itemize}
+    \item Verifiable delay function creates timestamp proof
+    \item Enables parallel processing, 65,000 TPS
+    \item Concern: hardware requirements, network outages
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Pure Proof of Stake (Algorand):}
+\begin{itemize}
+    \item VRF for leader selection, instant finality
+    \item Low barrier (any amount stakeable)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Proof of Authority (PoA):}
+\begin{itemize}
+    \item Validators approved by reputation/identity
+    \item Used in testnets (Goerli, Sepolia)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Hybrid Models:}
+\begin{itemize}
+    \item Decred (PoW + PoS), Tendermint (BFT + PoS)
+    \item Mitigate weaknesses of individual mechanisms
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Governance and Upgradability}
+\textbf{PoW Governance:}
+\begin{itemize}
+    \item Off-chain (BIPs, rough consensus)
+    \item Hard forks contentious (Bitcoin Cash, SV splits)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{PoS Governance:}
+\begin{itemize}
+    \item On-chain potential (Tezos, Polkadot)
+    \item Stake-weighted voting on protocol upgrades
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{DPoS Governance:}
+\begin{itemize}
+    \item Delegates propose and vote on changes
+    \item Rapid upgrades possible, risk of centralized decisions
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{PBFT Governance:}
+\begin{itemize}
+    \item Consortium governance among known entities
+    \item Fastest upgrade cycles
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Consensus mechanisms trade off decentralization, scalability, and finality
+    \item PoW: maximum decentralization, high energy, low throughput
+    \item PoS: balanced approach, energy-efficient, moderate throughput
+    \item DPoS: high throughput, fast finality, lower decentralization
+    \item PBFT: instant finality, permissioned, centralized
+    \item No single consensus is optimal for all use cases
+    \item Selection depends on application requirements: security, speed, openness
+\end{itemize}
+
+\vspace{0.4cm}
+\textbf{Design Philosophy:}
+
+Choose consensus based on priorities: censorship resistance (PoW), sustainability (PoS), throughput (DPoS), enterprise needs (PBFT). Understand trade-offs explicitly.
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+    \item Why does PBFT achieve instant finality while PoW only offers probabilistic finality?
+    \item How does energy consumption relate to security in proof-of-work systems?
+    \item What are the risks of delegating block production to a small set of validators?
+    \item Can a highly scalable blockchain also be highly decentralized?
+    \item How might quantum computing impact different consensus mechanisms?
+    \item What role does governance play in consensus mechanism selection?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L11 Blockchain Scalability Trilemma}
+\textbf{Topics to be covered:}
+\begin{itemize}
+    \item The scalability trilemma: security, decentralization, scalability
+    \item Layer 1 scalability limits (block size, block time, state growth)
+    \item Throughput comparisons (TPS benchmarks)
+    \item Vertical vs. horizontal scaling approaches
+    \item Emerging solutions: sharding, Layer 2, sidechains
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Preparation:}
+\begin{itemize}
+    \item Review consensus mechanism trade-offs from this lesson
+    \item Explore current blockchain TPS statistics (L2Beat)
+    \item Consider why traditional databases achieve millions of TPS
+\end{itemize}
+\end{frame}
+
+\end{document}

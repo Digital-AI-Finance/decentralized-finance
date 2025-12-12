@@ -1,0 +1,617 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{0,102,204}
+\definecolor{mlpurple}{RGB}{51,51,178}
+\definecolor{mllavender}{RGB}{173,173,224}
+\definecolor{mllavender2}{RGB}{193,193,232}
+\definecolor{mllavender3}{RGB}{204,204,235}
+\definecolor{mllavender4}{RGB}{214,214,239}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlgray}{RGB}{127, 127, 127}
+
+% Apply custom colors to Madrid theme
+\setbeamercolor{palette primary}{bg=mllavender3,fg=mlpurple}
+\setbeamercolor{palette secondary}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{palette tertiary}{bg=mllavender,fg=white}
+\setbeamercolor{palette quaternary}{bg=mlpurple,fg=white}
+\setbeamercolor{structure}{fg=mlpurple}
+\setbeamercolor{section in toc}{fg=mlpurple}
+\setbeamercolor{subsection in toc}{fg=mlblue}
+\setbeamercolor{title}{fg=mlpurple}
+\setbeamercolor{frametitle}{fg=mlpurple,bg=mllavender3}
+\setbeamercolor{block title}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{block body}{bg=mllavender4,fg=black}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+
+\title{Lesson 5: Public Key Cryptography}
+\subtitle{Module A: Blockchain Foundations}
+\author{BSc Blockchain \& Cryptocurrency}
+\institute{University Course}
+\date{2025}
+
+\begin{document}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\begin{frame}[t]{Learning Objectives}
+By the end of this lesson, you will be able to:
+
+\begin{enumerate}
+\item Explain the fundamental difference between symmetric and asymmetric cryptography
+\item Understand how public-private key pairs enable secure communication
+\item Describe the Elliptic Curve Digital Signature Algorithm (ECDSA)
+\item Generate and verify digital signatures
+\item Derive blockchain addresses from public keys
+\item Recognize key security best practices for cryptocurrency wallets
+\end{enumerate}
+
+\vspace{1em}
+\textbf{Prerequisites:} L03 - Cryptographic Hash Functions
+\end{frame}
+
+\section{Cryptography Fundamentals}
+
+\begin{frame}[t]{Symmetric vs. Asymmetric Cryptography}
+\begin{center}
+\includegraphics[width=0.78\textwidth]{charts/01_symmetric_vs_asymmetric/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Key Insight:} Blockchains use asymmetric cryptography because it solves the key distribution problem.
+\end{frame}
+
+\begin{frame}[t]{Symmetric vs. Asymmetric: Comparison}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Symmetric Cryptography}
+\begin{itemize}
+\item Same key for encryption and decryption
+\item Fast and efficient
+\item Key distribution problem
+\item Examples: AES, DES, 3DES
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Use Case:}
+\begin{itemize}
+\item Encrypting large data volumes
+\item Disk encryption
+\item VPN tunnels
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Asymmetric Cryptography}
+\begin{itemize}
+\item Different keys: public and private
+\item Slower than symmetric
+\item No key distribution problem
+\item Examples: RSA, ECC, ECDSA
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Use Case:}
+\begin{itemize}
+\item Digital signatures
+\item Key exchange
+\item Blockchain transactions
+\end{itemize}
+\end{columns}
+
+\vspace{0.4cm}
+\textbf{Key Insight:} Blockchains rely exclusively on asymmetric cryptography for identity and authorization
+\end{frame}
+
+\begin{frame}[t]{Public-Private Key Pairs}
+\textbf{Core Concept:}
+\begin{itemize}
+\item Mathematically related pair of keys
+\item Public key: freely shared, used to verify signatures
+\item Private key: kept secret, used to create signatures
+\item One-way mathematical relationship (hard to derive private from public)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Mathematical Property:}
+
+If Alice has key pair $(PK_A, SK_A)$:
+\begin{itemize}
+\item Message encrypted with $PK_A$ can only be decrypted with $SK_A$
+\item Signature created with $SK_A$ can only be verified with $PK_A$
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Blockchain Usage:}
+\begin{itemize}
+\item Private key = your ``password'' to control funds
+\item Public key (or address) = your account identifier
+\item Losing private key = losing access to funds permanently
+\item No password reset mechanism exists
+\end{itemize}
+\end{frame}
+
+\section{Elliptic Curve Cryptography}
+
+\begin{frame}[t]{RSA vs. Elliptic Curve Cryptography}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{RSA (Rivest-Shamir-Adleman)}
+\begin{itemize}
+\item Based on factoring large primes
+\item Key sizes: 2048-4096 bits
+\item Computationally intensive
+\item Well-established (1977)
+\item Used in TLS/SSL certificates
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Security:}
+\begin{itemize}
+\item 2048-bit key = 112-bit security
+\item 3072-bit key = 128-bit security
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Elliptic Curve (ECC)}
+\begin{itemize}
+\item Based on discrete logarithm problem
+\item Key sizes: 256 bits
+\item More efficient computation
+\item Newer (1985)
+\item Used in Bitcoin, Ethereum
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Security:}
+\begin{itemize}
+\item 256-bit key = 128-bit security
+\item Equivalent to 3072-bit RSA
+\end{itemize}
+\end{columns}
+
+\vspace{0.4cm}
+\textbf{Why Blockchains Use ECC:} Smaller key sizes = less storage, faster verification, mobile-friendly
+\end{frame}
+
+\begin{frame}[t]{Elliptic Curve: Point Addition}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{charts/02_elliptic_curve/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Key Generation:} Choose random $k$ (private key), compute $Q = k \cdot G$ (public key).
+\end{frame}
+
+\begin{frame}[t]{Elliptic Curve Mathematics}
+\textbf{Elliptic Curve Equation:}
+\[
+y^2 = x^3 + ax + b
+\]
+
+\textbf{Bitcoin's Curve (secp256k1):}
+\[
+y^2 = x^3 + 7 \quad \text{(parameters: } a=0, b=7 \text{)}
+\]
+
+\vspace{0.3cm}
+\textbf{Key Mathematical Properties:}
+\begin{itemize}
+\item Defined over finite field (modulo large prime)
+\item Point addition operation creates a group
+\item Scalar multiplication: $Q = k \cdot G$ (k = private key, G = generator point, Q = public key)
+\item Easy to compute $Q$ from $k$, infeasible to compute $k$ from $Q$
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Intuition:}
+\begin{itemize}
+\item Private key = random 256-bit number
+\item Public key = point on elliptic curve (x, y coordinates)
+\item Trapdoor function ensures one-way relationship
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{The Discrete Logarithm Problem}
+\textbf{Security Foundation:}
+
+\vspace{0.3cm}
+Given:
+\begin{itemize}
+\item Generator point $G$ (known)
+\item Public key $Q = k \cdot G$ (known)
+\end{itemize}
+
+Find:
+\begin{itemize}
+\item Private key $k$ (unknown)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Computational Complexity:}
+\begin{itemize}
+\item No known efficient algorithm to solve this
+\item Best attack: Pollard's rho algorithm
+\item For 256-bit keys: requires $2^{128}$ operations (infeasible)
+\item Quantum computers: Shor's algorithm reduces to polynomial time (future threat)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Practical Implication:}
+\begin{itemize}
+\item Cannot derive private key from public key
+\item Cannot forge signatures without private key
+\item Blockchain security relies on this hardness assumption
+\end{itemize}
+\end{frame}
+
+\section{Digital Signatures}
+
+\begin{frame}[t]{ECDSA: Digital Signature Workflow}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/04_digital_signature/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Properties:} Authentication, Integrity, Non-repudiation, Unforgeability.
+\end{frame}
+
+\begin{frame}[t]{Digital Signatures: Purpose and Properties}
+\textbf{What is a Digital Signature?}
+\begin{itemize}
+\item Cryptographic proof that a message was created by the holder of a private key
+\item Anyone with the public key can verify authenticity
+\item Provides authentication, integrity, and non-repudiation
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Required Properties:}
+\begin{enumerate}
+\item \textbf{Authentication:} Proves who created the signature
+\item \textbf{Integrity:} Any modification to message invalidates signature
+\item \textbf{Non-repudiation:} Signer cannot deny creating signature
+\item \textbf{Unforgeable:} Impossible to create valid signature without private key
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Blockchain Applications:}
+\begin{itemize}
+\item Authorize cryptocurrency transactions
+\item Prove ownership of funds
+\item Create immutable audit trails
+\item Smart contract execution authorization
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{ECDSA: Mathematical Details}
+\textbf{Signature Generation:}
+
+Given message $m$ and private key $k$:
+\begin{enumerate}
+\item Compute message hash: $h = \text{SHA-256}(m)$
+\item Generate random nonce: $n$ (must be unique per signature)
+\item Compute point: $R = n \cdot G$, extract x-coordinate as $r$
+\item Compute: $s = n^{-1}(h + r \cdot k) \mod p$
+\item Signature is pair: $(r, s)$
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Signature Verification:}
+
+Given message $m$, signature $(r, s)$, and public key $Q$:
+\begin{enumerate}
+\item Compute message hash: $h = \text{SHA-256}(m)$
+\item Compute: $u_1 = h \cdot s^{-1} \mod p$, $u_2 = r \cdot s^{-1} \mod p$
+\item Compute point: $R' = u_1 \cdot G + u_2 \cdot Q$
+\item Extract x-coordinate $r'$
+\item Verify: $r' = r$ (signature valid if true)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Critical Security: Nonce Reuse Vulnerability}
+\textbf{The Danger of Reusing Nonces:}
+
+\vspace{0.3cm}
+If the same nonce $n$ is used to sign two different messages $m_1$ and $m_2$:
+\begin{itemize}
+\item Attacker obtains signatures: $(r, s_1)$ and $(r, s_2)$
+\item Notice that $r$ is the same (same nonce used)
+\item Can compute: $s_1 - s_2 = n^{-1}(h_1 - h_2) \mod p$
+\item Solve for $n$, then solve for private key $k$
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Real-World Incident: Sony PlayStation 3 (2010)}
+\begin{itemize}
+\item Sony used ECDSA to sign PS3 firmware
+\item Used the same nonce for all signatures
+\item Hackers recovered Sony's private key
+\item Enabled homebrew software and piracy
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Best Practice:} Use deterministic nonce generation (RFC 6979) - nonce derived from message hash and private key
+\end{frame}
+
+\section{Address Derivation}
+
+\begin{frame}[t]{From Private Key to Blockchain Address}
+\begin{center}
+\includegraphics[width=0.80\textwidth]{charts/03_key_derivation/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Security:} One-way functions ensure addresses cannot be reversed to private keys.
+\end{frame}
+
+\begin{frame}[t]{Bitcoin Address Derivation Details}
+\textbf{Step-by-Step Process:}
+
+\begin{enumerate}
+\item Generate random 256-bit private key $k$
+\item Compute public key: $Q = k \cdot G$ (33 bytes compressed or 65 bytes uncompressed)
+\item Hash public key: $h_1 = \text{SHA-256}(Q)$
+\item Hash again: $h_2 = \text{RIPEMD-160}(h_1)$ (20 bytes)
+\item Add version byte: $0x00$ for mainnet (21 bytes)
+\item Compute checksum: first 4 bytes of $\text{SHA-256}(\text{SHA-256}(\text{version} + h_2))$
+\item Concatenate: version + $h_2$ + checksum (25 bytes)
+\item Encode in Base58: produces address like ``1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa''
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Why Multiple Hash Functions?}
+\begin{itemize}
+\item SHA-256: widely trusted, fast
+\item RIPEMD-160: reduces address size (160 bits instead of 256 bits)
+\item Double hashing: additional security layer
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Ethereum Address Derivation}
+\textbf{Simplified Process:}
+
+\begin{enumerate}
+\item Generate random 256-bit private key $k$
+\item Compute public key: $Q = k \cdot G$ (uncompressed, 64 bytes excluding prefix)
+\item Hash public key: $h = \text{Keccak-256}(Q)$ (32 bytes)
+\item Take last 20 bytes of hash
+\item Add ``0x'' prefix
+\item Result: address like ``0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb''
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Key Differences from Bitcoin:}
+\begin{itemize}
+\item Uses Keccak-256 instead of SHA-256 + RIPEMD-160
+\item No checksum in base address (EIP-55 adds mixed-case checksum)
+\item Hexadecimal encoding instead of Base58
+\item Always 20 bytes (40 hex characters)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Public Key Compression}
+\textbf{Uncompressed Public Key (65 bytes):}
+\begin{itemize}
+\item Format: $04 \| x \| y$
+\item Prefix: 0x04 (1 byte)
+\item x-coordinate: 32 bytes
+\item y-coordinate: 32 bytes
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Compressed Public Key (33 bytes):}
+\begin{itemize}
+\item Format: $02/03 \| x$
+\item Prefix: 0x02 (if y is even) or 0x03 (if y is odd)
+\item x-coordinate: 32 bytes
+\item y-coordinate can be reconstructed from x (elliptic curve equation)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why Compression Matters:}
+\begin{itemize}
+\item Reduces blockchain storage by $\approx$50\%
+\item Faster transaction propagation
+\item Lower transaction fees (Bitcoin SegWit incentivizes compressed keys)
+\item Bitcoin: both formats valid, Ethereum: only uncompressed
+\end{itemize}
+\end{frame}
+
+\section{Wallet Security}
+
+\begin{frame}[t]{Hierarchical Deterministic Wallets (BIP-32)}
+\begin{center}
+\includegraphics[width=0.68\textwidth]{charts/05_hd_wallet_tree/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Advantage:} Backup once (seed phrase), recover all addresses forever.
+\end{frame}
+
+\begin{frame}[t]{HD Wallet Details}
+\textbf{Problem with Random Key Generation:}
+\begin{itemize}
+\item Need to back up every new private key separately
+\item Managing hundreds of keys becomes impractical
+\item Risk of losing individual keys
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{HD Wallet Solution:}
+\begin{itemize}
+\item Generate all keys from single master seed (usually 12-24 words)
+\item Deterministic derivation: same seed always produces same keys
+\item Hierarchical structure: master key -> account keys -> address keys
+\item Only need to back up seed phrase once
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Derivation Path Example:}
+\begin{itemize}
+\item Bitcoin: \texttt{m/44'/0'/0'/0/0}
+\item Ethereum: \texttt{m/44'/60'/0'/0/0}
+\item Each level represents: purpose / coin type / account / change / index
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{BIP-39 Mnemonic:} Seed phrase = 12-24 English words encoding 128-256 bits of entropy
+\end{frame}
+
+\begin{frame}[t]{Multi-Signature Wallets}
+\begin{center}
+\includegraphics[width=0.78\textwidth]{charts/06_multisig_schemes/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Security:} No single point of failure; attacker must compromise multiple keys.
+\end{frame}
+
+\begin{frame}[t]{Multi-Signature Use Cases}
+\textbf{Concept:}
+\begin{itemize}
+\item Require multiple signatures to authorize a transaction
+\item Common schemes: 2-of-3, 3-of-5, etc.
+\item M-of-N threshold: need M signatures out of N total keys
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Use Cases:}
+\begin{itemize}
+\item Corporate treasuries (require CEO + CFO approval)
+\item Estate planning (family members hold keys)
+\item Escrow services (buyer + seller + mediator)
+\item Enhanced security (attacker must compromise multiple keys)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Bitcoin Implementation:}
+\begin{itemize}
+\item P2SH (Pay-to-Script-Hash) addresses start with ``3''
+\item Redeem script specifies signature requirements
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Ethereum Implementation:}
+\begin{itemize}
+\item Smart contract-based (e.g., Gnosis Safe)
+\item More flexible logic (time delays, spending limits)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Key Security Best Practices}
+\textbf{Private Key Protection:}
+\begin{itemize}
+\item Never share private keys or seed phrases
+\item Use hardware wallets (Ledger, Trezor) for large amounts
+\item Store backups in multiple secure physical locations
+\item Use strong passwords for wallet encryption
+\item Avoid storing keys on internet-connected devices
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Common Threats:}
+\begin{itemize}
+\item Phishing attacks (fake wallet websites)
+\item Clipboard malware (replaces copied addresses)
+\item Keyloggers (record password entry)
+\item SIM swapping (hijack 2FA)
+\item Physical theft (unencrypted paper wallets)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Defense Strategies:}
+\begin{itemize}
+\item Multi-signature wallets (require M-of-N keys)
+\item Air-gapped signing (offline devices)
+\item Test small amounts before large transfers
+\end{itemize}
+\end{frame}
+
+\section{Summary}
+
+\begin{frame}[t]{Key Takeaways}
+\begin{itemize}
+\item Public key cryptography solves the key distribution problem
+\item Private keys must remain absolutely secret
+\item ECDSA provides efficient digital signatures for blockchains
+\item Nonce reuse is a critical vulnerability
+\item Bitcoin and Ethereum use different address derivation schemes
+\item HD wallets enable convenient key management from a single seed
+\item Multi-signature wallets add an extra security layer
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{block}{Core Principle}
+\textit{``Not your keys, not your coins.''}
+
+If you do not control the private keys to your cryptocurrency addresses, you do not truly own the funds. Exchanges and custodians can be hacked, frozen, or shut down.
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Discussion Questions}
+\begin{enumerate}
+\item Why do blockchains use elliptic curve cryptography instead of RSA?
+
+\item What would happen if two users randomly generated the same private key?
+
+\item How does address derivation protect privacy compared to reusing the same address?
+
+\item Why is the discrete logarithm problem crucial for blockchain security?
+
+\item What are the trade-offs between convenience and security when storing private keys?
+
+\item How would quantum computing impact ECDSA-based blockchains?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Next Lesson Preview: L06 Bitcoin Protocol Deep Dive}
+\textbf{Topics to be covered:}
+\begin{itemize}
+\item Unspent Transaction Output (UTXO) model
+\item Bitcoin transaction structure in detail
+\item Transaction inputs and outputs
+\item Bitcoin Script language
+\item Transaction verification process
+\item Common transaction types (P2PKH, P2SH, SegWit)
+\item Transaction lifecycle from creation to confirmation
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Preparation:}
+\begin{itemize}
+\item Review how digital signatures work
+\item Explore a Bitcoin block explorer (e.g., blockchain.com)
+\item Observe transaction structure in real blocks
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+\vspace{3cm}
+\begin{center}
+{\Large Thank you}\\[2cm]
+{\normalsize Questions?}\\[1cm]
+{\small See you in Lesson 6: Bitcoin Protocol Deep Dive}
+\end{center}
+\end{frame}
+
+\end{document}

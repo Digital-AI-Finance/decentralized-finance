@@ -16,12 +16,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 # Synthetic data representing DeFi landscape
@@ -51,18 +51,18 @@ ax.grid(axis='x', alpha=0.3, linestyle=':', linewidth=0.5)
 for bar, tvl, cat in zip(bars, tvl_billions, categories):
     width = bar.get_width()
     ax.text(width + 0.3, bar.get_y() + bar.get_height()/2,
-            f'${tvl:.1f}B ({cat})', ha='left', va='center', fontsize=8)
+            f'${tvl:.1f}B ({cat})', ha='left', va='center', fontsize=14)
 
 ax.set_xlim(0, max(tvl_billions) + 12)
 
 # Add total
 total_tvl = sum(tvl_billions)
 ax.text(0.98, 0.02, f'Total DeFi TVL: ${total_tvl:.1f}B', transform=ax.transAxes,
-        ha='right', va='bottom', fontsize=10, fontweight='bold',
+        ha='right', va='bottom', fontsize=14, fontweight='bold',
         bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
 
 # Add note about synthetic data
-fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

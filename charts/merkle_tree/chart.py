@@ -16,19 +16,19 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 fig, ax = plt.subplots(figsize=(10, 6))
 ax.set_xlim(0, 10)
 ax.set_ylim(0, 7)
 ax.axis('off')
-ax.set_title('Merkle Tree: Efficient Transaction Verification', fontsize=12, fontweight='bold')
+ax.set_title('Merkle Tree: Efficient Transaction Verification', fontsize=15, fontweight='bold')
 
 # Colors (grayscale-friendly)
 root_color = '#2d2d2d'
@@ -36,22 +36,22 @@ branch_color = '#5a5a5a'
 leaf_color = '#8a8a8a'
 tx_color = '#b0b0b0'
 
-def draw_node(x, y, text, color, width=1.2, height=0.5):
+def draw_node(x, y, text, color, width=1.4, height=0.55):
     rect = mpatches.FancyBboxPatch((x - width/2, y - height/2), width, height,
                                     boxstyle="round,pad=0.05", facecolor=color,
                                     edgecolor='black', linewidth=1)
     ax.add_patch(rect)
-    ax.text(x, y, text, ha='center', va='center', fontsize=8, color='white', fontweight='bold')
+    ax.text(x, y, text, ha='center', va='center', fontsize=14, color='white', fontweight='bold')
 
 def draw_line(x1, y1, x2, y2):
     ax.plot([x1, x2], [y1, y2], 'k-', linewidth=1, alpha=0.6)
 
 # Level 0: Merkle Root
-draw_node(5, 6, 'Merkle Root', root_color, width=1.8)
+draw_node(5, 6, 'Merkle Root', root_color, width=2.0)
 
 # Level 1: Branch hashes
-draw_node(2.5, 4.5, 'H(AB)', branch_color, width=1.4)
-draw_node(7.5, 4.5, 'H(CD)', branch_color, width=1.4)
+draw_node(2.5, 4.5, 'H(AB)', branch_color, width=1.5)
+draw_node(7.5, 4.5, 'H(CD)', branch_color, width=1.5)
 draw_line(5, 5.75, 2.5, 4.75)
 draw_line(5, 5.75, 7.5, 4.75)
 
@@ -82,14 +82,14 @@ legend_elements = [
     mpatches.Patch(facecolor=leaf_color, edgecolor='black', label='Leaf Hashes'),
     mpatches.Patch(facecolor=tx_color, edgecolor='black', label='Transactions'),
 ]
-ax.legend(handles=legend_elements, loc='lower center', ncol=2, fontsize=8, framealpha=0.9)
+ax.legend(handles=legend_elements, loc='lower center', ncol=2, fontsize=14, framealpha=0.9)
 
 # Add explanation
 ax.text(5, 0.3, 'Verification: To prove Tx B is in the tree, only need H(A), H(CD), and Root',
-        ha='center', va='center', fontsize=9, style='italic', alpha=0.7)
+        ha='center', va='center', fontsize=14, style='italic', alpha=0.7)
 
 # Add note about synthetic data
-fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

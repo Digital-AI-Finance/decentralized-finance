@@ -15,12 +15,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 def calculate_impermanent_loss(price_ratio):
@@ -55,7 +55,7 @@ for ratio in key_points:
                    xy=(ratio, il),
                    xytext=(5, -10 if il < -10 else 5),
                    textcoords='offset points',
-                   fontsize=8,
+                   fontsize=14,
                    ha='left')
 
 # Add vertical line at ratio = 1 (no price change)
@@ -76,7 +76,7 @@ ax.legend(loc='lower right')
 
 # Add note explaining the concept
 note_text = "Loss relative to holding tokens outside pool"
-fig.text(0.15, 0.88, note_text, fontsize=8, style='italic', alpha=0.7)
+fig.text(0.15, 0.88, note_text, fontsize=14, style='italic', alpha=0.7)
 
 plt.tight_layout()
 

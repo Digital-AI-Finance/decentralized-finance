@@ -1,0 +1,333 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\tiny\ttfamily,breaklines=true}
+
+\newcommand{\bottomnote}[1]{\vfill\hfill{\scriptsize\textit{#1}}}
+
+\title{L19: Token Lifecycle Management}
+\subtitle{Module B: Ethereum \& Smart Contracts}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Implement various minting strategies (owner, public, allowlist, merkle tree)
+\item Design burning mechanisms for deflationary tokenomics
+\item Use Pausable pattern for emergency circuit breakers
+\item Apply access control patterns (Ownable, AccessControl, multi-sig)
+\item Understand upgradeability patterns (Transparent Proxy, UUPS)
+\item Implement time-locked operations and governance mechanisms
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Token Lifecycle Overview}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/01_token_lifecycle_stages/chart.pdf}
+\end{center}
+\bottomnote{Tokens progress through deployment, minting, operation, burning, and potential upgrades}
+\end{frame}
+
+\begin{frame}{Token Lifecycle Stages}
+\textbf{Complete lifecycle of a token contract:}
+
+\begin{enumerate}
+\item \textbf{Deployment:} Contract creation, owner/admin setup, initial distribution
+\item \textbf{Minting:} Creating new tokens (increasing supply), controlled by governance or owner
+\item \textbf{Operation:} Normal transfers, approvals, staking, may include pause capability
+\item \textbf{Burning:} Destroying tokens (decreasing supply), voluntary or forced mechanisms
+\item \textbf{Upgrade/Migration:} Proxy upgrades or token swaps, governance-controlled
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Minting Strategy 1: Owner-Controlled}
+\textbf{Simple admin-based minting:}
+
+\begin{lstlisting}
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract OwnerMintToken is ERC20, Ownable {
+    constructor() ERC20("Owner Mint Token", "OMT") {}
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+}
+\end{lstlisting}
+
+\textbf{Advantages:} Simple, flexible timing, useful for airdrops and team allocation
+
+\textbf{Disadvantages:} Centralized control, risk of unlimited inflation, regulatory concerns
+\end{frame}
+
+\begin{frame}[fragile]{Minting Strategy 2: Public Mint with Cap}
+\textbf{Anyone can mint up to a maximum supply:}
+
+\begin{lstlisting}
+contract PublicMintToken is ERC20 {
+    uint256 public constant MAX_SUPPLY = 1_000_000 * 10**18;
+    uint256 public constant MINT_PRICE = 0.01 ether;
+    uint256 public constant MAX_PER_TX = 10 * 10**18;
+
+    function mint(uint256 amount) public payable {
+        require(totalSupply() + amount <= MAX_SUPPLY, "Max supply exceeded");
+        require(amount <= MAX_PER_TX, "Exceeds max per transaction");
+        require(msg.value >= amount * MINT_PRICE / 10**18, "Insufficient payment");
+        _mint(msg.sender, amount);
+    }
+}
+\end{lstlisting}
+
+\textbf{Use Cases:} NFT mints, fair launch tokens, crowdfunding
+\end{frame}
+
+\begin{frame}[fragile]{Minting Strategy 3: Merkle Tree Allowlist}
+\textbf{Gas-efficient allowlist using Merkle proofs:}
+
+\begin{lstlisting}
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+
+contract MerkleMintToken is ERC20 {
+    bytes32 public merkleRoot;
+    mapping(address => bool) public hasClaimed;
+
+    constructor(bytes32 _merkleRoot) ERC20("Merkle Token", "MTK") {
+        merkleRoot = _merkleRoot;
+    }
+
+    function claim(uint256 amount, bytes32[] calldata merkleProof) public {
+        require(!hasClaimed[msg.sender], "Already claimed");
+        bytes32 leaf = keccak256(abi.encodePacked(msg.sender, amount));
+        require(MerkleProof.verify(merkleProof, merkleRoot, leaf), "Invalid proof");
+        hasClaimed[msg.sender] = true;
+        _mint(msg.sender, amount);
+    }
+}
+\end{lstlisting}
+
+\textbf{Advantage:} Store single root hash (32 bytes) instead of entire allowlist
+\end{frame}
+
+\begin{frame}{Minting Strategies Comparison}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/02_minting_strategies/chart.pdf}
+\end{center}
+\bottomnote{Merkle tree offers best gas efficiency for large allowlists}
+\end{frame}
+
+\begin{frame}[fragile]{Burning Mechanisms}
+\textbf{Destroying tokens to reduce supply:}
+
+\begin{lstlisting}
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+
+contract BurnableToken is ERC20Burnable {
+    constructor() ERC20("Burnable Token", "BURN") {
+        _mint(msg.sender, 1_000_000 * 10**18);
+    }
+    // Inherited: burn(uint256 amount) - burns caller's tokens
+    // Inherited: burnFrom(address account, uint256 amount) - burns with allowance
+}
+\end{lstlisting}
+
+\textbf{Burn Strategies:}
+\begin{itemize}
+\item \textbf{Voluntary:} Users burn their own tokens (e.g., for utility)
+\item \textbf{Fee Burn:} Transaction fees burned automatically (EIP-1559 model)
+\item \textbf{Buyback \& Burn:} Protocol buys tokens from market and burns them
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Deflationary Token Mechanisms}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/04_deflationary_mechanisms/chart.pdf}
+\end{center}
+\bottomnote{Transaction fee burns are most predictable; buyback has highest price impact}
+\end{frame}
+
+\begin{frame}[fragile]{Access Control: Ownable Pattern}
+\textbf{Single owner with full control:}
+
+\begin{lstlisting}
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract OwnedToken is ERC20, Ownable {
+    constructor() ERC20("Owned Token", "OWN") {}
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+
+    function renounceOwnership() public override onlyOwner {
+        // Irreversibly give up ownership (contract becomes unmanaged)
+        super.renounceOwnership();
+    }
+}
+\end{lstlisting}
+
+\textbf{Risk:} Single point of failure (owner key compromise = full control loss)
+
+\textbf{Mitigation:} Use multi-sig wallet as owner (Gnosis Safe)
+\end{frame}
+
+\begin{frame}{Access Control: Multi-Signature Wallets}
+\textbf{Require multiple approvals for critical operations:}
+
+\vspace{0.2cm}
+\textbf{Gnosis Safe Example:}
+\begin{itemize}
+\item 3-of-5 multi-sig: Requires 3 out of 5 owners to approve transaction
+\item Prevents single key compromise
+\item Common setup: Deploy token with Gnosis Safe as owner
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Workflow:}
+\begin{enumerate}
+\item Owner 1 proposes transaction (e.g., \texttt{mint(alice, 1000)})
+\item Owners 2 and 3 approve transaction
+\item Transaction executes automatically when threshold reached
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Real-World Usage:}
+\begin{itemize}
+\item Uniswap: 4-of-7 multi-sig controls protocol fees
+\item Compound: Timelock + multi-sig for governance execution
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Access Control Patterns Comparison}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/03_access_control_patterns/chart.pdf}
+\end{center}
+\bottomnote{Multi-sig balances security and speed; governance offers maximum decentralization}
+\end{frame}
+
+\begin{frame}{Upgradeability: Why and Risks}
+\textbf{Motivation for upgradeable contracts:}
+\begin{itemize}
+\item Fix critical bugs without redeploying
+\item Add new features (e.g., staking, governance)
+\item Comply with changing regulations
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Fundamental Challenge:}
+\begin{itemize}
+\item Smart contracts are immutable after deployment
+\item Bytecode cannot be changed
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Solution: Proxy Pattern}
+\begin{itemize}
+\item \textbf{Proxy Contract:} Fixed address, users interact with this
+\item \textbf{Implementation Contract:} Contains logic, can be swapped
+\item Proxy uses \texttt{delegatecall} to execute implementation logic
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Risks:} Admin can rug pull, storage layout collisions, requires trust
+\end{frame}
+
+\begin{frame}{Proxy Upgrade Pattern}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/05_proxy_upgrade_pattern/chart.pdf}
+\end{center}
+\bottomnote{Storage stays in proxy; only logic is upgraded via delegatecall}
+\end{frame}
+
+\begin{frame}[fragile]{Upgradeability: Transparent Proxy}
+\textbf{Separate admin and user interfaces:}
+
+\begin{lstlisting}
+// Proxy Contract (deployed once, never changes)
+contract TransparentProxy {
+    address public implementation;
+    address public admin;
+
+    function upgradeTo(address newImplementation) external {
+        require(msg.sender == admin, "Not admin");
+        implementation = newImplementation;
+    }
+
+    fallback() external payable {
+        address impl = implementation;
+        assembly {
+            calldatacopy(0, 0, calldatasize())
+            let result := delegatecall(gas(), impl, 0, calldatasize(), 0, 0)
+            returndatacopy(0, 0, returndatasize())
+            switch result
+            case 0 { revert(0, returndatasize()) }
+            default { return(0, returndatasize()) }
+        }
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item \textbf{Minting Strategies:} Owner-controlled (centralized), public mint (open), Merkle tree (gas-efficient allowlist)
+
+\item \textbf{Burning:} Voluntary burn, fee burn, buyback and burn for deflationary tokenomics
+
+\item \textbf{Pausable:} Emergency circuit breaker halts transfers during critical bugs
+
+\item \textbf{Access Control:} Ownable (single admin), AccessControl (role-based), multi-sig (distributed trust)
+
+\item \textbf{Upgradeability:} Transparent Proxy separates storage from logic, enabling upgrades
+
+\item \textbf{Timelock:} Delay critical operations to allow community reaction and exit
+
+\item \textbf{Governance:} Token-weighted voting enables decentralized control
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item What are the security tradeoffs between Merkle tree allowlists and simple mapping-based allowlists?
+
+\item Should all tokens be pausable, or does this introduce too much centralization risk?
+
+\item How can upgradeable contracts maintain credible neutrality when admins can change the code?
+
+\item What is the optimal timelock delay for different types of governance actions?
+
+\item How do deflationary tokenomics affect long-term protocol sustainability?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L20 - Lab: Token Analysis}
+\textbf{Coming up next (hands-on lab):}
+\begin{itemize}
+\item Analyzing USDC and DAI contracts on Etherscan
+\item Examining token holder distribution and centralization
+\item Tracking transaction patterns and whale movements
+\item Identifying upgrade events and governance actions
+\item Deploying your own ERC-20 token with custom features
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Preparation:}
+\begin{itemize}
+\item Review Etherscan contract reading interface
+\item Familiarize with USDC and DAI token pages
+\item Prepare Sepolia testnet ETH for deployment
+\end{itemize}
+\end{frame}
+
+\end{document}

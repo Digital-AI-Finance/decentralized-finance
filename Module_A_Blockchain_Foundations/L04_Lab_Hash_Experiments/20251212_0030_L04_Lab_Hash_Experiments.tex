@@ -1,0 +1,214 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Hash Function Experiments}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Use Python's \texttt{hashlib} library to compute SHA-256 hashes
+    \item Demonstrate the avalanche effect experimentally
+    \item Understand collision resistance through brute-force attempts
+    \item Build a simple proof-of-work mining simulation
+    \item Verify hash-based integrity in practical scenarios
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/01_lab_workflow/chart.pdf}
+\end{center}
+\bottomnote{Total duration: 90 minutes with 4 hands-on exercises}
+\end{frame}
+
+\begin{frame}{Environment Setup}
+\textbf{Required Libraries:}
+\begin{itemize}
+    \item \texttt{hashlib} (standard library)
+    \item \texttt{time} (standard library)
+    \item \texttt{json} (standard library)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Setup Instructions:}
+\begin{enumerate}
+    \item Create a new directory: \texttt{hash\_lab}
+    \item Create a Python file: \texttt{hash\_experiments.py}
+    \item Import required libraries
+    \item Test installation by computing a simple hash
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Verification:} Hash ``Hello, Blockchain!'' and verify output
+\end{frame}
+
+\begin{frame}{Exercise 1: Basic Hashing}
+\textbf{Objectives:}
+\begin{itemize}
+    \item Compute SHA-256 hashes of strings
+    \item Compute SHA-256 hashes of files
+    \item Compare different hash algorithms (MD5, SHA-1, SHA-256)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Create a function that takes a string and returns its SHA-256 hash
+    \item Hash: ``Blockchain'', ``blockchain'', ``Blockchain '' (with space)
+    \item Compare the outputs and observe differences
+    \item Create a text file and compute its hash
+    \item Modify one character and recompute
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Expected Outcome:} Tiny input changes produce completely different hashes
+\end{frame}
+
+\begin{frame}{Exercise 2: Avalanche Effect Demonstration}
+\textbf{Objective:} Experimentally verify the avalanche effect
+
+\vspace{0.3cm}
+\textbf{The Avalanche Effect:}
+\begin{itemize}
+    \item Changing a single bit should change approximately 50\% of output bits
+    \item Critical property for cryptographic security
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Create a function that compares two hashes bit-by-bit
+    \item Hash ``The quick brown fox jumps over the lazy dog''
+    \item Hash ``The quick brown fox jumps over the lazy dof'' (last letter changed)
+    \item Count how many bits differ between the two hashes
+    \item Calculate the percentage of bits that changed
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Expected Result:} Approximately 50\% of bits should differ
+\end{frame}
+
+\begin{frame}{Exercise 3: Simple Proof-of-Work Mining}
+\textbf{Objective:} Build a basic mining simulation
+
+\vspace{0.3cm}
+\textbf{Concept Review:}
+\begin{itemize}
+    \item Mining = finding a nonce such that hash meets difficulty target
+    \item Difficulty target = hash must start with N leading zeros
+    \item No shortcut: must try different nonces sequentially
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Create a block structure (number, data, previous hash, nonce)
+    \item Implement mining function that increments nonce until valid
+    \item Mine blocks with difficulty 1, 2, 3, 4
+    \item Record time taken and nonces tried for each difficulty
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Mining Difficulty: Exponential Growth}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_mining_difficulty/chart.pdf}
+\end{center}
+\bottomnote{Each additional zero increases difficulty by approximately 16x}
+\end{frame}
+
+\begin{frame}{Exercise 4: Hash Chain Verification}
+\textbf{Objective:} Build and verify a simple blockchain
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Create a genesis block (first block with previous\_hash = ``0'')
+    \item Create a function to add new blocks
+    \item Build a chain of 5 blocks
+    \item Implement a verification function that checks:
+    \begin{itemize}
+        \item Each block's hash is valid
+        \item Each block correctly references previous hash
+    \end{itemize}
+    \item Tamper with block 3's data and observe verification failure
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Expected Outcome:} Understand immutability through hash chains
+\end{frame}
+
+\begin{frame}[t]{Chain Integrity Verification}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{charts/03_chain_verification/chart.pdf}
+\end{center}
+\bottomnote{Tampering breaks hash links, making modifications immediately detectable}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit the following:}
+
+\begin{enumerate}
+    \item \textbf{Python script} (\texttt{hash\_experiments.py}) containing:
+    \begin{itemize}
+        \item All four exercises implemented
+        \item Clear function names and comments
+        \item Test cases demonstrating functionality
+    \end{itemize}
+
+    \item \textbf{Lab report} (PDF, 2-3 pages) including:
+    \begin{itemize}
+        \item Avalanche effect results (bit difference percentages)
+        \item Mining performance table (difficulty vs. time)
+        \item Screenshot of chain verification before and after tampering
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Submission Deadline:} One week from lab session date
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Hash functions are easy to compute but infeasible to reverse
+    \item The avalanche effect ensures unpredictable output changes
+    \item Proof-of-work mining is computationally expensive by design
+    \item Hash chains create tamper-evident data structures
+    \item Blockchain immutability comes from re-mining cost
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Real-World Applications:}
+\begin{itemize}
+    \item Bitcoin/Ethereum mining
+    \item Git version control (commit hashes)
+    \item File integrity verification (checksums)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+    \item Why is it important that hash functions are deterministic?
+    \item Did you notice any patterns in which nonces produced valid hashes?
+    \item If you wanted to modify block 3 of a 100-block chain, how many hashes would you need to recompute?
+    \item How does increasing difficulty affect blockchain security?
+    \item What would happen if a hash function did not exhibit the avalanche effect?
+\end{enumerate}
+\end{frame}
+
+\end{document}

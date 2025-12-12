@@ -1,0 +1,438 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\tiny\ttfamily,breaklines=true}
+
+\title{L15: Solidity Fundamentals}
+\subtitle{Module B: Ethereum \& Smart Contracts}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Understand Solidity's role as a smart contract language
+\item Declare and use fundamental data types (uint, address, bool, string, bytes)
+\item Write functions with appropriate visibility and state mutability modifiers
+\item Implement events for logging and monitoring
+\item Use mappings and arrays for data storage
+\item Apply inheritance and interfaces
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Solidity?}
+\textbf{Solidity is a statically-typed, contract-oriented programming language:}
+\begin{itemize}
+\item Created specifically for Ethereum smart contracts
+\item Syntax similar to JavaScript/C++, compiles to EVM bytecode
+\item Current stable version: 0.8.x (as of 2025)
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/01_solidity_compilation_flow/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Basic Contract Structure}
+\textbf{Every Solidity file starts with a version pragma:}
+
+\begin{lstlisting}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract HelloWorld {
+    string public message;
+
+    constructor(string memory initialMessage) {
+        message = initialMessage;
+    }
+
+    function setMessage(string memory newMessage) public {
+        message = newMessage;
+    }
+
+    function getMessage() public view returns (string memory) {
+        return message;
+    }
+}
+\end{lstlisting}
+\textbf{Key Elements:} License identifier, pragma, contract declaration, state variables, constructor, functions
+\end{frame}
+
+\begin{frame}[fragile]{SPDX License and Version Pragma}
+\textbf{Required at top of every Solidity file:}
+
+\textbf{Common Licenses:}
+\begin{itemize}
+\item \textbf{MIT:} Permissive open-source license
+\item \textbf{GPL-3.0:} Copyleft license (derivatives must be open-source)
+\item \textbf{UNLICENSED:} Proprietary code
+\end{itemize}
+
+\textbf{Version Pragma:}
+\begin{itemize}
+\item \texttt{pragma solidity \^{}0.8.0;} - Compatible with 0.8.0 to 0.8.x
+\item \texttt{pragma solidity >=0.8.0 <0.9.0;} - Range specification
+\item \texttt{pragma solidity 0.8.20;} - Exact version
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Types Overview}
+\textbf{Solidity has two categories of data types:}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/02_data_types_overview/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Value Types: Integers and Booleans}
+\textbf{Integers:}
+\begin{itemize}
+\item \texttt{uint} (unsigned): 0 to $2^{256} - 1$ (alias for \texttt{uint256})
+\item \texttt{int} (signed): $-2^{255}$ to $2^{255} - 1$ (alias for \texttt{int256})
+\item Sized variants: \texttt{uint8, uint16, ..., uint256}
+\end{itemize}
+
+\textbf{Booleans:}
+\begin{itemize}
+\item \texttt{bool}: \texttt{true} or \texttt{false}
+\item Operators: \texttt{!} (not), \texttt{\&\&} (and), \texttt{||} (or)
+\end{itemize}
+
+\begin{lstlisting}
+contract Types {
+    uint256 public largeNumber = 1000000000000000000;  // 1e18
+    uint8 public smallNumber = 255;  // Max value for uint8
+    int256 public signedNumber = -42;
+    bool public isActive = true;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Value Types: Address}
+\textbf{Address type holds 20-byte Ethereum addresses:}
+\begin{itemize}
+\item \texttt{address}: Basic address type
+\item \texttt{address payable}: Can receive Ether via \texttt{transfer()} or \texttt{send()}
+\end{itemize}
+
+\textbf{Address Members:}
+\begin{itemize}
+\item \texttt{<address>.balance}: Returns Ether balance (in Wei)
+\item \texttt{<address payable>.transfer(uint amount)}: Send Ether, reverts on failure
+\end{itemize}
+
+\begin{lstlisting}
+contract AddressExample {
+    address public owner;
+    address payable public recipient;
+
+    constructor() {
+        owner = msg.sender;  // Address of contract deployer
+        recipient = payable(msg.sender);  // Convert to payable
+    }
+
+    function checkBalance() public view returns (uint) {
+        return owner.balance;  // Balance in Wei
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Reference Types: Arrays}
+\textbf{Fixed-Size Arrays:}
+\begin{lstlisting}
+uint[5] public fixedArray;  // Array of 5 uints
+\end{lstlisting}
+
+\textbf{Dynamic Arrays:}
+\begin{lstlisting}
+uint[] public dynamicArray;
+string[] public names;
+
+function addElement(uint value) public {
+    dynamicArray.push(value);  // Append to array
+}
+
+function getLength() public view returns (uint) {
+    return dynamicArray.length;
+}
+
+function removeLastElement() public {
+    dynamicArray.pop();  // Remove last element
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Reference Types: Mappings}
+\textbf{Key-value storage (like hash tables):}
+
+\begin{lstlisting}
+contract MappingExample {
+    // Mapping from address to balance
+    mapping(address => uint256) public balances;
+
+    // Nested mapping (address to address to allowance)
+    mapping(address => mapping(address => uint256)) public allowances;
+
+    function updateBalance(address account, uint256 amount) public {
+        balances[account] = amount;
+    }
+
+    function getBalance(address account) public view returns (uint256) {
+        return balances[account];  // Returns 0 if key doesn't exist
+    }
+}
+\end{lstlisting}
+
+\textbf{Key Properties:} All keys exist with default value, cannot iterate, only in storage
+\end{frame}
+
+\begin{frame}{Functions: Visibility Modifiers}
+\textbf{Four visibility levels determine who can call a function:}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_visibility_modifiers/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Functions: State Mutability}
+\textbf{Three state mutability levels:}
+\begin{enumerate}
+\item \textbf{view:} Reads state but doesn't modify it (no gas when called off-chain)
+\item \textbf{pure:} Doesn't read or modify state
+\item \textbf{(none):} Can read and modify state (always costs gas)
+\end{enumerate}
+
+\begin{lstlisting}
+contract Mutability {
+    uint public value = 10;
+
+    function getValue() public view returns (uint) {
+        return value;  // Reads state (view)
+    }
+
+    function add(uint a, uint b) public pure returns (uint) {
+        return a + b;  // No state access (pure)
+    }
+
+    function setValue(uint newValue) public {
+        value = newValue;  // Modifies state (no modifier)
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Data Locations: storage vs memory vs calldata}
+\textbf{Reference types require explicit data location:}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/04_data_locations/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Events}
+\textbf{Events enable logging for off-chain monitoring:}
+
+\begin{lstlisting}
+contract EventExample {
+    event Transfer(address indexed from, address indexed to, uint256 amount);
+    event Approval(address indexed owner, address indexed spender, uint256 amount);
+
+    mapping(address => uint256) public balances;
+
+    function transfer(address to, uint256 amount) public {
+        require(balances[msg.sender] >= amount, "Insufficient balance");
+        balances[msg.sender] -= amount;
+        balances[to] += amount;
+        emit Transfer(msg.sender, to, amount);  // Emit event
+    }
+}
+\end{lstlisting}
+
+\textbf{Indexed Parameters:} Up to 3 parameters can be \texttt{indexed} for efficient filtering
+\end{frame}
+
+\begin{frame}{Error Handling Methods}
+\textbf{Solidity provides multiple error handling mechanisms:}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/05_error_handling_comparison/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Error Handling: require, assert, revert}
+\begin{enumerate}
+\item \textbf{require(condition, message):} Validate inputs/conditions, refunds gas
+\item \textbf{assert(condition):} Check invariants (should never fail)
+\item \textbf{revert(message):} Unconditional revert with message
+\end{enumerate}
+
+\begin{lstlisting}
+function transfer(address to, uint amount) public {
+    require(to != address(0), "Cannot transfer to zero address");
+    require(balances[msg.sender] >= amount, "Insufficient balance");
+
+    balances[msg.sender] -= amount;
+    balances[to] += amount;
+
+    assert(balances[msg.sender] + balances[to] == totalSupply);  // Invariant
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Custom Errors (Solidity 0.8.4+)}
+\textbf{More gas-efficient than string error messages:}
+
+\begin{lstlisting}
+contract CustomErrors {
+    error InsufficientBalance(uint requested, uint available);
+    error Unauthorized(address caller);
+
+    address public owner;
+
+    function withdraw(uint amount) public {
+        if (msg.sender != owner) {
+            revert Unauthorized(msg.sender);
+        }
+        if (balances[msg.sender] < amount) {
+            revert InsufficientBalance(amount, balances[msg.sender]);
+        }
+        // ... transfer logic
+    }
+}
+\end{lstlisting}
+
+\textbf{Benefits:} Lower gas cost, typed parameters, better error context
+\end{frame}
+
+\begin{frame}[fragile]{Modifiers}
+\textbf{Reusable code for function preconditions:}
+
+\begin{lstlisting}
+contract ModifierExample {
+    address public owner;
+    bool public paused = false;
+
+    constructor() { owner = msg.sender; }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not the owner");
+        _;  // Placeholder for function body
+    }
+
+    modifier whenNotPaused() {
+        require(!paused, "Contract is paused");
+        _;
+    }
+
+    function pause() public onlyOwner { paused = true; }
+    function unpause() public onlyOwner { paused = false; }
+
+    function criticalFunction() public onlyOwner whenNotPaused {
+        // Only owner can call, and only when not paused
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Inheritance}
+\textbf{Solidity supports multiple inheritance:}
+
+\begin{lstlisting}
+contract Ownable {
+    address public owner;
+    constructor() { owner = msg.sender; }
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not owner");
+        _;
+    }
+}
+
+contract Pausable is Ownable {
+    bool public paused;
+    function pause() public onlyOwner { paused = true; }
+}
+
+contract MyContract is Pausable {
+    function doSomething() public onlyOwner {
+        // Inherits owner, onlyOwner, paused, pause()
+    }
+}
+\end{lstlisting}
+
+\textbf{Key:} \texttt{is} for inheritance, \texttt{virtual}/\texttt{override} for polymorphism
+\end{frame}
+
+\begin{frame}[fragile]{Interfaces}
+\textbf{Define contract structure without implementation:}
+
+\begin{lstlisting}
+interface IERC20 {
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address to, uint256 amount) external returns (bool);
+    event Transfer(address indexed from, address indexed to, uint256 value);
+}
+
+contract MyToken is IERC20 {
+    mapping(address => uint256) private _balances;
+    uint256 private _totalSupply;
+
+    function totalSupply() public view override returns (uint256) {
+        return _totalSupply;
+    }
+    // ... implement other functions
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item \textbf{Solidity Basics:} Statically-typed language compiling to EVM bytecode
+\item \textbf{Data Types:} Value types (uint, address, bool) vs reference types (arrays, mappings)
+\item \textbf{Visibility:} public, external, internal, private determine access
+\item \textbf{State Mutability:} view (read-only), pure (no state), default (modify)
+\item \textbf{Data Locations:} storage (persistent), memory (temp), calldata (cheapest)
+\item \textbf{Error Handling:} Use custom errors (0.8.4+) for gas efficiency
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item Why is \texttt{string} more expensive than \texttt{bytes32} for storing short text?
+
+\item When should you use \texttt{external} vs \texttt{public} for function visibility?
+
+\item Why can't you iterate over a mapping's keys in Solidity?
+
+\item What are the tradeoffs between events vs state variables for historical records?
+
+\item How does the \texttt{indexed} keyword in events affect gas costs and queryability?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L16 - Lab: Contract Interaction}
+\textbf{Coming up next (hands-on lab):}
+\begin{itemize}
+\item Introduction to Remix IDE
+\item Deploying SimpleStorage contract
+\item Interacting with deployed contracts
+\item Using MetaMask with test networks
+\item Deploying to Sepolia testnet
+\end{itemize}
+
+\textbf{Preparation:}
+\begin{itemize}
+\item Install MetaMask browser extension
+\item Create Ethereum account and save recovery phrase
+\item Get Sepolia testnet ETH from faucet
+\end{itemize}
+\end{frame}
+
+\end{document}

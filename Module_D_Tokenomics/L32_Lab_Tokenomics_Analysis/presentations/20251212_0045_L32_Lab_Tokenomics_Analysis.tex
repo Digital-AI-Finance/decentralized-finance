@@ -1,0 +1,189 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Tokenomics Analysis}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module D: Tokenomics}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Select and research a real cryptocurrency project
+    \item Calculate key valuation metrics (NVT, FDV, ratios)
+    \item Analyze token distribution and vesting schedules
+    \item Assess token classification (utility vs. security)
+    \item Develop a structured investment thesis
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{../charts/01_lab_workflow/chart.pdf}
+\end{center}
+\bottomnote{Complete analysis requires both quantitative and qualitative assessment}
+\end{frame}
+
+\begin{frame}{Step 1: Choose a Project}
+\textbf{Suggested Categories:}
+\begin{itemize}
+    \item \textbf{DeFi:} UNI, AAVE, CRV, MKR
+    \item \textbf{Layer 1:} SOL, AVAX, DOT
+    \item \textbf{Infrastructure:} LINK, GRT, FIL
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Selection Criteria:}
+\begin{itemize}
+    \item Publicly available tokenomics documentation
+    \item Active trading on major exchanges
+    \item Sufficient on-chain data available
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Key Metrics to Calculate}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{../charts/02_valuation_metrics/chart.pdf}
+\end{center}
+\bottomnote{Market cap and FDV are essential; all metrics provide context}
+\end{frame}
+
+\begin{frame}{Step 2: Gather Basic Information}
+\textbf{Project Overview:}
+\begin{itemize}
+    \item Problem solved and core technology
+    \item Launch date and development status
+    \item Token ticker and blockchain network
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Current Market Data:}
+\begin{itemize}
+    \item Current price and market cap
+    \item Circulating supply vs. total supply
+    \item 24h volume and volatility
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Sources:} CoinGecko, CoinMarketCap, project website
+\end{frame}
+
+\begin{frame}[t]{Distribution Analysis Template}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{../charts/03_distribution_template/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Step 3: Analyze Distribution}
+\textbf{Key Categories to Research:}
+\begin{itemize}
+    \item Team and Founders allocation
+    \item Investor (VC) allocation
+    \item Community and public sale
+    \item Ecosystem and treasury funds
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Critical Questions:}
+\begin{itemize}
+    \item What \% do insiders hold?
+    \item Are vesting schedules transparent?
+    \item Upcoming unlock events?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 4: Calculate Metrics}
+\textbf{Fully Diluted Valuation (FDV):}
+\[
+\text{FDV} = \text{Current Price} \times \text{Max Total Supply}
+\]
+
+\textbf{Dilution Risk Ratio:}
+\[
+\text{Dilution Risk} = \frac{\text{FDV}}{\text{Market Cap}}
+\]
+\begin{itemize}
+    \item Ratio > 2: High dilution risk
+    \item Ratio 1-2: Moderate dilution
+    \item Ratio $\approx$ 1: Low dilution
+\end{itemize}
+
+\textbf{NVT Ratio:}
+\[
+\text{NVT} = \frac{\text{Market Cap}}{\text{Daily Tx Volume (USD)}}
+\]
+\end{frame}
+
+\begin{frame}{Step 5: Apply Howey Test}
+\textbf{Four Prongs:}
+\begin{enumerate}
+    \item \textbf{Investment of Money?} Did investors pay?
+    \item \textbf{Common Enterprise?} Pooled returns?
+    \item \textbf{Expectation of Profits?} Marketed as investment?
+    \item \textbf{Efforts of Others?} Team drives value?
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Classification:}
+\begin{itemize}
+    \item All four = Likely Security
+    \item Fails ``efforts of others'' = Likely Utility Token
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 6: Develop Investment Thesis}
+\textbf{Structure Your Analysis:}
+\begin{enumerate}
+    \item \textbf{Summary:} 2-3 sentences on token purpose
+    \item \textbf{Strengths:} Bullish tokenomics factors
+    \item \textbf{Weaknesses:} Red flags and risks
+    \item \textbf{Verdict:} Buy / Hold / Avoid with justification
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Note:} Educational analysis, not financial advice
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit:}
+\begin{enumerate}
+    \item \textbf{Tokenomics Report (2-3 pages):}
+    \begin{itemize}
+        \item Project overview and market data
+        \item Distribution and vesting analysis
+        \item Valuation metrics calculated
+        \item Investment thesis with verdict
+    \end{itemize}
+    \item \textbf{Supporting Data:}
+    \begin{itemize}
+        \item Screenshots of data sources
+        \item Metric calculations shown
+        \item Comparison to 2-3 peers
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Tokenomics analysis combines quantitative metrics and qualitative assessment
+    \item Distribution and vesting reveal insider alignment and dilution risk
+    \item FDV/MC ratio is critical for understanding future dilution
+    \item Howey Test helps classify utility vs. security tokens
+    \item Always compare to similar projects for context
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,274 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L38: Stablecoin Mechanisms}
+\subtitle{Module E: DeFi Ecosystem}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand different stablecoin mechanism types
+\item Analyze fiat-backed stablecoins (USDC, USDT)
+\item Explore crypto-backed stablecoins (DAI, MakerDAO)
+\item Evaluate algorithmic stablecoins and their failure modes
+\item Compare stablecoin trade-offs (decentralization, stability, efficiency)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is a Stablecoin?}
+\textbf{Definition:} A cryptocurrency designed to maintain a stable value relative to \$1 USD.
+
+\vspace{0.3cm}
+\textbf{Why Stablecoins?}
+\begin{itemize}
+\item Price stability (avoid crypto volatility)
+\item Medium of exchange, store of value
+\item DeFi building block (lending, trading, yield)
+\item Fast, cheap cross-border payments
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Total Market Cap:} ~\$140B (Dec 2024)
+\end{frame}
+
+\begin{frame}[t]{Stablecoin Market Share}
+\begin{center}
+\includegraphics[width=0.50\textwidth]{../charts/01_stablecoin_market_share/chart.pdf}
+\end{center}
+\bottomnote{USDT dominates (64\%); fiat-backed stablecoins represent 90\%+ of market}
+\end{frame}
+
+\begin{frame}[t]{Stablecoin Trilemma}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/02_stablecoin_trilemma/chart.pdf}
+\end{center}
+\bottomnote{Each type sacrifices one property; no perfect stablecoin exists}
+\end{frame}
+
+\begin{frame}{Type 1: Fiat-Backed Stablecoins}
+\textbf{Mechanism:} 1 stablecoin backed by \$1 in bank account.
+
+\vspace{0.3cm}
+\textbf{How It Works:}
+\begin{enumerate}
+\item User deposits \$100 fiat to issuer
+\item Issuer mints 100 tokens, holds reserves
+\item User can redeem 100 tokens for \$100 anytime
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Examples:}
+\begin{itemize}
+\item \textbf{USDC:} Fully backed by cash + T-bills, monthly attestations
+\item \textbf{USDT:} Mixed reserves, largest but less transparent
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Advantages:} Strong peg, capital efficient, easy to understand
+
+\textbf{Disadvantages:} Centralized, censorship risk, counterparty risk
+\end{frame}
+
+\begin{frame}[t]{USDT Reserve Composition}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/05_usdt_reserves/chart.pdf}
+\end{center}
+\bottomnote{Tether has shifted to 80\%+ US Treasuries after 2022 criticism}
+\end{frame}
+
+\begin{frame}{Fiat-Backed: Key Risks}
+\textbf{Centralization:} Issuer can freeze addresses (OFAC compliance)
+
+\textbf{Counterparty Risk:} Trust issuer to maintain reserves
+
+\vspace{0.3cm}
+\textbf{Black Swan Example: SVB Collapse (March 2023)}
+\begin{itemize}
+\item Circle had \$3.3B deposited at Silicon Valley Bank
+\item Bank failure caused USDC to depeg to \$0.87
+\item Recovered after Fed guarantee on deposits
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Lesson:} Even ``safe'' fiat-backed stablecoins have counterparty risk.
+\end{frame}
+
+\begin{frame}{Type 2: Crypto-Backed Stablecoins}
+\textbf{Mechanism:} Backed by crypto collateral (overcollateralized).
+
+\vspace{0.3cm}
+\textbf{How It Works:}
+\begin{enumerate}
+\item User deposits \$150 ETH as collateral
+\item Protocol mints \$100 DAI (150\% collateralization)
+\item If ETH drops, position liquidated to protect peg
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Example: DAI (MakerDAO)}
+\begin{itemize}
+\item Largest decentralized stablecoin (~\$5B)
+\item Backed by ETH, WBTC, USDC, RWAs
+\item Governed by MKR token holders
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Advantages:} Decentralized, transparent, censorship-resistant
+\end{frame}
+
+\begin{frame}[t]{DAI Collateral Composition}
+\begin{center}
+\includegraphics[width=0.50\textwidth]{../charts/04_dai_collateral/chart.pdf}
+\end{center}
+\bottomnote{DAI's decentralization reduced by USDC and RWA backing (centralized collateral)}
+\end{frame}
+
+\begin{frame}{MakerDAO: DAI Stability Mechanisms}
+\textbf{1. Arbitrage}
+\begin{itemize}
+\item DAI > \$1: Mint DAI, sell for profit
+\item DAI < \$1: Buy DAI, repay vault for profit
+\end{itemize}
+
+\textbf{2. Stability Fee (Interest Rate)}
+\begin{itemize}
+\item High fee: Reduces supply (repayments)
+\item Low fee: Increases supply (more minting)
+\end{itemize}
+
+\textbf{3. Peg Stability Module (PSM)}
+\begin{itemize}
+\item Swap USDC for DAI 1:1 (backstop for large depegs)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trade-off:} PSM improves stability but increases centralization.
+\end{frame}
+
+\begin{frame}{Type 3: Algorithmic Stablecoins}
+\textbf{Mechanism:} Maintain peg through supply adjustments (no/minimal collateral).
+
+\vspace{0.3cm}
+\textbf{How It Works (Theoretically):}
+\begin{itemize}
+\item Price > \$1: Increase supply (mint, sell)
+\item Price < \$1: Decrease supply (buy, burn)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Examples:}
+\begin{itemize}
+\item \textbf{Terra UST:} Failed spectacularly (May 2022)
+\item \textbf{FRAX:} Hybrid (partially collateralized)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Theoretical Advantage:} Capital efficient, decentralized, scalable
+
+\textbf{Reality:} Most pure algorithmic stablecoins have failed (death spirals).
+\end{frame}
+
+\begin{frame}{Why Algorithmic Stablecoins Fail}
+\textbf{Death Spiral Scenario:}
+
+\vspace{0.2cm}
+\begin{enumerate}
+\item Stablecoin depegs below \$1
+\item Protocol mints sister token to incentivize buying
+\item Sister token crashes from dilution
+\item Loss of confidence accelerates selling
+\item Spiral to zero, total collapse
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Root Cause:} No intrinsic backing or demand floor.
+
+\textbf{Lesson:} Algorithmic stability relies entirely on confidence. Once lost, irrecoverable.
+\end{frame}
+
+\begin{frame}[t]{Stablecoin Types Comparison}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/03_types_comparison/chart.pdf}
+\end{center}
+\bottomnote{Fiat-backed wins on reliability; crypto-backed best censorship resistance}
+\end{frame}
+
+\begin{frame}{Stablecoin Comparison Table}
+\begin{tabular}{lllll}
+\toprule
+Type & Example & Backing & Decent. & Efficient \\
+\midrule
+Fiat-backed & USDC & USD (1:1) & No & Yes \\
+Fiat-backed & USDT & Mixed & No & Yes \\
+Crypto-backed & DAI & ETH+USDC & Partial & No \\
+Algorithmic & UST & None & Yes & Yes \\
+Hybrid & FRAX & USDC+FXS & Partial & Partial \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3cm}
+\textbf{Key Insight:} No stablecoin achieves all three properties (trilemma).
+\end{frame}
+
+\begin{frame}{Regulatory Landscape}
+\textbf{US:}
+\begin{itemize}
+\item SEC scrutiny (some stablecoins may be securities)
+\item Bank-like regulation proposed (reserve requirements)
+\end{itemize}
+
+\textbf{EU (MiCA):}
+\begin{itemize}
+\item Stablecoin issuers need authorization
+\item Reserve and redemption requirements
+\item Significant stablecoins face additional rules
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Impact:}
+\begin{itemize}
+\item BUSD shut down (Feb 2023, regulatory pressure)
+\item Increasing compliance costs for issuers
+\item May favor large, regulated players (Circle)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Stablecoins maintain \$1 peg; \$140B market cap
+\item Fiat-backed (USDC, USDT): Stable but centralized
+\item Crypto-backed (DAI): Decentralized but capital inefficient
+\item Algorithmic: Capital efficient but unstable (most failed)
+\item Stablecoin trilemma: Can't have stability + decentralization + efficiency
+\item DAI's centralization debate: USDC backing vs. pure crypto
+\item Regulation increasing (MiCA, US proposals)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} Terra/Luna Case Study.
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Why do algorithmic stablecoins tend to fail during market stress?
+\item How does the PSM help DAI maintain its peg? What's the trade-off?
+\item Would you trust a stablecoin backed by 80\% US Treasuries?
+\item How might stablecoin regulation impact DeFi?
+\item Is perfect decentralization compatible with price stability?
+\end{enumerate}
+\end{frame}
+
+\end{document}

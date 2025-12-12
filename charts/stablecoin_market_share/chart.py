@@ -16,12 +16,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 # Stablecoin market share (approximate 2024 data)
@@ -66,16 +66,16 @@ legend_labels = [
 ]
 
 ax.legend(legend_labels, loc='upper left', bbox_to_anchor=(1, 0, 0.5, 1),
-          framealpha=0.9, fontsize=8)
+          framealpha=0.9, fontsize=14)
 
 # Add total market cap note
 total_cap = "$180B"  # Approximate 2024 total
 fig.text(0.5, 0.05, f'Total Stablecoin Market Cap: ~{total_cap}',
-         ha='center', fontsize=9, style='italic', alpha=0.7)
+         ha='center', fontsize=14, style='italic', alpha=0.7)
 
 # Add note about synthetic data
 fig.text(0.99, 0.01, '[SYNTHETIC - Approximate 2024 data]',
-         ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+         ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

@@ -1,0 +1,356 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L47: CBDCs and Future Trends}
+\subtitle{Module G: Regulation \& Future}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand Central Bank Digital Currencies (CBDCs)
+\item Compare retail vs wholesale CBDC designs
+\item Analyze privacy vs surveillance tradeoffs
+\item Evaluate China e-CNY and Digital Euro progress
+\item Identify key future trends in blockchain technology
+\item Assess career opportunities in the blockchain space
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is a CBDC?}
+\begin{itemize}
+\item \textbf{Definition}: Digital form of central bank money (fiat currency)
+\item \textbf{Not Cryptocurrency}: Centrally issued and controlled
+\item \textbf{Key Characteristics}:
+\begin{itemize}
+\item Legal tender status
+\item Liability of central bank (not commercial bank)
+\item Electronic/digital (not physical cash)
+\item May use DLT (but not required)
+\end{itemize}
+\item \textbf{Motivation}: Respond to cash decline, private stablecoins, financial inclusion
+\item \textbf{Status}: 130+ countries exploring CBDCs (90\% of global GDP)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Global CBDC Development Status}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/01_cbdc_global_status/chart.pdf}
+\end{center}
+\bottomnote{130+ countries exploring CBDCs, representing 90\% of global GDP}
+\end{frame}
+
+\begin{frame}{Retail vs Wholesale CBDCs}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Aspect} & \textbf{Retail CBDC} & \textbf{Wholesale CBDC} \\
+\midrule
+Users & General public & Financial institutions \\
+Use Case & Payments, store of value & Interbank settlement \\
+Access & Widely accessible & Restricted to banks \\
+Technology & Various (may use DLT) & Likely DLT (efficiency) \\
+Privacy & Balance privacy vs AML & Less concern \\
+Examples & e-CNY, Digital Euro & mBridge, Project Jasper \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.2cm}
+\textbf{Focus}: Retail CBDCs have greater societal impact and complexity
+\end{frame}
+
+\begin{frame}{Privacy vs Surveillance Tradeoff}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Privacy Concerns}
+\begin{itemize}
+\item Central bank sees all transactions
+\item Government surveillance potential
+\item Social credit system risks
+\item No cash-like anonymity
+\end{itemize}
+\textbf{Privacy Technologies}
+\begin{itemize}
+\item Zero-knowledge proofs
+\item Tiered privacy (small anonymous, large KYC)
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{AML/CFT Requirements}
+\begin{itemize}
+\item Full anonymity enables illicit finance
+\item Regulatory pressure (FATF)
+\item Tax enforcement needs
+\end{itemize}
+\textbf{Design Spectrum}
+\begin{itemize}
+\item \textbf{Full Surveillance}: China e-CNY
+\item \textbf{Balanced}: Digital Euro
+\item \textbf{Privacy-First}: Unlikely in practice
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{China e-CNY Adoption}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_ecny_adoption/chart.pdf}
+\end{center}
+\bottomnote{Largest CBDC pilot globally, 260M+ wallets by late 2024}
+\end{frame}
+
+\begin{frame}{Case Study: China's e-CNY}
+\begin{itemize}
+\item \textbf{Status}: Largest CBDC pilot globally (2020-present)
+\item \textbf{Architecture}: Two-tier (PBOC wholesale, banks retail)
+\item \textbf{Technology}: Centralized with distributed database
+\item \textbf{Features}:
+\begin{itemize}
+\item Dual offline payment (no internet required)
+\item Programmability (smart contracts)
+\item ``Controllable anonymity'' (PBOC sees all)
+\end{itemize}
+\item \textbf{2024 Stats}: 260M+ wallets, 7T+ yuan cumulative transactions
+\item \textbf{Geopolitical Angle}: Challenge USD dominance
+\item \textbf{Concerns}: Surveillance, limited daily usage vs Alipay/WeChat
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Case Study: Digital Euro}
+\begin{itemize}
+\item \textbf{Status}: Preparation phase (2024-2026)
+\item \textbf{Motivation}: Preserve monetary sovereignty, counter stablecoins
+\item \textbf{Design Principles}:
+\begin{itemize}
+\item Privacy-focused (stronger than e-CNY)
+\item Offline capability (like cash)
+\item Free for basic use
+\item Intermediated model (banks distribute)
+\end{itemize}
+\item \textbf{Privacy Model}:
+\begin{itemize}
+\item Small transactions: Cash-like privacy
+\item Large transactions: Full AML compliance
+\end{itemize}
+\item \textbf{Timeline}: Decision expected late 2025, rollout 2027-2028
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Digital Currency Comparison}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_cbdc_comparison/chart.pdf}
+\end{center}
+\bottomnote{CBDCs may crowd out stablecoins but not cryptocurrencies (different use cases)}
+\end{frame}
+
+\begin{frame}{Cross-Border CBDC: mBridge}
+\begin{itemize}
+\item \textbf{Project mBridge}: Multi-CBDC platform for cross-border payments
+\item \textbf{Participants}: China, Hong Kong, Thailand, UAE, Saudi Arabia
+\item \textbf{Goal}: Replace SWIFT for cross-border settlements
+\begin{itemize}
+\item Instant settlement (vs 2-5 days)
+\item Lower costs (no correspondent banking fees)
+\item 24/7 operation
+\end{itemize}
+\item \textbf{Technology}: Permissioned blockchain
+\item \textbf{Status}: MVP launched June 2024, live transactions completed
+\item \textbf{Geopolitical Implications}: Bypass USD-dominated SWIFT
+\item \textbf{BRICS Interest}: Alternative payment system for member nations
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Future Trends: Current vs Projected}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/04_future_trends/chart.pdf}
+\end{center}
+\bottomnote{ZK proofs, liquid staking, and RWA tokenization showing strongest growth}
+\end{frame}
+
+\begin{frame}{Trend 1: Institutional Adoption Acceleration}
+\begin{itemize}
+\item \textbf{2024 Status}: Crypto assets mainstream in institutional portfolios
+\item \textbf{Drivers}:
+\begin{itemize}
+\item Spot Bitcoin ETFs (approved US January 2024)
+\item Ethereum ETFs (July 2024)
+\item Regulatory clarity (MiCA, Swiss framework)
+\item Custody solutions (Coinbase Prime, Fidelity Digital Assets)
+\end{itemize}
+\item \textbf{Institutional Products}:
+\begin{itemize}
+\item Tokenized securities (bonds, real estate, funds)
+\item Crypto lending and prime brokerage
+\item Derivatives (CME futures, options)
+\end{itemize}
+\item \textbf{Impact}: \$1T+ institutional capital in crypto by 2030
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{RWA Tokenization Market Growth}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/05_rwa_market/chart.pdf}
+\end{center}
+\bottomnote{Real world asset tokenization projected to reach \$16T by 2030 (BCG estimate)}
+\end{frame}
+
+\begin{frame}{Trend 2: RWA Tokenization}
+\begin{itemize}
+\item \textbf{RWA Tokenization}: Representing real assets on blockchain
+\item \textbf{Asset Classes}:
+\begin{itemize}
+\item Real estate (fractional ownership)
+\item Private equity and venture capital
+\item Bonds (government, corporate)
+\item Commodities (gold, carbon credits)
+\end{itemize}
+\item \textbf{Advantages}:
+\begin{itemize}
+\item Fractional ownership (lower barriers)
+\item 24/7 trading (no market hours)
+\item Programmable compliance
+\end{itemize}
+\item \textbf{Leaders}: Centrifuge, Ondo Finance, Securitize, tZERO
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Trend 3: AI + Blockchain Convergence}
+\begin{itemize}
+\item \textbf{AI for Blockchain}:
+\begin{itemize}
+\item Smart contract auditing
+\item MEV optimization
+\item DeFi risk modeling
+\item On-chain analytics
+\end{itemize}
+\item \textbf{Blockchain for AI}:
+\begin{itemize}
+\item Decentralized AI training (Bittensor, Ocean Protocol)
+\item Verifiable AI models (proof of training)
+\item AI agent payments
+\item Data marketplaces with access control
+\end{itemize}
+\item \textbf{Projects}: Fetch.ai, SingularityNET, Render Network
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Trend 4: Zero-Knowledge Proofs Everywhere}
+\begin{itemize}
+\item \textbf{ZK Technology Maturation}: From research to production
+\item \textbf{Applications}:
+\begin{enumerate}
+\item \textbf{ZK-Rollups}: Scalability (StarkNet, zkSync, Polygon zkEVM)
+\item \textbf{Privacy}: Private transactions (Aztec, Railgun)
+\item \textbf{Identity}: Prove attributes without revealing data
+\begin{itemize}
+\item Age verification without birthdate
+\item Credit score proofs without full history
+\end{itemize}
+\item \textbf{Compliance}: Prove regulatory compliance privately
+\end{enumerate}
+\item \textbf{Hardware}: ZK ASICs for faster proof generation
+\item \textbf{Impact}: Privacy + scalability without tradeoffs
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Emerging Risks and Challenges}
+\begin{enumerate}
+\item \textbf{Quantum Computing Threat}:
+\begin{itemize}
+\item ECDSA signatures vulnerable (10-20 year timeline)
+\item Mitigation: Post-quantum cryptography migration
+\end{itemize}
+\item \textbf{Regulatory Fragmentation}:
+\begin{itemize}
+\item Conflicting national regulations
+\item Compliance complexity vs arbitrage
+\end{itemize}
+\item \textbf{Centralization Creep}:
+\begin{itemize}
+\item Validator concentration (Lido 30\%+ of staked ETH)
+\item MEV centralization (Flashbots dominance)
+\end{itemize}
+\item \textbf{Systemic DeFi Risk}:
+\begin{itemize}
+\item Composability creates cascading failures
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Career Paths in Blockchain (2025+)}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Technical Roles}
+\begin{itemize}
+\item Smart contract developer
+\item Blockchain protocol engineer
+\item Security auditor
+\item ZK cryptographer
+\end{itemize}
+\textbf{Finance/Economics}
+\begin{itemize}
+\item DeFi analyst
+\item Tokenomics designer
+\item Crypto trader/quant
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Legal/Compliance}
+\begin{itemize}
+\item Crypto regulatory specialist
+\item AML/CFT compliance officer
+\item Web3 lawyer
+\end{itemize}
+\textbf{Business/Product}
+\begin{itemize}
+\item Web3 product manager
+\item DAO operations
+\item Community manager
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.2cm}
+\textbf{Demand}: 50,000+ open blockchain jobs, growing 30\%+ annually
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item \textbf{CBDCs}: 130+ countries exploring, retail vs wholesale designs
+\item \textbf{Privacy vs surveillance}: Key CBDC design tradeoff
+\item \textbf{e-CNY (2024)}: 260M+ wallets, expanded nationwide
+\item \textbf{Digital Euro}: Preparation phase, decision late 2025
+\item \textbf{mBridge}: Cross-border CBDC platform, MVP launched 2024
+\item \textbf{RWA tokenization}: Projected \$16T by 2030
+\item \textbf{ZK proofs}: Privacy + scalability convergence
+\item \textbf{AI + Blockchain}: Emerging synergies
+\item \textbf{Career opportunities}: 50,000+ jobs across tech, finance, legal
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item What are the key differences between retail and wholesale CBDCs?
+\item How should CBDCs balance privacy and AML compliance?
+\item Why might e-CNY adoption remain limited despite government push?
+\item Which future trend (RWA, ZK, AI+Blockchain) has most potential?
+\item How might mBridge affect the global financial system?
+\end{enumerate}
+\end{frame}
+
+\end{document}

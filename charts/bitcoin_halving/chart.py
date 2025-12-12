@@ -16,12 +16,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 # Bitcoin halving schedule (real data)
@@ -52,12 +52,12 @@ for i, (date_obj, date_str, block, reward) in enumerate([(dates[j], halvings[j][
     ax1.plot(date_obj, reward, 'o', color='black', markersize=6)
     if i < 5:  # Add labels for first few halvings
         label_text = f'{reward} BTC'
-        ax1.text(date_obj, reward + 2, label_text, ha='center', fontsize=8)
+        ax1.text(date_obj, reward + 2, label_text, ha='center', fontsize=14)
 
 # Mark projected halvings differently
 for i in [-2, -1]:
     ax1.plot(dates[i], halvings[i][2], 'o', color='gray', markersize=6)
-    ax1.text(dates[i], halvings[i][2] + 1, f'{halvings[i][2]} BTC', ha='center', fontsize=8, color='gray')
+    ax1.text(dates[i], halvings[i][2] + 1, f'{halvings[i][2]} BTC', ha='center', fontsize=14, color='gray')
 
 ax1.set_ylabel('Block Reward (BTC)')
 ax1.set_title('Bitcoin Block Reward Halving Schedule')
@@ -66,7 +66,7 @@ ax1.grid(alpha=0.3, linestyle=':', linewidth=0.5)
 ax1.axvline(x=dates[4], color='gray',
             linestyle='--', linewidth=0.8, alpha=0.5)
 ax1.text(dates[4], 50, 'Current',
-         ha='center', fontsize=8, style='italic', alpha=0.7)
+         ha='center', fontsize=14, style='italic', alpha=0.7)
 
 # Bottom plot: Cumulative BTC mined
 cumulative_btc = []
@@ -86,7 +86,7 @@ ax2.fill_between(dates, cumulative_btc, alpha=0.2, color='gray')
 
 # Add 21M limit line
 ax2.axhline(y=21, color='black', linestyle='--', linewidth=1, label='21M Limit')
-ax2.text(dates[-1], 21.5, '21 Million Cap', ha='right', fontsize=8, style='italic')
+ax2.text(dates[-1], 21.5, '21 Million Cap', ha='right', fontsize=14, style='italic')
 
 ax2.set_xlabel('Year')
 ax2.set_ylabel('Cumulative BTC Mined (Millions)')
@@ -98,7 +98,7 @@ plt.setp(ax2.xaxis.get_majorticklabels(), rotation=45, ha='right')
 
 # Add note about projected data
 fig.text(0.99, 0.01, 'Halvings after 2024 are projected',
-         ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+         ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

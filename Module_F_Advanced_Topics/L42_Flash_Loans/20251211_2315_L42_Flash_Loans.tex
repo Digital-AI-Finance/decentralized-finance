@@ -1,0 +1,270 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L42: Flash Loans and Composability}
+\subtitle{Module F: Advanced Topics}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand flash loan mechanics and atomicity
+\item Analyze legitimate flash loan use cases
+\item Examine flash loan attack vectors and notable exploits
+\item Explore DeFi composability (``money legos'')
+\item Understand MEV and its relationship to flash loans
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is a Flash Loan?}
+\begin{itemize}
+\item \textbf{Definition}: Uncollateralized loan borrowed and repaid within single transaction
+\item \textbf{Key Property}: \textit{Atomicity} -- loan and repayment are all-or-nothing
+\item \textbf{If repayment fails}: Entire transaction reverts, lender loses nothing
+\item \textbf{No Collateral Required}: Enabled by smart contract execution model
+\item \textbf{Loan Size}: Unlimited (constrained only by liquidity pool)
+\item \textbf{Duration}: Fraction of a second (one block)
+\item \textbf{Unique to DeFi}: Impossible in traditional finance
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Flash Loan Transaction Flow}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{charts/01_flash_loan_flow/chart.pdf}
+\end{center}
+\bottomnote{If any step fails, the entire transaction reverts -- zero risk to lender}
+\end{frame}
+
+\begin{frame}{Traditional Loans vs Flash Loans}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Property} & \textbf{Traditional Loan} & \textbf{Flash Loan} \\
+\midrule
+Collateral & Required (often >100\%) & None \\
+Duration & Days/months/years & Single transaction \\
+Creditworthiness & Required (KYC) & Not required \\
+Repayment Guarantee & Legal contracts & Smart contract atomicity \\
+Risk to Lender & Default risk & Zero (reverts) \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.3cm}
+\textbf{Paradigm Shift}: Code execution guarantees replace legal enforcement
+\end{frame}
+
+\begin{frame}[t]{Flash Loan Providers}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_providers_comparison/chart.pdf}
+\end{center}
+\bottomnote{Aave is largest provider; dYdX offers free flash loans}
+\end{frame}
+
+\begin{frame}{DeFi Composability}
+\begin{itemize}
+\item \textbf{Composability}: DeFi protocols are like ``money legos''
+\item \textbf{Permissionless Integration}: Any contract can call any other contract
+\item \textbf{Atomic Transactions}: Multiple protocol interactions in one transaction
+\item \textbf{Examples of Composability}:
+\begin{enumerate}
+\item Swap on Uniswap $\to$ Deposit into Aave $\to$ Borrow
+\item Flash loan $\to$ Liquidate $\to$ Swap collateral $\to$ Repay
+\item Borrow from Compound $\to$ Yield farm on Curve
+\end{enumerate}
+\item \textbf{Risk}: Cascading failures, expanded attack surface
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Legitimate Use Cases}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/05_use_cases/chart.pdf}
+\end{center}
+\bottomnote{All use cases democratize capital-intensive strategies to anyone}
+\end{frame}
+
+\begin{frame}{Flash Loan Use Case: Arbitrage}
+\begin{itemize}
+\item \textbf{Scenario}: ETH trades at \$2000 on Uniswap, \$2020 on SushiSwap
+\item \textbf{Flash Loan Arbitrage}:
+\begin{enumerate}
+\item Borrow 1000 ETH via flash loan
+\item Buy 1000 ETH on Uniswap (\$2,000,000)
+\item Sell 1000 ETH on SushiSwap (\$2,020,000)
+\item Repay flash loan + fee (\$2,001,000)
+\item Profit: \$19,000 in one transaction
+\end{enumerate}
+\item \textbf{Capital Required}: Only gas fees (\$50-\$200)
+\item \textbf{Democratization}: Anyone can be arbitrageur, not just whales
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Flash Loan Use Case: Collateral Swap}
+\begin{itemize}
+\item \textbf{Problem}: User has debt collateralized with Asset A, wants Asset B
+\item \textbf{Flash Loan Solution}:
+\begin{enumerate}
+\item Borrow Asset A via flash loan
+\item Repay existing debt
+\item Withdraw original collateral
+\item Deposit new collateral (Asset B)
+\item Borrow Asset A again
+\item Repay flash loan
+\end{enumerate}
+\item \textbf{Result}: Collateral swapped atomically, zero liquidation risk
+\item \textbf{Fee}: Only flash loan fee (0.05-0.09\%)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Flash Loan Attacks: Overview}
+\begin{itemize}
+\item \textbf{Dark Side}: Flash loans enable large-scale attacks with zero capital
+\item \textbf{Attack Pattern}:
+\begin{enumerate}
+\item Borrow massive amount via flash loan
+\item Manipulate protocol state (price oracle, governance)
+\item Exploit manipulation for profit
+\item Repay flash loan
+\end{enumerate}
+\item \textbf{Impact}: \$500M+ stolen via flash loan attacks (2020-2023)
+\item \textbf{Key Insight}: Flash loans amplify existing vulnerabilities
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Major Flash Loan Attacks}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_attack_timeline/chart.pdf}
+\end{center}
+\bottomnote{Oracle manipulation is most common attack vector}
+\end{frame}
+
+\begin{frame}{Attack Example: Oracle Manipulation}
+\begin{itemize}
+\item \textbf{Vulnerable Protocol}: Uses single DEX price as oracle
+\item \textbf{Attack Steps}:
+\begin{enumerate}
+\item Borrow 10,000 ETH via flash loan
+\item Buy all TOKEN on Uniswap (10x price increase)
+\item Protocol oracle reads inflated price
+\item Borrow stablecoins using overvalued TOKEN
+\item Sell TOKEN back (price normalizes)
+\item Repay flash loan + keep stablecoins
+\end{enumerate}
+\item \textbf{Real Example}: Harvest Finance (\$34M stolen)
+\item \textbf{Mitigation}: Use TWAP or Chainlink oracles
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Defense Mechanisms}
+\begin{enumerate}
+\item \textbf{Decentralized Oracles}: Use Chainlink (not single DEX)
+\item \textbf{Time-Weighted Average Price (TWAP)}: Average over blocks
+\item \textbf{Reentrancy Guards}: Prevent recursive contract calls
+\item \textbf{Governance Delays}: Timelock on parameter changes
+\item \textbf{Vote Locking}: Require tokens locked before voting
+\item \textbf{Circuit Breakers}: Pause if anomalous activity detected
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{MEV and Flash Loans}
+\begin{center}
+\includegraphics[width=0.50\textwidth]{charts/04_mev_extraction/chart.pdf}
+\end{center}
+\bottomnote{Flash loans amplify both legitimate arbitrage and harmful MEV extraction}
+\end{frame}
+
+\begin{frame}{MEV Extraction Techniques}
+\begin{itemize}
+\item \textbf{MEV (Maximal Extractable Value)}: Profit from transaction ordering
+\item \textbf{Flash Loans + MEV}: Amplify arbitrage and liquidation profits
+\item \textbf{Techniques}:
+\begin{itemize}
+\item \textbf{Front-running}: Place transaction before victim's
+\item \textbf{Back-running}: Place transaction after victim's
+\item \textbf{Sandwich Attacks}: Front-run + back-run
+\end{itemize}
+\item \textbf{Flashbots}: Democratize MEV extraction, reduce gas wars
+\item \textbf{MEV Volume}: \$600M+ extracted in 2023
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Economic Impact}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{Positive Effects}
+\begin{itemize}
+\item Democratize arbitrage
+\item Increase market efficiency
+\item Enable capital-efficient refinancing
+\item Liquidation bots improve protocol health
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Negative Effects}
+\begin{itemize}
+\item Enable zero-capital attacks
+\item Amplify protocol vulnerabilities
+\item MEV extraction harms users
+\item Governance manipulation risk
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.4cm}
+\textbf{Net Assessment}: Powerful tool that magnifies both good and bad protocol design
+\end{frame}
+
+\begin{frame}{Flash Loans and Regulation}
+\begin{itemize}
+\item \textbf{Legal Gray Area}: No clear regulatory framework
+\item \textbf{Key Questions}:
+\begin{itemize}
+\item Are flash loan attacks theft or code exploitation?
+\item Is the protocol or attacker liable?
+\item Code is law vs legal enforcement
+\end{itemize}
+\item \textbf{Precedent}: Mango Markets attacker arrested (Oct 2022)
+\begin{itemize}
+\item Charged with market manipulation, not flash loan use
+\end{itemize}
+\item \textbf{Protocol Responsibility}: Bug bounties, audits, insurance
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Flash loans: Uncollateralized loans repaid in single atomic transaction
+\item Enabled by smart contract atomicity: Revert on failure = zero lender risk
+\item Use cases: Arbitrage, collateral swaps, self-liquidation, refinancing
+\item Composability: DeFi protocols as interoperable building blocks
+\item Attacks: Oracle manipulation, governance takeover (\$500M+ stolen)
+\item Flash loans amplify existing protocol vulnerabilities (not root cause)
+\item Defenses: Decentralized oracles, TWAP, vote locking, circuit breakers
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Why can flash loans exist in DeFi but not in traditional finance?
+\item How do flash loans democratize arbitrage opportunities?
+\item What makes oracle manipulation the most common attack vector?
+\item Should flash loan attackers be prosecuted if they exploit code bugs?
+\item How can protocols defend against flash loan governance attacks?
+\end{enumerate}
+\end{frame}
+
+\end{document}

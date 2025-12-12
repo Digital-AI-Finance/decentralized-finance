@@ -1,0 +1,467 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\tiny\ttfamily,breaklines=true}
+
+\title{L14: Gas Mechanics}
+\subtitle{Module B: Ethereum \& Smart Contracts}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Explain what gas is and why Ethereum uses it
+\item Calculate transaction costs using gas price and gas limit
+\item Understand EIP-1559's base fee and priority fee mechanism
+\item Identify gas costs for different EVM operations
+\item Apply optimization techniques to reduce gas consumption
+\item Analyze real-world gas usage patterns
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Gas?}
+\textbf{Gas is a unit of computational effort in Ethereum:}
+\begin{itemize}
+\item Measures the cost of executing operations on the EVM
+\item Prevents infinite loops and spam attacks
+\item Compensates validators for computation and storage
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/01_gas_concept/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Why Gas Exists}
+\textbf{Three Critical Functions:}
+
+\begin{enumerate}
+\item \textbf{Prevent Denial-of-Service Attacks:}
+\begin{itemize}
+\item Without gas, infinite loops could halt the network
+\item Attackers would need to pay for computational resources
+\end{itemize}
+
+\item \textbf{Incentivize Validators:}
+\begin{itemize}
+\item Validators earn transaction fees for including transactions
+\item Higher gas price = higher priority in block inclusion
+\end{itemize}
+
+\item \textbf{Resource Allocation:}
+\begin{itemize}
+\item Limited block gas limit (e.g., 30,000,000 gas per block)
+\item Prioritizes transactions willing to pay more
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Ether Denominations}
+\textbf{Ether units from smallest to largest:}
+
+\vspace{0.2cm}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Unit} & \textbf{Wei Value} & \textbf{Typical Use} \\
+\midrule
+Wei & 1 & Smallest unit (like satoshi) \\
+Gwei (Shannon) & 10\textsuperscript{9} & Gas prices \\
+Microether (Szabo) & 10\textsuperscript{12} & - \\
+Milliether (Finney) & 10\textsuperscript{15} & - \\
+Ether & 10\textsuperscript{18} & Main unit \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.2cm}
+\textbf{Most Common:}
+\begin{itemize}
+\item \textbf{Gwei (Gigawei):} Standard unit for gas prices (1 Gwei = 10\textsuperscript{9} Wei)
+\item \textbf{Ether:} User-facing unit (1 ETH = 10\textsuperscript{18} Wei)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Gas Calculation: Pre-EIP-1559}
+\textbf{Legacy Transaction Fee Model (before August 2021):}
+
+\textbf{Formula:}
+\[
+\text{Transaction Fee} = \text{Gas Used} \times \text{Gas Price}
+\]
+
+\textbf{Example:}
+\begin{itemize}
+\item Gas Used: 21,000 (simple ETH transfer)
+\item Gas Price: 50 Gwei (user-specified)
+\item Transaction Fee: $21{,}000 \times 50 = 1{,}050{,}000$ Gwei = 0.00105 ETH
+\end{itemize}
+
+\textbf{Challenges:}
+\begin{itemize}
+\item Users had to manually estimate gas price
+\item Overpaying was common to ensure inclusion
+\item No refund if gas price was too high
+\end{itemize}
+\end{frame}
+
+\begin{frame}{EIP-1559: London Hard Fork (August 2021)}
+\textbf{Major overhaul of gas fee mechanism:}
+\begin{itemize}
+\item \textbf{Base Fee:} Algorithmically determined, burned (removed from circulation)
+\item \textbf{Priority Fee (Tip):} User-specified tip to validator for inclusion
+\item \textbf{Max Fee:} Maximum gas price user is willing to pay
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/02_eip1559_breakdown/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{EIP-1559 Fee Calculation}
+\textbf{New Formula:}
+\[
+\text{Transaction Fee} = \text{Gas Used} \times (\text{Base Fee} + \text{Priority Fee})
+\]
+
+\textbf{With cap:}
+\[
+\text{Effective Gas Price} = \min(\text{Base Fee} + \text{Priority Fee}, \text{Max Fee})
+\]
+
+\textbf{Example:}
+\begin{itemize}
+\item Gas Used: 21,000
+\item Base Fee: 30 Gwei (set by protocol)
+\item Priority Fee: 2 Gwei (user tip)
+\item Effective Gas Price: $\min(30 + 2, 50) = 32$ Gwei
+\item Transaction Fee: $21{,}000 \times 32 = 672{,}000$ Gwei = 0.000672 ETH
+\item Burned: $21{,}000 \times 30 = 630{,}000$ Gwei
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Base Fee Adjustment Mechanism}
+\textbf{Dynamic base fee targets 50\% full blocks:}
+\begin{itemize}
+\item Target gas per block: 15,000,000 (50\% of 30M limit)
+\item If block $>$ 50\% full: Base fee increases by max 12.5\%
+\item If block $<$ 50\% full: Base fee decreases by max 12.5\%
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_base_fee_adjustment/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Gas Limit vs Gas Used}
+\textbf{Understanding the difference:}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Gas Limit:}
+\begin{itemize}
+\item Maximum gas transaction may consume
+\item Set by user before sending transaction
+\item Acts as safety cap
+\item Unused gas is refunded
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Gas Used:}
+\begin{itemize}
+\item Actual gas consumed by transaction
+\item Determined by operations executed
+\item Used for fee calculation
+\item Visible on Etherscan
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.2cm}
+\textbf{Common Values:} Simple transfer: 21,000 | ERC-20 transfer: 45,000-65,000 | Complex contract: 100,000+
+\end{frame}
+
+\begin{frame}{Gas Costs by Operation}
+\textbf{Every EVM opcode has a fixed gas cost:}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/04_gas_costs_operations/chart.pdf}
+\end{center}
+\textbf{Key Insight:} Storage operations (SSTORE, SLOAD) are by far the most expensive
+\end{frame}
+
+\begin{frame}{Gas Costs by Operation (Table)}
+\begin{center}
+\begin{tabular}{llr}
+\toprule
+\textbf{Operation} & \textbf{Description} & \textbf{Gas Cost} \\
+\midrule
+ADD, SUB, MUL & Arithmetic operations & 3 \\
+DIV, MOD & Division/modulo & 5 \\
+SHA3 (Keccak-256) & Hash function & 30 + 6/word \\
+SLOAD & Load from storage & 100 (warm) / 2100 (cold) \\
+SSTORE & Write to storage & 20,000 (new) / 5,000 (update) \\
+CALL & External contract call & 700 + value transfer costs \\
+CREATE & Deploy contract & 32,000 + code size \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Cold vs Warm Access (EIP-2929):}
+\begin{itemize}
+\item \textbf{Cold:} First access to storage slot in transaction (expensive)
+\item \textbf{Warm:} Subsequent accesses to same slot (cheaper)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Storage: The Gas Guzzler}
+\textbf{Why storage is expensive:}
+\begin{itemize}
+\item Persists data across all nodes forever
+\item Requires disk I/O (slower than RAM)
+\item State bloat affects all future nodes
+\end{itemize}
+
+\textbf{Storage Gas Costs (EIP-2929, EIP-2200):}
+\begin{itemize}
+\item \textbf{SSTORE (set to non-zero from zero):} 20,000 gas
+\item \textbf{SSTORE (update non-zero):} 5,000 gas
+\item \textbf{SSTORE (set to zero):} 5,000 gas + 15,000 refund
+\item \textbf{SLOAD (cold access):} 2,100 gas (first access in transaction)
+\item \textbf{SLOAD (warm access):} 100 gas (subsequent accesses)
+\end{itemize}
+
+\textbf{Example:} Storing one 256-bit word (32 bytes) at 32 Gwei: 0.00064 ETH = \$1.28 at \$2000/ETH
+\end{frame}
+
+\begin{frame}[fragile]{Gas Optimization: Storage Patterns}
+\textbf{Inefficient: Multiple SSTOREs}
+\begin{lstlisting}
+contract Inefficient {
+    uint256 public value1;
+    uint256 public value2;
+    uint256 public value3;
+
+    function updateAll(uint256 v1, uint256 v2, uint256 v3) public {
+        value1 = v1;  // 20,000 gas (or 5,000 if updating)
+        value2 = v2;  // 20,000 gas
+        value3 = v3;  // 20,000 gas
+    }
+    // Total: 60,000 gas for 3 writes
+}
+\end{lstlisting}
+
+\textbf{Efficient: Packed Storage}
+\begin{lstlisting}
+contract Efficient {
+    uint256 public packedValues;  // Pack 3 uint85 values in one slot
+
+    function updateAll(uint85 v1, uint85 v2, uint85 v3) public {
+        packedValues = uint256(v1) | (uint256(v2) << 85) | (uint256(v3) << 170);
+    }
+    // Total: 20,000 gas for single write (3x cheaper!)
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Gas Optimization: Memory vs Storage}
+\textbf{Use memory for temporary data:}
+
+\textbf{Inefficient: Storage for Temporary Array}
+\begin{lstlisting}
+contract Inefficient {
+    uint256[] public tempArray;  // Storage
+    function processData(uint256[] calldata input) public {
+        delete tempArray;
+        for (uint i = 0; i < input.length; i++) {
+            tempArray.push(input[i] * 2);  // SSTORE per iteration
+        }
+    }
+}
+\end{lstlisting}
+
+\textbf{Efficient: Memory Array}
+\begin{lstlisting}
+contract Efficient {
+    function processData(uint256[] calldata input) public {
+        uint256[] memory tempArray = new uint256[](input.length);
+        for (uint i = 0; i < input.length; i++) {
+            tempArray[i] = input[i] * 2;  // Memory write (cheap)
+        }
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Gas Optimization: Short-Circuiting}
+\textbf{Exploit boolean evaluation order:}
+
+\textbf{Inefficient: Expensive Check First}
+\begin{lstlisting}
+function transfer(address to, uint256 amount) public {
+    require(balances[msg.sender] >= amount && to != address(0), "Invalid");
+    // If to == address(0), still loads balances[msg.sender] (2100 gas SLOAD)
+}
+\end{lstlisting}
+
+\textbf{Efficient: Cheap Check First}
+\begin{lstlisting}
+function transfer(address to, uint256 amount) public {
+    require(to != address(0) && balances[msg.sender] >= amount, "Invalid");
+    // If to == address(0), immediately fails (no SLOAD)
+}
+\end{lstlisting}
+
+\textbf{Principle:} Place cheaper conditions first in logical AND (\&\&)
+
+\textbf{Savings:} 2100 gas when early condition fails
+\end{frame}
+
+\begin{frame}[fragile]{Gas Optimization: Event Logs vs Storage}
+\textbf{Events are much cheaper than storage:}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Storage:} Accessible on-chain, 20,000 gas per new slot
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Events:} Not accessible on-chain, 375 gas + 8/byte
+\end{column}
+\end{columns}
+
+\begin{lstlisting}
+event Transfer(address indexed from, address indexed to, uint256 amount);
+
+function transfer(address to, uint256 amount) public {
+    balances[msg.sender] -= amount;
+    balances[to] += amount;
+    emit Transfer(msg.sender, to, amount);  // ~1500 gas vs 20,000+ for storage
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Real-World Transaction Costs}
+\textbf{Typical gas costs on Ethereum mainnet:}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/05_real_world_costs/chart.pdf}
+\end{center}
+\textbf{Note:} Costs vary significantly based on network congestion and gas prices
+\end{frame}
+
+\begin{frame}{Real-World Gas Usage (Table)}
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+\textbf{Transaction Type} & \textbf{Gas Used} \\
+\midrule
+Simple ETH transfer & 21,000 \\
+ERC-20 token transfer & 45,000 - 65,000 \\
+Uniswap V2 swap & 100,000 - 150,000 \\
+Uniswap V3 swap & 120,000 - 185,000 \\
+NFT mint (ERC-721) & 80,000 - 150,000 \\
+OpenSea NFT purchase & 150,000 - 300,000 \\
+Deploy simple contract & 200,000 - 500,000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{At 32 Gwei (30 base + 2 tip):}
+\begin{itemize}
+\item Simple transfer: 0.000672 ETH (\$1.34 at \$2000/ETH)
+\item Uniswap swap: 0.004 ETH (\$8 at \$2000/ETH)
+\item Contract deploy: 0.016+ ETH (\$32+ at \$2000/ETH)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Gas Refunds}
+\textbf{Refundable Actions:}
+\begin{itemize}
+\item \textbf{SSTORE to zero:} 15,000 gas refund (after paying 5,000 to clear)
+\item \textbf{SELFDESTRUCT:} 24,000 gas refund (contract deletion)
+\end{itemize}
+
+\textbf{Refund Cap (EIP-3529):} Maximum refund: 20\% of gas used (prevents exploitation)
+
+\begin{lstlisting}
+function clearStorage() public {
+    delete largeMapping[key1];  // 5,000 cost + 15,000 refund
+    delete largeMapping[key2];  // 5,000 cost + 15,000 refund
+    // Gas used: 10,000, Potential: 30,000 (capped at 2,000)
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{EIP-4844: Blob Gas Market (Dencun Upgrade, March 2024)}
+\textbf{Ethereum now has TWO gas markets:}
+\begin{itemize}
+\item \textbf{Execution gas}: Traditional EVM operations (existing market)
+\item \textbf{Blob gas}: Data availability for L2 rollups (new market)
+\item Markets operate independently with separate base fees
+\end{itemize}
+
+\textbf{Blob Gas Mechanics:}
+\begin{itemize}
+\item Target: 3 blobs per block (384 KB), Maximum: 6 blobs (768 KB)
+\item Blob gas price adjusts like EIP-1559 (targets 50\% capacity)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{EIP-4844: Blob Gas Savings}
+\textbf{Cost comparison for posting L2 data to Ethereum:}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/06_blob_gas_savings/chart.pdf}
+\end{center}
+\textbf{Impact:} 90-99\% reduction in L2 transaction costs since Dencun upgrade
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item \textbf{Gas Purpose:} Prevents spam/DoS, compensates validators, allocates block space
+\item \textbf{EIP-1559:} Base fee (burned) + priority fee (to validator) for predictable pricing
+\item \textbf{Base Fee Dynamics:} Adjusts up to 12.5\% per block to target 50\% full blocks
+\item \textbf{Storage is Expensive:} SSTORE costs 20,000 gas (new) or 5,000 gas (update)
+\item \textbf{Optimization:} Pack storage, use memory for temp data, batch operations
+\item \textbf{EIP-4844:} Blob gas market reduced L2 costs by 90-99\%
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item Why does EIP-1559 burn the base fee instead of giving it to validators?
+
+\item If Ethereum's block gas limit is 30M and average block time is 12 seconds, what is the theoretical maximum transactions per second for simple ETH transfers?
+
+\item Under what circumstances might a user set a very high max fee per gas?
+
+\item How do Layer 2 solutions (e.g., Optimism, Arbitrum) reduce gas costs?
+
+\item What are the tradeoffs between storing data on-chain vs using events vs off-chain storage?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L15 - Solidity Fundamentals}
+\textbf{Coming up next:}
+\begin{itemize}
+\item Introduction to Solidity programming language
+\item Data types: uint, address, string, arrays, mappings
+\item Functions, visibility modifiers, state mutability
+\item Events and error handling
+\item Inheritance and interfaces
+\end{itemize}
+
+\textbf{Preparation:}
+\begin{itemize}
+\item Install MetaMask browser extension
+\item Familiarize yourself with Remix IDE (remix.ethereum.org)
+\item Review basic programming concepts (if-else, loops, functions)
+\end{itemize}
+\end{frame}
+
+\end{document}

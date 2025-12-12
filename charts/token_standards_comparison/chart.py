@@ -16,12 +16,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -53,8 +53,8 @@ for i, (attribute, values) in enumerate(features.items()):
 ax.set_ylabel('Score (1-10)')
 ax.set_title('Ethereum Token Standards: Feature Comparison', fontweight='bold')
 ax.set_xticks(x + width * 2)
-ax.set_xticklabels(standards, fontsize=11, fontweight='bold')
-ax.legend(loc='upper left', fontsize=8)
+ax.set_xticklabels(standards, fontsize=14, fontweight='bold')
+ax.legend(loc='upper left', fontsize=14)
 ax.set_ylim(0, 12)
 ax.grid(axis='y', alpha=0.3, linestyle=':', linewidth=0.5)
 
@@ -66,11 +66,11 @@ use_cases = {
 }
 
 for i, (std, use) in enumerate(use_cases.items()):
-    ax.text(i + width * 2, 11.2, use, ha='center', va='bottom', fontsize=8,
+    ax.text(i + width * 2, 11.2, use, ha='center', va='bottom', fontsize=14,
             style='italic', alpha=0.8)
 
 # Add note about synthetic data
-fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

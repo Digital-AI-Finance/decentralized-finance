@@ -1,0 +1,280 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newcommand{\bottomnote}[1]{\vfill\hfill{\scriptsize\textit{#1}}}
+
+\title{L21: NFT Technology Deep Dive}
+\subtitle{Module C: NFTs \& Digital Assets}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Explain the difference between on-chain and off-chain NFT data
+\item Understand the role of token URIs in NFT metadata
+\item Describe the ERC-721 token standard internals
+\item Analyze NFT provenance and ownership verification
+\item Evaluate the technical limitations of current NFT implementations
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is an NFT? Technical Definition}
+\textbf{Non-Fungible Token (NFT):} A unique digital asset on a blockchain
+
+\vspace{0.2cm}
+\textbf{Key Technical Properties:}
+\begin{itemize}
+\item \textbf{Non-fungible:} Each token is unique and not interchangeable
+\item \textbf{Token ID:} Unique identifier within a smart contract
+\item \textbf{Ownership:} Blockchain-verified ownership record
+\item \textbf{Programmability:} Smart contract logic defines behavior
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Contrast with Fungible Tokens (ERC-20):}
+\begin{itemize}
+\item Fungible: 1 ETH = 1 ETH (interchangeable)
+\item Non-fungible: Token \#1 $\neq$ Token \#2 (unique)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{On-Chain vs Off-Chain Data}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/01_onchain_vs_offchain/chart.pdf}
+\end{center}
+\bottomnote{Critical trade-off: On-chain is permanent but expensive; off-chain is cheap but risky}
+\end{frame}
+
+\begin{frame}{ERC-721: The NFT Standard}
+\textbf{ERC-721} introduced by Dieter Shirley (CryptoKitties) in 2017
+
+\vspace{0.2cm}
+\textbf{Core Functions:}
+\begin{itemize}
+\item \texttt{balanceOf(owner)} -- Returns number of tokens owned
+\item \texttt{ownerOf(tokenId)} -- Returns owner of specific token
+\item \texttt{transferFrom(from, to, tokenId)} -- Transfers ownership
+\item \texttt{approve(to, tokenId)} -- Grants transfer permission
+\item \texttt{tokenURI(tokenId)} -- Returns metadata URI
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Events:}
+\begin{itemize}
+\item \texttt{Transfer(from, to, tokenId)} -- Emitted on ownership change
+\item \texttt{Approval(owner, approved, tokenId)} -- Emitted on approval
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ERC-721 State Structure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/02_erc721_state_structure/chart.pdf}
+\end{center}
+\bottomnote{Mappings provide O(1) lookup efficiency for sparse token ID spaces}
+\end{frame}
+
+\begin{frame}{Token URI: The Metadata Bridge}
+\textbf{tokenURI Function:} Links on-chain token to off-chain metadata
+
+\vspace{0.2cm}
+\textbf{Example URI Patterns:}
+\begin{enumerate}
+\item \textbf{IPFS:} \texttt{ipfs://QmXyZ.../metadata.json}
+\item \textbf{HTTP:} \texttt{https://api.project.com/token/123}
+\item \textbf{Data URI:} \texttt{data:application/json;base64,...}
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Metadata JSON Structure:}
+\begin{itemize}
+\item \texttt{name} -- Token name
+\item \texttt{description} -- Human-readable description
+\item \texttt{image} -- URI to visual asset
+\item \texttt{attributes} -- Array of traits (rarity properties)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Critical Issue:} If metadata server goes down, NFT may become unrenderable
+\end{frame}
+
+\begin{frame}{NFT Rendering Pipeline}
+\begin{center}
+\includegraphics[width=0.78\textwidth]{charts/03_nft_rendering_pipeline/chart.pdf}
+\end{center}
+\bottomnote{Multiple points of failure: contract, IPFS gateway, image server}
+\end{frame}
+
+\begin{frame}{Provenance: Tracking Ownership History}
+\textbf{Provenance:} Complete ownership history of an NFT
+
+\vspace{0.2cm}
+\textbf{Blockchain Provides:}
+\begin{itemize}
+\item Full transaction history via \texttt{Transfer} events
+\item Verifiable chain of custody from mint to present
+\item Immutable record (cannot be forged or altered)
+\item Creator verification (original minting address)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Why Provenance Matters:}
+\begin{itemize}
+\item Proves authenticity and origin
+\item Increases value (celebrity ownership history)
+\item Detects wash trading (suspicious transfers)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{NFT Provenance Chain}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/04_nft_provenance/chart.pdf}
+\end{center}
+\bottomnote{Every Transfer event is immutably recorded on the blockchain}
+\end{frame}
+
+\begin{frame}{NFT Market Evolution}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/05_nft_market_timeline/chart.pdf}
+\end{center}
+\bottomnote{Market peaked in 2021 but technology continues to evolve}
+\end{frame}
+
+\begin{frame}{ERC-721 Extensions}
+\textbf{Common Extensions Beyond Base Standard:}
+
+\vspace{0.2cm}
+\begin{itemize}
+\item \textbf{ERC-721 Metadata:} Adds \texttt{name()}, \texttt{symbol()}, \texttt{tokenURI()}
+\item \textbf{ERC-721 Enumerable:} Allows iteration over all tokens
+  \begin{itemize}
+  \item \texttt{totalSupply()} -- Total number of tokens
+  \item \texttt{tokenByIndex(index)} -- Get token ID by index
+  \end{itemize}
+\item \textbf{ERC-721 Burnable:} Allows token destruction
+\item \textbf{ERC-721 Pausable:} Emergency stop mechanism
+\item \textbf{ERC-2981:} On-chain royalty information
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ERC-1155: Multi-Token Standard}
+\textbf{ERC-1155:} Supports both fungible and non-fungible tokens in one contract
+
+\vspace{0.2cm}
+\textbf{Key Differences from ERC-721:}
+\begin{itemize}
+\item Single contract can manage multiple token types
+\item Batch transfers (gas efficient for multiple tokens)
+\item Semi-fungible tokens (fungible until uniqueness assigned)
+\item Used heavily in gaming (items, currencies, NFTs)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Example Use Cases:}
+\begin{itemize}
+\item Gaming: 100 fungible ``gold coins'' + unique weapon NFTs
+\item Event tickets: 500 general admission (fungible) + 10 VIP (non-fungible)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Storage Options Comparison}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/06_storage_tradeoffs/chart.pdf}
+\end{center}
+\bottomnote{IPFS offers best balance for most NFT projects; on-chain for maximum permanence}
+\end{frame}
+
+\begin{frame}{Fully On-Chain NFTs}
+\textbf{On-Chain Maximalism:} All data stored on blockchain
+
+\vspace{0.2cm}
+\textbf{Examples:}
+\begin{itemize}
+\item \textbf{Autoglyphs:} Generative art stored as code in contract
+\item \textbf{Blitmap:} Pixel art encoded in contract storage
+\item \textbf{Chain Runners:} SVG generation entirely on-chain
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Advantages:}
+\begin{itemize}
+\item True permanence (no external dependencies)
+\item Maximum decentralization
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Disadvantages:}
+\begin{itemize}
+\item Extremely high minting costs (gas for storage)
+\item Limited to simple/generative art (no high-res photos)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{2023-2024: Bitcoin Ordinals and Inscriptions}
+\textbf{What are Ordinals?}
+\begin{itemize}
+\item NFT-like artifacts directly on Bitcoin blockchain
+\item Uses Ordinal Theory: assigns numbers to individual satoshis
+\item ``Inscriptions'': Data embedded in Bitcoin transaction witness
+\item Enabled by Taproot upgrade (November 2021)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Key Differences from Ethereum NFTs:}
+\begin{itemize}
+\item Fully on-chain (no external metadata links)
+\item No smart contracts (Bitcoin Script limitations)
+\item Higher permanence guarantees
+\item Higher inscription costs (\$10-100+ per inscription)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item NFTs are blockchain tokens with unique identifiers governed by smart contracts (ERC-721/ERC-1155)
+\item Most NFT data is off-chain (images, metadata) with on-chain pointers (tokenURI)
+\item Provenance tracking provides verifiable ownership history and authenticity
+\item Bitcoin Ordinals (2023): Brought NFTs to Bitcoin via inscriptions
+\item Technical limitations include off-chain dependencies, gas costs, and centralization risks
+\item Fully on-chain NFTs solve permanence but sacrifice complexity/cost
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item Should ``true'' NFTs require all data to be on-chain, or is off-chain storage acceptable?
+\item How does the ERC-721 standard balance gas efficiency with functionality?
+\item What are the trade-offs between using IPFS vs. centralized servers for NFT metadata?
+\item How does NFT provenance compare to traditional art provenance verification?
+\item What innovations could solve the scalability and cost issues of on-chain NFTs?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview}
+\textbf{L22: NFT Metadata and IPFS}
+
+\vspace{0.2cm}
+We will explore:
+\begin{itemize}
+\item JSON metadata format standards
+\item IPFS content addressing and pinning
+\item Arweave permanent storage
+\item Metadata permanence and availability challenges
+\item Best practices for decentralized NFT storage
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Preparation:} Review IPFS documentation and explore NFT metadata on OpenSea
+\end{frame}
+
+\end{document}

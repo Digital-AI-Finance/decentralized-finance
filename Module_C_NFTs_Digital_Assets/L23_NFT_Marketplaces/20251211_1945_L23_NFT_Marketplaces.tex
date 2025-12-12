@@ -1,0 +1,410 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newcommand{\bottomnote}[1]{\vfill\hfill{\scriptsize\textit{#1}}}
+
+\title{L23: NFT Marketplaces}
+\subtitle{Module C: NFTs \& Digital Assets}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Compare business models of major NFT marketplaces (OpenSea, Blur, Rarible)
+\item Understand listing mechanics and order book systems
+\item Analyze marketplace fees and royalty enforcement debates
+\item Detect wash trading and market manipulation patterns
+\item Evaluate the role of aggregators in NFT trading
+\end{itemize}
+\end{frame}
+
+\begin{frame}{NFT Marketplace Landscape}
+\textbf{Major Platforms (by Volume, 2024):}
+
+\vspace{0.2cm}
+\begin{enumerate}
+\item \textbf{OpenSea:} Largest NFT marketplace, multi-chain support
+\item \textbf{Blur:} Pro trader-focused, zero marketplace fees
+\item \textbf{Magic Eden:} Solana-native, expanding to Ethereum
+\item \textbf{Rarible:} Community-governed, aggregator model
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Market Consolidation:}
+\begin{itemize}
+\item OpenSea and Blur dominate Ethereum NFT trading (>80\% volume)
+\item Smaller marketplaces compete on fees, rewards, and niche communities
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Marketplace Market Share (2024)}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/01_marketplace_market_share/chart.pdf}
+\end{center}
+\bottomnote{Blur overtook OpenSea in 2023 via zero fees and trader incentives}
+\end{frame}
+
+\begin{frame}{OpenSea: The Market Leader}
+\textbf{Founded:} 2017, valued at \$13.3B (2022 peak)
+
+\vspace{0.2cm}
+\textbf{Key Features:}
+\begin{itemize}
+\item Multi-chain support (Ethereum, Polygon, Arbitrum, Optimism)
+\item User-friendly interface for creators and collectors
+\item Lazy minting (create NFTs without upfront gas costs)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Business Model:}
+\begin{itemize}
+\item \textbf{Marketplace fee:} 2.5\% historically, now optional 0.5\%
+\item \textbf{Creator royalties:} Optional enforcement (formerly mandatory)
+\item \textbf{Revenue:} \$2.7B cumulative fees (as of 2024)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Blur: The Pro Trader Platform}
+\textbf{Launched:} October 2022, rapid growth via airdrop incentives
+
+\vspace{0.2cm}
+\textbf{Key Features:}
+\begin{itemize}
+\item \textbf{Zero marketplace fees:} No commission on trades
+\item \textbf{Advanced trading tools:} Portfolio management, sweeping, sniping
+\item \textbf{Bid pools:} Aggregated liquidity for collection-wide offers
+\item \textbf{Airdrop rewards:} BLUR token distributed to active traders
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Impact:} Surpassed OpenSea in volume during 2023, forced industry fee reductions
+\end{frame}
+
+\begin{frame}{Listing Mechanics: Fixed Price vs. Auction}
+\textbf{Fixed Price Listings:}
+\begin{itemize}
+\item Seller sets a ``Buy Now'' price
+\item Instant settlement (no waiting period)
+\item Most common listing type (>90\% of listings)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Auction Listings:}
+\begin{itemize}
+\item \textbf{English Auction:} Ascending bids, highest bidder wins
+\item \textbf{Dutch Auction:} Descending price until buyer accepts
+\item Used for high-value or uncertain pricing
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Offer System:}
+\begin{itemize}
+\item Buyers submit offers below listing price
+\item Common for negotiation and floor sniping
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Order Book and Off-Chain Matching}
+\textbf{Traditional Order Book:}
+\begin{itemize}
+\item Centralized database of buy/sell orders
+\item Matching engine pairs buyers and sellers
+\item Settlement on-chain when trade executes
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{OpenSea Seaport Protocol:}
+\begin{itemize}
+\item \textbf{Off-chain orders:} Listings signed off-chain (no gas cost)
+\item \textbf{On-chain settlement:} Trade executes when matched
+\item \textbf{Gas savings:} Sellers pay no gas until sale completes
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Blur's Bid Pools:}
+\begin{itemize}
+\item Aggregated collection-wide offers
+\item Sellers can accept best available bid instantly
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Marketplace Fee Comparison}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/02_fee_comparison/chart.pdf}
+\end{center}
+\bottomnote{Race to zero fees to attract volume; creator royalties now optional}
+\end{frame}
+
+\begin{frame}{The Royalty Enforcement Debate}
+\textbf{Creator Royalties:} Percentage paid to original creator on secondary sales
+
+\vspace{0.2cm}
+\textbf{Historical Model (2017-2022):}
+\begin{itemize}
+\item Marketplaces enforced creator-set royalties (2-10\% typical)
+\item Revenue stream for artists and projects
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Shift to Optional Royalties (2022+):}
+\begin{itemize}
+\item Blur launched with optional royalties (0.5\% default)
+\item OpenSea capitulated in 2023 (optional royalties)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Arguments:}
+\begin{itemize}
+\item \textbf{For optional:} Buyer freedom, lower transaction costs
+\item \textbf{Against:} Undermines creator compensation model
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Royalty Enforcement Timeline}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/03_royalty_timeline/chart.pdf}
+\end{center}
+\bottomnote{2022 marked the shift from mandatory to optional creator royalties}
+\end{frame}
+
+\begin{frame}{On-Chain Royalty Enforcement}
+\textbf{Technical Challenge:} Smart contracts cannot force royalty payments
+
+\vspace{0.2cm}
+\textbf{Why Royalties Are Not Enforceable:}
+\begin{itemize}
+\item ERC-721 standard has no royalty mechanism
+\item Buyers can transfer NFTs directly (peer-to-peer) without marketplace
+\item Marketplaces voluntarily honor royalties (not protocol-enforced)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{ERC-2981 Royalty Standard:}
+\begin{itemize}
+\item On-chain royalty information (creator address, percentage)
+\item Marketplaces can query but not forced to enforce
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Experimental Solutions:}
+\begin{itemize}
+\item \textbf{Operator Filter Registry:} Blocks transfers via non-compliant marketplaces
+\item \textbf{ERC-721C:} Programmable transfer restrictions in contract
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Wash Trading: Artificial Volume}
+\textbf{Wash Trading:} Buyer and seller are the same entity (self-trading)
+
+\vspace{0.2cm}
+\textbf{Motivation:}
+\begin{itemize}
+\item Inflate collection volume and visibility
+\item Manipulate floor price upward
+\item Farm marketplace reward tokens (e.g., LooksRare, X2Y2)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Mechanics:}
+\begin{enumerate}
+\item Trader owns NFT in Wallet A
+\item Trader buys own NFT using Wallet B
+\item Net cost: Marketplace fees + gas (often subsidized by rewards)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Wash Trading Detection}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/04_wash_trading_detection/chart.pdf}
+\end{center}
+\bottomnote{Wallet clustering and funding source analysis are most reliable indicators}
+\end{frame}
+
+\begin{frame}{Wash Trading Case Study: LooksRare (2022)}
+\textbf{LooksRare Launch Strategy:}
+\begin{itemize}
+\item Reward traders with LOOKS tokens based on volume
+\item Incentivize switching from OpenSea (vampire attack)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Unintended Consequence:}
+\begin{itemize}
+\item Traders wash traded to farm LOOKS rewards
+\item Daily volume surged to \$400M+ (mostly wash trading)
+\item Organic volume remained low (<10\% of reported volume)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Analysis (Chainalysis, 2022):}
+\begin{itemize}
+\item Estimated 95\% of LooksRare volume was wash trading
+\item Single wallet traded \$23M in one day (same NFT repeatedly)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Lesson:} Volume-based rewards create perverse incentives for manipulation
+\end{frame}
+
+\begin{frame}{NFT Aggregators}
+\textbf{Aggregator:} Platform that sources listings from multiple marketplaces
+
+\vspace{0.2cm}
+\textbf{Major Aggregators:}
+\begin{itemize}
+\item \textbf{Gem (acquired by OpenSea):} Multi-marketplace sweeping
+\item \textbf{Genie (acquired by Uniswap):} NFT shopping cart
+\item \textbf{Blur:} Hybrid marketplace/aggregator
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Benefits:}
+\begin{itemize}
+\item Best price discovery (compare across platforms)
+\item Batch buying (sweep floor listings efficiently)
+\item Single interface for multiple marketplaces
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Impact:} Reduces marketplace lock-in, pressures fees downward
+\end{frame}
+
+\begin{frame}{Floor Price Dynamics}
+\textbf{Floor Price:} Lowest listed price for any NFT in a collection
+
+\vspace{0.2cm}
+\textbf{Why Floor Price Matters:}
+\begin{itemize}
+\item Proxy for collection value and market sentiment
+\item Entry point for new buyers (``buying the floor'')
+\item Psychological support level (panic selling if broken)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Floor Price Manipulation:}
+\begin{itemize}
+\item \textbf{Artificial support:} Whales buy floor listings to prevent drops
+\item \textbf{Floor sweeping:} Coordinated buying to create FOMO
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Healthier Metrics:} Median price, 7-day sales volume, unique holder count
+\end{frame}
+
+\begin{frame}{NFT Trading Volume Trends}
+\begin{center}
+\includegraphics[width=0.72\textwidth]{charts/05_nft_volume_trends/chart.pdf}
+\end{center}
+\bottomnote{Market down 90\%+ from 2021 peak; Blur dominant since late 2022}
+\end{frame}
+
+\begin{frame}{Marketplace Security and Scams}
+\textbf{Common NFT Marketplace Scams:}
+\begin{enumerate}
+\item \textbf{Phishing sites:} Fake marketplace clones steal wallet signatures
+\item \textbf{Malicious approvals:} Trick users into approving scam contracts
+\item \textbf{Fake collections:} Counterfeit versions of popular NFTs
+\item \textbf{Airdrop scams:} Fake NFTs with malicious links
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Protection Measures:}
+\begin{itemize}
+\item Verify marketplace URL (bookmark official sites)
+\item Check collection verification badge
+\item Review smart contract permissions before signing
+\item Revoke unused approvals (revoke.cash)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cross-Chain NFT Trading}
+\textbf{Multi-Chain Expansion:}
+\begin{itemize}
+\item \textbf{Ethereum:} Dominant NFT ecosystem (70\%+ market share)
+\item \textbf{Solana:} Low fees, fast transactions (Magic Eden)
+\item \textbf{Polygon:} Ethereum sidechain (gasless minting on OpenSea)
+\item \textbf{Base:} Coinbase L2 (emerging NFT activity)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Challenges:}
+\begin{itemize}
+\item Fragmented liquidity across chains
+\item Bridge risks (cross-chain NFT transfers)
+\item Ecosystem lock-in (wallets, tools, communities)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{OpenSea Seaport: Open Protocol}
+\textbf{Seaport (2022):} Open-source NFT marketplace protocol
+
+\vspace{0.2cm}
+\textbf{Key Features:}
+\begin{itemize}
+\item \textbf{Permissionless:} Anyone can build marketplace frontends
+\item \textbf{Advanced order types:} Criteria-based, partial fills, bundles
+\item \textbf{Gas optimization:} Efficient settlement mechanisms
+\item \textbf{No protocol fees:} Frontends set their own fees
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Strategic Intent:}
+\begin{itemize}
+\item Commoditize marketplace infrastructure
+\item Compete on UX and features (not protocol lock-in)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Adoption:} Coinbase NFT, GameStop NFT use Seaport protocol
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item NFT marketplaces compete on fees, features, and trader incentives
+\item Blur dominates (55\%+ volume) via zero fees and pro trader tools
+\item Marketplace fees dropped to 0-2.5\%; creator royalties now mostly optional
+\item Wash trading inflates volume for rewards (detection via wallet analysis)
+\item NFT market down 90\%+ from peak; focus shifting to utility NFTs
+\item Aggregators commoditize marketplaces, forcing fee competition
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item Should NFT marketplaces enforce creator royalties, or should they be optional?
+\item How can platforms balance trader incentives (low fees) with sustainability?
+\item What measures can effectively prevent wash trading without harming legitimate users?
+\item Will aggregators eventually commoditize all NFT marketplaces?
+\item How does the shift to zero fees impact the long-term viability of NFT marketplaces?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview}
+\textbf{L24: Lab -- OpenSea Analysis}
+
+\vspace{0.3cm}
+Hands-on activities:
+\begin{itemize}
+\item Browse and analyze NFT collections on OpenSea
+\item Extract and decode metadata from IPFS
+\item Track floor price movements and sales volume
+\item Use rarity tools to evaluate NFT traits
+\item Develop investment evaluation framework
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Preparation:} Create MetaMask wallet, explore OpenSea collections
+\end{frame}
+
+\end{document}

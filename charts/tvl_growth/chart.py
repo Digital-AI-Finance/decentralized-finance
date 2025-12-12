@@ -17,12 +17,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 # Synthetic TVL data (approximate historical trends)
@@ -60,7 +60,7 @@ for event_date, event_tvl, label, y_offset in events:
                 xy=(event_date, event_tvl),
                 xytext=(0, y_offset),
                 textcoords='offset points',
-                fontsize=8,
+                fontsize=14,
                 ha='center',
                 bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='gray', alpha=0.8),
                 arrowprops=dict(arrowstyle='->', color='gray', lw=1))
@@ -81,7 +81,7 @@ plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
 
 # Add note about synthetic data
 fig.text(0.99, 0.01, '[SYNTHETIC - Approximate historical trends]',
-         ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+         ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

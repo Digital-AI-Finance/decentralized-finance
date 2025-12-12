@@ -1,0 +1,305 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L43: Smart Contract Security}
+\subtitle{Module F: Advanced Topics}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand the stakes of smart contract security
+\item Identify top vulnerability types (reentrancy, access control, oracle manipulation)
+\item Analyze real-world exploits (The DAO, Parity, bridge hacks)
+\item Apply security tools (Slither, Mythril, formal verification)
+\item Implement defense in depth strategies
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Stakes of Smart Contract Security}
+\begin{itemize}
+\item \textbf{Code is Law}: Smart contracts are immutable and self-executing
+\item \textbf{High-Value Targets}: DeFi protocols hold billions in assets
+\item \textbf{Irreversibility}: Bugs cannot be patched without upgradeable contracts
+\item \textbf{Losses to Date}: \$8B+ stolen from smart contract exploits (2016-2024)
+\item \textbf{Asymmetry}: One vulnerability can drain entire protocol
+\item \textbf{Composability Risk}: Vulnerabilities cascade across protocols
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Top Vulnerability Types}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/01_top_vulnerabilities/chart.pdf}
+\end{center}
+\bottomnote{Access control failures have become the leading cause of DeFi exploits}
+\end{frame}
+
+\begin{frame}[t]{Historical Losses}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_hack_losses_timeline/chart.pdf}
+\end{center}
+\bottomnote{2022 was peak year (\$3.1B); losses decreasing but still significant}
+\end{frame}
+
+\begin{frame}{Reentrancy: The DAO Hack (2016)}
+\begin{itemize}
+\item \textbf{The DAO}: Decentralized organization, \$150M raised
+\item \textbf{Vulnerability}: External call before state update
+\item \textbf{Attack Mechanism}:
+\begin{enumerate}
+\item Attacker deposits 1 ETH
+\item Calls withdraw(1), contract sends 1 ETH
+\item Attacker's fallback recursively calls withdraw()
+\item Balance not yet updated, sends another 1 ETH
+\item Loop continues until contract drained
+\end{enumerate}
+\item \textbf{Result}: \$60M drained
+\item \textbf{Aftermath}: Ethereum hard fork (ETH vs ETC split)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Reentrancy: Defense}
+\textbf{Checks-Effects-Interactions Pattern:}
+\begin{enumerate}
+\item \textbf{Check}: Verify conditions (require statements)
+\item \textbf{Effect}: Update state variables FIRST
+\item \textbf{Interaction}: Make external calls LAST
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Reentrancy Guard (Mutex):}
+\begin{itemize}
+\item Lock flag prevents recursive calls
+\item OpenZeppelin ReentrancyGuard is industry standard
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Root Cause}: State updated after external call
+
+\textbf{Prevention}: Always update state before external calls
+\end{frame}
+
+\begin{frame}{Access Control Vulnerabilities}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{Common Mistakes}
+\begin{itemize}
+\item Missing onlyOwner modifier
+\item Default function visibility (public)
+\item Unprotected selfdestruct
+\item Constructor typo (pre-0.5.0)
+\end{itemize}
+\vspace{0.2cm}
+\textbf{Parity Wallet Hack (2017)}
+\begin{itemize}
+\item initWallet() unprotected
+\item Attacker became owner
+\item Called selfdestruct
+\item \$300M frozen forever
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Best Practices}
+\begin{itemize}
+\item Use OpenZeppelin Ownable
+\item Explicit visibility modifiers
+\item Role-based access control
+\item Multi-sig for critical functions
+\end{itemize}
+\vspace{0.2cm}
+\textbf{2024 Reality}
+\begin{itemize}
+\item Access control is now top attack vector
+\item Private key compromises
+\item Admin privilege escalation
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Oracle Manipulation}
+\begin{itemize}
+\item \textbf{Problem}: DeFi relies on external price data (oracles)
+\item \textbf{Vulnerable Pattern}: Using single DEX price as oracle
+\item \textbf{Attack Vector}:
+\begin{enumerate}
+\item Flash loan borrow massive funds
+\item Manipulate DEX pool price (10x increase)
+\item Protocol reads manipulated price
+\item Exploit (borrow, liquidate, mint at wrong price)
+\item Restore pool, repay flash loan, keep profit
+\end{enumerate}
+\item \textbf{Real Examples}: Harvest Finance (\$34M), Cream (\$130M)
+\item \textbf{Defense}: Chainlink oracles, TWAP, multiple sources
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Attack Vectors by Loss Amount}
+\begin{center}
+\includegraphics[width=0.50\textwidth]{charts/05_attack_vectors/chart.pdf}
+\end{center}
+\bottomnote{Bridge exploits account for largest share of total losses}
+\end{frame}
+
+\begin{frame}{Bridge Exploits: The New Frontier}
+\begin{itemize}
+\item \textbf{Why Bridges?}: Cross-chain transfers require lock-and-mint
+\item \textbf{Attack Surface}: Validators, smart contracts, key management
+\item \textbf{Notable Exploits}:
+\begin{itemize}
+\item Ronin Bridge (2022): \$625M - validator key compromise
+\item Wormhole (2022): \$320M - signature verification bug
+\item Nomad (2022): \$190M - initialization vulnerability
+\end{itemize}
+\item \textbf{Key Issues}:
+\begin{itemize}
+\item Centralized validator sets
+\item Complex multi-chain logic
+\item High-value targets (\$10B+ locked in bridges)
+\end{itemize}
+\item \textbf{Trend}: Bridge security is top priority for 2024-2025
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Security Tools Comparison}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/04_security_tools/chart.pdf}
+\end{center}
+\bottomnote{Combine fast tools (Slither) with deep analysis (Mythril, Certora)}
+\end{frame}
+
+\begin{frame}{Security Tools Overview}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Tool} & \textbf{Type} & \textbf{Detects} \\
+\midrule
+Slither & Static analyzer & Reentrancy, overflow, access \\
+Mythril & Symbolic execution & Integer bugs, unchecked calls \\
+Echidna & Fuzzer & Invariant violations \\
+Certora & Formal verifier & Specification violations \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.3cm}
+\begin{itemize}
+\item \textbf{Slither}: Fast, easy CI/CD integration
+\item \textbf{Mythril}: Deep analysis, finds complex bugs
+\item \textbf{Echidna}: Property-based testing
+\item \textbf{Certora}: Mathematical proofs
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Defense in Depth}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_audit_funnel/chart.pdf}
+\end{center}
+\bottomnote{Each security layer catches bugs that previous layers missed}
+\end{frame}
+
+\begin{frame}{Audit Process}
+\begin{enumerate}
+\item \textbf{Internal Review}: Developer self-audit, peer review
+\item \textbf{Automated Tools}: Slither, Mythril in CI/CD
+\item \textbf{Manual Audit}: Security firm (2-4 weeks, \$50k-\$500k)
+\begin{itemize}
+\item Trail of Bits, OpenZeppelin, Quantstamp
+\end{itemize}
+\item \textbf{Formal Verification}: High-value contracts (Certora)
+\item \textbf{Bug Bounty}: Community testing (Immunefi)
+\item \textbf{Monitoring}: Real-time detection (Forta, OpenZeppelin Defender)
+\item \textbf{Insurance}: Coverage for exploits (Nexus Mutual)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Bug Bounty Programs}
+\begin{itemize}
+\item \textbf{Purpose}: Incentivize white-hat hackers
+\item \textbf{Platforms}: Immunefi, HackerOne, Code4rena
+\item \textbf{Payouts}: \$1k (low) to \$10M+ (critical)
+\item \textbf{Record}: Wormhole \$10M bounty (2022)
+\item \textbf{Notable Programs}:
+\begin{itemize}
+\item MakerDAO: Up to \$10M
+\item Ethereum Foundation: Up to \$250k
+\item Compound: Up to \$500k
+\end{itemize}
+\item \textbf{ROI}: \$1 in bounties prevents \$100+ in losses
+\item \textbf{Best Practice}: Continuous bounty, not just pre-launch
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Upgradeable Contracts}
+\begin{itemize}
+\item \textbf{Problem}: Immutable contracts cannot be patched
+\item \textbf{Solution}: Proxy pattern (separate storage and logic)
+\item \textbf{Transparent Proxy}:
+\begin{itemize}
+\item Proxy holds storage, delegates to implementation
+\item Admin can upgrade implementation address
+\end{itemize}
+\item \textbf{UUPS (Universal Upgradeable Proxy)}:
+\begin{itemize}
+\item Upgrade logic in implementation (smaller proxy)
+\end{itemize}
+\item \textbf{Risk}: Admin key compromise $\to$ malicious upgrade
+\item \textbf{Mitigation}: Multi-sig, timelock delays, immutable after maturity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Security Best Practices}
+\begin{enumerate}
+\item Use latest Solidity (0.8.0+ for overflow protection)
+\item Follow Checks-Effects-Interactions pattern
+\item Apply reentrancy guards (OpenZeppelin)
+\item Explicit visibility for all functions
+\item Decentralized oracles (Chainlink) or TWAP
+\item Pull over push for payments
+\item Avoid loops over unbounded arrays
+\item Run Slither + Mythril in CI/CD
+\item Professional audit before mainnet
+\item Bug bounty program
+\item Real-time monitoring (Forta)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Smart contract security is critical: \$8B+ cumulative losses
+\item Top vulnerabilities: Access control, reentrancy, oracle manipulation, bridges
+\item The DAO hack (\$60M) led to Ethereum hard fork
+\item Bridge exploits are now largest loss category
+\item Defense in depth: Automated tools + audits + formal verification + bounties
+\item Tools: Slither (fast), Mythril (deep), Certora (formal proofs)
+\item Upgradeable contracts: Allow patches but introduce admin key risk
+\item 2024 trend: Real-time monitoring and ``Security as a Service''
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Why is the Checks-Effects-Interactions pattern important?
+\item How do oracle manipulation attacks exploit DeFi protocols?
+\item What makes bridge security particularly challenging?
+\item Should audited protocols still have bug bounties?
+\item What are the trade-offs of upgradeable contracts?
+\end{enumerate}
+\end{frame}
+
+\end{document}

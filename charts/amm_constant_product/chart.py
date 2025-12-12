@@ -15,12 +15,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 # Define the constant product
@@ -57,9 +57,9 @@ ax.annotate('', xy=(x_after_trade, y_after_trade), xytext=(x_after_trade, y_init
 
 # Add labels for the trade
 tokens_out = y_initial - y_after_trade
-ax.text(x_initial + 10, y_initial + 5, f'+20 Token X', fontsize=8, ha='center')
+ax.text(x_initial + 10, y_initial + 5, f'+20 Token X', fontsize=14, ha='center')
 ax.text(x_after_trade + 15, (y_initial + y_after_trade)/2,
-        f'-{tokens_out:.1f} Token Y', fontsize=8, ha='left', rotation=-60)
+        f'-{tokens_out:.1f} Token Y', fontsize=14, ha='left', rotation=-60)
 
 ax.set_xlabel('Token X Reserve')
 ax.set_ylabel('Token Y Reserve')
@@ -75,7 +75,7 @@ ax.legend(loc='upper right', framealpha=0.9)
 
 # Add note explaining slippage
 note_text = "Larger trades move further along curve (higher slippage)"
-fig.text(0.15, 0.88, note_text, fontsize=8, style='italic', alpha=0.7)
+fig.text(0.15, 0.88, note_text, fontsize=14, style='italic', alpha=0.7)
 
 plt.tight_layout()
 

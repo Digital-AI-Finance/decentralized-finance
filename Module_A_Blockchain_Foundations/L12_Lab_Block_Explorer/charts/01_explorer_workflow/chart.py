@@ -1,0 +1,63 @@
+"""
+Block Explorer Lab Workflow
+"""
+
+import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+
+CHART_METADATA = {
+    'title': 'Explorer Workflow',
+    'url': 'https://github.com/Digital-AI-Finance/Blockchain_Crypto/tree/main/Module_A_Blockchain_Foundations/L12_Lab_Block_Explorer/charts/01_explorer_workflow'
+}
+
+plt.rcParams.update({
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12,
+    'figure.figsize': (10, 6),
+    'figure.dpi': 150
+})
+
+MLPURPLE = '#3333B2'
+MLBLUE = '#0066CC'
+MLORANGE = '#FF7F0E'
+MLGREEN = '#2CA02C'
+MLRED = '#D62728'
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+exercises = ['Setup &\nOrientation', 'Ex 1: Block\nAnalysis', 'Ex 2: TX\nTracing',
+             'Ex 3: Address\nHistory', 'Ex 4: Smart\nContract', 'Report']
+durations = [10, 20, 25, 20, 15, 10]
+colors = [MLPURPLE, MLBLUE, MLORANGE, MLGREEN, MLRED, MLPURPLE]
+
+positions = np.cumsum([0] + durations[:-1])
+
+for i, (exercise, duration, pos, color) in enumerate(zip(exercises, durations, positions, colors)):
+    ax.barh(0, duration, left=pos, height=0.5, color=color, edgecolor='black', linewidth=1.5)
+    ax.text(pos + duration/2, 0, f'{exercise}\n({duration} min)',
+            ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+
+for t in [0, 30, 60, 90, 100]:
+    ax.axvline(x=t, color='gray', linestyle='--', alpha=0.5, linewidth=1)
+    ax.text(t, -0.4, f'{t} min', ha='center', va='top', fontsize=10)
+
+ax.set_xlim(-2, 105)
+ax.set_ylim(-0.6, 0.6)
+ax.set_xlabel('Time (minutes)', fontsize=12)
+ax.set_yticks([])
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['left'].set_visible(False)
+
+ax.set_title('Block Explorer Lab: 100 Minutes Total', fontweight='bold', fontsize=14, pad=10)
+
+plt.tight_layout()
+output_path = Path(__file__).parent / 'chart.pdf'
+plt.savefig(output_path, bbox_inches='tight', dpi=300)
+print(f"Chart saved to: {output_path.absolute()}")
+plt.close()

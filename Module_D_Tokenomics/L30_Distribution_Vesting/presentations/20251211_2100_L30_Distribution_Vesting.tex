@@ -1,0 +1,413 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L30: Distribution and Vesting}
+\subtitle{Module D: Tokenomics}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand token allocation categories and their purposes
+\item Analyze vesting schedules and cliff periods
+\item Evaluate the impact of unlock events on token price
+\item Apply distribution analysis to real projects
+\item Case Study: Solana token unlocks
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Token Distribution Overview}
+\textbf{Definition:} The initial allocation of tokens among different stakeholder groups.
+
+\vspace{0.2cm}
+\textbf{Common Allocation Categories:}
+\begin{itemize}
+\item Team and Founders / Early Investors (Seed, Series A/B/C)
+\item Advisors / Community Sale (ICO/IEO/IDO)
+\item Ecosystem Development / Liquidity Provision
+\item Foundation/Treasury / Airdrops
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Goal:} Balance early supporter rewards with long-term community alignment.
+\end{frame}
+
+\begin{frame}[t]{Typical Allocation Breakdown}
+\vspace{-0.2cm}
+\begin{center}
+\includegraphics[width=0.42\textwidth]{../charts/01_typical_allocation/chart.pdf}
+\end{center}
+\bottomnote{Red Flag: Team + Investors > 50\% indicates high centralization risk}
+\end{frame}
+
+\begin{frame}{Team and Founder Allocation}
+\textbf{Purpose:} Incentivize long-term commitment and alignment.
+
+\vspace{0.3cm}
+\textbf{Best Practices:}
+\begin{itemize}
+\item Allocation: 15-20\% of total supply
+\item Vesting: 4 years minimum
+\item Cliff: 1 year (no tokens until 12 months)
+\item Linear unlock after cliff
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why Long Vesting?}
+\begin{itemize}
+\item Prevents ``pump and dump'' by insiders
+\item Demonstrates commitment to project
+\item Aligns incentives with long-term success
+\item Builds trust with community
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:} Team gets 20M tokens, 1-year cliff, then 416,667 tokens/month for 48 months.
+\end{frame}
+
+\begin{frame}{Investor Allocation Rounds}
+\textbf{Typical Investment Rounds:}
+
+\vspace{0.3cm}
+\begin{tabular}{llll}
+\toprule
+Round & Allocation & Price & Vesting \\
+\midrule
+Seed & 5-10\% & Lowest & 2-3 years \\
+Series A & 5-10\% & Low & 18-24 months \\
+Series B & 5-10\% & Medium & 12-18 months \\
+Public Sale & 10-15\% & Highest & 0-6 months \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3cm}
+\textbf{Key Considerations:}
+\begin{itemize}
+\item Earlier investors = longer vesting
+\item Discount compensates for higher risk
+\item Too many investors = fragmented governance
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Investment Round Characteristics}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/05_investor_rounds/chart.pdf}
+\end{center}
+\bottomnote{Earlier rounds get bigger discounts but longer lock-ups and higher risk}
+\end{frame}
+
+\begin{frame}{Community Sale Methods}
+\textbf{1. ICO (Initial Coin Offering) - 2017 Era}
+\begin{itemize}
+\item Direct token sale to public
+\item Minimal regulation (historically)
+\end{itemize}
+
+\textbf{2. IEO (Initial Exchange Offering)}
+\begin{itemize}
+\item Conducted on centralized exchange
+\item Exchange vets project (some due diligence)
+\end{itemize}
+
+\textbf{3. IDO (Initial DEX Offering)}
+\begin{itemize}
+\item Launch on decentralized exchange
+\item Immediate liquidity
+\end{itemize}
+
+\textbf{4. Fair Launch}
+\begin{itemize}
+\item No pre-sale or VC rounds
+\item Everyone buys at same price (Example: YFI)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Vesting?}
+\textbf{Definition:} A schedule that controls when token holders can access their allocated tokens.
+
+\vspace{0.3cm}
+\textbf{Key Terms:}
+\begin{itemize}
+\item \textbf{Cliff Period:} Initial waiting period before any tokens unlock
+\item \textbf{Vesting Period:} Total duration until all tokens are unlocked
+\item \textbf{Linear Vesting:} Equal amounts unlock at regular intervals
+\item \textbf{Unlock Event:} Specific date when tokens become transferable
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Total allocation: 1,000,000 tokens
+\item Cliff: 12 months (0 tokens unlocked)
+\item Vesting: 48 months total
+\item After cliff: 27,778 tokens unlock per month for 36 months
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Vesting Schedule Types}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/02_vesting_schedule_types/chart.pdf}
+\end{center}
+\bottomnote{Back-loaded vesting provides strongest long-term alignment; accelerated is risky}
+\end{frame}
+
+\begin{frame}{Cliff Periods}
+\textbf{Purpose:} Ensure minimum commitment before any tokens unlock.
+
+\vspace{0.3cm}
+\textbf{Typical Cliff Durations:}
+\begin{itemize}
+\item Team: 12 months
+\item Investors: 6-12 months
+\item Advisors: 6 months
+\item Community: Often 0 (immediate unlock)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Why Use Cliffs?}
+\begin{itemize}
+\item Prevents immediate dumping
+\item Tests commitment of team/advisors
+\item Provides time for project to mature
+\item Reduces initial circulating supply
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Investor Perspective:} Cliffs protect against early team departures.
+\end{frame}
+
+\begin{frame}{Token Unlock Events}
+\textbf{Definition:} Dates when large amounts of vested tokens become tradable.
+
+\vspace{0.3cm}
+\textbf{Market Impact:}
+\begin{itemize}
+\item Increase circulating supply
+\item Potential selling pressure
+\item Price often drops before/during unlock
+\item Market anticipates and prices in
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Types of Unlocks:}
+\begin{enumerate}
+\item \textbf{Cliff Unlocks:} Large one-time release
+\item \textbf{Linear Unlocks:} Continuous monthly/daily releases
+\item \textbf{TGE (Token Generation Event):} Initial launch unlocks
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Tracking:} Use tools like Token Unlocks, Messari, CoinGecko to monitor upcoming events.
+\end{frame}
+
+\begin{frame}[t]{Unlock Event Price Impact}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/04_unlock_price_impact/chart.pdf}
+\end{center}
+\bottomnote{Market front-runs unlocks; price typically drops 15-20\% around major events}
+\end{frame}
+
+\begin{frame}{Case Study: Solana (SOL) Unlocks}
+\textbf{Background:}
+\begin{itemize}
+\item Total supply: 500M SOL (inflating to ~700M by 2030)
+\item Major unlocks from 2021-2025
+\item Massive VC backing (a16z, Multicoin, etc.)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Unlock Events:}
+\begin{itemize}
+\item \textbf{Jan 2023:} 13.8M SOL unlocked (seed investors)
+\item \textbf{Mar 2023:} 17.8M SOL unlocked (early investors)
+\item \textbf{Ongoing:} Monthly validator/foundation unlocks
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Price Impact:}
+\begin{itemize}
+\item SOL price dropped 15-20\% around major unlocks
+\item Long-term recovery as adoption grew
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Solana Distribution Breakdown}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/03_solana_distribution/chart.pdf}
+\end{center}
+\bottomnote{Insiders ~35\% with long vesting helped manage dilution over time}
+\end{frame}
+
+\begin{frame}{Managing Unlock Pressure}
+\textbf{Strategies to Mitigate Selling Pressure:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Staking Incentives}
+\begin{itemize}
+\item Offer high yields to lock unlocked tokens
+\item Example: Solana staking ~7\% APY
+\end{itemize}
+
+\item \textbf{Gradual Unlocks}
+\begin{itemize}
+\item Daily/monthly instead of quarterly
+\item Smooths supply shock
+\end{itemize}
+
+\item \textbf{Lockup Extensions}
+\begin{itemize}
+\item Voluntary additional vesting
+\item Bonus tokens for extended locks
+\end{itemize}
+
+\item \textbf{Strong Fundamentals}
+\begin{itemize}
+\item Demand growth offsets supply increase
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Airdrops as Distribution}
+\textbf{Definition:} Free distribution of tokens to users based on specific criteria.
+
+\vspace{0.3cm}
+\textbf{Common Airdrop Types:}
+\begin{itemize}
+\item \textbf{Retroactive:} Reward past users (Uniswap UNI)
+\item \textbf{Holder Airdrop:} To existing token holders
+\item \textbf{Task-based:} Complete specific actions
+\item \textbf{Governance:} For DAO participation
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Benefits:}
+\begin{itemize}
+\item Bootstrap community
+\item Decentralize ownership
+\item Reward early adopters
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Risks:}
+\begin{itemize}
+\item Airdrop hunters (not genuine users)
+\item Immediate selling pressure
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Famous Airdrop: Uniswap (UNI)}
+\textbf{September 2020 Airdrop:}
+\begin{itemize}
+\item 400 UNI per address that used Uniswap before Sept 1, 2020
+\item ~250,000 addresses eligible
+\item Total airdropped: ~150M UNI (15\% of supply)
+\item Value at claim: ~\$1,200 per user
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Impact:}
+\begin{itemize}
+\item Instant governance decentralization
+\item Massive publicity and user growth
+\item Many users held long-term (strong community)
+\item Set standard for future DeFi airdrops
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Insight:} Retroactive airdrops reward genuine users, not speculators.
+\end{frame}
+
+\begin{frame}{Red Flags in Distribution}
+\textbf{Warning Signs:}
+\begin{enumerate}
+\item \textbf{Excessive Insider Allocation}
+\begin{itemize}
+\item Team + VCs > 50\%
+\end{itemize}
+
+\item \textbf{Short or No Vesting}
+\begin{itemize}
+\item Team vesting < 2 years
+\item No cliff period
+\end{itemize}
+
+\item \textbf{Opaque Distribution}
+\begin{itemize}
+\item No published allocation details
+\item Unknown wallet holders
+\end{itemize}
+
+\item \textbf{Centralized Control}
+\begin{itemize}
+\item Foundation holds >30\% indefinitely
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{2024 Trend: Points Programs}
+\textbf{What are Points?}
+\begin{itemize}
+\item Off-chain loyalty system tracking user activity
+\item Converted to tokens at future TGE
+\item Replaced traditional airdrops as primary distribution mechanism
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{How Points Work:}
+\begin{enumerate}
+\item Protocol tracks user actions (deposits, trades, referrals)
+\item Users accumulate ``points'' proportional to activity
+\item At TGE, points convert to tokens based on total points issued
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Examples (2024):}
+\begin{itemize}
+\item \textbf{EigenLayer}: Points for restaking
+\item \textbf{Blast}: Points + Gold for L2 deposits
+\item \textbf{Ethena}: Points for USDe staking
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Criticism:} Opaque, favors whales, mercenary capital
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Token distribution determines ownership concentration
+\item Healthy projects: Team + VCs < 40\%, long vesting (3-4 years)
+\item Cliff periods prevent immediate insider selling
+\item Unlock events create predictable selling pressure
+\item 2024 Trend: Points programs replacing traditional airdrops
+\item Transparency in vesting builds trust
+\item Always check Token Unlocks before investing
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} Token Classification and Valuation - Regulatory frameworks and how to value tokens.
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Why do early investors typically have longer vesting than public sale participants?
+\item How did Solana's unlock events impact its price trajectory?
+\item What are the pros and cons of retroactive airdrops vs. task-based airdrops?
+\item How can a project mitigate selling pressure during major unlocks?
+\item What vesting schedule would you design for a new token launch?
+\end{enumerate}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,380 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L39: Case Study - Terra/Luna Collapse}
+\subtitle{Module E: DeFi Ecosystem}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand the Terra/Luna mechanism (UST stablecoin + LUNA token)
+\item Analyze the Anchor Protocol's 20\% APY promise
+\item Trace the death spiral timeline (May 2022)
+\item Identify systemic risks and warning signs
+\item Extract lessons for DeFi stability and sustainability
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Terra Ecosystem Overview}
+\textbf{Key Components:}
+
+\vspace{0.2cm}
+\begin{itemize}
+\item \textbf{UST (TerraUSD):} Algorithmic stablecoin pegged to \$1
+\item \textbf{LUNA:} Native token of Terra blockchain, used to stabilize UST
+\item \textbf{Anchor Protocol:} Lending platform offering ~20\% APY on UST deposits
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Creator:} Do Kwon (Terraform Labs)
+
+\textbf{Peak Market Cap (April 2022):} UST: \$18B, LUNA: \$40B
+
+\textbf{Collapse (May 2022):} Both went to near-zero in 72 hours.
+\end{frame}
+
+\begin{frame}[t]{Terra Ecosystem at Peak}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{../charts/01_terra_ecosystem_size/chart.pdf}
+\end{center}
+\bottomnote{Combined \$60B ecosystem collapsed in just 72 hours in May 2022}
+\end{frame}
+
+\begin{frame}{The UST-LUNA Mechanism}
+\textbf{Algorithmic Stability:} UST maintains \$1 peg through arbitrage with LUNA.
+
+\vspace{0.3cm}
+\textbf{Mechanism:}
+\begin{enumerate}
+\item \textbf{Mint UST:} Burn \$1 of LUNA, mint 1 UST
+\item \textbf{Burn UST:} Burn 1 UST, mint \$1 of LUNA
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{If UST > \$1:} Burn LUNA $\to$ mint UST $\to$ sell UST $\to$ profit
+
+\textbf{If UST < \$1:} Buy UST $\to$ burn UST $\to$ mint LUNA $\to$ profit
+
+\vspace{0.3cm}
+\textbf{Problem:} Only works if LUNA maintains value!
+\end{frame}
+
+\begin{frame}{The Fatal Flaw: Death Spiral}
+\textbf{Death Spiral Logic:}
+\begin{enumerate}
+\item UST depegs below \$1 (e.g., \$0.90)
+\item Arbitrageurs burn UST, mint LUNA
+\item Massive LUNA supply increase (dilution)
+\item LUNA price crashes
+\item Confidence in UST collapses
+\item More UST selling, deeper depeg
+\item Cycle repeats, accelerating downward
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Analogy:} Like a central bank defending currency by printing more currency.
+
+\textbf{Critical Insight:} Pure algorithmic stablecoins have no demand floor.
+\end{frame}
+
+\begin{frame}{Anchor Protocol: The 20\% APY Trap}
+\textbf{Promise:} Earn ~20\% APY by depositing UST.
+
+\vspace{0.3cm}
+\textbf{How It Worked:}
+\begin{itemize}
+\item Users deposit UST into Anchor
+\item Anchor lends UST to borrowers (collateralized by staked LUNA)
+\item Borrowers pay interest (~10-15\%)
+\item \textbf{Gap:} Anchor subsidized difference to reach 20\%
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Red Flags:}
+\begin{itemize}
+\item Yield reserve burning ~\$50-100M per month
+\item Projected to run out by mid-2022
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Why 20\% APY Was Unsustainable}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{../charts/02_anchor_math/chart.pdf}
+\end{center}
+\bottomnote{Anchor was a Ponzi-like scheme: new deposits paid old depositors}
+\end{frame}
+
+\begin{frame}[t]{The Death Spiral (May 7-12, 2022)}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{../charts/03_death_spiral_timeline/chart.pdf}
+\end{center}
+\bottomnote{As UST depegged, LUNA supply exploded from 350M to 6.5 trillion tokens}
+\end{frame}
+
+\begin{frame}{Timeline: The Collapse}
+\textbf{May 7-8: Initial Depeg}
+\begin{itemize}
+\item Large UST withdrawals from Anchor (\$2B+ in 48 hours)
+\item UST briefly drops to \$0.98
+\end{itemize}
+
+\textbf{May 9: Panic Begins}
+\begin{itemize}
+\item UST falls to \$0.92, LUNA drops 30\%
+\end{itemize}
+
+\textbf{May 10: Death Spiral Accelerates}
+\begin{itemize}
+\item UST at \$0.60, LUNA collapses from \$60 to \$1
+\end{itemize}
+
+\textbf{May 11-12: Total Collapse}
+\begin{itemize}
+\item UST at \$0.01, LUNA at \$0.0001
+\item Terra blockchain halted
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Value Destruction}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{../charts/04_ust_luna_collapse/chart.pdf}
+\end{center}
+\bottomnote{Estimated \$40B+ in investor losses; triggered broader crypto contagion}
+\end{frame}
+
+\begin{frame}{Bitcoin Reserve: Failed Rescue}
+\textbf{Luna Foundation Guard (LFG):}
+\begin{itemize}
+\item Reserve fund with \$3B+ in Bitcoin, AVAX
+\item Plan: If UST depegs, sell BTC to buy UST
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Reality (May 2022):}
+\begin{itemize}
+\item LFG deployed ~\$1.5B BTC to buy UST
+\item Ineffective: Death spiral too fast
+\item Lost most of the BTC (sold near bottom)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Lesson:} Finite reserves cannot defend algorithmic peg under mass panic.
+\end{frame}
+
+\begin{frame}[t]{Contagion: First Domino}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{../charts/05_contagion_cascade/chart.pdf}
+\end{center}
+\bottomnote{Terra collapse caused 3AC bankruptcy, which triggered Celsius/Voyager failures}
+\end{frame}
+
+\begin{frame}{Three Arrows Capital (3AC) Contagion}
+\textbf{Connection:}
+\begin{itemize}
+\item 3AC was major LUNA investor (billions in exposure)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Cascade:}
+\begin{enumerate}
+\item LUNA collapses (May 2022)
+\item 3AC's collateral becomes worthless
+\item 3AC fails margin calls on other loans
+\item Lenders (BlockFi, Celsius, Voyager) take massive losses
+\item 3AC declares bankruptcy (July 2022)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Lesson:} Interconnected leverage amplifies failures.
+\end{frame}
+
+\begin{frame}{Do Kwon's Hubris}
+\textbf{Quotes (Pre-Collapse):}
+\begin{itemize}
+\item ``I don't debate the poor.'' (Twitter, responding to critics)
+\item ``95\% of stablecoins will fail, UST will win.''
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Behavior:}
+\begin{itemize}
+\item Dismissed warnings from economists, DeFi experts
+\item Promised unrealistic yields (20\% Anchor)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Legal Aftermath:}
+\begin{itemize}
+\item SEC charged Do Kwon with fraud (2023)
+\item Arrested in Montenegro (March 2023)
+\item Facing extradition to US or South Korea
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Warning Signs (In Hindsight)}
+\textbf{Red Flags That Were Ignored:}
+
+\begin{enumerate}
+\item \textbf{Unsustainable Yield:} 20\% APY with no underlying revenue
+
+\item \textbf{Algorithmic Design Flaw:} No collateral, death spiral risk
+
+\item \textbf{Concentration Risk:} 78\% of UST locked in Anchor
+
+\item \textbf{Hubris:} Founder ignored criticism, attacked skeptics
+
+\item \textbf{Rapid Growth:} UST grew from \$2B to \$18B in 6 months
+
+\item \textbf{Lack of Stress Testing:} No proven resilience
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lessons Learned}
+\textbf{For Investors:}
+\begin{itemize}
+\item Beware of unsustainable yields (>10\% on stablecoins)
+\item Algorithmic stablecoins are experimental and risky
+\item Hubris and dismissiveness are red flags
+\end{itemize}
+
+\textbf{For Protocols:}
+\begin{itemize}
+\item Overcollateralization is necessary for stability
+\item Stress test designs under extreme scenarios
+\end{itemize}
+
+\textbf{For Regulators:}
+\begin{itemize}
+\item Algorithmic stablecoins pose systemic risk
+\item Consider reserve requirements for stablecoins
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Survivor: DAI vs. UST}
+\textbf{Why did DAI survive while UST collapsed?}
+
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{UST (Failed)}
+\begin{itemize}
+\item No collateral
+\item Pure algorithm
+\item Death spiral possible
+\item Unsustainable yield
+\end{itemize}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\textbf{DAI (Survived)}
+\begin{itemize}
+\item 150\%+ overcollateralized
+\item Backed by ETH, USDC
+\item Liquidations prevent spiral
+\item No unrealistic yields
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Key Difference:} Collateral provides demand floor.
+
+\textbf{Conclusion:} Overcollateralization is inefficient but necessary.
+\end{frame}
+
+\begin{frame}{Terra 2.0: Failed Reboot}
+\textbf{Post-Collapse Plan (May 2022):}
+\begin{itemize}
+\item Abandon UST stablecoin
+\item Relaunch Terra blockchain as ``Terra 2.0''
+\item Airdrop to UST/LUNA holders
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Result:}
+\begin{itemize}
+\item Terra 2.0 launched with minimal adoption
+\item New LUNA price: \$6 $\to$ \$0.50 (within months)
+\item Community fractured, trust destroyed
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Lesson:} Trust, once broken, is nearly impossible to rebuild.
+\end{frame}
+
+\begin{frame}{Regulatory Fallout}
+\textbf{US Response:}
+\begin{itemize}
+\item SEC charged Do Kwon with fraud
+\item Proposed legislation requiring reserve backing
+\end{itemize}
+
+\textbf{Global Response:}
+\begin{itemize}
+\item South Korea: Investigation into Terraform Labs
+\item EU MiCA: Included stablecoin reserve requirements
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Industry Impact:}
+\begin{itemize}
+\item Algorithmic stablecoins largely abandoned
+\item FRAX increased collateral ratio to 100\%
+\item Focus shifted to fiat-backed and overcollateralized models
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Psychological Factors}
+\textbf{Why Did People Believe?}
+
+\begin{enumerate}
+\item \textbf{Greed:} 20\% APY too attractive to pass up
+\item \textbf{FOMO:} Fear of missing ``next big thing''
+\item \textbf{Herd Mentality:} Everyone else was buying
+\item \textbf{Confirmation Bias:} Only listened to bulls
+\item \textbf{Complexity:} Most users didn't understand the mechanism
+\item \textbf{Charismatic Leader:} Do Kwon's confidence was persuasive
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Lesson:} If it sounds too good to be true, it probably is.
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Terra/Luna was \$60B algorithmic stablecoin experiment that collapsed in May 2022
+\item UST-LUNA mechanism relied on arbitrage but had no collateral backing
+\item Anchor's 20\% APY was unsustainable Ponzi-like scheme
+\item Death spiral: UST depeg $\to$ LUNA hyperinflation $\to$ total collapse
+\item \$40B+ value destroyed, triggering broader crypto contagion
+\item Lessons: Beware unsustainable yields, algorithmic stablecoins need collateral
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} Lab - Testnet Lending (hands-on with Aave).
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item What structural difference between DAI and UST prevented DAI from collapsing?
+\item Could the Bitcoin reserve have saved UST if it were larger (e.g., \$20B)?
+\item Why did Anchor's 20\% APY attract deposits despite being unsustainable?
+\item How could regulators have prevented Terra collapse without banning innovation?
+\item Would you invest in a new algorithmic stablecoin if it had better design?
+\end{enumerate}
+\end{frame}
+
+\end{document}

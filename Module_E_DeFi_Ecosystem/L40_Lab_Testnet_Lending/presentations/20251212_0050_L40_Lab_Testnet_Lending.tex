@@ -1,0 +1,175 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Testnet Lending}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module E: DeFi Ecosystem}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Supply assets to Aave as collateral
+    \item Borrow against collateral on testnet
+    \item Calculate and monitor health factor
+    \item Understand liquidation mechanics
+    \item Repay debt and withdraw collateral
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{../charts/01_lending_workflow/chart.pdf}
+\end{center}
+\bottomnote{Hands-on lending experience with zero financial risk}
+\end{frame}
+
+\begin{frame}{Step 1: Access Aave Testnet}
+\textbf{URL:} \url{https://app.aave.com}
+
+\vspace{0.3cm}
+\textbf{Actions:}
+\begin{enumerate}
+    \item Connect MetaMask wallet
+    \item Switch to Sepolia testnet
+    \item Verify Aave V3 Sepolia interface
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Interface Overview:}
+\begin{itemize}
+    \item Dashboard: Your supply/borrow positions
+    \item Markets: Available assets
+    \item Health Factor: Your risk indicator
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 2: Supply Collateral}
+\textbf{Goal:} Deposit ETH to enable borrowing
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+    \item Click ``Supply'' on Dashboard
+    \item Select ETH (0.5 ETH recommended)
+    \item Enable as collateral
+    \item Confirm transaction
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Record:}
+\begin{itemize}
+    \item Supply APY received
+    \item aWETH tokens received
+    \item Total collateral value
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Understanding Health Factor}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{../charts/02_health_factor/chart.pdf}
+\end{center}
+\bottomnote{Health factor below 1.0 triggers liquidation}
+\end{frame}
+
+\begin{frame}{Step 3: Borrow Assets}
+\textbf{Goal:} Borrow USDC against ETH collateral
+
+\vspace{0.3cm}
+\textbf{Health Factor Formula:}
+\[
+\text{HF} = \frac{\text{Collateral} \times \text{Liquidation Threshold}}{\text{Borrowed Amount}}
+\]
+
+\textbf{Example:}
+\begin{itemize}
+    \item Collateral: \$1,000 (0.5 ETH at \$2,000)
+    \item Borrow: \$400 USDC
+    \item HF = $\frac{1{,}000 \times 0.825}{400} = 2.06$
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Collateral vs Liquidation Risk}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{../charts/03_liquidation_risk/chart.pdf}
+\end{center}
+\bottomnote{ETH price drop reduces collateral value - HF approaches 1.0}
+\end{frame}
+
+\begin{frame}{Step 4: Monitor Position}
+\textbf{Track Over Time:}
+\begin{itemize}
+    \item Watch health factor on dashboard
+    \item Observe interest accrual (supply vs borrow)
+    \item Calculate net cost: Borrow APY - Supply APY
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Risk Management:}
+\begin{itemize}
+    \item Add collateral if HF drops
+    \item Repay partial debt to increase HF
+    \item Never let HF approach 1.0
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 5: Repay and Withdraw}
+\textbf{Repay Debt:}
+\begin{enumerate}
+    \item Click ``Repay'' on borrowed asset
+    \item Select full or partial repayment
+    \item Approve and confirm
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Withdraw Collateral:}
+\begin{enumerate}
+    \item Ensure debt is fully repaid
+    \item Click ``Withdraw'' on supplied asset
+    \item Receive ETH plus earned interest
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit:}
+\begin{enumerate}
+    \item \textbf{Lab Report (3-4 pages):}
+    \begin{itemize}
+        \item Supply and borrow details
+        \item Health factor calculations
+        \item Liquidation price calculation
+        \item Interest accrual analysis
+    \end{itemize}
+    \item \textbf{Supporting Evidence:}
+    \begin{itemize}
+        \item Dashboard screenshots
+        \item Transaction hashes
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item DeFi lending requires overcollateralization
+    \item Health factor must stay above 1.0
+    \item Interest rates adjust based on utilization
+    \item aTokens represent interest-bearing deposits
+    \item Liquidation protects lenders but penalizes borrowers
+    \item Always test on testnet before using real funds
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,813 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{0,102,204}
+\definecolor{mlpurple}{RGB}{51,51,178}
+\definecolor{mllavender}{RGB}{173,173,224}
+\definecolor{mllavender2}{RGB}{193,193,232}
+\definecolor{mllavender3}{RGB}{204,204,235}
+\definecolor{mllavender4}{RGB}{214,214,239}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlgray}{RGB}{127, 127, 127}
+\definecolor{lightgray}{RGB}{240, 240, 240}
+\definecolor{midgray}{RGB}{180, 180, 180}
+
+% Apply custom colors to Madrid theme
+\setbeamercolor{palette primary}{bg=mllavender3,fg=mlpurple}
+\setbeamercolor{palette secondary}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{palette tertiary}{bg=mllavender,fg=white}
+\setbeamercolor{palette quaternary}{bg=mlpurple,fg=white}
+\setbeamercolor{structure}{fg=mlpurple}
+\setbeamercolor{section in toc}{fg=mlpurple}
+\setbeamercolor{subsection in toc}{fg=mlblue}
+\setbeamercolor{title}{fg=mlpurple}
+\setbeamercolor{frametitle}{fg=mlpurple,bg=mllavender3}
+\setbeamercolor{block title}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{block body}{bg=mllavender4,fg=black}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+
+\title{Lesson 3: Cryptographic Hash Functions}
+\subtitle{Module A: Blockchain Foundations}
+\author{BSc Blockchain \& Cryptocurrency}
+\institute{University Course}
+\date{2025}
+
+\begin{document}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\begin{frame}[t]{Learning Objectives}
+By the end of this lesson, you will be able to:
+
+\begin{enumerate}
+\item Define cryptographic hash functions and their key properties
+\item Explain the avalanche effect with concrete examples
+\item Understand SHA-256 algorithm and its role in Bitcoin
+\item Analyze collision resistance and the birthday paradox
+\item Construct and verify Merkle trees step-by-step
+\item Identify real-world applications of hash functions beyond blockchain
+\end{enumerate}
+
+\vspace{1em}
+\textbf{Prerequisites:} L02 - DLT Concepts (Merkle trees introduction)
+\end{frame}
+
+\section{Hash Function Basics}
+
+\begin{frame}[t]{What is a Hash Function?}
+\begin{block}{Hash Function Definition}
+A \textbf{hash function} is a mathematical function that takes an input (message) of arbitrary length and produces a fixed-size output (hash/digest).
+\end{block}
+
+\vspace{0.5em}
+\textbf{Mathematical Notation:}
+$$H: \{0,1\}^* \rightarrow \{0,1\}^n$$
+
+Where $\{0,1\}^*$ is any binary string, and $\{0,1\}^n$ is a fixed $n$-bit output.
+
+\vspace{0.5em}
+\textbf{Example (SHA-256):}
+\begin{itemize}
+\item Input: ``Hello World'' (any length)
+\item Output: \texttt{a591a6d40bf420404...} (always 256 bits = 64 hex characters)
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Hash functions are ``digital fingerprints'' - unique identifiers for data}
+\end{frame}
+
+\begin{frame}[t]{Six Essential Properties of Cryptographic Hashes}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/01_hash_properties/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Key Insight:} All six properties are required for cryptographic security.
+\end{frame}
+
+\begin{frame}[t]{Non-Cryptographic vs. Cryptographic Hashes}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Non-Cryptographic Hashes}
+\begin{itemize}
+\item Fast computation
+\item Designed for hash tables, checksums
+\item NOT resistant to adversarial attacks
+\item Collision attacks are easy
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Examples:}
+\begin{itemize}
+\item CRC32 (cyclic redundancy check)
+\item MD5 (broken, not cryptographic anymore)
+\item MurmurHash (fast, non-crypto)
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Cryptographic Hashes}
+\begin{itemize}
+\item Slower, but secure
+\item Collision resistant
+\item Preimage resistant
+\item Unpredictable (pseudorandom)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Examples:}
+\begin{itemize}
+\item SHA-256 (Bitcoin, SSL/TLS)
+\item SHA-3 (Keccak, used in Ethereum)
+\item BLAKE2 (fast, modern)
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\textbf{Key Difference:} Cryptographic hashes must withstand deliberate attacks
+\end{frame}
+
+\section{Core Properties}
+
+\begin{frame}[t]{Property 1: Deterministic}
+\begin{block}{Deterministic Property}
+The same input always produces the same output. No randomness involved.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Example:}
+\begin{itemize}
+\item $H(\text{``blockchain''})$ = \texttt{ef7797e13d3a75526946a3bcf00daec9fc9c9c4d51ddc7cc5df888f74dd434d1}
+\item Computing this hash 1,000 times yields the same result every time
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Why This Matters:}
+\begin{itemize}
+\item Enables verification: Anyone can recompute the hash
+\item Makes auditing possible: Deterministic proofs
+\item Foundation for digital signatures
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Contrast with Random Functions:}
+\begin{itemize}
+\item Random: $f(x)$ might return different values each time
+\item Hash: $H(x)$ is a pure function (functional programming)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Property 2: Fixed-Length Output}
+\begin{block}{Fixed-Length Property}
+Regardless of input size, the hash output is always the same fixed length.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Examples (SHA-256):}
+\begin{itemize}
+\item $H(\text{``a''})$ = 256 bits (64 hex characters)
+\item $H(\text{entire Bitcoin whitepaper})$ = 256 bits (same length)
+\item $H(\text{1 GB video file})$ = 256 bits (still 64 hex chars)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Common Hash Sizes:}
+\begin{table}[h]
+\scriptsize
+\begin{tabular}{lll}
+\toprule
+\textbf{Algorithm} & \textbf{Output Size (bits)} & \textbf{Hex Characters} \\
+\midrule
+MD5 (broken) & 128 & 32 \\
+SHA-1 (deprecated) & 160 & 40 \\
+SHA-256 (Bitcoin) & 256 & 64 \\
+SHA-512 & 512 & 128 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.5em}
+\textbf{Implication:} Infinite inputs map to finite outputs $\Rightarrow$ collisions must exist (pigeonhole principle)
+\end{frame}
+
+\begin{frame}[t]{Property 3: Avalanche Effect (Sensitivity)}
+\begin{block}{Avalanche Effect}
+A tiny change in input (even 1 bit) causes a massive, unpredictable change in the output. Approximately 50\% of output bits flip.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Example (SHA-256):}
+\begin{itemize}
+\item Input: ``blockchain''
+  \begin{itemize}
+  \item Hash: \texttt{ef7797e13d3a75526946a3bcf00daec9fc9c9c4d51ddc7cc5df888f74dd434d1}
+  \end{itemize}
+\item Input: ``Blockchain'' (capital B)
+  \begin{itemize}
+  \item Hash: \texttt{625da44e4eaf58d61cf048d168aa6f5e492dea166d8bb54ec06c30de07db57e1}
+  \end{itemize}
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Analysis:}
+\begin{itemize}
+\item Only 1 bit changed in input (ASCII: b = \texttt{01100010}, B = \texttt{01000010})
+\item Output is completely different (no pattern recognizable)
+\item Approximately 128 out of 256 bits flipped (50\%)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Avalanche Effect: Visual Demonstration}
+\begin{center}
+\includegraphics[width=0.68\textwidth]{charts/02_avalanche_effect/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Observation:} 1-bit input change causes approximately 50\% of output bits to flip.
+\end{frame}
+
+\begin{frame}[t]{Property 4: Preimage Resistance (One-Way)}
+\begin{block}{Preimage Resistance}
+Given a hash output $h$, it is computationally infeasible to find any input $m$ such that $H(m) = h$.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Analogy:} Easy to scramble an egg, impossible to unscramble it
+
+\vspace{0.5em}
+\textbf{Mathematical Formulation:}
+\begin{itemize}
+\item Computing $h = H(m)$ is fast ($\approx$ microseconds)
+\item Finding $m$ given $h$ requires trying all $2^{256}$ possibilities (for SHA-256)
+\item At 1 trillion hashes/second, this would take $10^{58}$ years
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Practical Implications:}
+\begin{itemize}
+\item Password storage: Store $H(\text{password})$, not password itself
+\item Blockchain integrity: Cannot reverse-engineer block data from hash
+\item Commitment schemes: Hash your choice before revealing
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Property 5: Second Preimage Resistance}
+\begin{block}{Second Preimage Resistance}
+Given input $m_1$ and its hash $h = H(m_1)$, it is computationally infeasible to find a different input $m_2 \neq m_1$ such that $H(m_2) = h$.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Scenario:}
+\begin{itemize}
+\item You sign a contract: ``Pay Alice \$1,000''
+\item Hash: $H(\text{contract}) = h$
+\item Attacker tries to find alternate message: ``Pay Bob \$1,000,000'' with same hash $h$
+\item Second preimage resistance prevents this attack
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Difference from Preimage Resistance:}
+\begin{itemize}
+\item \textbf{Preimage}: Given $h$, find any $m$ where $H(m) = h$
+\item \textbf{Second Preimage}: Given $m_1$ and $h = H(m_1)$, find different $m_2$ where $H(m_2) = h$
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Property 6: Collision Resistance}
+\begin{block}{Collision Resistance}
+It is computationally infeasible to find any two different inputs $m_1 \neq m_2$ such that $H(m_1) = H(m_2)$.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Theoretical Guarantee:}
+\begin{itemize}
+\item Pigeonhole principle: Collisions MUST exist (infinite inputs, finite outputs)
+\item But finding them should be practically impossible
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Birthday Paradox Attack:}
+\begin{itemize}
+\item For $n$-bit hash, finding collision requires $\approx 2^{n/2}$ attempts (not $2^n$)
+\item SHA-256: $2^{128}$ operations needed ($\approx 10^{38}$ hashes)
+\item Still infeasible with current technology
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Broken Examples:}
+\begin{itemize}
+\item MD5 collisions found in 2004 (now insecure)
+\item SHA-1 collisions demonstrated in 2017 (deprecated for security)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{The Birthday Paradox}
+\begin{center}
+\includegraphics[width=0.68\textwidth]{charts/03_birthday_paradox/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Implication:} Collision resistance scales as $2^{n/2}$, not $2^n$. This is why we need large hash outputs.
+\end{frame}
+
+\section{SHA-256 Algorithm}
+
+\begin{frame}[t]{SHA-256 Overview}
+\begin{block}{SHA-256}
+\textbf{Secure Hash Algorithm 256-bit} is a cryptographic hash function designed by the NSA, published by NIST in 2001 as part of the SHA-2 family.
+\end{block}
+
+\vspace{0.5em}
+\textbf{Specifications:}
+\begin{itemize}
+\item Output: 256 bits (32 bytes, 64 hex characters)
+\item Block size: 512 bits (processes data in 512-bit chunks)
+\item Internal state: Eight 32-bit words (256 bits total)
+\item Rounds: 64 compression iterations per block
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Uses in Bitcoin:}
+\begin{itemize}
+\item Block hashing: Double SHA-256 ($\text{SHA256}(\text{SHA256}(\text{header}))$)
+\item Transaction IDs: SHA-256 hash of transaction data
+\item Address generation: SHA-256 + RIPEMD-160
+\item Merkle tree construction
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{SHA-256 High-Level Process}
+\begin{center}
+\includegraphics[width=0.78\textwidth]{charts/04_sha256_process/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Key Steps:} Padding ensures proper length; compression uses 64 rounds of bitwise operations.
+\end{frame}
+
+\begin{frame}[t]{SHA-256 Example Calculation}
+\textbf{Input:} ``abc'' (3 bytes)
+
+\vspace{0.5em}
+\textbf{Step 1 - Padding:}
+\begin{itemize}
+\item Binary: \texttt{01100001 01100010 01100011} (24 bits)
+\item Add \texttt{1} bit: \texttt{01100001 01100010 01100011 1...}
+\item Pad with zeros until length $\equiv 448 \pmod{512}$
+\item Append 64-bit length: \texttt{...0000011000} (24 in binary)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Step 2 - Initialize Hash Values (first 8 primes):}
+\begin{itemize}
+\item $H_0 = \texttt{6a09e667}$, $H_1 = \texttt{bb67ae85}$, ..., $H_7 = \texttt{5be0cd19}$
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Step 3 - Compression (64 rounds):}
+\begin{itemize}
+\item Complex bitwise operations (Ch, Maj, $\Sigma_0$, $\Sigma_1$, etc.)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Final Output:}
+$$H(\text{``abc''}) = \texttt{ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad}$$
+\end{frame}
+
+\begin{frame}[t]{Double SHA-256 in Bitcoin}
+\begin{block}{Why Double Hashing?}
+Bitcoin uses $\text{SHA256}(\text{SHA256}(x))$ instead of single SHA-256 to guard against length-extension attacks (theoretical vulnerability in Merkle-Damgard construction).
+\end{block}
+
+\vspace{0.5em}
+\textbf{Process:}
+\begin{enumerate}
+\item Compute $h_1 = \text{SHA256}(\text{data})$
+\item Compute $h_2 = \text{SHA256}(h_1)$
+\item Use $h_2$ as final hash
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Example - Bitcoin Block Hash:}
+\begin{itemize}
+\item Input: 80-byte block header
+\item First hash: $h_1 = \text{SHA256}(\text{header})$
+\item Second hash: $h_2 = \text{SHA256}(h_1)$
+\item Result: $h_2$ must be below difficulty target to be valid
+\end{itemize}
+
+\vspace{0.5em}
+\textit{Performance: Modern hardware computes millions of double-SHA256 per second}
+\end{frame}
+
+\section{Merkle Trees}
+
+\begin{frame}[t]{Merkle Tree Construction}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/05_merkle_tree/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Key Insight:} Merkle proofs enable $O(\log n)$ verification of transaction inclusion.
+\end{frame}
+
+\begin{frame}[t]{Merkle Tree Construction Algorithm}
+\textbf{Goal:} Efficiently verify transaction inclusion without downloading all data
+
+\vspace{0.5em}
+\textbf{Construction Algorithm:}
+\begin{enumerate}
+\item Start with $n$ transactions: $Tx_1, Tx_2, ..., Tx_n$
+\item Hash each transaction: $H_1 = H(Tx_1), H_2 = H(Tx_2), ..., H_n = H(Tx_n)$
+\item Pair and hash: $H_{12} = H(H_1 || H_2)$, $H_{34} = H(H_3 || H_4)$, ...
+\item If odd number, duplicate last hash: $H_{nn} = H(H_n || H_n)$
+\item Repeat until single root hash (Merkle Root)
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Example (4 transactions):}
+\begin{itemize}
+\item Level 0: $Tx_1, Tx_2, Tx_3, Tx_4$
+\item Level 1: $H_1, H_2, H_3, H_4$
+\item Level 2: $H_{12} = H(H_1 || H_2)$, $H_{34} = H(H_3 || H_4)$
+\item Level 3 (Root): $R = H(H_{12} || H_{34})$
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Merkle Proof Verification}
+\textbf{Scenario:} Light client wants to verify $Tx_3$ is in block (4 transactions total)
+
+\vspace{0.5em}
+\textbf{Verifier Has:}
+\begin{itemize}
+\item Block header with Merkle Root $R$
+\item Transaction $Tx_3$
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Prover Sends (Merkle Proof):}
+\begin{itemize}
+\item $H_4$ (sibling of $H_3$)
+\item $H_{12}$ (sibling of $H_{34}$)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Verification Steps:}
+\begin{enumerate}
+\item Compute $H_3 = H(Tx_3)$
+\item Compute $H_{34} = H(H_3 || H_4)$ (using provided $H_4$)
+\item Compute $R' = H(H_{12} || H_{34})$ (using provided $H_{12}$)
+\item If $R' = R$, then $Tx_3$ is proven to be in the block
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Efficiency:} Only 2 hashes sent instead of 3 other transactions
+\end{frame}
+
+\begin{frame}[t]{Merkle Tree Efficiency Analysis}
+\textbf{Space Complexity:}
+\begin{itemize}
+\item For $n$ transactions, tree has $\approx 2n$ nodes
+\item Merkle proof requires $\log_2(n)$ hashes
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Proof Size Comparison:}
+\begin{table}[h]
+\scriptsize
+\begin{tabular}{lll}
+\toprule
+\textbf{Transactions in Block} & \textbf{Full Data} & \textbf{Merkle Proof} \\
+\midrule
+10 & $\approx$ 2.5 KB & 4 hashes (128 bytes) \\
+100 & $\approx$ 25 KB & 7 hashes (224 bytes) \\
+1,000 & $\approx$ 250 KB & 10 hashes (320 bytes) \\
+10,000 & $\approx$ 2.5 MB & 14 hashes (448 bytes) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.5em}
+\textbf{Real-World Impact:}
+\begin{itemize}
+\item Bitcoin block: $\approx$ 2,000 transactions $\Rightarrow$ 11-hash proof ($\approx$ 352 bytes)
+\item Full block: $\approx$ 1 MB
+\item Savings: $\frac{352}{1,000,000} = 0.035\%$ of data needed
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Merkle Tree Variants}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Binary Merkle Tree}
+\begin{itemize}
+\item Each node has 2 children
+\item Used in Bitcoin
+\item Proof size: $O(\log_2 n)$
+\item Simple to implement
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Merkle Patricia Trie (Ethereum)}
+\begin{itemize}
+\item Combines Merkle tree + Patricia trie
+\item Supports key-value storage
+\item Enables state root (all accounts)
+\item More complex, but more powerful
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Verkle Trees (Future Ethereum)}
+\begin{itemize}
+\item Uses polynomial commitments
+\item Constant-size proofs (regardless of tree size)
+\item Enables stateless clients
+\item Based on vector commitments
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Sparse Merkle Trees}
+\begin{itemize}
+\item Fixed depth (e.g., 256 levels)
+\item Most branches empty (pruned)
+\item Supports non-membership proofs
+\item Used in some zero-knowledge systems
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\section{Applications Beyond Blockchain}
+
+\begin{frame}[t]{Hash Function Applications Overview}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/06_hash_applications/chart.pdf}
+\end{center}
+
+\vspace{0.3em}
+\small
+\textbf{Note:} Different applications prioritize different hash properties.
+\end{frame}
+
+\begin{frame}[t]{Password Storage}
+\textbf{Problem:} Storing passwords in plaintext is insecure (database breach exposes all passwords)
+
+\vspace{0.5em}
+\textbf{Solution:} Store $H(\text{password})$ instead
+
+\begin{enumerate}
+\item User creates account with password ``mypassword123''
+\item System computes $h = H(\text{``mypassword123''})$
+\item Database stores only $h$, not the password
+\item Login: User enters password, system hashes it, compares with stored $h$
+\item Attacker with database cannot reverse $h$ to get password (preimage resistance)
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Enhancements:}
+\begin{itemize}
+\item \textbf{Salting}: Add random data before hashing to prevent rainbow tables
+  \begin{itemize}
+  \item Store $h = H(\text{password} || \text{salt})$ and salt
+  \end{itemize}
+\item \textbf{Key Stretching}: Use slow hash functions (bcrypt, Argon2) to resist brute-force
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{File Integrity Verification}
+\textbf{Use Case:} Ensure downloaded file hasn't been tampered with
+
+\vspace{0.5em}
+\textbf{Process:}
+\begin{enumerate}
+\item Software developer publishes file hash on official website
+  \begin{itemize}
+  \item Example: Ubuntu ISO hash on ubuntu.com
+  \end{itemize}
+\item User downloads file from mirror site
+\item User computes hash of downloaded file locally
+\item User compares computed hash with official hash
+\item If hashes match, file is authentic and unmodified
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Real-World Example:}
+\begin{itemize}
+\item Download Ubuntu 24.04 LTS ISO (4 GB)
+\item Official SHA-256: \texttt{c2e6f4dc37ac944e2f8b21de00e9610c79c61d11...}
+\item Compute: \texttt{sha256sum ubuntu-24.04-desktop-amd64.iso}
+\item Match confirms integrity
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Git Version Control}
+\textbf{How Git Uses Hash Functions:}
+
+\vspace{0.5em}
+\begin{itemize}
+\item Every commit has a SHA-1 hash (Git transitioning to SHA-256)
+\item Hash is computed from:
+  \begin{itemize}
+  \item Commit message
+  \item Author/committer metadata
+  \item Tree object (directory structure)
+  \item Parent commit hash(es)
+  \end{itemize}
+\item Forms a Merkle tree of commits (immutable history)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Example:}
+\begin{itemize}
+\item Commit: \texttt{a3f5c79...} points to parent \texttt{b2e4d31...}
+\item Changing history requires recomputing all subsequent hashes
+\item Makes history tampering detectable
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Similarity to Blockchain:}
+\begin{itemize}
+\item Git is a content-addressed storage system
+\item Hashes link commits, just like blocks in blockchain
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Digital Signatures \& SSL/TLS}
+\textbf{Digital Signatures (Overview - more in L05):}
+\begin{itemize}
+\item Hash the message: $h = H(m)$
+\item Sign the hash with private key: $\sigma = \text{Sign}(h, sk)$
+\item Verify signature: $\text{Verify}(\sigma, h, pk)$
+\item Signing hash (32 bytes) is faster than signing entire message (MB+)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{SSL/TLS (HTTPS):}
+\begin{itemize}
+\item Certificate authorities (CAs) sign website certificates
+\item CA computes $h = H(\text{certificate})$
+\item CA signs $h$ with private key
+\item Your browser verifies signature using CA's public key
+\item Ensures you're connected to legitimate website, not impostor
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Hash Functions Used:}
+\begin{itemize}
+\item Modern TLS 1.3: SHA-256, SHA-384
+\item Legacy systems: SHA-1 (deprecated due to collision attacks)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Proof-of-Work (Bitcoin Mining)}
+\textbf{Mining Process:}
+\begin{enumerate}
+\item Collect transactions into candidate block
+\item Construct block header (80 bytes)
+\item Compute: $h = \text{SHA256}(\text{SHA256}(\text{header}))$
+\item Check if $h < \text{target}$ (difficulty requirement)
+\item If no: increment nonce (4-byte counter), repeat step 3
+\item If yes: broadcast valid block, receive reward
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Example Difficulty (Block 800,000):}
+\begin{itemize}
+\item Target: \texttt{0000000000000000000...} (19 leading zeros)
+\item Probability of success per hash: $\frac{1}{2^{76}} \approx 10^{-23}$
+\item Network hash rate: $\approx$ 500 EH/s (exahashes/second)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Why Hashes Enable PoW:}
+\begin{itemize}
+\item Unpredictable output (no shortcut, must try all nonces)
+\item Fast verification (anyone can check $h < \text{target}$ instantly)
+\end{itemize}
+\end{frame}
+
+\section{Summary}
+
+\begin{frame}[t]{Key Takeaways}
+\textbf{What You Should Remember:}
+
+\begin{enumerate}
+\item \textbf{Hash Functions}: Transform arbitrary input to fixed-size output (digital fingerprints)
+\item \textbf{Core Properties}: Deterministic, fixed-length, avalanche effect, preimage resistance, collision resistance
+\item \textbf{SHA-256}: 256-bit output, used in Bitcoin (double hashing), computationally infeasible to break
+\item \textbf{Collision Resistance}: Birthday paradox reduces attack from $2^n$ to $2^{n/2}$ operations
+\item \textbf{Merkle Trees}: Binary hash trees enable $O(\log n)$ proofs for transaction inclusion
+\item \textbf{Applications}: Passwords, file integrity, Git, digital signatures, Proof-of-Work
+\end{enumerate}
+
+\vspace{0.5em}
+\begin{block}{Critical Insight}
+Cryptographic hash functions are the foundation of blockchain security. Without collision resistance and preimage resistance, the entire system collapses.
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Discussion Questions}
+\textbf{Consider and discuss:}
+
+\begin{enumerate}
+\item \textbf{Quantum Computing Threat}: Will quantum computers break SHA-256?
+  \begin{itemize}
+  \item Research: Grover's algorithm reduces preimage attack to $2^{128}$ operations
+  \end{itemize}
+
+\item \textbf{Hash Function Lifespan}: When should we migrate to SHA-3 or BLAKE3?
+  \begin{itemize}
+  \item Consider: Coordination challenge in decentralized networks
+  \end{itemize}
+
+\item \textbf{Environmental Impact}: Can we reduce PoW energy consumption without sacrificing security?
+  \begin{itemize}
+  \item Explore: Alternative consensus mechanisms (PoS, PoSpace)
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{References \& Resources}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Standards \& Specs}
+\begin{itemize}
+\item NIST FIPS 180-4 (SHA-2 specification)
+\item RFC 6234 (SHA and HMAC-SHA)
+\item Keccak Team (SHA-3 documentation)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Academic Papers}
+\begin{itemize}
+\item Merkle (1988): \textit{Digital Signature Based on Hash Functions}
+\item Wang et al. (2005): \textit{Finding Collisions in SHA-1}
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Tools}
+\begin{itemize}
+\item \texttt{sha256sum} (Linux command-line)
+\item Online SHA-256 calculator
+\item Python \texttt{hashlib} library
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Learning Resources}
+\begin{itemize}
+\item Computerphile: ``Hashing Algorithms''
+\item Khan Academy: Cryptography course
+\item 3Blue1Brown: ``But what is a hash function?''
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Next Lesson Preview}
+\textbf{L04: Lab - Hash Experiments}
+
+\vspace{0.5em}
+Hands-on exercises:
+\begin{itemize}
+\item Generate SHA-256 hashes using Python \texttt{hashlib}
+\item Visualize the avalanche effect (1-bit input change)
+\item Build a Merkle tree from scratch
+\item Verify Merkle proofs manually
+\item Experiment with collision search (limited scale)
+\item Analyze hash distribution properties
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Required Setup:} Python 3.8+, Jupyter Notebook or Python IDE
+
+\vspace{0.5em}
+\textbf{Deliverables:} Lab report with code snippets and visualizations
+\end{frame}
+
+\begin{frame}[plain]
+\vspace{3cm}
+\begin{center}
+{\Large Thank you}\\[2cm]
+{\normalsize Questions?}\\[1cm]
+{\small See you in Lab 4: Hash Experiments}
+\end{center}
+\end{frame}
+
+\end{document}

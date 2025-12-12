@@ -15,12 +15,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 # Gas costs for common operations (based on EIP-2929 and current gas schedule)
@@ -76,7 +76,7 @@ for i, (bar, cost) in enumerate(zip(bars, gas_costs)):
     label_x_pos = width * 1.2
     ax.text(label_x_pos, bar.get_y() + bar.get_height()/2,
             f'{cost:,}',
-            ha='left', va='center', fontsize=8)
+            ha='left', va='center', fontsize=14)
 
 # Add vertical lines for reference
 ax.axvline(x=21000, color='black', linestyle='--', linewidth=0.8,
@@ -94,7 +94,7 @@ ax.legend(handles=legend_elements, loc='lower right', framealpha=0.9)
 
 # Add note
 note_text = "Warm: previously accessed in transaction | Cold: first access"
-fig.text(0.15, 0.96, note_text, fontsize=8, style='italic', alpha=0.7)
+fig.text(0.15, 0.96, note_text, fontsize=14, style='italic', alpha=0.7)
 
 plt.tight_layout()
 

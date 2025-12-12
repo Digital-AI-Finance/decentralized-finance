@@ -1,0 +1,334 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\tiny\ttfamily,breaklines=true}
+
+\title{L17: ERC-20 Token Standard}
+\subtitle{Module B: Ethereum \& Smart Contracts}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Explain the purpose and importance of the ERC-20 standard
+\item Describe the six required ERC-20 interface functions
+\item Understand the allowance mechanism for delegated transfers
+\item Implement a basic ERC-20 token from scratch
+\item Use OpenZeppelin's audited ERC-20 implementation
+\item Analyze real-world ERC-20 tokens (USDC, DAI, LINK)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is ERC-20?}
+\textbf{ERC-20 is the dominant fungible token standard on Ethereum:}
+\begin{itemize}
+\item \textbf{ERC:} Ethereum Request for Comments (proposal process)
+\item \textbf{Fungible:} Each token is identical and interchangeable
+\item \textbf{Standard:} Common interface enables interoperability
+\end{itemize}
+
+\textbf{Why Standardization Matters:}
+\begin{itemize}
+\item Wallets support all ERC-20 tokens without custom code
+\item Exchanges can list new tokens easily
+\item Smart contracts can interact with any ERC-20 token
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ERC-20 Interface Overview}
+\textbf{Six required functions + two required events:}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/01_erc20_interface/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{ERC-20 Interface: Required Functions}
+\begin{lstlisting}
+interface IERC20 {
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address recipient, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transferFrom(address sender, address recipient, uint256 amount)
+        external returns (bool);
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Optional Metadata Functions}
+\textbf{Not required but widely used:}
+
+\begin{lstlisting}
+function name() public view returns (string memory);    // e.g., "US Dollar Coin"
+function symbol() public view returns (string memory);  // e.g., "USDC"
+function decimals() public view returns (uint8);        // e.g., 18 or 6
+\end{lstlisting}
+
+\textbf{Decimals Explained:}
+\begin{itemize}
+\item Tokens are stored as integers (no floating point on EVM)
+\item \texttt{decimals} defines how to display token amounts
+\item Example: 1 USDC = 1,000,000 units (6 decimals)
+\item Example: 1 DAI = 1e18 units (18 decimals)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Token Decimals Comparison}
+\textbf{Different tokens use different decimal places:}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/03_token_decimals/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Understanding Allowance Mechanism}
+\textbf{Problem:} How can a smart contract spend your tokens?
+
+\textbf{Solution:} Two-step approve + transferFrom pattern
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/02_allowance_flow/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Allowance Example: DEX Trading}
+\textbf{Scenario:} Alice wants to trade 100 DAI for ETH on Uniswap
+
+\textbf{Step-by-Step:}
+\begin{enumerate}
+\item Alice calls \texttt{DAI.approve(UniswapRouter, 100e18)}
+\begin{itemize}
+\item Sets allowance: Uniswap can spend 100 DAI
+\end{itemize}
+
+\item Alice calls \texttt{UniswapRouter.swapTokensForETH(100e18, ...)}
+\begin{itemize}
+\item Uniswap calls \texttt{DAI.transferFrom(Alice, Pool, 100e18)}
+\item Alice receives ETH in return
+\end{itemize}
+\end{enumerate}
+
+\textbf{Infinite Approval:}
+\begin{itemize}
+\item Users often approve \texttt{type(uint256).max} to avoid repeated approvals
+\item Risk: If DEX contract is hacked, all approved tokens can be stolen
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Basic ERC-20 Implementation (Part 1)}
+\begin{lstlisting}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract BasicERC20 {
+    string public name;
+    string public symbol;
+    uint8 public decimals;
+    uint256 public totalSupply;
+
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    constructor(string memory _name, string memory _symbol, uint8 _decimals,
+                uint256 _initialSupply) {
+        name = _name;
+        symbol = _symbol;
+        decimals = _decimals;
+        totalSupply = _initialSupply * 10**_decimals;
+        balanceOf[msg.sender] = totalSupply;
+        emit Transfer(address(0), msg.sender, totalSupply);
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Basic ERC-20 Implementation (Part 2)}
+\begin{lstlisting}
+    function transfer(address recipient, uint256 amount) public returns (bool) {
+        require(recipient != address(0), "Transfer to zero address");
+        require(balanceOf[msg.sender] >= amount, "Insufficient balance");
+        balanceOf[msg.sender] -= amount;
+        balanceOf[recipient] += amount;
+        emit Transfer(msg.sender, recipient, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        require(spender != address(0), "Approve to zero address");
+        allowance[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
+        return true;
+    }
+
+    function transferFrom(address sender, address recipient, uint256 amount) public returns (bool) {
+        require(balanceOf[sender] >= amount, "Insufficient balance");
+        require(allowance[sender][msg.sender] >= amount, "Insufficient allowance");
+        balanceOf[sender] -= amount;
+        balanceOf[recipient] += amount;
+        allowance[sender][msg.sender] -= amount;
+        emit Transfer(sender, recipient, amount);
+        return true;
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Security Considerations}
+\textbf{Common ERC-20 Vulnerabilities:}
+
+\begin{enumerate}
+\item \textbf{Approve Race Condition:}
+\begin{itemize}
+\item Problem: Changing allowance from A to B allows spender to spend A+B
+\item Solution: Use \texttt{increaseAllowance()} and \texttt{decreaseAllowance()}
+\end{itemize}
+
+\item \textbf{Integer Overflow (pre-0.8.0):}
+\begin{itemize}
+\item Solution: Use Solidity 0.8+ (built-in overflow checks) or SafeMath
+\end{itemize}
+
+\item \textbf{Fee-on-Transfer Tokens:}
+\begin{itemize}
+\item Some tokens deduct fees on transfer (e.g., SAFEMOON)
+\item Breaks assumption that \texttt{transfer(amount)} sends exactly \texttt{amount}
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{OpenZeppelin ERC-20 Implementation}
+\textbf{Industry-standard audited implementation:}
+
+\begin{lstlisting}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract MyToken is ERC20 {
+    constructor(uint256 initialSupply) ERC20("My Token", "MTK") {
+        _mint(msg.sender, initialSupply * 10**decimals());
+    }
+}
+\end{lstlisting}
+
+\textbf{Advantages:}
+\begin{itemize}
+\item Battle-tested code (used by USDC, LINK, thousands of projects)
+\item Security audits by leading firms
+\item Extensions: ERC20Burnable, ERC20Pausable, ERC20Permit
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Real-World Stablecoin Comparison}
+\textbf{USDC vs DAI vs USDT characteristics:}
+\begin{center}
+\includegraphics[width=0.58\textwidth]{charts/04_stablecoin_comparison/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Real-World Example: USDC}
+\textbf{USD Coin (USDC) - Circle's stablecoin:}
+
+\textbf{Key Features:}
+\begin{itemize}
+\item Pegged 1:1 to US Dollar, backed by cash and Treasuries
+\item 6 decimals (not 18, to match fiat cents)
+\item Upgradable proxy pattern
+\item Blacklist function (regulatory compliance)
+\item Pausable (emergency circuit breaker)
+\end{itemize}
+
+\textbf{Contract Address:} 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+\end{frame}
+
+\begin{frame}{Real-World Example: DAI}
+\textbf{DAI - MakerDAO's decentralized stablecoin:}
+
+\textbf{Key Features:}
+\begin{itemize}
+\item Pegged to 1 USD via collateralized debt positions (CDPs)
+\item Over-collateralized by crypto assets (ETH, wBTC, USDC)
+\item 18 decimals (standard)
+\item No admin blacklist or pause (more decentralized than USDC)
+\item \texttt{permit()} - EIP-2612 gasless approvals
+\end{itemize}
+
+\textbf{Contract Address:} 0x6B175474E89094C44Da98b954EedeAC495271d0F
+\end{frame}
+
+\begin{frame}{Token Minting Strategies}
+\textbf{Different approaches to token supply management:}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/05_minting_strategies/chart.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{ERC-20 Variants and Improvements}
+\textbf{Extensions to standard ERC-20:}
+
+\begin{enumerate}
+\item \textbf{EIP-2612 (Permit):} Approve via off-chain signature
+
+\item \textbf{ERC-20 Snapshot:} Capture balances at specific block for governance
+
+\item \textbf{ERC-20 Votes:} Delegation of voting power (UNI, COMP)
+
+\item \textbf{Rebase Tokens:} Balance changes automatically (Ampleforth)
+
+\item \textbf{Wrapped Tokens:} ERC-20 wrapper around native assets (WETH)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item \textbf{ERC-20 Standard:} Common interface for fungible tokens enabling interoperability
+\item \textbf{Core Functions:} totalSupply, balanceOf, transfer, approve, allowance, transferFrom
+\item \textbf{Allowance Mechanism:} Two-step approve + transferFrom for smart contract spending
+\item \textbf{Security:} Use OpenZeppelin, beware of approve race condition
+\item \textbf{Decimals:} Convention is 18, stablecoins often use 6
+\item \textbf{Minting:} Fixed supply, owner-controlled, or algorithmic approaches
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item Why do stablecoins like USDC use 6 decimals instead of 18?
+
+\item What are the security tradeoffs between limited vs infinite approval?
+
+\item How does EIP-2612 permit() improve user experience?
+
+\item What are the regulatory implications of USDC's blacklist function?
+
+\item How might fee-on-transfer tokens break DEX contracts?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L18 - ERC-721 and ERC-1155 Standards}
+\textbf{Coming up next:}
+\begin{itemize}
+\item Non-fungible tokens (NFTs) and the ERC-721 standard
+\item ownerOf, tokenURI, safeTransferFrom functions
+\item Metadata standards and IPFS integration
+\item ERC-1155 multi-token standard (fungible + non-fungible)
+\item Real-world examples: CryptoPunks, Bored Apes, ENS domains
+\end{itemize}
+\end{frame}
+
+\end{document}

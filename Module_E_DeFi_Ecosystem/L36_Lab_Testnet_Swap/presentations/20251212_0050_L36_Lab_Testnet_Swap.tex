@@ -1,0 +1,196 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Testnet Swap}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module E: DeFi Ecosystem}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Set up MetaMask wallet on Sepolia testnet
+    \item Execute token swaps on Uniswap
+    \item Analyze and understand slippage
+    \item Provide and remove liquidity from AMM pools
+    \item Track impermanent loss in practice
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{../charts/01_swap_workflow/chart.pdf}
+\end{center}
+\bottomnote{Hands-on DeFi experience with zero financial risk}
+\end{frame}
+
+\begin{frame}{Step 1: Setup MetaMask}
+\textbf{Actions:}
+\begin{enumerate}
+    \item Install MetaMask browser extension
+    \item Create new wallet and save seed phrase
+    \item Enable test networks in settings
+    \item Switch to Sepolia Test Network
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Safety Reminders:}
+\begin{itemize}
+    \item Testnet funds have NO real value
+    \item Never share seed phrase
+    \item Do NOT send real ETH to testnet address
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 2: Acquire Testnet ETH}
+\textbf{Sepolia Faucets:}
+\begin{itemize}
+    \item \url{https://sepoliafaucet.com}
+    \item \url{https://sepoliafaucet.alchemy.com}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+    \item Copy Sepolia address from MetaMask
+    \item Paste into faucet and complete captcha
+    \item Request 0.5-1 testnet ETH
+    \item Wait for transaction confirmation
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Step 3: Execute First Swap}
+\textbf{Goal:} Swap 0.1 ETH for USDC on Uniswap
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+    \item Connect wallet at \url{https://app.uniswap.org}
+    \item Select ETH to USDC swap
+    \item Enter amount and review rate
+    \item Confirm in MetaMask
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Record:}
+\begin{itemize}
+    \item Exchange rate received
+    \item Gas fee paid
+    \item Transaction hash
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Understanding Slippage}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{../charts/02_slippage_impact/chart.pdf}
+\end{center}
+\bottomnote{Larger trades face exponentially higher slippage - AMM fundamental}
+\end{frame}
+
+\begin{frame}{Step 4: Analyze Slippage}
+\textbf{Experiment (DO NOT execute):}
+\begin{enumerate}
+    \item Quote 0.01 ETH swap - note price
+    \item Quote 0.1 ETH swap - note price
+    \item Quote 1 ETH swap - note price
+    \item Compare the three rates
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Questions:}
+\begin{itemize}
+    \item How does price change with swap size?
+    \item What causes non-linear slippage?
+    \item How does pool liquidity affect slippage?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Liquidity Provider Lifecycle}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{../charts/03_lp_process/chart.pdf}
+\end{center}
+\bottomnote{LPs earn fees but face impermanent loss risk}
+\end{frame}
+
+\begin{frame}{Step 5: Provide Liquidity}
+\textbf{Goal:} Become a liquidity provider
+
+\vspace{0.3cm}
+\textbf{Process:}
+\begin{enumerate}
+    \item Click ``Pool'' tab on Uniswap
+    \item Select ETH/USDC pair
+    \item Choose fee tier (0.3\% recommended)
+    \item Enter token amounts
+    \item Approve and confirm transaction
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Record:}
+\begin{itemize}
+    \item ETH and USDC deposited
+    \item Fee tier selected
+    \item Initial position value
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Step 6: Monitor and Remove Liquidity}
+\textbf{After providing liquidity:}
+\begin{itemize}
+    \item Check pool share percentage
+    \item Monitor fees earned
+    \item Execute a swap to see fees accrue
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Remove Liquidity:}
+\begin{enumerate}
+    \item Click on your position
+    \item Select ``Remove Liquidity''
+    \item Confirm withdrawal
+    \item Compare final amounts to initial deposit
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit:}
+\begin{enumerate}
+    \item \textbf{Lab Report (3-4 pages):}
+    \begin{itemize}
+        \item Swap details and exchange rates
+        \item Slippage analysis observations
+        \item LP position and impermanent loss calculation
+        \item Reflection on DeFi user experience
+    \end{itemize}
+    \item \textbf{Supporting Evidence:}
+    \begin{itemize}
+        \item Transaction hashes (Etherscan links)
+        \item Screenshots of key steps
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Testnets enable risk-free DeFi experimentation
+    \item Slippage increases non-linearly with trade size
+    \item Liquidity providers earn fees but face impermanent loss
+    \item DEX UX has improved but remains more complex than CEX
+    \item Understanding mechanics is essential before using real funds
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,137 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: OpenSea Collection Analysis}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module C: NFTs \& Digital Assets}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Navigate OpenSea marketplace effectively
+    \item Analyze NFT collection metrics
+    \item Evaluate rarity using trait analysis
+    \item Identify legitimate vs suspicious collections
+    \item Use third-party rarity tools
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/01_opensea_workflow/chart.pdf}
+\end{center}
+\bottomnote{Focus on analysis skills, not purchasing}
+\end{frame}
+
+\begin{frame}[t]{Key Collection Metrics}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_collection_metrics/chart.pdf}
+\end{center}
+\bottomnote{Floor price and volume are the most watched metrics}
+\end{frame}
+
+\begin{frame}{Exercise 1: Browse Collections}
+\textbf{Navigate OpenSea:}
+\begin{enumerate}
+    \item Visit: \url{https://opensea.io}
+    \item Explore Rankings: Top collections by volume
+    \item Select a collection (e.g., Bored Apes, Azuki, Pudgy Penguins)
+    \item Note: floor price, total volume, owner count
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Collection Stats to Record:}
+\begin{itemize}
+    \item Total items and unique owners
+    \item Floor price and 7-day volume
+    \item Creator royalty percentage
+    \item Contract verification status
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: Metric Analysis}
+\textbf{Key Metrics Explained:}
+\begin{itemize}
+    \item \textbf{Floor Price}: Lowest listed price
+    \item \textbf{Volume}: Total trading activity (ETH)
+    \item \textbf{Listed Ratio}: \% of collection for sale
+    \item \textbf{Unique Owners}: Distribution measure
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Analysis Questions:}
+\begin{enumerate}
+    \item Is floor price stable or volatile?
+    \item High volume with low owners = wash trading?
+    \item What \% of collection is listed? (High = bearish)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Rarity Score Components}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_rarity_analysis/chart.pdf}
+\end{center}
+\bottomnote{Trait rarity is typically the largest factor in NFT valuation}
+\end{frame}
+
+\begin{frame}{Exercise 3: Rarity Analysis}
+\textbf{Tools:}
+\begin{itemize}
+    \item Rarity.tools
+    \item Trait Sniper
+    \item OpenSea trait filters
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Select an item from your chosen collection
+    \item List all traits and their rarity percentages
+    \item Calculate approximate rarity rank
+    \item Compare price to similar rarity items
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit:}
+\begin{enumerate}
+    \item \textbf{Collection Analysis (2 pages):}
+    \begin{itemize}
+        \item Collection name and contract address
+        \item Key metrics summary
+        \item Rarity analysis of one item
+        \item Market health assessment
+    \end{itemize}
+    \item \textbf{Screenshots:}
+    \begin{itemize}
+        \item Collection stats page
+        \item Individual item with traits
+        \item Price history chart
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Floor price is the key metric for collection health
+    \item High unique owner count indicates strong distribution
+    \item Rarity drives individual NFT pricing
+    \item Watch for wash trading (high volume, few owners)
+    \item Verify contract and creator reputation
+\end{itemize}
+\end{frame}
+
+\end{document}

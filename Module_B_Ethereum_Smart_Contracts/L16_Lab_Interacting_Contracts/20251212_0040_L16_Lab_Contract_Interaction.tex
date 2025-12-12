@@ -1,0 +1,157 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Smart Contract Interaction}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module B: Ethereum \& Smart Contracts}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Deploy smart contracts using Remix IDE
+    \item Interact with contract read functions (view/pure)
+    \item Execute contract write functions (state-changing)
+    \item Monitor events and transaction logs
+    \item Debug failed transactions
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/01_contract_workflow/chart.pdf}
+\end{center}
+\bottomnote{Focus on hands-on interaction with deployed contracts}
+\end{frame}
+
+\begin{frame}[t]{Remix IDE Interface}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_remix_interface/chart.pdf}
+\end{center}
+\bottomnote{Deploy \& Interact panel is where you'll spend most of your time}
+\end{frame}
+
+\begin{frame}{Exercise 1: Deploy a Simple Contract}
+\textbf{Steps:}
+\begin{enumerate}
+    \item Open Remix IDE: \url{https://remix.ethereum.org}
+    \item Create new file: \texttt{SimpleStorage.sol}
+    \item Write a storage contract with get/set functions
+    \item Compile using Solidity compiler
+    \item Deploy to JavaScript VM (local testing)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Key Concepts:}
+\begin{itemize}
+    \item Contract deployment creates new address
+    \item Constructor runs once at deployment
+    \item State variables persist on blockchain
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Function Types in Solidity}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_function_types/chart.pdf}
+\end{center}
+\bottomnote{View/pure functions are free; write functions cost gas}
+\end{frame}
+
+\begin{frame}{Exercise 2: Read Functions}
+\textbf{Characteristics:}
+\begin{itemize}
+    \item \texttt{view}: Reads state, no modification
+    \item \texttt{pure}: No state access, computation only
+    \item No gas cost when called externally
+    \item Instant response (no transaction needed)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Call \texttt{get()} function to read stored value
+    \item Observe: no MetaMask popup, instant result
+    \item Note the return value in Remix console
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 3: Write Functions}
+\textbf{Characteristics:}
+\begin{itemize}
+    \item Modify blockchain state
+    \item Require gas payment
+    \item Create transaction (needs confirmation)
+    \item May emit events
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Call \texttt{set(42)} to store new value
+    \item Observe: transaction created, gas consumed
+    \item Verify change by calling \texttt{get()}
+    \item Check transaction in Remix terminal
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 4: Events and Logs}
+\textbf{Why Events?}
+\begin{itemize}
+    \item Notify external applications of state changes
+    \item Cheaper than storage for historical data
+    \item Indexed parameters enable efficient filtering
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Add event to contract: \texttt{event ValueChanged(uint newValue)}
+    \item Emit event in set function
+    \item Redeploy and test
+    \item View logs in Remix console
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit:}
+\begin{enumerate}
+    \item \textbf{Solidity Contract:}
+    \begin{itemize}
+        \item SimpleStorage.sol with get, set, and event
+    \end{itemize}
+    \item \textbf{Screenshots:}
+    \begin{itemize}
+        \item Deployed contract interface
+        \item Read function result
+        \item Write function transaction
+        \item Event log output
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Submission Deadline:} One week from lab session
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Remix IDE is the standard tool for contract development
+    \item View/pure functions are free (no gas)
+    \item Write functions cost gas and create transactions
+    \item Events provide efficient notification mechanism
+    \item Always test on local VM before deploying to testnet
+\end{itemize}
+\end{frame}
+
+\end{document}

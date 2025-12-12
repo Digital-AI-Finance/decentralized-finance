@@ -1,0 +1,345 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L31: Token Classification and Valuation}
+\subtitle{Module D: Tokenomics}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand the Howey Test and securities classification
+\item Distinguish between utility and security tokens
+\item Apply valuation frameworks to crypto assets
+\item Analyze network value metrics (NVT, Metcalfe)
+\item Case Study: SEC vs. Ripple
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why Classification Matters}
+\textbf{Regulatory Implications:}
+\begin{itemize}
+\item Securities require registration with SEC (in US)
+\item Investor protections apply
+\item Trading restrictions (accredited investors only)
+\item Disclosure requirements
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Market Implications:}
+\begin{itemize}
+\item Exchange listings (securities can't list on most exchanges)
+\item Global accessibility
+\item Tax treatment
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Bottom Line:} Misclassification can lead to enforcement actions, delisting, and legal penalties.
+\end{frame}
+
+\begin{frame}{The Howey Test (1946)}
+\textbf{Origin:} SEC v. W.J. Howey Co. (Supreme Court case)
+
+\vspace{0.3cm}
+\textbf{An investment is a security if it involves:}
+\begin{enumerate}
+\item \textbf{Investment of Money} - Investors provide capital
+\item \textbf{In a Common Enterprise} - Pooled funds or shared outcome
+\item \textbf{With Expectation of Profits} - Investors seek financial return
+\item \textbf{Derived from Efforts of Others} - Profits depend on promoter/third party work
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{All four criteria must be met} for classification as a security.
+\end{frame}
+
+\begin{frame}[t]{Howey Test Applied to Tokens}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/01_howey_test_criteria/chart.pdf}
+\end{center}
+\bottomnote{BTC and ETH largely avoid ``efforts of others'' due to decentralization}
+\end{frame}
+
+\begin{frame}{Utility vs. Security Tokens}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Utility Token}
+\begin{itemize}
+\item Access to product/service
+\item Not marketed as investment
+\item Value from usage, not speculation
+\item Examples: BNB, FIL
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Howey Test:}
+\begin{itemize}
+\item Fails ``efforts of others'' if decentralized
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Security Token}
+\begin{itemize}
+\item Investment contract
+\item Promise of profits
+\item Centralized management
+\item Examples: Tokenized stocks
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Howey Test:}
+\begin{itemize}
+\item Meets all four criteria
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Reality:} Most tokens exist on a spectrum, not binary classification.
+\end{frame}
+
+\begin{frame}{Case Study: SEC vs. Ripple}
+\textbf{Background:}
+\begin{itemize}
+\item Ripple Labs created XRP (2012)
+\item Used for cross-border payments
+\item Ripple holds ~50\% of XRP supply
+\item \$1.3B raised from XRP sales (2013-2020)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{SEC Complaint (Dec 2020):}
+\begin{itemize}
+\item XRP is an unregistered security
+\item Ripple raised funds through illegal securities offering
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Ripple's Defense:}
+\begin{itemize}
+\item XRP is a currency, not a security
+\item Network is decentralized (1,000+ validators)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ripple Case: Ruling (July 2023)}
+\textbf{Judge Torres Decision - Partial Victory for Ripple:}
+
+\vspace{0.3cm}
+\textbf{1. Institutional Sales = Securities}
+\begin{itemize}
+\item XRP sold to VCs/hedge funds = securities
+\item Buyers had expectation of profits from Ripple's efforts
+\end{itemize}
+
+\textbf{2. Programmatic Sales (Exchanges) = NOT Securities}
+\begin{itemize}
+\item XRP sold on public exchanges = not securities
+\item Buyers didn't know they were buying from Ripple
+\end{itemize}
+
+\textbf{3. Employee Compensation = NOT Securities}
+
+\vspace{0.3cm}
+\textbf{Impact:} First major ruling that distinguished sale context matters.
+\end{frame}
+
+\begin{frame}{Token Valuation Challenges}
+\textbf{Why Traditional Valuation is Hard:}
+\begin{itemize}
+\item No cash flows (most tokens)
+\item No earnings or revenue
+\item No tangible assets
+\item Highly speculative markets
+\item Network effects hard to quantify
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Approaches:}
+\begin{enumerate}
+\item Network Value to Transactions (NVT)
+\item Metcalfe's Law
+\item Discounted Cash Flow (DCF) - for productive assets
+\item Comparable Analysis
+\item Cost of Production (mining)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Valuation Methods Comparison}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/02_valuation_methods/chart.pdf}
+\end{center}
+\bottomnote{NVT is most widely applicable; DCF only works for yield-generating tokens}
+\end{frame}
+
+\begin{frame}{Network Value to Transactions (NVT)}
+\textbf{Formula:}
+\[
+\text{NVT Ratio} = \frac{\text{Market Cap}}{\text{Daily Transaction Volume}}
+\]
+
+\vspace{0.3cm}
+\textbf{Interpretation:}
+\begin{itemize}
+\item Similar to P/E ratio in stocks
+\item High NVT = overvalued relative to usage
+\item Low NVT = undervalued or high utility
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Typical Ranges:}
+\begin{itemize}
+\item BTC: 50-100 (higher = store of value, not payment)
+\item ETH: 20-40 (more transactional)
+\item Payment tokens: <20 (high transaction volume)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{NVT Ratio Comparison}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/03_nvt_ratio_comparison/chart.pdf}
+\end{center}
+\bottomnote{BTC's high NVT reflects store-of-value use; lower NVT indicates payment utility}
+\end{frame}
+
+\begin{frame}{Metcalfe's Law}
+\textbf{Concept:} Network value grows with the square of the number of users.
+
+\vspace{0.3cm}
+\textbf{Formula:}
+\[
+V \propto n^2
+\]
+where $V$ = network value, $n$ = number of users.
+
+\vspace{0.3cm}
+\textbf{Application to Crypto:}
+\begin{itemize}
+\item More users = exponentially more connections
+\item Active addresses proxy for $n$
+\item Studies show BTC/ETH follow Metcalfe's Law loosely
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Limitations:}
+\begin{itemize}
+\item Not all users create equal value
+\item Doesn't account for quality of usage
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Metcalfe's Law Visualization}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/04_metcalfes_law/chart.pdf}
+\end{center}
+\bottomnote{Network effects create exponential value growth as user count increases}
+\end{frame}
+
+\begin{frame}{Discounted Cash Flow (DCF)}
+\textbf{When to Use:} Tokens with cash flow generation (staking rewards, fee sharing).
+
+\vspace{0.3cm}
+\textbf{Formula:}
+\[
+\text{Value} = \sum_{t=1}^{n} \frac{\text{CF}_t}{(1 + r)^t}
+\]
+where $\text{CF}_t$ = cash flow in year $t$, $r$ = discount rate.
+
+\vspace{0.3cm}
+\textbf{Example: Staking Token}
+\begin{itemize}
+\item Expected annual staking reward: \$100
+\item Discount rate: 10\%
+\item Perpetual reward assumption
+\end{itemize}
+
+\[
+\text{Value} = \frac{100}{0.10} = \$1,000
+\]
+\end{frame}
+
+\begin{frame}{Market Cap vs. Fully Diluted Valuation}
+\textbf{Market Cap:}
+\[
+\text{Market Cap} = \text{Price} \times \text{Circulating Supply}
+\]
+
+\textbf{Fully Diluted Valuation (FDV):}
+\[
+\text{FDV} = \text{Price} \times \text{Total Supply (Max)}
+\]
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item Token price: \$10, Circulating: 100M, Total: 1B
+\item Market Cap: \$1B
+\item FDV: \$10B
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Warning:} Large FDV/MC ratio indicates future dilution risk.
+\end{frame}
+
+\begin{frame}[t]{Market Cap vs FDV Comparison}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/05_mcap_vs_fdv/chart.pdf}
+\end{center}
+\bottomnote{New projects often have 10x+ FDV/MC ratio indicating massive dilution ahead}
+\end{frame}
+
+\begin{frame}{Token Valuation Checklist}
+\textbf{Step-by-Step Analysis:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+\item Determine token type and purpose (utility, governance, etc.)
+\item Check regulatory status (security vs. non-security)
+\item Calculate NVT ratio (compare to peers)
+\item Analyze on-chain metrics (addresses, transactions, TVL)
+\item Review tokenomics (supply, inflation, unlock schedule)
+\item Compare market cap to fundamentals (revenue, usage)
+\item Assess FDV vs. Market Cap (dilution risk)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Output:} Informed estimate of fair value range (not precise number).
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Howey Test determines security classification (4 criteria)
+\item Context of sale matters (Ripple case precedent)
+\item NVT ratio helps assess value relative to transaction volume
+\item Metcalfe's Law suggests network value grows with users squared
+\item DCF applicable only to tokens with cash flows
+\item Comparable analysis useful for relative valuation
+\item Always compare Market Cap to FDV (dilution risk)
+\item Crypto valuation is imprecise - use multiple methods
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Apply the Howey Test to a token you're familiar with. Is it a security?
+\item Why did the Ripple ruling distinguish between institutional and exchange sales?
+\item Calculate the NVT ratio for Bitcoin and Ethereum. What does it tell you?
+\item What are the limitations of using Metcalfe's Law for token valuation?
+\item How would you value a governance token with no direct cash flows?
+\end{enumerate}
+\end{frame}
+
+\end{document}

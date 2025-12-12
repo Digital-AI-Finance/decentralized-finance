@@ -1,0 +1,414 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\footnotesize\textit{#1}}
+
+\title{Blockchain Scalability Trilemma}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+    \item Explain the blockchain scalability trilemma
+    \item Analyze trade-offs between security, decentralization, and scalability
+    \item Understand Layer 1 scalability bottlenecks
+    \item Compare throughput limitations across blockchains
+    \item Evaluate vertical vs. horizontal scaling approaches
+    \item Recognize emerging scalability solutions
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{The Scalability Trilemma}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/01_trilemma_triangle/chart.pdf}
+\end{center}
+\bottomnote{Coined by Vitalik Buterin: a blockchain can achieve at most two of three properties.}
+\end{frame}
+
+\begin{frame}{Understanding the Trilemma}
+\textbf{The Three Properties:}
+\begin{enumerate}
+    \item \textbf{Decentralization:} No single entity or small group controls the network
+    \item \textbf{Security:} Resistant to attacks, ensures data integrity
+    \item \textbf{Scalability:} High transaction throughput and low latency
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Trade-Off Examples:}
+\begin{itemize}
+    \item Bitcoin: Decentralized + Secure $\rightarrow$ Low Scalability (7 TPS)
+    \item EOS: Scalable + Secure $\rightarrow$ Low Decentralization (21 block producers)
+    \item Centralized Database: Scalable + Secure $\rightarrow$ No Decentralization
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Core Challenge:}
+\begin{itemize}
+    \item Larger blocks $\rightarrow$ fewer nodes can validate (centralization)
+    \item Fewer validators $\rightarrow$ faster consensus (centralization)
+    \item No free lunch: optimizing one property often degrades another
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why Each Property Matters}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\textbf{Decentralization}
+\begin{itemize}
+    \item Censorship resistance
+    \item Fault tolerance
+    \item Trustlessness
+    \item No single point of failure
+\end{itemize}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\textbf{Security}
+\begin{itemize}
+    \item Immutability
+    \item Double-spend prevention
+    \item Attack resistance
+    \item Data integrity
+\end{itemize}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\textbf{Scalability}
+\begin{itemize}
+    \item High throughput (TPS)
+    \item Low latency (finality)
+    \item Low transaction costs
+    \item Mass adoption support
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.4cm}
+\textbf{Why Blockchain Needs All Three:}
+\begin{itemize}
+    \item DeFi applications need high throughput AND security
+    \item Mass adoption requires scalability without sacrificing decentralization
+    \item Competition with traditional payment systems (Visa: 24,000 TPS)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Layer 1 Bottlenecks}
+\textbf{Fundamental Constraints:}
+\begin{enumerate}
+    \item \textbf{Block Size:}
+    \begin{itemize}
+        \item Larger blocks = more TXs, but slower propagation, higher storage
+        \item Bitcoin: 1-4 MB | Ethereum: variable (gas limit)
+    \end{itemize}
+
+    \item \textbf{Block Time:}
+    \begin{itemize}
+        \item Faster blocks = higher throughput, but more orphans/forks
+        \item Bitcoin: 10 min | Ethereum: 12 sec | Solana: 0.4 sec
+    \end{itemize}
+
+    \item \textbf{State Growth:}
+    \begin{itemize}
+        \item Bitcoin: $\sim$500 GB | Ethereum: $\sim$1 TB (archive)
+        \item Full nodes require significant storage
+    \end{itemize}
+
+    \item \textbf{Computational Overhead:}
+    \begin{itemize}
+        \item Every node verifies every transaction
+        \item Smart contracts computationally expensive
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Layer 1 Throughput Comparison}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_tps_comparison/chart.pdf}
+\end{center}
+\bottomnote{Inverse correlation: higher TPS generally means fewer nodes and lower decentralization.}
+\end{frame}
+
+\begin{frame}{The Block Size Debate: Bitcoin Case Study}
+\textbf{Background:}
+\begin{itemize}
+    \item Bitcoin originally: 1 MB block size limit
+    \item As adoption grew: blocks filled up $\rightarrow$ higher fees, slower confirmations
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Big Block Proponents:}
+\begin{itemize}
+    \item Increase to 8 MB, 32 MB, or unlimited
+    \item Immediate throughput increase, low fees
+    \item Risk: centralization (fewer can run full nodes)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Small Block Proponents:}
+\begin{itemize}
+    \item Keep blocks small to preserve decentralization
+    \item Scale via Layer 2 (Lightning Network)
+    \item Accept higher on-chain fees
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Outcome (2017):}
+\begin{itemize}
+    \item Bitcoin Cash hard fork (8 MB blocks)
+    \item Bitcoin: SegWit soft fork (effective 1-4 MB)
+    \item Market verdict: BTC prioritized decentralization, price > BCH
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Vertical vs. Horizontal Scaling}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/05_scaling_approaches/chart.pdf}
+\end{center}
+\bottomnote{Most major blockchains pursue horizontal scaling to preserve decentralization.}
+\end{frame}
+
+\begin{frame}{Scaling Approaches Explained}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Vertical Scaling (Scale Up)}
+\begin{itemize}
+    \item Increase capacity of individual nodes
+    \item Require more powerful hardware
+    \item Examples: Solana, EOS
+\end{itemize}
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Simpler implementation
+    \item Immediate throughput gains
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Raises barrier to run nodes
+    \item Centralization risk
+    \item Hits physical limits
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Horizontal Scaling (Scale Out)}
+\begin{itemize}
+    \item Distribute load across many nodes
+    \item Parallel processing
+    \item Examples: Sharding, Layer 2, Rollups
+\end{itemize}
+
+\textbf{Advantages:}
+\begin{itemize}
+    \item Preserves decentralization
+    \item Theoretically unbounded scaling
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Complex implementation
+    \item Cross-shard communication overhead
+    \item Longer development timelines
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Layer 2 Scaling Solutions}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_layer2_tps/chart.pdf}
+\end{center}
+\bottomnote{Layer 2 achieves 100-10,000x improvement while inheriting L1 security.}
+\end{frame}
+
+\begin{frame}{Layer 2 Types}
+\textbf{1. Payment Channels (Lightning Network):}
+\begin{itemize}
+    \item Open channel with on-chain TX, unlimited off-chain TXs
+    \item Use case: micropayments, instant transfers
+    \item TPS: theoretically unlimited
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{2. Rollups (Optimistic, ZK):}
+\begin{itemize}
+    \item Bundle hundreds of transactions into one
+    \item Optimistic: assume valid, fraud proofs challenge
+    \item ZK: cryptographic validity proofs
+    \item Use case: DeFi, NFTs, general computation
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{3. Sidechains (Polygon):}
+\begin{itemize}
+    \item Independent blockchain with bridge to main chain
+    \item Own consensus mechanism
+    \item Weaker security than rollups (separate validator set)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Current Adoption:} Ethereum L2 TVL: \$40B+ (2024)
+\end{frame}
+
+\begin{frame}[t]{State Growth Problem}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/04_state_growth/chart.pdf}
+\end{center}
+\bottomnote{Running full nodes becomes prohibitively expensive as state grows.}
+\end{frame}
+
+\begin{frame}{State Growth Solutions}
+\textbf{Challenge:}
+\begin{itemize}
+    \item Blockchain size grows unbounded
+    \item Ethereum state: $\sim$100 GB (accounts, storage)
+    \item Syncing new nodes takes days/weeks
+    \item Centralization pressure (only dedicated users run nodes)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Solutions:}
+\begin{enumerate}
+    \item \textbf{State Expiry (Ethereum proposal):}
+    \begin{itemize}
+        \item Inactive state evicted from active storage
+        \item Must provide proof to re-activate
+    \end{itemize}
+
+    \item \textbf{Pruning:}
+    \begin{itemize}
+        \item Discard old blockchain history
+        \item Keep only recent blocks + current state
+    \end{itemize}
+
+    \item \textbf{Rent (Cosmos, EOS):}
+    \begin{itemize}
+        \item Users pay ongoing fees to store state
+        \item Incentivizes cleanup of unused data
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Sharding: Horizontal Scaling at Layer 1}
+\textbf{Concept:}
+\begin{itemize}
+    \item Split blockchain into parallel ``shards''
+    \item Each shard processes subset of transactions
+    \item Aggregate throughput = shards $\times$ per-shard TPS
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Ethereum Sharding Roadmap:}
+\begin{itemize}
+    \item Current plan: data availability sharding (danksharding)
+    \item EIP-4844 proto-danksharding deployed March 2024
+    \item Target: 100,000+ TPS via rollups + sharding
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Challenges:}
+\begin{itemize}
+    \item Cross-shard communication complexity
+    \item Shard takeover attacks (low-stake shards vulnerable)
+    \item State management (which shard holds which data?)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Other Sharded Chains:} Zilliqa, NEAR Protocol, Elrond
+\end{frame}
+
+\begin{frame}[t]{Trilemma Positioning}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/06_trilemma_positions/chart.pdf}
+\end{center}
+\bottomnote{Ethereum + L2 approaches the ``ideal'' corner without sacrificing security.}
+\end{frame}
+
+\begin{frame}{Breaking the Trilemma: Possible?}
+\textbf{Optimistic View:}
+\begin{itemize}
+    \item Layer 2 separates execution from settlement
+    \item Rollups achieve scalability without sacrificing L1 security
+    \item Data availability sampling enables sharding
+    \item Zero-knowledge proofs compress computation
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Pessimistic View:}
+\begin{itemize}
+    \item Layer 2 introduces new trust assumptions (sequencers, bridges)
+    \item Increased complexity $\rightarrow$ more attack vectors
+    \item Still bound by data availability bandwidth
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Consensus View:}
+\begin{itemize}
+    \item Trilemma remains but can be mitigated
+    \item Modular architecture (separate execution, consensus, DA)
+    \item Accept specialization: L1 for security, L2 for scale
+    \item Not ``solving'' trilemma but ``navigating'' it intelligently
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Scalability trilemma: cannot maximize decentralization, security, and scalability simultaneously
+    \item Layer 1 bottlenecks: block size, block time, state growth
+    \item Vertical scaling (bigger nodes) increases centralization
+    \item Horizontal scaling (sharding, Layer 2) preserves decentralization
+    \item Layer 2 solutions achieve 100-1000x throughput improvement
+    \item State growth threatens long-term node decentralization
+    \item Real-world TPS often far below theoretical limits
+\end{itemize}
+
+\vspace{0.4cm}
+\textbf{Design Philosophy:}
+
+Accept that trade-offs exist. Bitcoin prioritizes decentralization/security. Solana prioritizes scalability. Ethereum aims for balance via Layer 2.
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+    \item Why cannot a blockchain simply increase block size indefinitely?
+    \item How do Layer 2 solutions differ from sidechains in terms of security?
+    \item What are the implications of state growth for decentralization?
+    \item Can the trilemma be ``solved'' or only mitigated?
+    \item How does sharding introduce new security challenges?
+    \item Why do most blockchains have lower actual TPS than theoretical TPS?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L12 Lab - Block Explorer Analysis}
+\textbf{Lab activities:}
+\begin{itemize}
+    \item Navigate Etherscan and Blockstream block explorers
+    \item Analyze transaction details (inputs, outputs, fees, confirmations)
+    \item Trace transaction lifecycle from mempool to confirmation
+    \item Examine block structure (header, transactions, miner rewards)
+    \item Practice forensic blockchain analysis
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Preparation:}
+\begin{itemize}
+    \item Review Bitcoin transaction structure (Lesson 6)
+    \item Ensure access to Etherscan.io and Blockstream.info
+\end{itemize}
+\end{frame}
+
+\end{document}

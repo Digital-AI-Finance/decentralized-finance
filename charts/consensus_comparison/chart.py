@@ -16,12 +16,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 # Data (synthetic, representative values)
@@ -52,7 +52,7 @@ ax.set_ylabel('Score (1-10)')
 ax.set_title('Consensus Mechanism Comparison: Trade-offs Analysis', fontweight='bold')
 ax.set_xticks(x)
 ax.set_xticklabels(mechanisms)
-ax.legend(loc='upper right', fontsize=8)
+ax.legend(loc='upper right', fontsize=14)
 ax.set_ylim(0, 11)
 ax.grid(axis='y', alpha=0.3, linestyle=':', linewidth=0.5)
 
@@ -62,10 +62,10 @@ for bars in [bars1, bars2, bars3, bars4, bars5]:
         height = bar.get_height()
         if height > 0:
             ax.text(bar.get_x() + bar.get_width()/2., height + 0.1,
-                    f'{int(height)}', ha='center', va='bottom', fontsize=7)
+                    f'{int(height)}', ha='center', va='bottom', fontsize=14)
 
 # Add note about synthetic data
-fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

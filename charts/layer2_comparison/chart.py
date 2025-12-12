@@ -16,12 +16,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 # Layer 2 solutions and their characteristics
@@ -70,14 +70,14 @@ def add_labels(bars, values, is_tps=False):
         label = f'{val}' if not is_tps else f'{val}'
         ax.text(bar.get_x() + bar.get_width()/2., height + 2,
                 label,
-                ha='center', va='bottom', fontsize=7, rotation=0)
+                ha='center', va='bottom', fontsize=14, rotation=0)
 
 # Add actual values as labels
 for i, (bar, tps) in enumerate(zip(bars1, tps_values)):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2., height + 2,
             f'{tps}',
-            ha='center', va='bottom', fontsize=7)
+            ha='center', va='bottom', fontsize=14)
 
 for i, (bar, minutes) in enumerate(zip(bars2, finality_minutes)):
     height = bar.get_height()
@@ -89,20 +89,20 @@ for i, (bar, minutes) in enumerate(zip(bars2, finality_minutes)):
         label = f'{minutes}m'
     ax.text(bar.get_x() + bar.get_width()/2., height + 2,
             label,
-            ha='center', va='bottom', fontsize=7)
+            ha='center', va='bottom', fontsize=14)
 
 for i, (bar, score) in enumerate(zip(bars3, security_scores)):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2., height + 2,
             f'{score}',
-            ha='center', va='bottom', fontsize=7)
+            ha='center', va='bottom', fontsize=14)
 
 ax.legend(loc='upper left', framealpha=0.9)
 ax.grid(axis='y', alpha=0.3, linestyle=':', linewidth=0.5)
 
 # Add note explaining the metrics
 note_text = "TPS: Transactions/sec | Finality: Time to final settlement | Security: Relative security score"
-fig.text(0.5, 0.02, note_text, ha='center', fontsize=8, style='italic', alpha=0.7)
+fig.text(0.5, 0.02, note_text, ha='center', fontsize=14, style='italic', alpha=0.7)
 
 # Add technology type annotation
 tech_annotations = [
@@ -114,12 +114,12 @@ tech_annotations = [
 ]
 
 for i, (x_pos, tech) in enumerate(zip(x, tech_annotations)):
-    ax.text(x_pos, 105, tech, ha='center', fontsize=7,
+    ax.text(x_pos, 105, tech, ha='center', fontsize=14,
             bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='gray', alpha=0.7))
 
 # Add note about synthetic data
 fig.text(0.99, 0.01, '[SYNTHETIC - Approximate characteristics]',
-         ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+         ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

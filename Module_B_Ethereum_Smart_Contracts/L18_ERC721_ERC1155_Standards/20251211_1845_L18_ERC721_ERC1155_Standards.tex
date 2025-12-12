@@ -1,0 +1,552 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\tiny\ttfamily,breaklines=true}
+
+\newcommand{\bottomnote}[1]{\vfill\hfill{\scriptsize\textit{#1}}}
+
+\title{L18: ERC-721 and ERC-1155 Standards}
+\subtitle{Module B: Ethereum \& Smart Contracts}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+\item Explain the difference between fungible and non-fungible tokens
+\item Describe the ERC-721 interface for NFTs
+\item Understand token metadata and IPFS storage
+\item Implement safe transfer mechanisms to prevent token loss
+\item Explain the ERC-1155 multi-token standard
+\item Compare batch operations and gas efficiency across standards
+\item Analyze real-world NFT projects (CryptoPunks, BAYC, ENS)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fungible vs Non-Fungible Tokens}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Fungible (ERC-20):}
+\begin{itemize}
+\item Interchangeable (1 USDC = 1 USDC)
+\item Divisible (can send 0.5 tokens)
+\item Uniform value
+\item Examples: Currencies, commodities
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Analogy:}
+\begin{itemize}
+\item Dollar bills
+\item Bitcoin
+\item Gold bars (fungible)
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Non-Fungible (ERC-721):}
+\begin{itemize}
+\item Unique (token ID 1 $\neq$ token ID 2)
+\item Indivisible (cannot send 0.5 NFT)
+\item Individual value
+\item Examples: Art, collectibles
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Analogy:}
+\begin{itemize}
+\item Real estate deeds
+\item Baseball cards
+\item Concert tickets (numbered seats)
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.2cm}
+\textbf{Key Insight:} ERC-721 tracks ownership of individual items, not aggregate balances
+\end{frame}
+
+\begin{frame}{Visual Comparison: Fungible vs Non-Fungible}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{charts/01_fungible_vs_nonfungible/chart.pdf}
+\end{center}
+\bottomnote{Fungible tokens are interchangeable; NFTs have unique identities and individual value}
+\end{frame}
+
+\begin{frame}[fragile]{ERC-721 Interface: Core Functions}
+\begin{lstlisting}
+interface IERC721 {
+    // Returns number of NFTs owned by owner
+    function balanceOf(address owner) external view returns (uint256);
+
+    // Returns owner of token ID
+    function ownerOf(uint256 tokenId) external view returns (address);
+
+    // Transfers token from 'from' to 'to' (unsafe, checks if recipient is contract)
+    function transferFrom(address from, address to, uint256 tokenId) external;
+
+    // Safe transfer with data (checks if recipient can receive NFTs)
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes data)
+        external;
+
+    // Approve address to transfer specific token
+    function approve(address to, uint256 tokenId) external;
+
+    // Approve operator to transfer all tokens owned by caller
+    function setApprovalForAll(address operator, bool approved) external;
+
+    // Get approved address for specific token
+    function getApproved(uint256 tokenId) external view returns (address);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{ERC-721 Interface: Events}
+\begin{lstlisting}
+interface IERC721 {
+    // Emitted when token is transferred (including minting and burning)
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+    // Emitted when approval is set for specific token
+    event Approval(address indexed owner, address indexed approved,
+                   uint256 indexed tokenId);
+
+    // Emitted when operator approval is set for all tokens
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+}
+\end{lstlisting}
+
+\vspace{0.3cm}
+\textbf{Key Differences from ERC-20:}
+\begin{itemize}
+\item \texttt{tokenId} is indexed (can filter by specific NFT)
+\item Minting: \texttt{from = address(0)}, Burning: \texttt{to = address(0)}
+\item \texttt{ApprovalForAll} enables operators (e.g., OpenSea) to manage all NFTs
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Safe Transfer Mechanism}
+\textbf{Problem:} Transferring NFT to contract that cannot handle it = permanent loss
+
+\vspace{0.2cm}
+\textbf{Solution:} \texttt{safeTransferFrom()} checks if recipient is contract
+
+\begin{lstlisting}
+interface IERC721Receiver {
+    function onERC721Received(address operator, address from, uint256 tokenId,
+                              bytes calldata data) external returns (bytes4);
+}
+
+// Safe transfer checks if recipient is contract
+function safeTransferFrom(address from, address to, uint256 tokenId) public {
+    transferFrom(from, to, tokenId);
+
+    if (to.code.length > 0) {  // Recipient is contract
+        require(
+            IERC721Receiver(to).onERC721Received(msg.sender, from, tokenId, "")
+                == IERC721Receiver.onERC721Received.selector,
+            "Recipient cannot receive NFT"
+        );
+    }
+}
+\end{lstlisting}
+
+\textbf{Recipient must implement \texttt{onERC721Received()} to accept NFTs}
+\end{frame}
+
+\begin{frame}{Token Standards Comparison}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/02_token_standards_comparison/chart.pdf}
+\end{center}
+\bottomnote{ERC-1155 combines best features of both ERC-20 and ERC-721}
+\end{frame}
+
+\begin{frame}[fragile]{ERC-721 Metadata Extension}
+\textbf{Optional but widely used:}
+
+\begin{lstlisting}
+interface IERC721Metadata {
+    function name() external view returns (string memory);    // Collection name
+    function symbol() external view returns (string memory);  // Collection symbol
+    function tokenURI(uint256 tokenId) external view returns (string memory);
+}
+\end{lstlisting}
+
+\vspace{0.2cm}
+\textbf{Metadata JSON Structure:}
+\begin{lstlisting}
+{
+  "name": "Bored Ape #1234",
+  "description": "A unique Bored Ape Yacht Club NFT",
+  "image": "ipfs://QmX7H9K2pZ3.../1234.png",
+  "attributes": [
+    {"trait_type": "Background", "value": "Blue"},
+    {"trait_type": "Eyes", "value": "Laser"}
+  ]
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Metadata Storage: On-Chain vs IPFS}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{On-Chain Storage:}
+\begin{itemize}
+\item Store metadata in contract storage
+\item Expensive (20,000 gas per 32 bytes)
+\item Permanent and immutable
+\item Example: Loot (full text on-chain)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Cost:} Storing 1 KB = approximately 640,000 gas (approximately \$20-100)
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{IPFS Storage:}
+\begin{itemize}
+\item Store only IPFS hash on-chain
+\item Cheap (approximately 20,000 gas per token)
+\item Content-addressable (hash = content)
+\item Example: Bored Ape Yacht Club
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Cost:} Storing hash = approximately 20,000 gas (approximately \$1-5)
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Metadata Storage Options Comparison}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/03_metadata_storage/chart.pdf}
+\end{center}
+\bottomnote{IPFS offers best balance of cost, decentralization, and permanence}
+\end{frame}
+
+\begin{frame}{IPFS: InterPlanetary File System}
+\textbf{Decentralized content-addressable storage:}
+
+\vspace{0.2cm}
+\textbf{Key Concepts:}
+\begin{itemize}
+\item \textbf{Content-Addressed:} File hash = file identifier (CID)
+\item \textbf{Immutable:} Changing content changes hash
+\item \textbf{Distributed:} Files stored across peer network
+\item \textbf{Permanent (with pinning):} Keep file alive by pinning to IPFS node
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{IPFS URIs:}
+\begin{itemize}
+\item Format: \texttt{ipfs://QmX7H9K2pZ3.../metadata.json}
+\item Gateway access: \texttt{https://ipfs.io/ipfs/QmX7H9K2pZ3.../}
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Tradeoffs:}
+\begin{itemize}
+\item Pro: Cheap, decentralized, immutable
+\item Con: Requires IPFS node to retrieve, not guaranteed available (unless pinned)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Basic ERC-721 Implementation}
+\begin{lstlisting}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _tokenIdCounter;
+    string private _baseTokenURI;
+
+    constructor(string memory baseURI) ERC721("My NFT Collection", "MNFT") {
+        _baseTokenURI = baseURI;
+    }
+
+    function mint(address to) public onlyOwner {
+        _tokenIdCounter++;
+        _safeMint(to, _tokenIdCounter);
+    }
+
+    function _baseURI() internal view override returns (string memory) {
+        return _baseTokenURI;
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Real-World Example: CryptoPunks}
+\textbf{One of the first NFT projects (2017):}
+
+\vspace{0.2cm}
+\textbf{Unique Characteristics:}
+\begin{itemize}
+\item Pre-dates ERC-721 standard (custom implementation)
+\item 10,000 unique 24x24 pixel art characters
+\item Images stored on-chain (composite image in contract)
+\item No royalties (pre-dates EIP-2981)
+\item Wrapped version (Wrapped Punks) for ERC-721 compatibility
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Key Functions:}
+\begin{itemize}
+\item \texttt{getPunk(uint punkIndex)}: Claim free punk (original launch)
+\item \texttt{transferPunk(address to, uint punkIndex)}: Transfer ownership
+\item \texttt{offerPunkForSale(uint punkIndex, uint minPrice)}: List for sale
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Address:} 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
+\end{frame}
+
+\begin{frame}{Real-World Example: Bored Ape Yacht Club (BAYC)}
+\textbf{Premier NFT collection (launched 2021):}
+
+\vspace{0.2cm}
+\textbf{Technical Details:}
+\begin{itemize}
+\item Standard ERC-721 implementation (OpenZeppelin)
+\item 10,000 unique apes with programmatically generated traits
+\item Metadata stored on IPFS (cost-efficient)
+\item Provenance hash: Single hash proving pre-reveal image order
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Smart Contract Features:}
+\begin{itemize}
+\item Fixed supply (10,000, all minted)
+\item Mint price: 0.08 ETH (2021)
+\item Commercial rights granted to NFT holders
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Address:} 0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D
+\end{frame}
+
+\begin{frame}{Real-World Example: Ethereum Name Service (ENS)}
+\textbf{Decentralized domain name system:}
+
+\vspace{0.2cm}
+\textbf{Technical Implementation:}
+\begin{itemize}
+\item ENS domains are ERC-721 NFTs (e.g., \texttt{vitalik.eth})
+\item Each domain has unique token ID (hash of domain name)
+\item Ownership = control of domain resolution
+\item Renewable (not permanent, annual fees)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Key Contracts:}
+\begin{itemize}
+\item \textbf{ENS Registry:} Core mapping of names to owners
+\item \textbf{BaseRegistrar:} ERC-721 wrapper for .eth domains
+\item \textbf{Resolver:} Maps domain to address/content hash/text records
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Unique Features:}
+\begin{itemize}
+\item Subdomains: Owner of \texttt{alice.eth} can create \texttt{pay.alice.eth}
+\item Reverse resolution: Address $\rightarrow$ primary ENS name
+\end{itemize}
+\end{frame}
+
+\begin{frame}{NFT Ecosystem Overview}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/05_nft_ecosystem/chart.pdf}
+\end{center}
+\bottomnote{Major NFT projects span PFP collections, gaming, utility, and generative art categories}
+\end{frame}
+
+\begin{frame}{ERC-1155: Multi-Token Standard}
+\textbf{Unified standard for fungible and non-fungible tokens:}
+
+\vspace{0.2cm}
+\textbf{Key Innovation:}
+\begin{itemize}
+\item Single contract can manage multiple token types
+\item Each token type has unique ID
+\item Token ID can be fungible (multiple units) or non-fungible (single unit)
+\item Batch operations: Transfer multiple token types in one transaction
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Use Cases:}
+\begin{itemize}
+\item Gaming: Swords (fungible), unique armor (non-fungible) in same contract
+\item Collectibles: Common cards (fungible), legendary cards (non-fungible)
+\item Event tickets: General admission (fungible), VIP seats (non-fungible)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Advantages over ERC-20 + ERC-721:}
+\begin{itemize}
+\item Reduced deployment costs (one contract vs many)
+\item Gas-efficient batch transfers
+\item Atomic swaps (trade multiple token types in single transaction)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{ERC-1155 Interface}
+\begin{lstlisting}
+interface IERC1155 {
+    // Returns balance of token type id for account
+    function balanceOf(address account, uint256 id) external view returns (uint256);
+
+    // Returns balances of multiple account/id pairs
+    function balanceOfBatch(address[] accounts, uint256[] ids)
+        external view returns (uint256[]);
+
+    // Transfer amount of token type id from 'from' to 'to'
+    function safeTransferFrom(address from, address to, uint256 id, uint256 amount,
+                              bytes data) external;
+
+    // Batch transfer multiple token types
+    function safeBatchTransferFrom(address from, address to, uint256[] ids,
+                                   uint256[] amounts, bytes data) external;
+
+    // Approve operator to manage all tokens for caller
+    function setApprovalForAll(address operator, bool approved) external;
+}
+\end{lstlisting}
+
+\textbf{Note:} No per-token approval (only operator approval)
+\end{frame}
+
+\begin{frame}{Batch Operations: Gas Efficiency}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/04_batch_gas_savings/chart.pdf}
+\end{center}
+\bottomnote{ERC-1155 batch transfers reduce gas costs by 50-87\% compared to separate ERC-721 transfers}
+\end{frame}
+
+\begin{frame}{Batch Operations: Cost Breakdown}
+\textbf{Example: Transfer 5 different items}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{ERC-721 (5 separate transactions):}
+\begin{itemize}
+\item Transaction 1: 71,000 gas
+\item Transaction 2: 71,000 gas
+\item Transaction 3: 71,000 gas
+\item Transaction 4: 71,000 gas
+\item Transaction 5: 71,000 gas
+\end{itemize}
+
+\textbf{Total: 355,000 gas}
+
+\textbf{At 30 Gwei:} 0.01065 ETH
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{ERC-1155 (1 batch transaction):}
+\begin{itemize}
+\item Transaction: 21,000 (base)
+\item + 5,000 per token (cold SLOAD)
+\item + 2,900 per token (storage update)
+\item = 60,500 gas total
+\end{itemize}
+
+\textbf{Total: 60,500 gas}
+
+\textbf{At 30 Gwei:} 0.001815 ETH
+
+\vspace{0.2cm}
+\textbf{Savings: 83\% gas reduction}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Royalties: EIP-2981}
+\textbf{Standard for NFT royalties on secondary sales:}
+
+\begin{lstlisting}
+interface IERC2981 {
+    // Returns royalty receiver and amount for given sale price
+    function royaltyInfo(uint256 tokenId, uint256 salePrice)
+        external view returns (address receiver, uint256 royaltyAmount);
+}
+
+contract MyNFTWithRoyalties is ERC721, ERC2981 {
+    constructor() ERC721("My NFT", "MNFT") {
+        _setDefaultRoyalty(msg.sender, 500);  // 5% royalty to deployer
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public view override(ERC721, ERC2981) returns (bool) {
+        return super.supportsInterface(interfaceId);
+    }
+}
+\end{lstlisting}
+
+\textbf{Note:} Marketplaces (OpenSea, Blur) voluntarily honor royalties
+
+\textbf{Challenge:} No on-chain enforcement, purely marketplace-enforced
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{enumerate}
+\item \textbf{Non-Fungible Tokens:} ERC-721 standard for unique, indivisible assets with individual ownership
+
+\item \textbf{Safe Transfers:} \texttt{safeTransferFrom()} prevents token loss by checking recipient compatibility
+
+\item \textbf{Metadata:} Token URIs point to JSON metadata, typically stored on IPFS for cost efficiency
+
+\item \textbf{IPFS:} Content-addressable decentralized storage, requires pinning for availability
+
+\item \textbf{ERC-1155:} Multi-token standard supporting both fungible and non-fungible tokens
+
+\item \textbf{Batch Operations:} ERC-1155 batch transfers reduce gas costs by up to 83\%
+
+\item \textbf{Real-World:} CryptoPunks (pre-ERC-721), BAYC (standard ERC-721), ENS (renewable NFT domains)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+\item Why is the \texttt{onERC721Received()} callback necessary for safe NFT transfers?
+
+\item What are the tradeoffs between storing NFT metadata on-chain vs IPFS vs centralized servers?
+
+\item How does ERC-1155 achieve gas savings compared to ERC-721 for batch operations?
+
+\item Should NFT royalties (EIP-2981) be enforceable on-chain, or remain voluntary for marketplaces?
+
+\item What are the implications of ENS domains being NFTs for domain squatting?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L19 - Token Lifecycle Management}
+\textbf{Coming up next:}
+\begin{itemize}
+\item Minting strategies: owner-controlled, public mint, allowlist
+\item Burning mechanisms and deflationary tokenomics
+\item Pausing contracts for emergency stops
+\item Access control patterns: Ownable, AccessControl, multi-sig
+\item Upgradeability patterns: Transparent proxy, UUPS
+\item Governance and decentralized control
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Preparation:}
+\begin{itemize}
+\item Review OpenZeppelin's Ownable and Pausable contracts
+\item Understand proxy patterns (delegatecall mechanism)
+\item Explore Gnosis Safe multi-sig wallet
+\end{itemize}
+\end{frame}
+
+\end{document}

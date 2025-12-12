@@ -1,0 +1,295 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L35: Uniswap Deep Dive}
+\subtitle{Module E: DeFi Ecosystem}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Trace Uniswap's evolution from V1 to V4
+\item Understand concentrated liquidity mechanics (V3)
+\item Analyze fee tier optimization
+\item Explore UNI token governance and the fee switch debate
+\item Case Study: Fee switch governance controversy
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Uniswap: Origins}
+\textbf{Created by:} Hayden Adams (inspired by Vitalik Buterin's post)
+
+\vspace{0.3cm}
+\textbf{Market Position (Dec 2024):}
+\begin{itemize}
+\item Largest DEX by volume (\$50B+ monthly)
+\item ~\$5B TVL across all chains
+\item Deployed on Ethereum, Polygon, Arbitrum, Optimism, Base
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Impact:} Pioneered AMM model, inspired hundreds of forks.
+\end{frame}
+
+\begin{frame}[t]{Uniswap Version Evolution}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/01_uniswap_evolution/chart.pdf}
+\end{center}
+\bottomnote{Each version added significant innovation while maintaining core AMM principles}
+\end{frame}
+
+\begin{frame}{Uniswap V1 and V2}
+\textbf{V1 (2018):}
+\begin{itemize}
+\item ETH/ERC-20 pairs only, $x \cdot y = k$ formula
+\item 0.3\% fee (100\% to LPs)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{V2 (2020) - Major Improvements:}
+\begin{itemize}
+\item \textbf{ERC-20/ERC-20 pairs:} Direct trading without ETH
+\item \textbf{TWAP oracles:} Manipulation-resistant price feeds
+\item \textbf{Flash swaps:} Borrow tokens, repay in same tx
+\item \textbf{Protocol fee switch:} 0.05\% potential fee (not activated)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Flash Swaps:} Enable arbitrage without upfront capital.
+\end{frame}
+
+\begin{frame}[t]{Uniswap V3: Concentrated Liquidity}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/02_concentrated_liquidity/chart.pdf}
+\end{center}
+\bottomnote{V3 concentrates liquidity in active trading ranges for higher efficiency}
+\end{frame}
+
+\begin{frame}{Concentrated Liquidity Explained}
+\textbf{Revolutionary Concept:} LPs choose specific price ranges for liquidity.
+
+\vspace{0.3cm}
+\textbf{How It Works:}
+\begin{itemize}
+\item Instead of infinite range, LP sets bounds (e.g., \$1,900-\$2,100)
+\item Liquidity only active within range
+\item Earns fees only when price in range
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+\item LP deposits 1 ETH + 2,000 USDC with range \$1,900-\$2,100
+\item ETH = \$2,000: Position active, earns fees
+\item ETH = \$2,200: Position fully in USDC, no fees
+\item ETH = \$1,800: Position fully in ETH, no fees
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Capital Efficiency by Range Width}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/05_capital_efficiency/chart.pdf}
+\end{center}
+\bottomnote{Trade-off: Higher efficiency requires active management as price moves}
+\end{frame}
+
+\begin{frame}{Concentrated Liquidity: Management}
+\textbf{Challenge:} Price may exit your range, requiring rebalancing.
+
+\vspace{0.3cm}
+\textbf{Strategies:}
+\begin{enumerate}
+\item \textbf{Passive (Wide Range):} Low returns, minimal management
+\item \textbf{Active (Narrow Range):} High returns if price stable, frequent rebalance
+\item \textbf{Automated (Vault Services):} Gamma, Arrakis auto-rebalance for 0.1-0.5\% fee
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{V3 LP Positions:} Non-fungible (NFTs) - each position has custom range.
+
+\textbf{Impact:} Less composable with other DeFi (wrapper protocols needed).
+\end{frame}
+
+\begin{frame}{Uniswap V3: Fee Tiers}
+\textbf{Innovation:} Multiple fee tiers for same pair.
+
+\vspace{0.3cm}
+\begin{tabular}{llp{4cm}}
+\toprule
+Fee Tier & Use Case & Examples \\
+\midrule
+0.01\% & Stablecoins & USDC/USDT, DAI/USDC \\
+0.05\% & Correlated assets & ETH/stETH \\
+0.30\% & Standard pairs & ETH/USDC \\
+1.00\% & Exotic/volatile & Low-liquidity tokens \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3cm}
+\textbf{Rationale:} Stablecoins need low fees to attract volume; volatile pairs need higher fees to compensate IL.
+\end{frame}
+
+\begin{frame}{Uniswap V4 (2024): Hooks}
+\textbf{Key Innovation:} Customizable pool behavior via hooks.
+
+\vspace{0.3cm}
+\textbf{What are Hooks?}
+\begin{itemize}
+\item Smart contracts executing at specific points in trade lifecycle
+\item Before/after swap, before/after adding liquidity
+\item Add custom logic without forking Uniswap
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example Use Cases:}
+\begin{itemize}
+\item Dynamic fees based on volatility
+\item On-chain limit orders, TWAP execution
+\item Auto-rebalancing liquidity, MEV protection
+\end{itemize}
+
+\textbf{Singleton Contract:} All pools in one contract (gas savings).
+\end{frame}
+
+\begin{frame}[t]{UNI Token Distribution}
+\begin{center}
+\includegraphics[width=0.50\textwidth]{../charts/03_uni_distribution/chart.pdf}
+\end{center}
+\bottomnote{Community received 60\% (airdrop + treasury); team/investors 40\% with 4-year vesting}
+\end{frame}
+
+\begin{frame}{UNI Token: Governance}
+\textbf{Launch:} September 2020 (400 UNI airdropped to every user)
+
+\vspace{0.3cm}
+\textbf{Governance Rights:}
+\begin{itemize}
+\item Vote on protocol upgrades
+\item Treasury allocation (\$5B+ in assets)
+\item Fee switch activation (controversial)
+\item Cross-chain deployment approvals
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Voting:} 1 UNI = 1 vote (can delegate)
+
+\textbf{Thresholds:} 2.5M UNI to propose, 40M quorum
+
+\vspace{0.3cm}
+\textbf{Current Utility:} Governance only - no direct fee revenue (yet).
+\end{frame}
+
+\begin{frame}{The Fee Switch Debate}
+\textbf{Current State:} 0.3\% fee goes 100\% to LPs
+
+\textbf{Potential:} Protocol can redirect 0.05\% to UNI holders
+
+\vspace{0.3cm}
+\textbf{Arguments For:}
+\begin{itemize}
+\item Value accrual for UNI token
+\item Sustainable protocol development revenue
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Arguments Against:}
+\begin{itemize}
+\item Reduces LP returns (may lose liquidity)
+\item Regulatory risk (UNI could be deemed security)
+\item Current model working well
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Status (Dec 2024):} Fee switch remains off; delayed indefinitely.
+\end{frame}
+
+\begin{frame}[t]{DEX Market Comparison}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/04_dex_comparison/chart.pdf}
+\end{center}
+\bottomnote{Uniswap maintains market leadership through innovation and brand recognition}
+\end{frame}
+
+\begin{frame}{Uniswap's Multi-Chain Strategy}
+\textbf{Deployments (Dec 2024):}
+\begin{itemize}
+\item Ethereum (L1), Polygon, Arbitrum, Optimism, Base, BNB Chain
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Benefits:}
+\begin{itemize}
+\item Lower gas fees on L2s (10-100x cheaper)
+\item Access different user bases
+\item Maintain dominance across ecosystems
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Challenge:} Liquidity fragmentation across chains.
+
+\vspace{0.3cm}
+\textbf{Uniswap's Moat:} Brand recognition, deepest liquidity, innovation leadership.
+\end{frame}
+
+\begin{frame}{Regulatory Challenges}
+\textbf{SEC Wells Notice (April 2024):}
+\begin{itemize}
+\item Allegations: Operating unregistered securities exchange
+\item Response: Protocol is decentralized; Labs just builds software
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Legal Arguments:}
+\begin{itemize}
+\item Protocol vs. Interface distinction
+\item Smart contracts are speech (First Amendment)
+\item Users choose tokens, not Uniswap
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Potential Outcomes:}
+\begin{itemize}
+\item Settlement, lawsuit, or favorable ruling
+\item Precedent-setting for all DeFi
+\end{itemize}
+
+\textbf{Status:} Ongoing litigation (Dec 2024).
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Uniswap evolved from V1 (simple AMM) to V4 (customizable hooks)
+\item V3 concentrated liquidity: 10-200x capital efficiency
+\item Fee tiers: 0.01\% (stables) to 1\% (exotic)
+\item UNI governs protocol but lacks direct cash flow
+\item Fee switch debate: value vs. LP retention vs. regulation
+\item Multi-chain expansion maintains market dominance
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} Lab - Testnet Swap (hands-on Uniswap experience).
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item How does concentrated liquidity improve capital efficiency?
+\item Why might activating the fee switch harm Uniswap's position?
+\item What are the trade-offs of NFT-based LP positions in V3?
+\item How do hooks in V4 enable new DeFi primitives?
+\item Should Uniswap prioritize decentralization or regulatory compliance?
+\end{enumerate}
+\end{frame}
+
+\end{document}

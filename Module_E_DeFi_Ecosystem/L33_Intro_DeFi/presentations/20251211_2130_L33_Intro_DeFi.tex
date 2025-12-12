@@ -1,0 +1,364 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L33: Introduction to DeFi}
+\subtitle{Module E: DeFi Ecosystem}
+\author{Blockchain \& Cryptocurrency}
+\date{December 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Define Decentralized Finance (DeFi) and its core principles
+\item Understand Total Value Locked (TVL) as a key metric
+\item Explore the DeFi technology stack
+\item Analyze composability and its implications
+\item Compare DeFi to Traditional Finance (TradFi)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is DeFi?}
+\textbf{Definition:} Decentralized Finance (DeFi) refers to financial services built on blockchain networks, operating without traditional intermediaries.
+
+\vspace{0.3cm}
+\textbf{Core Principles:}
+\begin{itemize}
+\item \textbf{Permissionless:} Anyone can access without approval
+\item \textbf{Transparent:} All transactions visible on blockchain
+\item \textbf{Non-custodial:} Users control their own assets
+\item \textbf{Composable:} Protocols integrate seamlessly (money legos)
+\item \textbf{Programmable:} Smart contracts automate execution
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Vision:} Recreate traditional financial system with greater accessibility, transparency, and efficiency.
+\end{frame}
+
+\begin{frame}[t]{DeFi vs. Traditional Finance}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/01_defi_vs_tradfi/chart.pdf}
+\end{center}
+\bottomnote{DeFi excels in accessibility and transparency; TradFi offers stability and user protection}
+\end{frame}
+
+\begin{frame}{DeFi vs. TradFi: Key Differences}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Traditional Finance (TradFi)}
+\begin{itemize}
+\item Centralized intermediaries (banks)
+\item KYC/AML requirements
+\item Business hours, slow settlements
+\item Geographic restrictions
+\item High barriers to entry
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Decentralized Finance (DeFi)}
+\begin{itemize}
+\item Smart contracts (no intermediaries)
+\item Pseudonymous (wallet addresses)
+\item 24/7 operation, instant settlement
+\item Global access
+\item Low barriers (internet + wallet)
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Trade-off:} DeFi offers accessibility and transparency but carries smart contract risks and regulatory uncertainty.
+\end{frame}
+
+\begin{frame}[t]{The Rise of DeFi: TVL History}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/02_tvl_history/chart.pdf}
+\end{center}
+\bottomnote{DeFi Summer 2020 marked explosive growth; 2022 bear market saw major correction}
+\end{frame}
+
+\begin{frame}{Total Value Locked (TVL)}
+\textbf{Definition:} The total amount of assets deposited in DeFi protocols, measured in USD.
+
+\vspace{0.3cm}
+\textbf{What TVL Measures:}
+\begin{itemize}
+\item Capital deployed across lending, DEXs, staking, derivatives
+\item Proxy for DeFi adoption and trust
+\item Indicator of liquidity depth
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Current State (Late 2024):}
+\begin{itemize}
+\item Total DeFi TVL: ~\$85 billion (recovered from 2022 lows)
+\item Ethereum: ~55\% of TVL
+\item Layer 2s (Arbitrum, Base): ~12\% combined
+\end{itemize}
+\end{frame}
+
+\begin{frame}{TVL Calculation Example}
+\textbf{Hypothetical Lending Protocol:}
+
+\vspace{0.3cm}
+\textbf{Deposits:}
+\begin{itemize}
+\item 1,000 ETH at \$2,000/ETH = \$2,000,000
+\item 500,000 USDC at \$1/USDC = \$500,000
+\item 10 BTC at \$40,000/BTC = \$400,000
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Total TVL:}
+\[
+\text{TVL} = \$2{,}000{,}000 + \$500{,}000 + \$400{,}000 = \$2{,}900{,}000
+\]
+
+\vspace{0.3cm}
+\textbf{Note:} TVL fluctuates with crypto prices; double-counting can inflate numbers.
+\end{frame}
+
+\begin{frame}[t]{The DeFi Technology Stack}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/03_defi_stack/chart.pdf}
+\end{center}
+\bottomnote{Composability allows protocols to build on each other like ``money legos''}
+\end{frame}
+
+\begin{frame}{Core DeFi Primitives}
+\textbf{1. Decentralized Exchanges (DEXs)}
+\begin{itemize}
+\item Token swapping without intermediaries (Uniswap, Curve)
+\end{itemize}
+
+\textbf{2. Lending \& Borrowing}
+\begin{itemize}
+\item Earn interest on deposits, borrow against collateral (Aave, Compound)
+\end{itemize}
+
+\textbf{3. Stablecoins}
+\begin{itemize}
+\item Price-stable cryptocurrencies (USDC, DAI)
+\end{itemize}
+
+\textbf{4. Derivatives}
+\begin{itemize}
+\item Futures, options, synthetic assets (dYdX, GMX)
+\end{itemize}
+
+\textbf{5. Yield Aggregators}
+\begin{itemize}
+\item Automated yield optimization (Yearn Finance)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Top DeFi Protocols by TVL}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/04_protocol_tvl/chart.pdf}
+\end{center}
+\bottomnote{Liquid staking (Lido) and restaking (EigenLayer) dominate; lending and DEXs follow}
+\end{frame}
+
+\begin{frame}{Composability: Money Legos}
+\textbf{Definition:} DeFi protocols can interact seamlessly, allowing complex strategies by combining simple primitives.
+
+\vspace{0.3cm}
+\textbf{Example Workflow:}
+\begin{enumerate}
+\item Deposit ETH in Aave, receive aETH (interest-bearing token)
+\item Use aETH as collateral to borrow DAI
+\item Swap DAI for USDC on Uniswap
+\item Deposit USDC in Curve for yield farming
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Benefits:} Capital efficiency, innovation from combinations
+
+\textbf{Risks:} Complexity increases attack surface, protocol failure can cascade
+\end{frame}
+
+\begin{frame}[t]{DeFi TVL by Blockchain}
+\vspace{-0.2cm}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{../charts/05_chain_tvl_share/chart.pdf}
+\end{center}
+\bottomnote{Ethereum dominates; L2s growing rapidly}
+\end{frame}
+
+\begin{frame}{Smart Contract Risk}
+\textbf{Definition:} Bugs, exploits, or design flaws in smart contract code.
+
+\vspace{0.3cm}
+\textbf{Common Vulnerabilities:}
+\begin{itemize}
+\item Reentrancy attacks (famous: DAO hack 2016)
+\item Oracle manipulation
+\item Front-running and MEV exploitation
+\item Access control failures
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Mitigation:}
+\begin{itemize}
+\item Professional audits (Trail of Bits, OpenZeppelin)
+\item Bug bounties, formal verification
+\item Time-locks and multi-sig governance
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Oracle Problem}
+\textbf{Challenge:} Smart contracts can't natively access off-chain data (e.g., ETH price).
+
+\vspace{0.3cm}
+\textbf{Solution: Oracles}
+\begin{itemize}
+\item Third-party services that feed external data on-chain
+\item Example: Chainlink (decentralized oracle network)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Oracle Types:}
+\begin{itemize}
+\item \textbf{Centralized:} Single trusted source (fast but risky)
+\item \textbf{Decentralized:} Multiple providers aggregated (Chainlink)
+\item \textbf{On-chain:} Data derived from blockchain state (Uniswap TWAP)
+\end{itemize}
+
+\textbf{Risk:} Oracle manipulation can drain DeFi protocols (flash loan attacks).
+\end{frame}
+
+\begin{frame}{Permissionless and Non-Custodial}
+\textbf{Permissionless Access:}
+\begin{itemize}
+\item No identity verification, no geographic restrictions
+\item Only need: internet connection + crypto wallet
+\item Benefits: Financial inclusion, censorship resistance
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Non-Custodial Finance:}
+\begin{itemize}
+\item You hold private keys, smart contract holds funds during interaction
+\item No third party can freeze or seize
+\item \textbf{Positive:} True ownership, no counterparty risk
+\item \textbf{Negative:} No recovery if you lose keys
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Mantra:} Not your keys, not your coins.
+\end{frame}
+
+\begin{frame}[t]{2022 CeFi Collapses: The Case for DeFi}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{../charts/06_cefi_collapses/chart.pdf}
+\end{center}
+\bottomnote{CeFi custodial risk exposed; DeFi protocols like Aave and Uniswap operated normally}
+\end{frame}
+
+\begin{frame}{DeFi vs. CeFi Comparison}
+\textbf{Centralized Crypto Platforms:} Coinbase, Binance, BlockFi, Celsius
+
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{CeFi Advantages}
+\begin{itemize}
+\item User-friendly interfaces
+\item Customer support
+\item Fiat on/off ramps
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{CeFi Risks}
+\begin{itemize}
+\item Custodial (platform holds assets)
+\item Counterparty risk (FTX collapse)
+\item Can freeze accounts
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{2022 Lesson:} Multiple CeFi platforms collapsed (Celsius, FTX), highlighting custodial risk. DeFi protocols survived.
+\end{frame}
+
+\begin{frame}{2024 Innovation: Restaking (EigenLayer)}
+\textbf{What is Restaking?}
+\begin{itemize}
+\item Reusing staked ETH to secure additional networks/services
+\item Introduced by EigenLayer (major growth 2024)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{How It Works:}
+\begin{enumerate}
+\item Stake ETH with Ethereum validators (earn ~3-4\% APY)
+\item Opt-in to restaking via EigenLayer
+\item Earn extra yield from securing additional services (AVS)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Impact:}
+\begin{itemize}
+\item \$15B+ TVL in EigenLayer by late 2024
+\item Liquid Restaking Tokens (LRTs): eETH, rsETH, ezETH
+\item Criticism: Added systemic risk, complexity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Future of DeFi}
+\textbf{Emerging Trends:}
+\begin{itemize}
+\item \textbf{Real-World Assets (RWA):} Tokenizing bonds, real estate
+\item \textbf{Undercollateralized Lending:} Credit scoring on-chain
+\item \textbf{Cross-Chain DeFi:} Seamless interaction across blockchains
+\item \textbf{Institutional Adoption:} Banks exploring DeFi rails
+\item \textbf{Regulation:} Clearer frameworks emerging (MiCA in EU)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Long-Term Vision:}
+\begin{itemize}
+\item DeFi as backend infrastructure for TradFi
+\item 24/7 settlement for global finance
+\item Financial inclusion for billions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item DeFi recreates financial services on blockchain: permissionless, transparent, non-custodial
+\item TVL measures capital deployed (~\$85B in late 2024)
+\item Composability enables innovation but increases complexity
+\item Smart contract risk and oracle manipulation are key concerns
+\item Restaking (EigenLayer) emerged as major 2024 innovation
+\item Ethereum dominates but L2s capturing increasing share
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Next Lecture:} AMM Mechanics - How automated market makers work.
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item How does TVL differ from traditional finance metrics like AUM?
+\item Why is composability both a strength and a risk in DeFi?
+\item What are the trade-offs between DeFi and CeFi for retail users?
+\item How do oracles solve the external data problem, and what risks remain?
+\item What regulatory challenges does DeFi face in the next 5 years?
+\end{enumerate}
+\end{frame}
+
+\end{document}

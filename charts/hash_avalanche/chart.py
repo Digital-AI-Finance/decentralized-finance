@@ -17,12 +17,12 @@ CHART_METADATA = {
 
 # Set font sizes (MANDATORY)
 plt.rcParams.update({
-    'font.size': 10,
-    'axes.labelsize': 10,
-    'axes.titlesize': 11,
-    'xtick.labelsize': 9,
-    'ytick.labelsize': 9,
-    'legend.fontsize': 9
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12
 })
 
 def hamming_distance(hash1, hash2):
@@ -82,13 +82,13 @@ for i, (bar, dist) in enumerate(zip(bars, distances)):
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2., height + 3,
             f'{dist}',
-            ha='center', va='bottom', fontsize=9)
+            ha='center', va='bottom', fontsize=14)
 
 ax.legend(loc='upper right')
 ax.grid(axis='y', alpha=0.3, linestyle=':', linewidth=0.5)
 
 # Add note about synthetic data
-fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=8, style='italic', alpha=0.6)
+fig.text(0.99, 0.01, '[SYNTHETIC]', ha='right', va='bottom', fontsize=14, style='italic', alpha=0.6)
 
 plt.tight_layout()
 

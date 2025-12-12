@@ -1,0 +1,205 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Wallet Setup and First Transaction}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Install and configure MetaMask wallet extension
+    \item Understand seed phrase importance and backup procedures
+    \item Connect to Ethereum testnets (Sepolia)
+    \item Obtain testnet ETH from faucets
+    \item Send and receive testnet transactions
+    \item Apply security best practices for wallet protection
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Wallet Types: Security vs Convenience}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/01_wallet_types/chart.pdf}
+\end{center}
+\bottomnote{Hardware wallets offer best security; MetaMask provides good balance for learning}
+\end{frame}
+
+\begin{frame}{What is MetaMask?}
+\textbf{Overview:}
+\begin{itemize}
+    \item Browser extension and mobile app cryptocurrency wallet
+    \item Supports Ethereum and EVM-compatible blockchains
+    \item Non-custodial: you control private keys
+    \item Most popular Ethereum wallet (~30 million users)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Features:}
+\begin{itemize}
+    \item Send and receive ETH and ERC-20 tokens
+    \item Interact with decentralized applications (dApps)
+    \item Multiple account management
+    \item Network switching (Mainnet, testnets, custom networks)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Security Levels for Key Storage}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/02_security_levels/chart.pdf}
+\end{center}
+\bottomnote{For this lab, Tier 2 (hot wallet + 2FA) is the minimum acceptable level}
+\end{frame}
+
+\begin{frame}[t]{Wallet Setup Workflow}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/03_setup_workflow/chart.pdf}
+\end{center}
+\bottomnote{Seed phrase backup (steps 3-4) is the most critical part of wallet setup}
+\end{frame}
+
+\begin{frame}{Exercise 1: Installing MetaMask}
+\textbf{Installation Steps:}
+\begin{enumerate}
+    \item Visit official website: \url{https://metamask.io}
+    \item Click ``Download'' and select your browser
+    \item Install extension from official browser store
+    \item Pin extension to browser toolbar
+    \item Click MetaMask icon to launch setup wizard
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Security Warning:}
+\begin{itemize}
+    \item Only install from official sources
+    \item Beware of phishing sites (check URL carefully)
+    \item Fake extensions exist in browser stores
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: Creating Your Wallet}
+\textbf{Setup Wizard Steps:}
+\begin{enumerate}
+    \item Click ``Create a new wallet''
+    \item Set a strong password (8+ characters)
+    \item Reveal and record your 12-word seed phrase
+    \item Confirm seed phrase by selecting words in correct order
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Critical: Seed Phrase vs. Password}
+\begin{itemize}
+    \item Seed phrase = master backup (recovers wallet on any device)
+    \item Password = local device protection (cannot recover wallet)
+    \item \textbf{Lose seed phrase -> lose wallet permanently}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 3: Adding Sepolia Testnet}
+\textbf{Why Use Testnets?}
+\begin{itemize}
+    \item Practice without risking real money
+    \item Free testnet ETH available from faucets
+    \item Identical functionality to mainnet
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Adding Sepolia Network:}
+\begin{enumerate}
+    \item Click network selector (top-right dropdown)
+    \item Settings -> Advanced -> Show test networks (enable)
+    \item Select ``Sepolia test network''
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Sepolia Faucets:}
+\begin{itemize}
+    \item Alchemy: \url{https://sepoliafaucet.com}
+    \item Infura: \url{https://www.infura.io/faucet/sepolia}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 4: Sending Your First Transaction}
+\textbf{Transaction Steps:}
+\begin{enumerate}
+    \item Ensure you have Sepolia ETH (from faucet)
+    \item Click ``Send'' button in MetaMask
+    \item Enter recipient address (create second account or use classmate's)
+    \item Enter amount (e.g., 0.1 Sepolia ETH)
+    \item Review transaction details (gas fee, total)
+    \item Click ``Confirm''
+    \item View in Activity tab
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Understanding Gas Fees:}
+\begin{itemize}
+    \item Fee = gas units $\times$ gas price (in gwei)
+    \item Sepolia: fees are negligible (testnet)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Security Best Practices}
+\textbf{Critical Security Rules:}
+\begin{enumerate}
+    \item \textbf{Seed Phrase:} Never share, never store digitally
+    \item \textbf{Phishing Protection:} Verify URLs, bookmark trusted sites
+    \item \textbf{Network Verification:} Confirm correct network before transacting
+    \item \textbf{Transaction Approval:} Review recipient and amounts carefully
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Common Threats:}
+\begin{itemize}
+    \item Phishing websites requesting seed phrase
+    \item Malicious dApps with unlimited token approvals
+    \item Clipboard malware replacing copied addresses
+    \item Fake support scams via DM
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit the following:}
+\begin{enumerate}
+    \item \textbf{Screenshot Collection:}
+    \begin{itemize}
+        \item MetaMask wallet showing Sepolia network
+        \item Transaction details from Activity tab
+        \item Etherscan transaction page (confirmed)
+    \end{itemize}
+    \item \textbf{Lab Report (1-2 pages):}
+    \begin{itemize}
+        \item Your Sepolia address
+        \item Transaction hash of sent transaction
+        \item Reflection on seed phrase security
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Submission Deadline:} One week from lab session
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item MetaMask is a non-custodial wallet (you control private keys)
+    \item Seed phrase is the master backup for all accounts
+    \item Testnets provide safe environment for learning
+    \item Gas fees vary by network congestion
+    \item Blockchain transactions are irreversible
+    \item Security requires vigilance against phishing and scams
+\end{itemize}
+\end{frame}
+
+\end{document}

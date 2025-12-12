@@ -1,0 +1,138 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Token Analysis}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module B: Ethereum \& Smart Contracts}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Discover and research ERC-20 tokens on Etherscan
+    \item Analyze token contract source code
+    \item Evaluate holder distribution and concentration
+    \item Identify potential red flags in token design
+    \item Use DeFi analytics tools for research
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/01_token_analysis_workflow/chart.pdf}
+\end{center}
+\bottomnote{Focus on due diligence skills for token evaluation}
+\end{frame}
+
+\begin{frame}[t]{Key Token Metrics}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_token_metrics/chart.pdf}
+\end{center}
+\bottomnote{Contract verification is essential - never interact with unverified contracts}
+\end{frame}
+
+\begin{frame}{Exercise 1: Token Discovery}
+\textbf{Tools:}
+\begin{itemize}
+    \item Etherscan Token Tracker: \url{https://etherscan.io/tokens}
+    \item CoinGecko: \url{https://coingecko.com}
+    \item DeFiLlama: \url{https://defillama.com}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tasks:}
+\begin{enumerate}
+    \item Browse top ERC-20 tokens by market cap
+    \item Select a token for analysis (e.g., LINK, UNI, AAVE)
+    \item Note: contract address, total supply, decimals
+    \item Check if contract is verified
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 2: Contract Analysis}
+\textbf{Key Elements to Check:}
+\begin{itemize}
+    \item \textbf{Standard Compliance}: Does it implement ERC-20 correctly?
+    \item \textbf{Owner Functions}: Can owner mint, pause, blacklist?
+    \item \textbf{Transfer Restrictions}: Any hidden fees or taxes?
+    \item \textbf{Proxy Pattern}: Is it upgradeable?
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Red Flags:}
+\begin{itemize}
+    \item Unverified source code
+    \item Owner can mint unlimited tokens
+    \item Hidden transfer fees
+    \item Blacklist functionality without governance
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Holder Distribution Analysis}
+\begin{center}
+\includegraphics[width=0.50\textwidth]{charts/03_holder_distribution/chart.pdf}
+\end{center}
+\bottomnote{High concentration in top holders indicates centralization risk}
+\end{frame}
+
+\begin{frame}{Exercise 3: Holder Distribution}
+\textbf{Etherscan Holder Analysis:}
+\begin{enumerate}
+    \item Go to token page -> Holders tab
+    \item Note top 10 holders and their percentages
+    \item Identify: exchanges, team wallets, contracts
+    \item Calculate concentration ratio
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Healthy Distribution Indicators:}
+\begin{itemize}
+    \item No single holder > 10\% (except exchanges)
+    \item Team tokens locked or vesting
+    \item Wide distribution (1000+ unique holders)
+    \item Active trading volume
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit:}
+\begin{enumerate}
+    \item \textbf{Token Analysis Report (2-3 pages):}
+    \begin{itemize}
+        \item Token name, contract address, basic metrics
+        \item Contract analysis findings
+        \item Holder distribution summary
+        \item Risk assessment (Low/Medium/High)
+    \end{itemize}
+    \item \textbf{Screenshots:}
+    \begin{itemize}
+        \item Token overview page
+        \item Contract code snippet
+        \item Holder distribution
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Always verify contract source code before interacting
+    \item Check holder distribution for concentration risk
+    \item Look for red flags: hidden fees, owner privileges
+    \item Use multiple tools for comprehensive analysis
+    \item High market cap does not guarantee safety
+\end{itemize}
+\end{frame}
+
+\end{document}

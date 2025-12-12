@@ -1,0 +1,314 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\title{Proof of Work Consensus}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lesson, you will be able to:
+\begin{itemize}
+    \item Explain the proof-of-work consensus mechanism
+    \item Describe the mining process and nonce searching
+    \item Understand difficulty adjustment and its purpose
+    \item Calculate mining profitability and hash rate economics
+    \item Recognize the security guarantees and vulnerabilities of PoW
+    \item Evaluate the 51\% attack threat model
+    \item Discuss energy consumption and environmental impact
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Proof of Work?}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/01_pow_concept/chart.pdf}
+\end{center}
+
+\textbf{Core Concept:} Find a nonce such that the hash of block header is below the target. No shortcut: must try nonces randomly until one works.
+\end{frame}
+
+\begin{frame}{Proof-of-Work Properties}
+\textbf{Key Properties:}
+\begin{enumerate}
+    \item \textbf{Asymmetry:} Hard to find, easy to verify
+    \item \textbf{Probabilistic:} Expected time to find solution, no guarantee
+    \item \textbf{Adjustable difficulty:} Target changes to maintain block time
+    \item \textbf{Progress-free:} Past attempts do not help future attempts
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Mathematical Formulation:}
+\[
+\text{SHA-256}(\text{SHA-256}(\text{BlockHeader})) < \text{Target}
+\]
+
+\vspace{0.3cm}
+\textbf{Analogy:} Rolling dice until you get 10 sixes in a row. Each roll is independent. Expected number of attempts: $6^{10}$. Verification: just look at the result.
+\end{frame}
+
+\begin{frame}{Bitcoin Block Header Structure}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{charts/02_block_header/chart.pdf}
+\end{center}
+
+\textbf{Mining Process:} Construct block $\rightarrow$ Set timestamp/difficulty $\rightarrow$ Try nonces $\rightarrow$ If hash $<$ target: success, else repeat.
+\end{frame}
+
+\begin{frame}{Nonce Space and Extra Nonce}
+\textbf{Nonce Space Exhaustion:}
+\begin{itemize}
+    \item 4 bytes = $2^{32}$ = 4.3 billion possible nonces
+    \item Modern ASICs exceed this in milliseconds
+    \item Solution: modify coinbase transaction (extra nonce), recompute Merkle root
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Merkle Trees:}
+\begin{itemize}
+    \item Commit to all transactions with single 32-byte hash
+    \item Tree height: $\log_2(n)$ for $n$ transactions
+    \item Proof size: $\log_2(n)$ hashes to prove inclusion
+    \item Example: 1000 transactions $\rightarrow$ 10 hashes ($\sim$320 bytes proof)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Extra Nonce Trick:}
+\begin{itemize}
+    \item Miners modify coinbase transaction (includes extra nonce field)
+    \item Recompute Merkle root (different root for each extra nonce)
+    \item Expands search space beyond $2^{32}$ nonces
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Difficulty Adjustment}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_difficulty_adjustment/chart.pdf}
+\end{center}
+
+\textbf{Adjustment Rule (Every 2016 Blocks):}
+\[
+\text{New Target} = \text{Old Target} \times \frac{\text{Actual Time}}{\text{Expected Time (20,160 min)}}
+\]
+Clamped to $[T/4, T \times 4]$ to prevent extreme changes.
+\end{frame}
+
+\begin{frame}{Hash Rate and Mining Probability}
+\textbf{Hash Rate:}
+\begin{itemize}
+    \item Number of hashes computed per second
+    \item Units: H/s, KH/s, MH/s, GH/s, TH/s, PH/s, EH/s
+    \item Bitcoin network (late 2024): $\sim$700 EH/s (all-time high)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Mining Probability:}
+\[
+P(\text{find block}) = \frac{\text{Your Hash Rate}}{\text{Network Hash Rate}}
+\]
+
+\vspace{0.3cm}
+\textbf{Example:}
+\begin{itemize}
+    \item Miner: 100 TH/s, Network: 500 EH/s
+    \item Probability: $0.0000002 = 0.00002\%$
+    \item Expected time to find block: $\sim$100 years solo mining
+    \item Solution: Join mining pools for steady income
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Mining Hardware Evolution}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/04_mining_hardware/chart.pdf}
+\end{center}
+
+\textbf{Implications:} Mining centralization, high barrier to entry, geographic concentration in low-electricity regions.
+\end{frame}
+
+\begin{frame}{Mining Profitability}
+\textbf{Revenue:}
+\[
+\text{Daily Revenue} = \frac{\text{Hash Rate}}{\text{Network Hash Rate}} \times 144 \times (\text{Reward} + \text{Fees})
+\]
+
+\vspace{0.3cm}
+\textbf{Example (Antminer S19 Pro):}
+\begin{itemize}
+    \item Hash rate: 110 TH/s, Power: 3250 W = 78 kWh/day
+    \item Electricity: \$0.05/kWh $\times$ 78 = \$3.90/day
+    \item Revenue (@\$40k BTC): $\sim$\$7.92/day
+    \item Profit: \$4.02/day, Payback: $\sim$2 years
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Risk Factors:} BTC price volatility, difficulty increases, hardware obsolescence, electricity cost changes.
+\end{frame}
+
+\begin{frame}{Mining Pools}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{charts/05_mining_pools/chart.pdf}
+\end{center}
+
+\textbf{Payout Schemes:} PPS (fixed/share), PPLNS (share recent blocks), FPPS (PPS + fees).
+\end{frame}
+
+\begin{frame}{Mining Pool Operation}
+\textbf{Why Pools Exist:}
+\begin{itemize}
+    \item Solo mining: high variance (might wait years for block)
+    \item Pooled mining: steady income (proportional to hash rate)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Pool Operation:}
+\begin{enumerate}
+    \item Pool coordinator distributes mining tasks (shares)
+    \item Miners submit partial solutions (lower difficulty)
+    \item Pool tracks contribution of each miner
+    \item When pool finds block, reward distributed proportionally
+    \item Pool takes fee (1-3\%)
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Centralization Concern:}
+\begin{itemize}
+    \item Pools do not own hardware (miners can switch pools)
+    \item Mitigation: decentralized pool protocols (P2Pool, Stratum V2)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Block Rewards and Halving}
+\textbf{Block Reward Components:}
+\[
+\text{Total Reward} = \text{Block Subsidy} + \text{Transaction Fees}
+\]
+
+\vspace{0.2cm}
+\begin{tabular}{llr}
+\toprule
+\textbf{Period} & \textbf{Reward} & \textbf{Cumulative Supply} \\
+\midrule
+2009-2012 & 50 BTC   & 10.5M BTC \\
+2012-2016 & 25 BTC   & 15.75M BTC \\
+2016-2020 & 12.5 BTC & 18.375M BTC \\
+2020-2024 & 6.25 BTC & 19.6875M BTC \\
+2024-2028 (current) & 3.125 BTC & 20.34M BTC \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3cm}
+\textbf{Future:} Transaction fees must eventually sustain mining as block subsidy approaches zero ($\sim$2140).
+\end{frame}
+
+\begin{frame}{The 51\% Attack}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/06_attack_51percent/chart.pdf}
+\end{center}
+
+\textbf{CAN do:} Double-spend, censor transactions.\\
+\textbf{CANNOT do:} Steal coins without keys, create coins out of thin air.
+\end{frame}
+
+\begin{frame}{51\% Attack Economics}
+\textbf{Cost of Attack (Bitcoin):}
+\begin{itemize}
+    \item Need 255 EH/s ($>$50\% of network)
+    \item Hardware: $\sim$2.3 million ASICs = \$6.9 billion
+    \item Electricity (1 week): $\sim$\$63 million
+    \item Total: $\sim$\$7 billion
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Consequences:}
+\begin{itemize}
+    \item Attack becomes public immediately
+    \item Bitcoin price crashes (attacker's hardware worthless)
+    \item Community may hard fork (bricks attacker's ASICs)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Vulnerable Chains:} Small PoW chains, shared mining algorithms. Historical: Bitcoin Gold, Ethereum Classic, Verge.
+\end{frame}
+
+\begin{frame}{Energy Consumption}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/07_energy_comparison/chart.pdf}
+\end{center}
+
+\textbf{Counterarguments:} Incentivizes renewable development, facilitates grid balancing, security proportional to value.
+\end{frame}
+
+\begin{frame}{ASIC Resistance Alternatives}
+\textbf{ASIC-Resistant Algorithms:}
+\begin{itemize}
+    \item \textbf{Scrypt (Litecoin):} Memory-hard hashing (ASICs developed 2014)
+    \item \textbf{Ethash (Ethereum pre-merge):} Memory-hard with large DAG
+    \item \textbf{RandomX (Monero):} CPU-optimized, frequently updated
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Trade-offs:}
+\begin{itemize}
+    \item ASIC resistance $\rightarrow$ lower security per watt
+    \item Easier for botnets to attack (commodity hardware)
+    \item Algorithm changes create hard fork risks
+    \item Debate: specialization increases security investment
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Proof-of-work provides Sybil resistance via computational cost
+    \item Mining searches for nonces to produce valid block hashes
+    \item Difficulty adjusts every 2016 blocks to maintain 10-minute block time
+    \item Mining profitability depends on hash rate, electricity cost, and BTC price
+    \item 51\% attacks are economically infeasible for large PoW chains
+    \item Block rewards halve every 4 years, shifting incentives toward fees
+    \item Energy consumption is significant but incentivizes renewable energy
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Core Insight:} Proof-of-work converts energy into cryptographic security. The cost of attacking equals cumulative computational work by honest miners.
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}
+    \item Why is proof-of-work described as ``progress-free''?
+    \item How does difficulty adjustment make Bitcoin resilient to hash rate fluctuations?
+    \item What would happen if block rewards fell to zero but fees remained low?
+    \item Is ASIC mining centralization a threat to Bitcoin's decentralization?
+    \item How does mining pool concentration differ from miner concentration?
+    \item Can proof-of-work be justified from an environmental perspective?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Next Lesson Preview: L08 Lab - Wallet Setup}
+\textbf{Lab activities:}
+\begin{itemize}
+    \item Install and configure MetaMask wallet
+    \item Understand seed phrase security and backup
+    \item Connect to Ethereum testnet (Sepolia)
+    \item Obtain testnet ETH from faucets
+    \item Execute first testnet transaction
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Preparation:}
+\begin{itemize}
+    \item Install a modern web browser (Chrome, Firefox, Brave)
+    \item Review public-private key concepts from Lesson 5
+    \item Prepare a secure location for seed phrase backup
+\end{itemize}
+\end{frame}
+
+\end{document}

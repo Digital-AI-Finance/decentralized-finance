@@ -1,0 +1,322 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{L41: Layer 2 Scaling Solutions}
+\subtitle{Module F: Advanced Topics}
+\author{Blockchain \& Cryptocurrency Course}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+\begin{itemize}
+\item Understand the blockchain scalability trilemma
+\item Compare Layer 2 design patterns (channels, rollups, sidechains)
+\item Analyze Optimistic vs ZK-Rollups tradeoffs
+\item Explore the Ethereum L2 ecosystem
+\item Evaluate the impact of Dencun upgrade (EIP-4844)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Blockchain Scalability Trilemma}
+\begin{itemize}
+\item \textbf{Trilemma}: Can only optimize 2 of 3 properties:
+\begin{enumerate}
+\item \textbf{Decentralization}: Number of independent validators
+\item \textbf{Security}: Cost to attack the network
+\item \textbf{Scalability}: Transactions per second (TPS)
+\end{enumerate}
+\item Bitcoin: ~7 TPS, Ethereum: ~15 TPS
+\item Payment networks: Visa ~65,000 TPS
+\item \textbf{Layer 2 Solutions}: Move transactions off-chain while inheriting L1 security
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Trilemma Comparison by Solution}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/01_scalability_trilemma/chart.pdf}
+\end{center}
+\bottomnote{Rollups achieve better balance than L1 alone or sidechains}
+\end{frame}
+
+\begin{frame}{What is Layer 2?}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{Layer 1 (L1)}
+\begin{itemize}
+\item Base blockchain protocol
+\item Full consensus for every transaction
+\item High security, low throughput
+\item Examples: Bitcoin, Ethereum
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Layer 2 (L2)}
+\begin{itemize}
+\item Built on top of L1
+\item Process transactions off-chain
+\item Settle final state on L1
+\item Inherit L1 security guarantees
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.4cm}
+\textbf{Key Insight}: Trade immediate finality for higher throughput
+\end{frame}
+
+\begin{frame}[t]{Throughput Comparison}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/02_l2_throughput_comparison/chart.pdf}
+\end{center}
+\bottomnote{L2s can match or exceed traditional payment networks like Visa}
+\end{frame}
+
+\begin{frame}{Layer 2 Design Patterns}
+\begin{enumerate}
+\item \textbf{State Channels}: Direct peer-to-peer channels (Lightning Network)
+\item \textbf{Sidechains}: Independent blockchains with two-way peg
+\item \textbf{Rollups}: Batch transactions, compute off-chain, post data on-chain
+\begin{itemize}
+\item Optimistic Rollups: Assume validity, allow fraud proofs
+\item ZK-Rollups: Cryptographic validity proofs
+\end{itemize}
+\item \textbf{Plasma}: Hierarchical child chains with merkle commitments
+\item \textbf{Validium}: Off-chain data availability + validity proofs
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lightning Network: Bitcoin's Layer 2}
+\begin{itemize}
+\item \textbf{Problem}: Bitcoin's 7 TPS cannot support global payments
+\item \textbf{Solution}: Bidirectional payment channels
+\item \textbf{Mechanism}:
+\begin{enumerate}
+\item Open channel with on-chain funding transaction
+\item Transact off-chain by updating channel state
+\item Close channel by broadcasting final state to L1
+\end{enumerate}
+\item \textbf{Network Topology}: Channels form payment routing graph
+\item \textbf{Capacity}: Millions of TPS, sub-second finality
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Rollups: Ethereum's Scaling Strategy}
+\begin{itemize}
+\item \textbf{Core Idea}: Execute transactions off-chain, post compressed data on-chain
+\item \textbf{Data Availability}: Transaction data published to L1
+\item \textbf{Computation}: Performed off-chain by sequencer/operator
+\item \textbf{State Roots}: Merkle root posted to L1 smart contract
+\item \textbf{Throughput}: 100-1000x improvement over L1
+\item \textbf{Two Variants}: Differ in how validity is proven
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Optimistic Rollups}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{Mechanism}
+\begin{itemize}
+\item Assume transactions valid by default
+\item Anyone can submit fraud proof
+\item Challenge period: ~7 days
+\item If no challenge, state finalized
+\end{itemize}
+\vspace{0.2cm}
+\textbf{Advantages}
+\begin{itemize}
+\item EVM compatibility (easy migration)
+\item Lower gas costs than L1
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Fraud Proof System}
+\begin{itemize}
+\item Verifier claims state is invalid
+\item Interactive bisection game on L1
+\item Dishonest party loses stake
+\end{itemize}
+\vspace{0.2cm}
+\textbf{Disadvantages}
+\begin{itemize}
+\item Long withdrawal delay (7 days)
+\item Honest verifier assumption
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{ZK-Rollups (Zero-Knowledge Rollups)}
+\begin{itemize}
+\item \textbf{Mechanism}: Cryptographic validity proofs for every batch
+\item \textbf{SNARK/STARK Proofs}: Prove correct execution without revealing data
+\item \textbf{Verification}: L1 smart contract verifies proof (constant cost)
+\item \textbf{Finality}: Instant after proof verification (~10-30 min)
+\item \textbf{Advantages}:
+\begin{itemize}
+\item Fast withdrawals (no challenge period)
+\item Stronger security guarantees
+\end{itemize}
+\item \textbf{Disadvantages}:
+\begin{itemize}
+\item Complex cryptography, higher prover costs
+\item EVM compatibility challenges (improving)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Optimistic vs ZK-Rollups}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/03_rollup_types/chart.pdf}
+\end{center}
+\bottomnote{ZK-Rollups excel in security and finality; Optimistic wins on EVM compatibility}
+\end{frame}
+
+\begin{frame}{Sidechains}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{Definition}
+\begin{itemize}
+\item Independent blockchain with own consensus
+\item Two-way peg to main chain
+\item Assets locked on L1, minted on sidechain
+\end{itemize}
+\vspace{0.2cm}
+\textbf{Examples}
+\begin{itemize}
+\item Polygon PoS (Ethereum)
+\item Liquid Network (Bitcoin)
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Advantages}
+\begin{itemize}
+\item Custom consensus rules
+\item High throughput, low fees
+\end{itemize}
+\vspace{0.2cm}
+\textbf{Disadvantages}
+\begin{itemize}
+\item \textbf{Weaker security}: Does NOT inherit L1 security
+\item Trust in sidechain validators
+\item Bridge attack surface
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Bridges: Connecting Chains}
+\begin{itemize}
+\item \textbf{Purpose}: Transfer assets between L1 and L2, or across chains
+\item \textbf{Lock-and-Mint Pattern}:
+\begin{enumerate}
+\item Lock assets on source chain
+\item Mint wrapped tokens on destination chain
+\item Burn wrapped tokens to unlock original
+\end{enumerate}
+\item \textbf{Bridge Types}:
+\begin{itemize}
+\item \textbf{Trusted}: Centralized custodian (fast, low security)
+\item \textbf{Federated}: Multi-sig operators
+\item \textbf{ZK-Verified}: Cryptographic proofs (highest security)
+\end{itemize}
+\item \textbf{Risk}: Bridges are major attack targets (\$2B+ stolen in 2022-2023)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{L2 TVL Distribution}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/04_l2_tvl/chart.pdf}
+\end{center}
+\bottomnote{Arbitrum leads by TVL; optimistic rollups currently dominate}
+\end{frame}
+
+\begin{frame}{2024: The Year of Layer 2 Explosion}
+\textbf{Dencun Upgrade Impact (March 2024):}
+\begin{itemize}
+\item EIP-4844 blob transactions reduced L2 fees by 90\%+
+\item L2 transaction costs: \$0.50-2.00 $\to$ \$0.01-0.05
+\item User migration to L2s accelerated dramatically
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Trends:}
+\begin{itemize}
+\item Combined L2 TVL: ~\$40B (up from \$10B in early 2024)
+\item Daily transactions: L2s now exceed Ethereum L1
+\item ``App chains'': Custom L2/L3s for specific applications
+\item ZK maturity: zkSync, Scroll, Linea gaining traction
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Dencun Impact on L2 Fees}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/05_dencun_impact/chart.pdf}
+\end{center}
+\bottomnote{EIP-4844 blob transactions were the most significant scaling upgrade since the Merge}
+\end{frame}
+
+\begin{frame}{Security Comparison}
+\begin{table}
+\centering
+\small
+\begin{tabular}{llll}
+\toprule
+\textbf{Solution} & \textbf{Inherits L1 Security} & \textbf{Trust Model} & \textbf{Finality} \\
+\midrule
+Optimistic Rollup & Yes & 1-of-N honest & 7 days \\
+ZK-Rollup & Yes & Cryptographic & 10-30 min \\
+State Channel & Yes & Counterparty online & Instant \\
+Sidechain & No & Validator set & Chain-dependent \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.3cm}
+\textbf{Key Takeaway}: Rollups inherit L1 security; sidechains do not
+\end{frame}
+
+\begin{frame}{Future Directions}
+\begin{itemize}
+\item \textbf{Full Danksharding}: Massive data availability increase (100,000+ TPS)
+\item \textbf{zkEVM Maturity}: Fully EVM-equivalent ZK-rollups
+\item \textbf{Layer 3}: Application-specific rollups on top of L2
+\item \textbf{Interoperability}: Cross-rollup communication protocols
+\item \textbf{Sequencer Decentralization}: Remove single point of failure
+\item \textbf{Shared Sequencing}: Multiple rollups share infrastructure
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Layer 2 solutions scale blockchains while preserving decentralization
+\item \textbf{State Channels}: Peer-to-peer, instant finality (Lightning)
+\item \textbf{Optimistic Rollups}: Fraud proofs, 7-day withdrawal, EVM-compatible
+\item \textbf{ZK-Rollups}: Validity proofs, fast finality, high security
+\item \textbf{2024 Milestone}: Dencun/EIP-4844 made L2s 10x cheaper
+\item \textbf{Current Landscape}: Arbitrum, Optimism, Base lead; ZK maturing
+\item \textbf{Future}: Multi-layered ecosystem with app-specific L2s/L3s
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Questions for Reflection}
+\begin{enumerate}
+\item Why do optimistic rollups have a 7-day withdrawal delay?
+\item What makes ZK-rollups more secure than optimistic rollups?
+\item Why don't sidechains inherit Layer 1 security?
+\item How did EIP-4844 reduce L2 transaction costs so dramatically?
+\item What are the tradeoffs between using an L2 vs. a sidechain?
+\end{enumerate}
+\end{frame}
+
+\end{document}

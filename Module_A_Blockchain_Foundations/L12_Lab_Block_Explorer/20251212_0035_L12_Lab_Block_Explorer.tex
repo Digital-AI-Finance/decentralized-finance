@@ -1,0 +1,205 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Block Explorer Analysis}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module A: Blockchain Foundations}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Navigate Etherscan and Blockstream block explorers
+    \item Analyze transaction details: inputs, outputs, fees
+    \item Trace transaction lifecycle from broadcast to confirmation
+    \item Examine block structure and validator information
+    \item Investigate address activity and transaction history
+    \item Conduct basic blockchain forensic analysis
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/01_explorer_workflow/chart.pdf}
+\end{center}
+\bottomnote{Total duration: 100 minutes with 4 main exercises}
+\end{frame}
+
+\begin{frame}{What is a Block Explorer?}
+\textbf{Definition:}
+\begin{itemize}
+    \item Web-based interface to query blockchain data
+    \item Provides human-readable view of blocks, transactions, addresses
+    \item Free and publicly accessible
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Major Block Explorers:}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Bitcoin:}
+\begin{itemize}
+    \item Blockstream.info
+    \item Blockchain.com
+    \item Mempool.space
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Ethereum:}
+\begin{itemize}
+    \item Etherscan.io
+    \item Blockscout.com
+    \item Ethplorer.io
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Transaction Anatomy}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_transaction_anatomy/chart.pdf}
+\end{center}
+\bottomnote{Understanding these fields is essential for analyzing any blockchain transaction}
+\end{frame}
+
+\begin{frame}{Exercise 1: Analyzing Bitcoin Transactions}
+\textbf{Instructions:}
+\begin{enumerate}
+    \item Visit: \url{https://blockstream.info}
+    \item Search for the first-ever Bitcoin transaction:\\
+    \texttt{f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16}
+    \item Examine: inputs, outputs, fee, block number, confirmations
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Key Observations:}
+\begin{itemize}
+    \item \textbf{Inputs:} Reference to previous transaction output
+    \item \textbf{Outputs:} New UTXOs with amounts and addresses
+    \item \textbf{Fee:} Difference between input sum and output sum
+    \item \textbf{Confirmations:} Blocks built on top of this transaction
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: Analyzing Ethereum Transactions}
+\textbf{Instructions:}
+\begin{enumerate}
+    \item Visit: \url{https://etherscan.io}
+    \item Select a recent transaction from homepage
+    \item Examine: hash, status, block, from, to, value, gas
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Gas Mechanics:}
+\begin{itemize}
+    \item Gas Limit: Maximum gas user willing to pay
+    \item Gas Used: Actual gas consumed
+    \item Gas Price: Price per unit (in gwei)
+    \item Transaction Fee: Gas Used $\times$ Gas Price
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Example:} 21,000 gas $\times$ 32 gwei = 0.000672 ETH
+\end{frame}
+
+\begin{frame}[t]{Block Explorer Comparison}
+\begin{center}
+\includegraphics[width=0.60\textwidth]{charts/03_explorer_comparison/chart.pdf}
+\end{center}
+\bottomnote{Etherscan excels for Ethereum; Blockchair for multi-chain research}
+\end{frame}
+
+\begin{frame}{Exercise 3: Address Investigation}
+\textbf{Entity Types to Analyze:}
+
+\vspace{0.3cm}
+\begin{enumerate}
+    \item \textbf{Exchange Address:} High volume, large balances, labeled
+    \item \textbf{Smart Contract:} ``Contract'' label, receives interactions
+    \item \textbf{Individual User:} Low volume, smaller balances
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Sample Addresses:}
+\begin{itemize}
+    \item Binance: \texttt{0x28C6c06298d514Db089934071355E5743bf21d60}
+    \item Uniswap: \texttt{0xE592427A0AEce92De3Edee1F18E0157C05861564}
+    \item Your MetaMask address (from Lab 8)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 4: Forensic Case Study}
+\textbf{Scenario:} Tracking fund flows
+
+\vspace{0.3cm}
+\textbf{Investigation Steps:}
+\begin{enumerate}
+    \item Confirm source transaction
+    \item Click on destination address
+    \item View subsequent transactions
+    \item Follow the chain of transfers
+    \item Document path with transaction hashes
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Privacy Techniques to Recognize:}
+\begin{itemize}
+    \item Mixers/Tumblers (e.g., Tornado Cash)
+    \item CoinJoin transactions
+    \item Exchange deposits (off-chain after deposit)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit the following:}
+\begin{enumerate}
+    \item \textbf{Transaction Analysis Report (2-3 pages):}
+    \begin{itemize}
+        \item Bitcoin transaction: hash, inputs/outputs, fee
+        \item Ethereum transaction: hash, gas breakdown
+        \item Three addresses with entity type identification
+    \end{itemize}
+    \item \textbf{Screenshots:}
+    \begin{itemize}
+        \item Bitcoin and Ethereum transaction details
+        \item Block details page
+        \item Address activity page
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Submission Deadline:} One week from lab session
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Block explorers provide transparency into all blockchain activity
+    \item Bitcoin uses UTXO model; Ethereum uses account model
+    \item Gas fees vary based on network congestion
+    \item Addresses can be identified by transaction patterns
+    \item Blockchain forensics is powerful but faces privacy challenges
+    \item Verified smart contracts allow code auditing
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Real-World Applications:}
+\begin{itemize}
+    \item Auditing and compliance
+    \item Fraud investigation
+    \item Market analysis (whale watching)
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,397 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{0,102,204}
+\definecolor{mlpurple}{RGB}{51,51,178}
+\definecolor{mllavender}{RGB}{173,173,224}
+\definecolor{mllavender2}{RGB}{193,193,232}
+\definecolor{mllavender3}{RGB}{204,204,235}
+\definecolor{mllavender4}{RGB}{214,214,239}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlgray}{RGB}{127, 127, 127}
+\definecolor{lightgray}{RGB}{240, 240, 240}
+\definecolor{midgray}{RGB}{180, 180, 180}
+
+% Apply custom colors to Madrid theme
+\setbeamercolor{palette primary}{bg=mllavender3,fg=mlpurple}
+\setbeamercolor{palette secondary}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{palette tertiary}{bg=mllavender,fg=white}
+\setbeamercolor{palette quaternary}{bg=mlpurple,fg=white}
+
+\setbeamercolor{structure}{fg=mlpurple}
+\setbeamercolor{section in toc}{fg=mlpurple}
+\setbeamercolor{subsection in toc}{fg=mlblue}
+\setbeamercolor{title}{fg=mlpurple}
+\setbeamercolor{frametitle}{fg=mlpurple,bg=mllavender3}
+\setbeamercolor{block title}{bg=mllavender2,fg=mlpurple}
+\setbeamercolor{block body}{bg=mllavender4,fg=black}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Clean itemize/enumerate
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Reduce margins for more content space
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+
+% Command for bottom annotation (Madrid-style)
+\newcommand{\bottomnote}[1]{%
+\vfill
+\vspace{-2mm}
+\textcolor{mllavender2}{\rule{\textwidth}{0.4pt}}
+\vspace{1mm}
+\footnotesize
+\textbf{#1}
+}
+
+\title{Lesson 1: What is Blockchain?}
+\subtitle{Module A: Blockchain Foundations}
+\author{MSc Blockchain \& Cryptocurrency}
+\institute{Digital Finance Program}
+\date{2025}
+
+\begin{document}
+
+% Title slide
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+% Learning Objectives
+\begin{frame}[t]{Learning Objectives}
+\textbf{By the end of this lesson, you will be able to:}
+\begin{enumerate}
+\item Define blockchain as a cryptographically-secured distributed ledger
+\item Trace the historical evolution from 1991 to 2025
+\item Explain the double-spending problem and its consensus-based solution
+\item Formalize the hash chain structure: $H(B_n) = H(\text{header}_n || \text{prev\_hash}_{n-1})$
+\item Compare centralized, decentralized, and distributed architectures
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Prerequisites:} Cryptographic hash functions, basic probability theory
+
+\bottomnote{MSc level: Full mathematical rigor expected in subsequent slides}
+\end{frame}
+
+% Definition with Math
+\begin{frame}[t]{Formal Definition of Blockchain}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Mathematical Definition}
+
+A blockchain $\mathcal{B}$ is an ordered sequence of blocks:
+$$\mathcal{B} = (B_0, B_1, \ldots, B_n)$$
+
+Where each block $B_i$ contains:
+\begin{itemize}
+\item Header $h_i$ with metadata
+\item Transaction set $T_i = \{tx_1, \ldots, tx_k\}$
+\item Hash pointer: $H(B_{i-1})$
+\end{itemize}
+
+\textbf{Integrity Constraint:}
+$$\forall i > 0: B_i.\text{prev} = H(B_{i-1})$$
+
+\column{0.48\textwidth}
+\begin{center}
+\includegraphics[width=0.95\columnwidth]{charts/04_block_structure/chart.pdf}
+\end{center}
+\end{columns}
+
+\bottomnote{The hash pointer creates a tamper-evident data structure}
+\end{frame}
+
+% Timeline Chart
+\begin{frame}[t]{Historical Evolution: 1991--2025}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{charts/01_blockchain_timeline/chart.pdf}
+\end{center}
+
+\bottomnote{Key inflection points: 2008 (Nakamoto), 2015 (Ethereum), 2024 (Bitcoin ETFs)}
+\end{frame}
+
+% Network Topology - Centralized
+\begin{frame}[t]{Centralized Architecture}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{charts/02a_centralized_network/chart.pdf}
+\end{center}
+\vspace{-2mm}
+\footnotesize\textbf{Characteristics:} Single authority, $10^6$ TPS, $<$10ms latency
+
+\bottomnote{Traditional systems: banks, exchanges, cloud services}
+\end{frame}
+
+% Network Topology - Decentralized
+\begin{frame}[t]{Decentralized Architecture}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{charts/02b_decentralized_network/chart.pdf}
+\end{center}
+\vspace{-2mm}
+\footnotesize\textbf{Characteristics:} Multiple hubs, federated trust, $10^3$ TPS
+
+\bottomnote{Examples: Federated exchanges, consortium blockchains}
+\end{frame}
+
+% Network Topology - Distributed
+\begin{frame}[t]{Distributed Architecture (Blockchain)}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{charts/02c_distributed_network/chart.pdf}
+\end{center}
+\vspace{-2mm}
+\footnotesize\textbf{Characteristics:} No hierarchy, cryptographic trust, $10^1$ TPS
+
+\bottomnote{Blockchain trades performance for trustlessness}
+\end{frame}
+
+% Double Spending Problem - The Attack
+\begin{frame}[t]{The Double-Spending Problem}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{charts/03a_double_spending_problem/chart.pdf}
+\end{center}
+
+\textbf{Problem:} Prevent $\text{Transfer}(a, A \to B) \land \text{Transfer}(a, A \to C)$
+
+\bottomnote{Digital files can be copied infinitely --- no inherent scarcity in bits}
+\end{frame}
+
+% Double Spending Solution
+\begin{frame}[t]{The Blockchain Solution}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{charts/03b_double_spending_solution/chart.pdf}
+\end{center}
+
+\textbf{Solution:} Distributed consensus determines transaction ordering
+
+\bottomnote{Nakamoto's key insight: Use computational work to achieve probabilistic finality}
+\end{frame}
+
+% Hash Chain Integrity - Valid
+\begin{frame}[t]{Valid Blockchain: Hash Chain Integrity}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{charts/05a_valid_chain/chart.pdf}
+\end{center}
+
+\bottomnote{Hash pointers create a tamper-evident linked data structure}
+\end{frame}
+
+% Hash Chain Integrity - Tampered
+\begin{frame}[t]{Tampered Blockchain: Detection}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{charts/05b_tampered_chain/chart.pdf}
+\end{center}
+
+\bottomnote{Modifying $B_k$ requires recomputing all subsequent hashes: $O(n-k) \times 2^{76}$ ops}
+\end{frame}
+
+% Merkle Tree Integration
+\begin{frame}[t]{Merkle Tree: Efficient Transaction Verification}
+\begin{columns}[T]
+\column{0.55\textwidth}
+\textbf{Structure}
+
+Binary hash tree over transactions:
+$$\text{Root} = H(H(H(tx_1)||H(tx_2)) || H(H(tx_3)||H(tx_4)))$$
+
+\textbf{Verification Complexity:}
+\begin{itemize}
+\item Full verification: $O(n)$ hashes
+\item Merkle proof: $O(\log n)$ hashes
+\item SPV clients use proofs, not full chain
+\end{itemize}
+
+\textbf{Bitcoin Block Header:}\\
+32-byte Merkle root commits to all transactions
+
+\column{0.42\textwidth}
+\begin{center}
+\includegraphics[width=\columnwidth]{../../charts/merkle_tree/chart.pdf}
+\end{center}
+\end{columns}
+
+\bottomnote{Merkle trees enable lightweight clients: verify transactions without downloading full blocks}
+\end{frame}
+
+% Key Properties
+\begin{frame}[t]{Core Properties and Guarantees}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Cryptographic Properties}
+\begin{itemize}
+\item \textbf{Collision Resistance:}\\
+$\Pr[H(x) = H(y) \land x \neq y] \approx 2^{-128}$
+\item \textbf{Preimage Resistance:}\\
+Given $h$, infeasible to find $x: H(x) = h$
+\item \textbf{Avalanche Effect:}\\
+1-bit change $\Rightarrow$ 50\% output bits flip
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{System Properties}
+\begin{itemize}
+\item \textbf{Liveness:}\\
+Valid transactions eventually confirmed
+\item \textbf{Safety:}\\
+No double-spends with $>k$ confirmations
+\item \textbf{Consistency:}\\
+All honest nodes agree on prefix
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\textbf{Probability of Reversal} (after $k$ confirmations, attacker with $q < 0.5$ hashrate):
+$$P(\text{reversal}) < \left(\frac{q}{1-q}\right)^k$$
+
+\bottomnote{6 confirmations $\Rightarrow$ reversal probability $< 0.1\%$ for $q = 0.3$}
+\end{frame}
+
+% Use Cases
+\begin{frame}[t]{Real-World Applications (2025)}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Finance \& Payments}
+\begin{itemize}
+\item Bitcoin: \$1.2T market cap, \$50B daily volume
+\item Stablecoins: USDT/USDC \$150B+ circulation
+\item DeFi TVL: \$80B across protocols
+\item Bitcoin ETFs: \$50B+ AUM (Jan 2024 launch)
+\end{itemize}
+
+\vspace{0.3em}
+\textbf{Enterprise}
+\begin{itemize}
+\item IBM Food Trust: 500+ organizations
+\item JPMorgan Onyx: \$1B+ daily settlements
+\item Maersk TradeLens: 1.5B shipping events
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Government \& CBDC}
+\begin{itemize}
+\item China e-CNY: 260M+ wallets
+\item EU Digital Euro: Pilot phase 2024
+\item 130+ countries exploring CBDCs
+\end{itemize}
+
+\vspace{0.3em}
+\textbf{Emerging Applications}
+\begin{itemize}
+\item Real-World Assets (RWA): \$5B+ tokenized
+\item Decentralized Identity (DID)
+\item Supply chain provenance
+\item Carbon credit verification
+\end{itemize}
+\end{columns}
+
+\bottomnote{Source: DeFi Llama, CoinGecko, Atlantic Council CBDC Tracker (Dec 2024)}
+\end{frame}
+
+% Bitcoin Transactions Growth
+\begin{frame}[t]{Network Adoption: Bitcoin Transactions}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{charts/06_bitcoin_transactions/chart.pdf}
+\end{center}
+\vspace{-2mm}
+\footnotesize From $<$1K daily transactions (2010) to $>$600K daily (2024)
+
+\bottomnote{Transaction volume indicates real economic activity on the network}
+\end{frame}
+
+% Hash Rate Growth
+\begin{frame}[t]{Network Security: Hash Rate Growth}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{charts/07_hash_rate_growth/chart.pdf}
+\end{center}
+\vspace{-2mm}
+\footnotesize 750 EH/s = $7.5 \times 10^{20}$ SHA-256 hashes per second
+
+\bottomnote{Higher hash rate = more computational cost to attack the network}
+\end{frame}
+
+% Crypto Market Cap
+\begin{frame}[t]{Market Growth: Cryptocurrency Capitalization}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{charts/08_crypto_market_cap/chart.pdf}
+\end{center}
+\vspace{-2mm}
+\footnotesize Total market cap: \$3.5T (Dec 2024); Bitcoin dominance: $\sim$57\%
+
+\bottomnote{Market cap growth reflects institutional adoption and mainstream acceptance}
+\end{frame}
+
+% Blockchain Trilemma
+\begin{frame}[t]{The Blockchain Trilemma}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{charts/09_blockchain_trilemma/chart.pdf}
+\end{center}
+\vspace{-3mm}
+\bottomnote{Layer 2 solutions attempt to optimize all three dimensions}
+\end{frame}
+
+% When to Use Blockchain
+\begin{frame}[t]{Decision Framework: When to Use Blockchain}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Use Blockchain When:}
+\begin{itemize}
+\item[\textcolor{mlgreen}{$\checkmark$}] Multiple writers, no trusted party
+\item[\textcolor{mlgreen}{$\checkmark$}] Immutable audit trail required
+\item[\textcolor{mlgreen}{$\checkmark$}] Disintermediation creates value
+\item[\textcolor{mlgreen}{$\checkmark$}] Censorship resistance needed
+\item[\textcolor{mlgreen}{$\checkmark$}] Cross-organizational data sharing
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Use Traditional DB When:}
+\begin{itemize}
+\item[\textcolor{mlred}{$\times$}] Single organization controls data
+\item[\textcolor{mlred}{$\times$}] High throughput required ($>$10K TPS)
+\item[\textcolor{mlred}{$\times$}] Data deletion/modification needed
+\item[\textcolor{mlred}{$\times$}] Strong privacy requirements
+\item[\textcolor{mlred}{$\times$}] Existing solutions work well
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\textbf{Decision Heuristic:}
+$$\text{Blockchain Value} \propto \frac{\text{Trust Deficit} \times \text{Coordination Benefit}}{\text{Performance Requirements}}$$
+
+\bottomnote{Most enterprise ``blockchain'' projects could use a replicated database}
+\end{frame}
+
+% Summary
+\begin{frame}[t]{Key Takeaways}
+\textbf{Core Concepts:}
+\begin{enumerate}
+\item Blockchain = hash-chained blocks + distributed consensus + cryptographic signatures
+\item Double-spending solved via total ordering through consensus mechanism
+\item Immutability achieved through computational intractability of hash chain modification
+\item Trade-off: Performance $\leftrightarrow$ Trustlessness $\leftrightarrow$ Decentralization
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Mathematical Foundations:}
+\begin{itemize}
+\item Hash functions: $H: \{0,1\}^* \to \{0,1\}^{256}$ (SHA-256)
+\item Merkle trees: $O(\log n)$ verification complexity
+\item Reversal probability: Exponential decay with confirmations
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Next Lesson:} L02 -- Distributed Ledger Technology (DLT) deep dive
+
+\bottomnote{Blockchain is a tool, not a solution --- evaluate against specific requirements}
+\end{frame}
+
+\end{document}

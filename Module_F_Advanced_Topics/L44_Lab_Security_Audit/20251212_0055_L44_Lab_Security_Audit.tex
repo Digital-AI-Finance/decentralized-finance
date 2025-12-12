@@ -1,0 +1,184 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\bottomnote}[1]{\vfill\par\noindent\footnotesize\textit{#1}}
+
+\title{Lab Session: Security Audit}
+\subtitle{BSc Blockchain, Crypto Economy \& NFTs}
+\author{Course Instructor}
+\date{Module F: Advanced Topics}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Learning Objectives}
+By the end of this lab session, you will be able to:
+\begin{itemize}
+    \item Perform manual security code review
+    \item Use automated tools (Slither, Mythril)
+    \item Write exploit contracts demonstrating vulnerabilities
+    \item Implement secure fixes using best practices
+    \item Create professional audit reports
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Lab Session Structure}
+\begin{center}
+\includegraphics[width=0.70\textwidth]{charts/01_audit_workflow/chart.pdf}
+\end{center}
+\bottomnote{Complete security audit workflow from review to report}
+\end{frame}
+
+\begin{frame}{Lab Overview}
+\textbf{Contracts to Audit:}
+\begin{enumerate}
+    \item \textbf{VulnerableBank}: Reentrancy vulnerability
+    \item \textbf{InsecureToken}: Integer overflow, access control
+    \item \textbf{BadOracle}: Oracle manipulation
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Deliverables:}
+\begin{itemize}
+    \item Audit report with severity classifications
+    \item Exploit contracts demonstrating vulnerabilities
+    \item Secure implementations with fixes
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Vulnerability Severity Classification}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/02_vulnerability_severity/chart.pdf}
+\end{center}
+\bottomnote{Critical and High severity issues require immediate fixes}
+\end{frame}
+
+\begin{frame}{Exercise 1: VulnerableBank (Reentrancy)}
+\textbf{Manual Review Tasks:}
+\begin{enumerate}
+    \item Read the withdraw function carefully
+    \item Identify external call before state update
+    \item Classify as Critical severity
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Fix with Checks-Effects-Interactions:}
+\begin{itemize}
+    \item Update balance BEFORE external call
+    \item Or use OpenZeppelin ReentrancyGuard
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 2: InsecureToken (Multiple Issues)}
+\textbf{Vulnerabilities to Find:}
+\begin{itemize}
+    \item Integer overflow (Solidity < 0.8)
+    \item Missing access control on mint
+    \item Unprotected selfdestruct
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Fix:}
+\begin{itemize}
+    \item Upgrade to Solidity 0.8.0+
+    \item Add onlyOwner modifier
+    \item Initialize owner in constructor
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise 3: BadOracle (Price Manipulation)}
+\textbf{Vulnerability:}
+\begin{itemize}
+    \item Instant spot price from Uniswap
+    \item Manipulable via flash loans
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Secure Alternatives:}
+\begin{itemize}
+    \item Uniswap V2 TWAP oracle (time-weighted)
+    \item Chainlink price feeds (decentralized oracle)
+    \item Hybrid approach with multiple sources
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Audit Tools Comparison}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{charts/03_audit_tools/chart.pdf}
+\end{center}
+\bottomnote{Combine manual review with automated tools for best coverage}
+\end{frame}
+
+\begin{frame}{Automated Analysis}
+\textbf{Slither (Static Analysis):}
+\begin{itemize}
+    \item Fast pattern-based detection
+    \item Run: \texttt{slither contracts/VulnerableBank.sol}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Mythril (Symbolic Execution):}
+\begin{itemize}
+    \item Deep path analysis
+    \item Run: \texttt{myth analyze contracts/VulnerableBank.sol}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Detectors:}
+\begin{itemize}
+    \item SWC-107: Reentrancy
+    \item SWC-101: Integer overflow
+    \item SWC-105: Unprotected withdrawal
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Audit Report Template}
+\textbf{For Each Finding:}
+\begin{enumerate}
+    \item \textbf{Title}: Descriptive vulnerability name
+    \item \textbf{Severity}: Critical / High / Medium / Low
+    \item \textbf{Location}: Contract, function, line numbers
+    \item \textbf{Description}: What is the vulnerability
+    \item \textbf{Impact}: What can attacker achieve
+    \item \textbf{Recommendation}: How to fix
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Lab Deliverables}
+\textbf{Submit:}
+\begin{enumerate}
+    \item \textbf{Audit Report (PDF):}
+    \begin{itemize}
+        \item Findings for all three contracts
+        \item Severity classifications
+        \item Fix recommendations with code
+    \end{itemize}
+    \item \textbf{Code Submissions:}
+    \begin{itemize}
+        \item Exploit contracts (AttackBank.sol, etc.)
+        \item Secure implementations
+        \item Test suite proving fixes work
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Security audit combines manual review and automated tools
+    \item Reentrancy is critical - use Checks-Effects-Interactions
+    \item Solidity 0.8.0+ provides built-in overflow protection
+    \item Never trust spot prices - use TWAP or Chainlink
+    \item Exploit writing proves vulnerability severity
+    \item Professional reports follow structured template
+\end{itemize}
+\end{frame}
+
+\end{document}
