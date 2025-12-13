@@ -6,6 +6,9 @@ on:
       - 'Module_*/**/*.tex'
   workflow_dispatch:  # Allow manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   compile:
     runs-on: ubuntu-latest
