@@ -249,3 +249,21 @@ This course is for educational purposes only. Nothing in this course constitutes
 **Institution:** [TBD]
 **Last Updated:** December 2025
 **Version:** 1.0
+
+## Description
+
+BSc Blockchain, Crypto Economy, and NFTs Course Materials
+
+
+## Installation
+
+```bash
+git clone https://github.com/Digital-AI-Finance/decentralized-finance.git
+cd decentralized-finance
+pip install -r requirements.txt
+```
+
+
+## Usage
+
+See the repository contents for usage examples.
