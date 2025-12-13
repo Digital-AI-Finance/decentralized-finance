@@ -1,94 +1,31 @@
-"""
-NFT Provenance Chain
-Shows ownership history tracking
-"""
-
+"""NFT Provenance Chain"""
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-from matplotlib.patches import FancyBboxPatch
 from pathlib import Path
 
-CHART_METADATA = {
-    'title': 'NFT Provenance Chain',
-    'url': 'https://github.com/Digital-AI-Finance/Blockchain_Crypto/tree/main/Module_C_NFTs_Digital_Assets/L21_NFT_Technology/charts/04_nft_provenance'
-}
-
-plt.rcParams.update({
-    'font.size': 14,
-    'axes.labelsize': 14,
-    'axes.titlesize': 16,
-    'xtick.labelsize': 12,
-    'ytick.labelsize': 12,
-    'legend.fontsize': 12,
-    'figure.figsize': (10, 6),
-    'figure.dpi': 150
-})
-
-MLPURPLE = '#3333B2'
-MLBLUE = '#0066CC'
-MLORANGE = '#FF7F0E'
-MLGREEN = '#2CA02C'
-MLRED = '#D62728'
-
+plt.rcParams.update({'font.size': 14, 'figure.figsize': (10, 6), 'figure.dpi': 150})
 fig, ax = plt.subplots(figsize=(10, 6))
-
-# Provenance chain events
-events = [
-    {'event': 'Mint', 'from': '0x0...0', 'to': 'Artist', 'block': '14,500,000', 'date': 'Jan 2022', 'color': MLGREEN},
-    {'event': 'Transfer', 'from': 'Artist', 'to': 'Collector A', 'block': '14,600,000', 'date': 'Feb 2022', 'color': MLBLUE},
-    {'event': 'Transfer', 'from': 'Collector A', 'to': 'Collector B', 'block': '15,200,000', 'date': 'Aug 2022', 'color': MLBLUE},
-    {'event': 'Transfer', 'from': 'Collector B', 'to': 'Current', 'block': '17,500,000', 'date': 'Jun 2023', 'color': MLORANGE},
-]
-
-y_start = 0.75
-y_step = 0.15
-
-for i, evt in enumerate(events):
-    y = y_start - i * y_step
-
-    # Event box
-    box = FancyBboxPatch((0.15, y - 0.05), 0.70, 0.10,
-                          boxstyle="round,pad=0.02", facecolor=evt['color'],
-                          edgecolor='black', linewidth=1.5, alpha=0.85)
-    ax.add_patch(box)
-
-    # Event type
-    ax.text(0.22, y, evt['event'], ha='center', va='center',
-            fontsize=14, fontweight='bold', color='white')
-
-    # From -> To
-    ax.text(0.43, y, f"{evt['from']} -> {evt['to']}", ha='center', va='center',
-            fontsize=14, color='white')
-
-    # Block and date
-    ax.text(0.70, y, f"Block {evt['block']}", ha='center', va='center',
-            fontsize=14, color='white')
-    ax.text(0.82, y, evt['date'], ha='center', va='center',
-            fontsize=14, color='white')
-
-    # Chain connector
-    if i < len(events) - 1:
-        ax.plot([0.50, 0.50], [y - 0.05, y - y_step + 0.05], color='#666', lw=2, linestyle='--')
-
-# Headers
-ax.text(0.22, 0.87, 'Event', ha='center', fontsize=14, fontweight='bold')
-ax.text(0.43, 0.87, 'From -> To', ha='center', fontsize=14, fontweight='bold')
-ax.text(0.70, 0.87, 'Block', ha='center', fontsize=14, fontweight='bold')
-ax.text(0.82, 0.87, 'Date', ha='center', fontsize=14, fontweight='bold')
-
-# Key insight
-ax.text(0.50, 0.12, 'Provenance: Immutable record of ownership history from mint to present',
-        ha='center', fontsize=14, fontweight='bold',
-        bbox=dict(boxstyle='round,pad=0.3', facecolor='#E8F5E9', edgecolor=MLGREEN))
-
-ax.set_xlim(0, 1)
-ax.set_ylim(0.05, 0.95)
+ax.set_xlim(0, 10)
+ax.set_ylim(0, 7)
 ax.axis('off')
+ax.text(5, 6.5, 'NFT Provenance: Ownership Chain', fontsize=16, ha='center', fontweight='bold')
+ax.plot([1, 9], [3.5, 3.5], color='#333333', lw=3, zorder=1)
 
-ax.set_title('NFT Provenance: On-Chain Ownership History', fontweight='bold', fontsize=15, pad=10)
+events = [(1.5, 'Mint', 'Creator', '#3333B2', 'Jan 2022'),
+          (3.5, 'Transfer', 'Collector A', '#0066CC', 'Mar 2022'),
+          (5.5, 'Transfer', 'Gallery', '#2CA02C', 'Jun 2022'),
+          (7.5, 'Transfer', 'Collector B', '#FF7F0E', 'Nov 2023')]
+
+for x, event, name, color, date in events:
+    circle = plt.Circle((x, 3.5), 0.2, color=color, zorder=2)
+    ax.add_patch(circle)
+    box = mpatches.FancyBboxPatch((x-0.7, 4.2), 1.4, 1.6, boxstyle="round,pad=0.1", facecolor=color, edgecolor='black', alpha=0.9)
+    ax.add_patch(box)
+    ax.text(x, 5.4, event, fontsize=11, ha='center', color='white', fontweight='bold')
+    ax.text(x, 4.7, name, fontsize=10, ha='center', color='white')
+    ax.text(x, 2.8, date, fontsize=10, ha='center', color='#666666')
+
+ax.text(5, 1.5, 'Each Transfer event is permanently recorded on blockchain', fontsize=12, ha='center', style='italic', color='#666666', bbox=dict(boxstyle='round', facecolor='#F0F0F0', edgecolor='#CCCCCC'))
 plt.tight_layout()
-
-output_path = Path(__file__).parent / 'chart.pdf'
-plt.savefig(output_path, bbox_inches='tight', dpi=300)
-print(f"Chart saved to: {output_path.absolute()}")
+plt.savefig(Path(__file__).parent / 'chart.pdf', bbox_inches='tight', dpi=300)
 plt.close()

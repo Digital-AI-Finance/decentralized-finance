@@ -1,83 +1,30 @@
-"""
-NFT Market Timeline
-Evolution of NFT technology and market
-"""
-
+"""NFT Market Evolution"""
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 
-CHART_METADATA = {
-    'title': 'NFT Market Timeline',
-    'url': 'https://github.com/Digital-AI-Finance/Blockchain_Crypto/tree/main/Module_C_NFTs_Digital_Assets/L21_NFT_Technology/charts/05_nft_market_timeline'
-}
-
-plt.rcParams.update({
-    'font.size': 14,
-    'axes.labelsize': 14,
-    'axes.titlesize': 16,
-    'xtick.labelsize': 12,
-    'ytick.labelsize': 12,
-    'legend.fontsize': 12,
-    'figure.figsize': (10, 6),
-    'figure.dpi': 150
-})
-
-MLPURPLE = '#3333B2'
-MLBLUE = '#0066CC'
-MLORANGE = '#FF7F0E'
-MLGREEN = '#2CA02C'
-MLRED = '#D62728'
-
+plt.rcParams.update({'font.size': 14, 'axes.labelsize': 14, 'axes.titlesize': 16, 'xtick.labelsize': 12, 'ytick.labelsize': 12, 'figure.figsize': (10, 6), 'figure.dpi': 150})
 fig, ax = plt.subplots(figsize=(10, 6))
 
-# Timeline events
-events = [
-    {'year': 2017, 'event': 'CryptoPunks\nERC-721 Proposed', 'color': MLPURPLE},
-    {'year': 2018, 'event': 'ERC-721\nFinalized', 'color': MLBLUE},
-    {'year': 2019, 'event': 'ERC-1155\nMulti-Token', 'color': MLGREEN},
-    {'year': 2021, 'event': 'NFT Boom\nBeeple $69M', 'color': MLORANGE},
-    {'year': 2023, 'event': 'Bitcoin\nOrdinals', 'color': MLRED},
-    {'year': 2024, 'event': 'NFT-Fi\nIntegration', 'color': '#666'},
-]
+years = ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024']
+volume = [0.03, 0.04, 0.06, 0.34, 24.9, 11.0, 4.1, 5.8]
+colors = ['#3333B2', '#3333B2', '#3333B2', '#0066CC', '#2CA02C', '#FF7F0E', '#D62728', '#0066CC']
 
-# Market volume data (synthetic, billions USD)
-years = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
-volumes = [0.01, 0.03, 0.1, 0.3, 25, 15, 8, 10]
+bars = ax.bar(years, volume, color=colors, edgecolor='black', alpha=0.85)
+ax.set_ylabel('Trading Volume (Billion USD)')
+ax.set_xlabel('Year')
+ax.set_title('NFT Market Trading Volume Evolution')
 
-# Plot volume as area
-ax.fill_between(years, volumes, alpha=0.3, color=MLBLUE)
-ax.plot(years, volumes, color=MLBLUE, lw=2, marker='o', markersize=6)
+for bar, val in zip(bars, volume):
+    label = f'${val:.1f}B' if val >= 1 else f'${val*1000:.0f}M'
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5, label, ha='center', fontsize=10, fontweight='bold')
 
-# Add event markers
-for evt in events:
-    # Find y value at event year
-    if evt['year'] in years:
-        y_val = volumes[years.index(evt['year'])]
-    else:
-        y_val = 0.1
+ax.annotate('CryptoKitties', xy=(0, 0.03), xytext=(0.5, 5), fontsize=9, ha='center', color='#666666', arrowprops=dict(arrowstyle='->', color='#666666', lw=1))
+ax.annotate('Beeple 9M', xy=(4, 24.9), xytext=(3, 20), fontsize=9, ha='center', color='#2CA02C', arrowprops=dict(arrowstyle='->', color='#2CA02C', lw=1))
+ax.set_ylim(0, 28)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
 
-    ax.axvline(x=evt['year'], color=evt['color'], linestyle='--', alpha=0.5)
-    ax.annotate(evt['event'], xy=(evt['year'], min(y_val + 2, 20)),
-               ha='center', fontsize=14, fontweight='bold', color=evt['color'],
-               bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=evt['color'], alpha=0.9))
-
-ax.set_xlabel('Year', fontsize=15)
-ax.set_ylabel('Market Volume ($ Billions)', fontsize=15)
-ax.set_xlim(2016.5, 2024.5)
-ax.set_ylim(0, 30)
-
-ax.grid(True, alpha=0.3)
-
-# Peak annotation
-ax.annotate('Peak: $25B\n(2021)', xy=(2021, 25), xytext=(2022, 27),
-           arrowprops=dict(arrowstyle='->', color='black'),
-           fontsize=14, ha='center')
-
-ax.set_title('NFT Market Evolution and Key Milestones', fontweight='bold', fontsize=15, pad=10)
 plt.tight_layout()
-
-output_path = Path(__file__).parent / 'chart.pdf'
-plt.savefig(output_path, bbox_inches='tight', dpi=300)
-print(f"Chart saved to: {output_path.absolute()}")
+plt.savefig(Path(__file__).parent / 'chart.pdf', bbox_inches='tight', dpi=300)
 plt.close()

@@ -1,28 +1,72 @@
-"""NFT Evaluation Lab Workflow"""
+"""NFT Evaluation Workflow - Step-by-step evaluation process"""
 import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib.patches as mpatches
 from pathlib import Path
 
-plt.rcParams.update({'font.size': 14, 'figure.figsize': (10, 6), 'figure.dpi': 150})
-MLBLUE, MLORANGE, MLGREEN, MLRED, MLPURPLE = '#0066CC', '#FF7F0E', '#2CA02C', '#D62728', '#3333B2'
+plt.rcParams.update({
+    'font.size': 14,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 12,
+    'figure.figsize': (10, 6),
+    'figure.dpi': 150
+})
+
+MLPURPLE = '#3333B2'
+MLBLUE = '#0066CC'
+MLORANGE = '#FF7F0E'
+MLGREEN = '#2CA02C'
 
 fig, ax = plt.subplots(figsize=(10, 6))
-exercises = ['Setup', 'Ex 1: Project\nResearch', 'Ex 2: On-chain\nAnalysis', 'Ex 3: Risk\nAssessment', 'Report']
-durations = [5, 30, 30, 25, 10]
-colors = [MLPURPLE, MLBLUE, MLORANGE, MLRED, MLPURPLE]
-positions = np.cumsum([0] + durations[:-1])
 
-for exercise, duration, pos, color in zip(exercises, durations, positions, colors):
-    ax.barh(0, duration, left=pos, height=0.5, color=color, edgecolor='black', linewidth=1.5)
-    ax.text(pos + duration/2, 0, f'{exercise}\n({duration} min)', ha='center', va='center', fontsize=14, fontweight='bold', color='white')
+# Workflow steps
+steps = [
+    'Project\nResearch',
+    'Team\nVerification',
+    'On-Chain\nAnalysis',
+    'Risk\nAssessment',
+    'Final\nDecision'
+]
 
-ax.set_xlim(-2, 105)
-ax.set_ylim(-0.6, 0.6)
-ax.set_yticks([])
-ax.spines['top'].set_visible(False)
-ax.spines['right'].set_visible(False)
-ax.spines['left'].set_visible(False)
-ax.set_title('NFT Evaluation Lab: 100 Minutes', fontweight='bold', fontsize=14)
+colors = [MLPURPLE, MLBLUE, MLORANGE, MLGREEN, MLPURPLE]
+
+# Draw workflow boxes
+for i, (step, color) in enumerate(zip(steps, colors)):
+    # Box
+    rect = mpatches.FancyBboxPatch((i*2, 0.5), 1.5, 1.5,
+                                    boxstyle="round,pad=0.1",
+                                    edgecolor=color, facecolor=color, alpha=0.3, linewidth=2)
+    ax.add_patch(rect)
+
+    # Text
+    ax.text(i*2 + 0.75, 1.25, step, ha='center', va='center',
+            fontsize=13, fontweight='bold', color=color)
+
+    # Arrow to next step
+    if i < len(steps) - 1:
+        ax.arrow(i*2 + 1.6, 1.25, 0.3, 0, head_width=0.2, head_length=0.15,
+                fc='gray', ec='gray', linewidth=1.5)
+
+# Add sub-labels
+sub_labels = [
+    'Roadmap\nCommunity\nUtility',
+    'Doxxed?\nTrack Record?\nLinkedIn',
+    'Contract\nHolders\nTrading',
+    'Liquidity\nSecurity\nMarket',
+    'Buy/Hold\nAvoid'
+]
+
+for i, label in enumerate(sub_labels):
+    ax.text(i*2 + 0.75, -0.1, label, ha='center', va='top',
+            fontsize=10, color='gray', style='italic')
+
+ax.set_xlim(-0.5, 10)
+ax.set_ylim(-0.8, 2.5)
+ax.axis('off')
+ax.set_title('NFT Project Evaluation Workflow', fontsize=16, fontweight='bold', pad=20)
+
 plt.tight_layout()
 plt.savefig(Path(__file__).parent / 'chart.pdf', bbox_inches='tight', dpi=300)
 plt.close()
