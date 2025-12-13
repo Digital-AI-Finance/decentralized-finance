@@ -26,9 +26,9 @@ ax.legend(loc='lower right')
 ax.set_xlim(0, 11)
 
 for bar in bars1:
-    ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2, f'{int(bar.get_width())}', va='center', fontsize=11)
+    ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2, f'{int(bar.get_width())}', va='center', fontsize=14)
 for bar in bars2:
-    ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2, f'{int(bar.get_width())}', va='center', fontsize=11)
+    ax.text(bar.get_width() + 0.2, bar.get_y() + bar.get_height()/2, f'{int(bar.get_width())}', va='center', fontsize=14)
 
 plt.tight_layout()
 plt.savefig(Path(__file__).parent / 'chart.pdf', bbox_inches='tight', dpi=300)

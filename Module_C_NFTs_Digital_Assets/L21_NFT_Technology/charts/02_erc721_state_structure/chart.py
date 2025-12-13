@@ -21,10 +21,10 @@ for x, y, title, mapping, desc, color in boxes:
     box = mpatches.FancyBboxPatch((x, y), 4, 2, boxstyle="round,pad=0.1", facecolor=color, edgecolor='black', alpha=0.8)
     ax.add_patch(box)
     ax.text(x+2, y+1.5, title, fontsize=14, ha='center', color='white', fontweight='bold')
-    ax.text(x+2, y+0.8, mapping, fontsize=11, ha='center', color='white')
-    ax.text(x+2, y+0.3, desc, fontsize=10, ha='center', color='#CCCCFF')
+    ax.text(x+2, y+0.8, mapping, fontsize=14, ha='center', color='white')
+    ax.text(x+2, y+0.3, desc, fontsize=14, ha='center', color='#CCCCFF')
 
-ax.text(5, 0.5, 'All mappings provide O(1) lookup time', fontsize=12, ha='center', style='italic', color='#666666')
+ax.text(5, 0.5, 'All mappings provide O(1) lookup time', fontsize=15, ha='center', style='italic', color='#666666')
 plt.tight_layout()
 plt.savefig(Path(__file__).parent / 'chart.pdf', bbox_inches='tight', dpi=300)
 plt.close()

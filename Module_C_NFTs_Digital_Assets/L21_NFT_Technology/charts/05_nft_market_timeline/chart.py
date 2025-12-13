@@ -17,10 +17,10 @@ ax.set_title('NFT Market Trading Volume Evolution')
 
 for bar, val in zip(bars, volume):
     label = f'${val:.1f}B' if val >= 1 else f'${val*1000:.0f}M'
-    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5, label, ha='center', fontsize=10, fontweight='bold')
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5, label, ha='center', fontsize=14, fontweight='bold')
 
-ax.annotate('CryptoKitties', xy=(0, 0.03), xytext=(0.5, 5), fontsize=9, ha='center', color='#666666', arrowprops=dict(arrowstyle='->', color='#666666', lw=1))
-ax.annotate('Beeple 9M', xy=(4, 24.9), xytext=(3, 20), fontsize=9, ha='center', color='#2CA02C', arrowprops=dict(arrowstyle='->', color='#2CA02C', lw=1))
+ax.annotate('CryptoKitties', xy=(0, 0.03), xytext=(0.5, 5), fontsize=14, ha='center', color='#666666', arrowprops=dict(arrowstyle='->', color='#666666', lw=1))
+ax.annotate('Beeple 9M', xy=(4, 24.9), xytext=(3, 20), fontsize=14, ha='center', color='#2CA02C', arrowprops=dict(arrowstyle='->', color='#2CA02C', lw=1))
 ax.set_ylim(0, 28)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)

@@ -42,7 +42,7 @@ for i, (step, color) in enumerate(zip(steps, colors)):
 
     # Text
     ax.text(i*2 + 0.75, 1.25, step, ha='center', va='center',
-            fontsize=13, fontweight='bold', color=color)
+            fontsize=16, fontweight='bold', color=color)
 
     # Arrow to next step
     if i < len(steps) - 1:
@@ -60,7 +60,7 @@ sub_labels = [
 
 for i, label in enumerate(sub_labels):
     ax.text(i*2 + 0.75, -0.1, label, ha='center', va='top',
-            fontsize=10, color='gray', style='italic')
+            fontsize=14, color='gray', style='italic')
 
 ax.set_xlim(-0.5, 10)
 ax.set_ylim(-0.8, 2.5)

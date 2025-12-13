@@ -16,18 +16,18 @@ steps = [(1, 4.5, '#3333B2', 'Smart\nContract'), (3.5, 4.5, '#0066CC', 'Metadata
 for x, y, color, title in steps:
     box = mpatches.FancyBboxPatch((x-0.7, y-0.8), 1.4, 1.6, boxstyle="round,pad=0.1", facecolor=color, edgecolor='black', alpha=0.9)
     ax.add_patch(box)
-    ax.text(x, y, title, fontsize=11, ha='center', va='center', color='white', fontweight='bold')
+    ax.text(x, y, title, fontsize=14, ha='center', va='center', color='white', fontweight='bold')
 
 for x1, x2 in [(1.7, 2.6), (4.2, 5.1), (6.7, 7.6)]:
     ax.annotate('', xy=(x2, 4.5), xytext=(x1, 4.5), arrowprops=dict(arrowstyle='->', color='#333333', lw=2))
 
 failures = [(2.15, 3.2, 'Gateway\ndown?'), (4.65, 3.2, 'IPFS\nfailed?'), (7.15, 3.2, 'Server\noffline?')]
 for x, y, text in failures:
-    ax.text(x, y, text, fontsize=10, ha='center', color='#D62728', bbox=dict(boxstyle='round', facecolor='#FFE5E5', edgecolor='#D62728', alpha=0.8))
+    ax.text(x, y, text, fontsize=14, ha='center', color='#D62728', bbox=dict(boxstyle='round', facecolor='#FFE5E5', edgecolor='#D62728', alpha=0.8))
 
 display = mpatches.FancyBboxPatch((3.5, 0.8), 3, 1.2, boxstyle="round,pad=0.1", facecolor='#1a1a2e', edgecolor='#333333', alpha=0.9)
 ax.add_patch(display)
-ax.text(5, 1.4, 'Displayed in Wallet', fontsize=12, ha='center', color='white')
+ax.text(5, 1.4, 'Displayed in Wallet', fontsize=15, ha='center', color='white')
 ax.annotate('', xy=(5, 2.0), xytext=(8.5, 3.7), arrowprops=dict(arrowstyle='->', color='#333333', lw=2, connectionstyle='arc3,rad=-0.3'))
 
 plt.tight_layout()
