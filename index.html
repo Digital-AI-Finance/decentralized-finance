@@ -524,5 +524,13 @@
             if (e.key === 'Escape') { searchInput.blur(); searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); }
         });
     </script>
+
+<!-- Analytics Tracking -->
+<script>
+(function(){
+  var img = new Image();
+  img.src = 'https://analytics-decentralized-finance.digital-ai-finance.workers.dev/t?p=' + encodeURIComponent(location.pathname) + '&r=' + encodeURIComponent(document.referrer);
+})();
+</script>
 </body>
 </html>
